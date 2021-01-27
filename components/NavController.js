@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useIsLoggedIn } from "./component/AuthProvider";
+import { useIsLoggedIn } from "../components/AuthProvider";
 
 export default () => {
   const isLoggedIn = useIsLoggedIn();
