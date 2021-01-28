@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Button, View } from "react-native";
-import * as Google from "expo-google-app-auth";
-import AuthProvider from "./components/AuthProvider";
+import { AuthProvider } from "./components/AuthContext";
 import NavController from "./components/NavController";
-// import Button from "@material-ui/core/Button";
+import "react-native-gesture-handler";
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // const googleLogin = async () => {
   //   const GOOLGE_ID =

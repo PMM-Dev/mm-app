@@ -1,15 +1,18 @@
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "../screen/Profile";
 
-const Tab = createBottomTabNavigator();
+const Main = createBottomTabNavigator();
 
 const MainNavigation = () => {
   return (
-    <MainNavigation.Navigator>
-      {/* <MainNavigation.Screen name="Map" component={Map} />
-      <MainNavigation.Screen name="List" component={List} />
-      <MainNavigation.Screen name="Lottery" component={Lottery} /> */}
-      <MainNavigation.Screen name="Profile" component={Profile} />
-    </MainNavigation.Navigator>
+    <NavigationContainer>
+      <Main.Navigator>
+        <Main.Screen name="Profile" component={Profile} />
+      </Main.Navigator>
+    </NavigationContainer>
   );
 };
+
+export default MainNavigation;
