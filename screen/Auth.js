@@ -6,6 +6,7 @@ import { Button } from "react-native-paper";
 const View = styled.View`
   justify-content: center;
   align-items: center;
+  background-color: white;
   flex: 1;
 `;
 
@@ -24,7 +25,7 @@ const Auth = () => {
   return (
     <View>
       <View>
-        <Title>로그인</Title>
+        <Title>로고</Title>
       </View>
       <View>
         <Button
