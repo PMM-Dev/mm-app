@@ -1,6 +1,7 @@
 import React from "react";
-import { useEffect } from "react";
 import styled from "styled-components";
+import { Button } from "react-native-paper";
+import { useLogOut } from "../components/AuthContext";
 
 const View = styled.View`
   justify-content: center;
@@ -13,8 +14,12 @@ const Bold = styled.Text`
 `;
 
 const Profile = () => {
+  const logout = useLogOut();
   return (
     <View>
+      <Button mode="contained" onPress={logout}>
+        Log out
+      </Button>
       <Bold>Profile</Bold>
     </View>
   );

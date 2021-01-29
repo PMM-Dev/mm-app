@@ -1,6 +1,7 @@
 import React from "react";
 import { createContext, useContext, useState } from "react";
 import * as Google from "expo-google-app-auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext();
 
@@ -20,6 +21,9 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
         const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
           headers: { Authorization: `Bearer ${result.accessToken}` },
         });
+
+        await AsyncStorage.setItem("@googleToken", result.accessToken);
+
         const { email, family_name, given_name } = await user.json();
 
         setIsLoggedIn(true);
@@ -32,7 +36,11 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
   };
 
   const logOut = async () => {
-    await Google.logOutAsync({ androidClientId: GOOLGE_ID });
+    const accessToken = AsyncStorage.getItem("@googleToken");
+    await Google.logOutAsync({
+      accessToken,
+      androidClientId: GOOLGE_ID,
+    });
 
     setIsLoggedIn(false);
   };
