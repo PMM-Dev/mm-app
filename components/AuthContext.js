@@ -5,7 +5,9 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(initIsLoggedIn);
-  const logIn = async () => {};
+  const logIn = async () => {
+    console.log("a");
+  };
 
   const logOut = async () => {};
 
