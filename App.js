@@ -1,42 +1,50 @@
-import React, { useState } from "react";
-import { AuthProvider } from "./components/AuthContext";
-import NavController from "./components/NavController";
+import React, { useState, useEffect } from "react";
 import "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthProvider, checkTokenAvailable } from "./components/AuthContext";
+import { ActivityIndicator, Colors } from "react-native-paper";
+import NavController from "./components/NavController";
+import { View } from "react-native";
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // const googleLogin = async () => {
-  //   const GOOLGE_ID =
-  //     "255552505547-cqontmt71i4itsctd7l6aa39qajbmnq5.apps.googleusercontent.com";
+  const preLoad = async () => {
+    try {
+      const savedToken = await AsyncStorage.getItem("@savedToken");
+      if (savedToken !== "") {
+        const check = await checkTokenAvailable(savedToken);
+        if (check) setIsLoggedIn(true);
+      }
 
-  //   try {
-  //     const result = await Google.logInAsync({
-  //       androidClientId: GOOLGE_ID,
-  //       scopes: ["profile", "email"],
-  //     });
-  //     if (result.type === "success") {
-  //       const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-  //         headers: { Authorization: `Bearer ${result.accessToken}` },
-  //       });
-  //       const { email, family_name, given_name } = await user.json();
-  //       console.log(email);
-  //       console.log(given_name);
-  //       console.log(family_name);
-  //     } else {
-  //       return { cancelled: true };
-  //     }
-  //   } catch (e) {
-  //     return { error: true };
-  //   }
-  // };
+      setIsLoading(false);
+    } catch (e) {
+      console.log("[Error] Init eror : " + e);
+    }
+  };
+
+  useEffect(() => {
+    preLoad();
+  }, []);
 
   return (
-    // <View>
-    //   <Button title="123" onPress={googleLogin} />
-    // </View>
-    <AuthProvider isLoggedIn={isLoggedIn}>
-      <NavController />
-    </AuthProvider>
+    <>
+      {isLoading ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignContent: "center" }}
+        >
+          <ActivityIndicator
+            animating={true}
+            size="large"
+            color={Colors.red800}
+          />
+        </View>
+      ) : (
+        <AuthProvider isLoggedIn={isLoggedIn}>
+          <NavController />
+        </AuthProvider>
+      )}
+    </>
   );
 }

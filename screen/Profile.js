@@ -1,22 +1,51 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { Button } from "react-native-paper";
+import {
+  useloadProfile,
+  useLogOut,
+  useProfile,
+} from "../components/AuthContext";
+import { Avatar, Card, IconButton } from "react-native-paper";
 
-const View = styled.View`
-  justify-content: center;
+const Page = styled.View`
+  justify-content: flex-start;
   align-items: center;
   flex: 1;
-`;
-
-const Bold = styled.Text`
-  font-weight: 500;
+  margin-top: 15px;
 `;
 
 const Profile = () => {
+  const logout = useLogOut();
+  const loadProfile = useloadProfile();
+  const { email, name, picture } = useProfile();
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
   return (
-    <View>
-      <Bold>Profile</Bold>
-    </View>
+    <Page>
+      <Card.Title
+        title={name}
+        subtitle={email}
+        left={(props) => (
+          <Avatar.Image
+            {...props}
+            size={50}
+            source={{
+              uri: picture,
+            }}
+          />
+        )}
+        right={(props) => (
+          <IconButton {...props} icon="more-vert" onPress={() => {}} />
+        )}
+      />
+      <Button mode="contained" onPress={logout}>
+        Log out
+      </Button>
+    </Page>
   );
 };
 
