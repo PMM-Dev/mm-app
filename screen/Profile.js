@@ -7,7 +7,6 @@ import {
   useProfile,
 } from "../components/AuthContext";
 import { Avatar, Card, IconButton } from "react-native-paper";
-import { SegmentedControlIOSComponent } from "react-native";
 
 const Page = styled.View`
   justify-content: flex-start;
@@ -19,25 +18,26 @@ const Page = styled.View`
 const Profile = () => {
   const logout = useLogOut();
   const loadProfile = useloadProfile();
-  const { email, family_name, given_name } = useProfile();
+  const { email, name, picture } = useProfile();
 
-  // const getProfile = () => {
-  //   const newProfile = useProfile();
-  //   email = newProfile.email;
-  //   family_name = newProfile.family_name;
-  //   given_name = newProfile.given_name;
-  // };
   useEffect(() => {
     loadProfile();
-    // getProfile();
   }, []);
 
   return (
     <Page>
       <Card.Title
-        title={given_name + " " + family_name}
+        title={name}
         subtitle={email}
-        left={(props) => <Avatar.Icon {...props} icon="account" />}
+        left={(props) => (
+          <Avatar.Image
+            {...props}
+            size={50}
+            source={{
+              uri: picture,
+            }}
+          />
+        )}
         right={(props) => (
           <IconButton {...props} icon="more-vert" onPress={() => {}} />
         )}

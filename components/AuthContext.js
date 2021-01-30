@@ -11,9 +11,9 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(initIsLoggedIn);
   const [profile, setProfile] = useState({
-    email: undefined,
-    family_name: undefined,
-    given_name: undefined,
+    email: "",
+    name: "",
+    picture: "",
   });
 
   const googleLogin = async () => {
@@ -27,8 +27,8 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
         await AsyncStorage.setItem("@savedToken", result.accessToken);
         setProfile({
           email: result.email,
-          family_name: result.family_name,
-          given_name: result.given_name,
+          name: result.name,
+          picture: result.picture,
         });
         setIsLoggedIn(true);
       } else {
@@ -47,14 +47,14 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
       const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const { email, family_name, given_name } = await user.json();
-      setProfile({ email, family_name, given_name });
+      const { email, name, picture } = await user.json();
+      setProfile({ email, name, picture });
     } catch (e) {
       console.log(e);
       setProfile({
         email: "failed",
-        family_name: "failed",
-        given_name: "failed",
+        name: "failed",
+        picture: "",
       });
     }
   };
