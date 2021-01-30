@@ -7,6 +7,11 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(initIsLoggedIn);
+  const [profile, setProfile] = useState({
+    email: undefined,
+    family_name: undefined,
+    given_name: undefined,
+  });
   const GOOLGE_ID =
     "255552505547-cqontmt71i4itsctd7l6aa39qajbmnq5.apps.googleusercontent.com";
 
@@ -27,6 +32,7 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
         const { email, family_name, given_name } = await user.json();
 
         setIsLoggedIn(true);
+        setProfile({ email, family_name, given_name });
       } else {
         console.log("[Event] Google login cancel");
       }
@@ -46,7 +52,7 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{ isLoggedIn, profile, logIn, logOut }}>
       {children}
     </AuthContext.Provider>
   );
@@ -55,6 +61,11 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
 export const useIsLoggedIn = () => {
   const { isLoggedIn } = useContext(AuthContext);
   return isLoggedIn;
+};
+
+export const useProfile = () => {
+  const { profile } = useContext(AuthContext);
+  return profile;
 };
 
 export const useLogIn = () => {
