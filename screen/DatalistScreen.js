@@ -15,7 +15,7 @@ const Screen = styled.ScrollView`
   background-color: white;
 `;
 
-const Auth = () => {
+const DatalistScreen = () => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [checked11, setChecked11] = React.useState(false);
@@ -127,4 +127,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default DatalistScreen;
