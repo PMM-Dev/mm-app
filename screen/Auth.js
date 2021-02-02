@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "react-native-paper";
 import { useGoogleLogIn } from "../components/AuthContext";
@@ -24,6 +25,14 @@ const Title = styled.Text`
 
 const Auth = () => {
   const googleLogin = useGoogleLogIn();
+  const [isWaiting, setIsWaiting] = useState(false);
+
+  const check = async () => {
+    setIsWaiting(true);
+    await googleLogin();
+    setIsWaiting(false);
+  };
+
   return (
     <View>
       <View>
@@ -34,7 +43,8 @@ const Auth = () => {
           icon="google"
           mode="contained"
           color="#DC143C"
-          onPress={googleLogin}
+          loading={isWaiting}
+          onPress={check}
         >
           <Bold>구글 계정으로 로그인</Bold>
         </Button>
