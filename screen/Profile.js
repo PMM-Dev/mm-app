@@ -12,7 +12,7 @@ const Page = styled.View`
   justify-content: flex-start;
   align-items: center;
   flex: 1;
-  margin-top: 15px;
+  margin-top: 15%;
 `;
 
 const Profile = () => {
