@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "react-native-paper";
 import { useGoogleLogIn } from "../components/AuthContext";
@@ -12,11 +11,12 @@ const View = styled.View`
 `;
 
 const Bold = styled.Text`
-  font-weight: 500;
   color: white;
+  ${(props) => props.theme.font}
 `;
 
 const Title = styled.Text`
+  ${(props) => props.theme.font}
   font-weight: 500;
   font-size: 48px;
   color: black;

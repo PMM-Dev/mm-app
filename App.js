@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
 import "react-native-gesture-handler";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AuthProvider, checkTokenAvailable } from "./components/AuthContext";
-import { ActivityIndicator, Colors } from "react-native-paper";
-import NavController from "./components/NavController";
+import React, { useState, useEffect } from "react";
 import { View } from "react-native";
+import { ThemeProvider } from "styled-components";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Font from "expo-font";
+import { ActivityIndicator, Colors } from "react-native-paper";
+import { AuthProvider, checkTokenAvailable } from "./components/AuthContext";
+import NavController from "./components/NavController";
+import Theme from "./style/Theme";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,6 +15,10 @@ export default function App() {
 
   const preLoad = async () => {
     try {
+      await Font.loadAsync({
+        "DoHyeon-Regular": require("./assets/fonts/DoHyeon-Regular.ttf"),
+      });
+
       const savedToken = await AsyncStorage.getItem("@savedToken");
       if (savedToken === null || savedToken !== "") {
         const check = await checkTokenAvailable(savedToken);
@@ -41,9 +48,11 @@ export default function App() {
           />
         </View>
       ) : (
-        <AuthProvider isLoggedIn={isLoggedIn}>
-          <NavController />
-        </AuthProvider>
+        <ThemeProvider theme={Theme}>
+          <AuthProvider isLoggedIn={isLoggedIn}>
+            <NavController />
+          </AuthProvider>
+        </ThemeProvider>
       )}
     </>
   );
