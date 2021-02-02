@@ -93,7 +93,7 @@ export const checkTokenAvailable = async (token) => {
 
   // Check whether there is id from db.
 
-  if (id !== "") return true;
+  if (id !== undefined) return true;
   else return false;
 };
 

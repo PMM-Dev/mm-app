@@ -13,7 +13,7 @@ export default function App() {
   const preLoad = async () => {
     try {
       const savedToken = await AsyncStorage.getItem("@savedToken");
-      if (savedToken !== "") {
+      if (savedToken === null || savedToken !== "") {
         const check = await checkTokenAvailable(savedToken);
         if (check) setIsLoggedIn(true);
       }
