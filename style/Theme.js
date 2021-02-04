@@ -1,5 +1,5 @@
 const palette = {
-  blueColor: "#1abc9c",
+  hlColor: "#c56cf0",
 };
 
 const ui = {
