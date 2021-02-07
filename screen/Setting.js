@@ -15,7 +15,7 @@ const Page = styled.View`
   margin-top: 15%;
 `;
 
-const Profile = () => {
+const Setting = () => {
   const logout = useLogOut();
   const loadProfile = useloadProfile();
   const { email, name, picture } = useProfile();
@@ -49,4 +49,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Setting;
