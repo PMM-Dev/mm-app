@@ -6,7 +6,7 @@ import HomeNavigator from "./HomeNavigator";
 import RandomboxScreen from "../screen/RandomboxScreen";
 import MapScreen from "../screen/MapScreen";
 import NavIcon from "../components/NavIcon";
-import theme from "../style/Theme";
+import Theme from "../style/Theme";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -16,7 +16,7 @@ const MainNavigation = () => {
       <BottomTab.Navigator
         tabBarOptions={{
           style: { height: 55, paddingBottom: 5, paddingTop: 3 },
-          activeTintColor: theme.hlColor,
+          activeTintColor: Theme.hlColor,
         }}
       >
         <BottomTab.Screen
