@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "react-native-paper";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import Geolocation from "react-native-geolocation-service";
+import * as Location from "expo-location";
 
 const View = styled.View`
   justify-content: center;
@@ -17,7 +17,7 @@ const Container = styled.View`
   height: 300px;
 `;
 
-var MapStyle = [
+const mapStyle = [
   {
     elementType: "geometry",
     stylers: [
@@ -86,36 +86,11 @@ var MapStyle = [
     ],
   },
   {
-    featureType: "administrative.neighborhood",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "poi",
-    elementType: "labels.text",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
     featureType: "poi",
     elementType: "labels.text.fill",
     stylers: [
       {
         color: "#757575",
-      },
-    ],
-  },
-  {
-    featureType: "poi.business",
-    stylers: [
-      {
-        visibility: "off",
       },
     ],
   },
@@ -157,24 +132,6 @@ var MapStyle = [
   },
   {
     featureType: "road",
-    elementType: "labels",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "road",
-    elementType: "labels.icon",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "road",
     elementType: "labels.text.fill",
     stylers: [
       {
@@ -184,19 +141,18 @@ var MapStyle = [
   },
   {
     featureType: "road.arterial",
-    elementType: "geometry",
     stylers: [
       {
-        color: "#373737",
+        visibility: "off",
       },
     ],
   },
   {
     featureType: "road.arterial",
-    elementType: "labels",
+    elementType: "geometry",
     stylers: [
       {
-        visibility: "off",
+        color: "#373737",
       },
     ],
   },
@@ -246,14 +202,6 @@ var MapStyle = [
   },
   {
     featureType: "transit",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "transit",
     elementType: "labels.text.fill",
     stylers: [
       {
@@ -272,15 +220,6 @@ var MapStyle = [
   },
   {
     featureType: "water",
-    elementType: "labels.text",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "water",
     elementType: "labels.text.fill",
     stylers: [
       {
@@ -291,6 +230,24 @@ var MapStyle = [
 ];
 
 const MapScreen = () => {
+  const [marker, setmarker] = useState([
+    {
+      title: "title",
+      description: "des",
+      latlng: {
+        latitude: 35.176906553539645,
+        longitude: 126.90583484216211,
+      },
+    },
+    {
+      title: "title",
+      description: "des",
+      latlng: {
+        latitude: 35.17506512263509,
+        longitude: 126.90547337534295,
+      },
+    },
+  ]);
   return (
     <View>
       <Container>
@@ -303,16 +260,16 @@ const MapScreen = () => {
             longitudeDelta: 0.009,
           }}
           provider={PROVIDER_GOOGLE}
-          customMapStyle={MapStyle}
+          customMapStyle={mapStyle}
         >
-          <Marker
-            coordinate={{
-              latitude: 35.176906553539645,
-              longitude: 126.90583484216211,
-            }}
-            title="this is a marker"
-            description="this is a marker example"
-          />
+          {marker.map((makrer, index) => (
+            <Marker
+              key={index}
+              coordinate={makrer.latlng}
+              title={marker.title}
+              description={marker.description}
+            />
+          ))}
         </MapView>
       </Container>
     </View>
