@@ -248,14 +248,36 @@ const MapScreen = () => {
       },
     },
   ]);
+  const [location, setLocation] = useState({
+    coords: {
+      latitude: 35.176906553539645,
+      longitude: 126.90583484216211,
+    },
+  });
+  const [errorMsg, setErrorMsg] = useState(null);
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let curlocation = await Location.getCurrentPositionAsync({});
+      setLocation(curlocation);
+    })();
+  }, []);
+  if (errorMsg) {
+  }
+
   return (
     <View>
       <Container>
         <MapView
           style={{ flex: 1 }}
           initialRegion={{
-            latitude: 35.175188,
-            longitude: 126.905328,
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
             latitudeDelta: 0.009,
             longitudeDelta: 0.009,
           }}
