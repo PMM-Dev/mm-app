@@ -13,7 +13,7 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
   const [profile, setProfile] = useState({
     email: "",
     name: "",
-    picture: "",
+    picture: undefined,
   });
 
   const googleLogin = async () => {
