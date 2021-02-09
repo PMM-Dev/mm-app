@@ -84,6 +84,9 @@ const MapScreen = () => {
                   description={marker.description}
                 />
               ))}
+              <Marker coordinate={location.coords}>
+                <MarkerCircle />
+              </Marker>
             </MapView>
           </Container>
         </View>
@@ -91,6 +94,13 @@ const MapScreen = () => {
     </>
   );
 };
+
+const MarkerCircle = styled.View`
+  width: 15px;
+  height: 15px;
+  border-radius: 70px;
+  background-color: red;
+`;
 
 const View = styled.View`
   background-color: white;
@@ -100,8 +110,8 @@ const View = styled.View`
 `;
 
 const Container = styled.View`
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
 `;
 
 const mapStyle = [
