@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ActivityIndicator, Button, Colors } from "react-native-paper";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import * as Location from "expo-location";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const MapScreen = () => {
   const [marker, setmarker] = useState([
@@ -29,9 +30,12 @@ const MapScreen = () => {
       latitude: 35.176906553539645,
       longitude: 126.90583484216211,
     },
+    latitudeDelta: 0.009,
+    longitudeDelta: 0.009,
   });
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
+  const mapRef = React.createRef();
   const preLoad = async () => {
     let { status } = await Location.requestPermissionsAsync();
     if (status !== "granted") {
@@ -73,8 +77,13 @@ const MapScreen = () => {
                 latitudeDelta: 0.009,
                 longitudeDelta: 0.009,
               }}
+              showsUserLocation={true}
               provider={PROVIDER_GOOGLE}
               customMapStyle={mapStyle}
+              zoomEnabled={true}
+              followUserLocation={true}
+              showsMyLocationButton={true}
+              ref={mapRef}
             >
               {marker.map((makrer, index) => (
                 <Marker
@@ -84,16 +93,43 @@ const MapScreen = () => {
                   description={marker.description}
                 />
               ))}
-              <Marker coordinate={location.coords}>
+              {/* <Marker coordinate={location.coords}>
                 <MarkerCircle />
-              </Marker>
+              </Marker> */}
             </MapView>
           </Container>
+          <PosButton
+            style={{
+              position: "absolute", //use absolute position to show button on top of the map
+              bottom: "5%", //for center align
+              right: "10%",
+              alignSelf: "flex-end", //for align to right
+            }}
+          >
+            <Button
+              mode="text"
+              color="#ffffff"
+              onPress={() => {
+                mapRef.current.animateToRegion({
+                  latitude: location.coords.latitude,
+                  longitude: location.coords.longitude,
+                  latitudeDelta: 0.009,
+                  longitudeDelta: 0.009,
+                });
+              }}
+            >
+              <Icon name="crosshairs-gps" size={48} color="red" />
+            </Button>
+          </PosButton>
         </View>
       )}
     </>
   );
 };
+
+const PosButton = styled.View`
+  border-radius: 70px;
+`;
 
 const MarkerCircle = styled.View`
   width: 15px;
