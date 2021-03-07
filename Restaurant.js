@@ -1,24 +1,24 @@
 const Type = Object.freeze({
-  Korean: 0,
-  Flour: 1,
-  Dessert: 2,
-  Japanese: 3,
-  Fastfood: 4,
-  Western: 5,
-  Asain: 6,
-  Nightfood: 7,
+  KOREAN: 0,
+  FLOUR: 1,
+  DESSERT: 2,
+  JAPANESE: 3,
+  FASTFOOD: 4,
+  WESTERN: 5,
+  ASIAN: 6,
+  NIGHTFOOD: 7,
 });
 
 const Price = Object.freeze({
-  Cheap: 0,
-  Reasonable: 1,
-  Expensive: 2,
+  CHEAP: 0,
+  REASONABLE: 1,
+  EXPENSIVE: 2,
 });
 
 const location = Object.freeze({
-  FrontGate: 0,
-  SideGate: 1,
-  BackGate: 2,
+  FRONTGATE: 0,
+  SIDEGATE: 1,
+  BACKGATE: 2,
 });
 
 export default { ...Type, ...Price, ...location };
