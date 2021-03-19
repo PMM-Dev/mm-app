@@ -8,6 +8,7 @@ import Theme from "../style/Theme";
 import PostPreview from "../components/PostPreview";
 import RestaurantTypeCard from "../components/RestaurantTypeCard";
 import CustomCard from "../components/CustomCard";
+import {TouchableOpacity} from "react-native";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -25,14 +26,46 @@ const Home = () => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         >
-          <RestaurantTypeCard index={0} />
-          <RestaurantTypeCard index={1} />
-          <RestaurantTypeCard index={2} />
-          <RestaurantTypeCard index={3} />
-          <RestaurantTypeCard index={4} />
-          <RestaurantTypeCard index={5} />
-          <RestaurantTypeCard index={6} />
-          <RestaurantTypeCard index={7} />
+          <TouchableOpacity
+            activeOpacity={0.8}
+             onPress={() => navigation.navigate("KoreanScreen")} >
+            <RestaurantTypeCard index={0} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+             onPress={() => navigation.navigate("WesternScreen")} >
+            <RestaurantTypeCard index={1} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+             onPress={() => navigation.navigate("FlourScreen")} >
+            <RestaurantTypeCard index={2} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+             onPress={() => navigation.navigate("JapaneseScreen")} >
+            <RestaurantTypeCard index={3} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+             onPress={() => navigation.navigate("FastfoodScreen")} >
+            <RestaurantTypeCard index={4} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+             onPress={() => navigation.navigate("AsianScreen")} >
+            <RestaurantTypeCard index={5} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+             onPress={() => navigation.navigate("NightfoodScreen")} >
+            <RestaurantTypeCard index={6} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+             onPress={() => navigation.navigate("DessertScreen")} >
+            <RestaurantTypeCard index={7} />
+          </TouchableOpacity>
         </ScrollView>
       </CustomCard>
       <CustomCard
