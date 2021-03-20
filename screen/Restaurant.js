@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigation } from "@react-navigation/native";
 
 const Holder = styled.View`
   flex: 1;
@@ -9,7 +10,9 @@ const Holder = styled.View`
 
 const Title = styled.Text``;
 
-const Restaurant = () => {
+const Restaurant = ({route}) => {
+  const data = route.params;
+  console.log(data);
   return (
     <Holder>
       <Title>789</Title>
