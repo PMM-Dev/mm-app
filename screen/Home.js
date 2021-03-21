@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, SectionList } from "react-native";
 import styled from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Card } from "react-native-paper";
@@ -8,6 +8,7 @@ import Theme from "../style/Theme";
 import PostPreview from "../components/PostPreview";
 import RestaurantTypeCard from "../components/RestaurantTypeCard";
 import CustomCard from "../components/CustomCard";
+import axios from "axios";
 
 const Home = () => {
   const navigation = useNavigation();

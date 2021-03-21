@@ -1,24 +1,24 @@
-const Type = Object.freeze({
-  KOREAN: 0,
-  FLOUR: 1,
-  DESSERT: 2,
-  JAPANESE: 3,
-  FASTFOOD: 4,
-  WESTERN: 5,
-  ASIAN: 6,
-  NIGHTFOOD: 7,
-});
+const Type = {
+  KOREAN: "KOREAN",
+  FLOUR: "FLOUR",
+  DESSERT: "DESSERT",
+  JAPANESE: "JAPANESE",
+  FASTFOOD: "FASTFOOD",
+  WESTERN: "WESTERN",
+  ASIAN: "ASIAN",
+  NIGHTFOOD: "NIGHTFOOD",
+};
 
-const Price = Object.freeze({
-  CHEAP: 0,
-  REASONABLE: 1,
-  EXPENSIVE: 2,
-});
+const Price = {
+  CHEAP: "CHEAP",
+  REASONABLE: "REASONABLE",
+  EXPENSIVE: "EXPENSIVE",
+};
 
-const location = Object.freeze({
-  FRONTGATE: 0,
-  SIDEGATE: 1,
-  BACKGATE: 2,
-});
+const location = {
+  FRONTGATE: "FRONTGATE",
+  SIDEGATE: "SIDEGATE",
+  BACKGATE: "BACKGATE",
+};
 
 export default { ...Type, ...Price, ...location };
