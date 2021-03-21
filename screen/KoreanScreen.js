@@ -31,55 +31,6 @@ const KoreanScreen = () => {
 		location: "ARTGATE",
 		deliveryable: "FALSE" 
   },
-  {
-    name: "할아버님국밥",
-    description: "맛있음" ,
-    type: "KOREAN",
-		price: "CHEAP",
-		location: "ARTGATE",
-		deliveryable: "FALSE" 
-  },
-  {
-    name: "할아버님국밥",
-    description: "맛있음" ,
-    type: "KOREAN",
-		price: "CHEAP",
-		location: "ARTGATE",
-		deliveryable: "FALSE" 
-  },
-  {
-    name: "할아버님국밥",
-    description: "맛있음" ,
-    type: "KOREAN",
-		price: "CHEAP",
-		location: "ARTGATE",
-		deliveryable: "FALSE" 
-  },
-  {
-    name: "할아버님국밥",
-    description: "맛있음" ,
-    type: "KOREAN",
-		price: "CHEAP",
-		location: "ARTGATE",
-		deliveryable: "FALSE" 
-  },
-  {
-    name: "할아버님국밥",
-    description: "맛있음" ,
-    type: "KOREAN",
-		price: "CHEAP",
-		location: "ARTGATE",
-		deliveryable: "FALSE" 
-  },
-  {
-    name: "할아버님국밥",
-    description: "맛있음" ,
-    type: "KOREAN",
-		price: "CHEAP",
-		location: "ARTGATE",
-		deliveryable: "FALSE" 
-  },
-
 ];
   const navigation = useNavigation();
   const [count, setCount] = useState([]);
@@ -90,7 +41,7 @@ const KoreanScreen = () => {
     <TouchableOpacity
     activeOpacity={0.8}
      onPress={() => navigation.navigate("Restaurant",{data : element})}>    
-     <RestaurantCard name = {element.name} price = {element.price} location = {element.location} />      
+     <RestaurantCard key = {element.description} name = {element.name} price = {element.price} location = {element.location} />      
     </TouchableOpacity>
   );
   return (
