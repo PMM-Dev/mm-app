@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import {ScrollView,TouchableOpacity} from "react-native";
 import RestaurantCard from "../components/RestaurantCard";
 
-const KoreanScreen = () => {
+const KoreanList = () => {
   const Dummy = 
   [{
     name: "창평국밥",
@@ -37,11 +37,12 @@ const KoreanScreen = () => {
   useEffect(()=>{
     setCount(Dummy)
   },[]);  
-  const RestaurantCardList = count.map(element => 
+  const RestaurantCardList = count.map((element,key) => 
     <TouchableOpacity
+    key = {key}
     activeOpacity={0.8}
      onPress={() => navigation.navigate("Restaurant",{data : element})}>    
-     <RestaurantCard key = {element.description} name = {element.name} price = {element.price} location = {element.location} />      
+     <RestaurantCard  name = {element.name} price = {element.price} location = {element.location} />      
     </TouchableOpacity>
   );
   return (
@@ -65,4 +66,4 @@ const Holder = styled.View`
 
 const Title = styled.Text``;
 
-export default KoreanScreen;
+export default KoreanList;

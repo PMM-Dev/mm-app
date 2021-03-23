@@ -11,7 +11,7 @@ const Holder = styled.View`
 
 const Title = styled.Text``;
 
-const NightfoodScreen = () => {
+const NightfoodList = () => {
   const navigation = useNavigation();
 
   return (
@@ -27,4 +27,4 @@ const NightfoodScreen = () => {
   );
 };
 
-export default NightfoodScreen;
+export default NightfoodList;

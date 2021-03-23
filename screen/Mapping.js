@@ -6,7 +6,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const MapScreen = () => {
+const Mapping = () => {
   const [marker, setmarker] = useState([
     {
       title: "title",
@@ -179,4 +179,4 @@ const mapStyle = [
   },
 ];
 
-export default MapScreen;
+export default Mapping;

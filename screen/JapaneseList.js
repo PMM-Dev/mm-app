@@ -11,12 +11,12 @@ const Holder = styled.View`
 
 const Title = styled.Text``;
 
-const AsianScreen = () => {
+const JapaneseList = () => {
   const navigation = useNavigation();
 
   return (
     <Holder>
-      <Title>Asian</Title>
+      <Title>Japanese</Title>
       <Button
         mode="contained"
         onPress={() => navigation.navigate("Restaurant")}
@@ -27,4 +27,4 @@ const AsianScreen = () => {
   );
 };
 
-export default AsianScreen;
+export default JapaneseList;

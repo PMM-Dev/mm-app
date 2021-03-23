@@ -3,14 +3,15 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screen/Home";
 import RestaurantList from "../screen/RestaurantList";
 import Restaurant from "../screen/Restaurant";
-import FlourScreen from "../screen/FlourScreen";
-import DessertScreen from "../screen/DessertScreen";
-import FastfoodScreen from "../screen/FastfoodScreen";
-import JapaneseScreen from "../screen/JapaneseScreen";
-import KoreanScreen from "../screen/KoreanScreen";
-import NightfoodScreen from "../screen/NightfoodScreen";
-import WesternScreen from "../screen/WesternScreen";
-import AsianScreen from "../screen/AsianScreen";
+import FlourList from "../screen/FlourList";
+import DessertList from "../screen/DessertList";
+import FastfoodList from "../screen/FastfoodList";
+import JapaneseList from "../screen/JapaneseList";
+import KoreanList from "../screen/KoreanList";
+import NightfoodList from "../screen/NightfoodList";
+import WesternList from "../screen/WesternList";
+import AsianList from "../screen/AsianList";
+import Comment from "../screen/Comment";
 
 const Stack = createStackNavigator();
 
@@ -29,44 +30,49 @@ const HomeNavigator = () => {
         options={{ title: "식당" }}
       />
       <Stack.Screen
-        name="KoreanScreen"
-        component={KoreanScreen}
+        name="KoreanList"
+        component={KoreanList}
         options={{ title: "한식" }}
       />
       <Stack.Screen
-        name="FlourScreen"
-        component={FlourScreen}
+        name="FlourList"
+        component={FlourList}
         options={{ title: "분식" }}
       />
       <Stack.Screen
-        name="DessertScreen"
-        component={DessertScreen}
+        name="DessertList"
+        component={DessertList}
         options={{ title: "카페 디저트" }}
       />
       <Stack.Screen
-        name="JapaneseScreen"
-        component={JapaneseScreen}
+        name="JapaneseList"
+        component={JapaneseList}
         options={{ title: "일식" }}
       />
       <Stack.Screen
-        name="FastfoodScreen"
-        component={FastfoodScreen}
+        name="FastfoodList"
+        component={FastfoodList}
         options={{ title: "패스트푸드" }}
       />
       <Stack.Screen
-        name="WesternScreen"
-        component={WesternScreen}
+        name="WesternList"
+        component={WesternList}
         options={{ title: "양식" }}
       />
       <Stack.Screen
-        name="AsianScreen"
-        component={AsianScreen}
+        name="AsianList"
+        component={AsianList}
         options={{ title: "중식 아시안식" }}
       />
       <Stack.Screen
-        name="NightfoodScreen"
-        component={NightfoodScreen}
+        name="NightfoodList"
+        component={NightfoodList}
         options={{ title: "야식" }}
+      />
+      <Stack.Screen
+        name="Comment"
+        component={Comment}
+        options={{ title: "전체보기" }}
       />
     </Stack.Navigator>
   );

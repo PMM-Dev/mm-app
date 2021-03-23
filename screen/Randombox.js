@@ -21,7 +21,7 @@ const Screen = styled.ScrollView`
   background-color: white;
 `;
 
-const RandomboxScreen = () => {
+const Randombox = () => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [checked11, setChecked11] = React.useState(false);
@@ -130,4 +130,4 @@ const RandomboxScreen = () => {
   );
 };
 
-export default RandomboxScreen;
+export default Randombox;

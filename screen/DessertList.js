@@ -11,12 +11,12 @@ const Holder = styled.View`
 
 const Title = styled.Text``;
 
-const JapaneseScreen = () => {
+const DessertList = () => {
   const navigation = useNavigation();
 
   return (
     <Holder>
-      <Title>Japanese</Title>
+      <Title>Dessert</Title>
       <Button
         mode="contained"
         onPress={() => navigation.navigate("Restaurant")}
@@ -27,4 +27,4 @@ const JapaneseScreen = () => {
   );
 };
 
-export default JapaneseScreen;
+export default DessertList;

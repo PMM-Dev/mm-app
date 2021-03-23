@@ -9,10 +9,53 @@ import PostPreview from "../components/PostPreview";
 import RestaurantTypeCard from "../components/RestaurantTypeCard";
 import CustomCard from "../components/CustomCard";
 import {TouchableOpacity} from "react-native";
+import PostCard from "../components/PostCard";
+import { useState, useEffect } from "react"
 
 const Home = () => {
   const navigation = useNavigation();
-
+  const [count, setCount] = useState([]);
+  const Dummy = [
+    {
+      title : "♚♚이더리움 비트☆코인♚♚가입시$$전원 0.01코인 지급☜☜100%증정",
+      like : 98766,
+    },
+    {
+      title : "ddffddff",
+      like : 1
+    }
+  ];
+  const StringScreen = [
+    {screen:"KoreanList"},
+    {screen:"WesternList"},
+    {screen:"FlourList"},
+    {screen:"JapaneseList"},
+    {screen:"FastfoodList"},
+    {screen:"AsianList"},
+    {screen:"DessertList"},
+  ];
+  useEffect(()=>{
+    setCount(Dummy)
+  },[]);
+  const ScreenList = StringScreen.map((element,key) => 
+  <TouchableOpacity
+    key={key}
+    activeOpacity={0.8}
+    onPress={() => navigation.navigate(element.screen.toString())} >
+    <RestaurantTypeCard index={key} />
+  </TouchableOpacity>
+  );
+  const PostList = count.map((element,key)=>
+    <TouchableOpacity
+    key={key}
+    activeOpacity={0.8}
+    onPress={() => console.log("asdf")}>
+      <PostCard
+        description = {element.title}
+        like = {element.like}
+      ></PostCard>
+    </TouchableOpacity>
+  )
   return (
     <Screen>
       <CustomCard
@@ -26,46 +69,7 @@ const Home = () => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         >
-          <TouchableOpacity
-            activeOpacity={0.8}
-             onPress={() => navigation.navigate("KoreanScreen")} >
-            <RestaurantTypeCard index={0} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-             onPress={() => navigation.navigate("WesternScreen")} >
-            <RestaurantTypeCard index={1} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-             onPress={() => navigation.navigate("FlourScreen")} >
-            <RestaurantTypeCard index={2} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-             onPress={() => navigation.navigate("JapaneseScreen")} >
-            <RestaurantTypeCard index={3} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-             onPress={() => navigation.navigate("FastfoodScreen")} >
-            <RestaurantTypeCard index={4} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-             onPress={() => navigation.navigate("AsianScreen")} >
-            <RestaurantTypeCard index={5} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-             onPress={() => navigation.navigate("NightfoodScreen")} >
-            <RestaurantTypeCard index={6} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-             onPress={() => navigation.navigate("DessertScreen")} >
-            <RestaurantTypeCard index={7} />
-          </TouchableOpacity>
+          {ScreenList}
         </ScrollView>
       </CustomCard>
       <CustomCard
@@ -74,8 +78,7 @@ const Home = () => {
         // onMoreClick={() => navigation.navigate("RestaurantList")}
         flex={3.5}
       >
-        <PostPreview />
-        <PostPreview />
+        {PostList}
       </CustomCard>
       <Card style={{ marginTop: 15, flex: 0 }}>
         <Card.Content>

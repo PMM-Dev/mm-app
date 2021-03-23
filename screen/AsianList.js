@@ -11,12 +11,12 @@ const Holder = styled.View`
 
 const Title = styled.Text``;
 
-const FastfoodScreen = () => {
+const AsianList = () => {
   const navigation = useNavigation();
 
   return (
     <Holder>
-      <Title>Fastfood</Title>
+      <Title>Asian</Title>
       <Button
         mode="contained"
         onPress={() => navigation.navigate("Restaurant")}
@@ -27,4 +27,4 @@ const FastfoodScreen = () => {
   );
 };
 
-export default FastfoodScreen;
+export default AsianList;
