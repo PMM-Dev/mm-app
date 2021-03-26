@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Setting from "../screen/Setting";
 import HomeNavigator from "./HomeNavigator";
-import Randombox from "../screen/Randombox";
-import Mapping from "../screen/Mapping";
+import RandomboxScreen from "../screen/RandomboxScreen";
+import MapScreen from "../screen/MapScreen";
 import NavIcon from "../components/NavIcon";
 import Theme from "../style/Theme";
 
@@ -30,8 +30,8 @@ const MainNavigation = () => {
           }}
         />
         <BottomTab.Screen
-          name="Mapping"
-          component={Mapping}
+          name="MapScreen"
+          component={MapScreen}
           options={{
             title: "주위먹",
             tabBarIcon: ({ focused }) => (
@@ -40,8 +40,8 @@ const MainNavigation = () => {
           }}
         />
         <BottomTab.Screen
-          name="Randombox"
-          component={Randombox}
+          name="RandomboxScreen"
+          component={RandomboxScreen}
           options={{
             title: "뽑아먹",
             tabBarIcon: ({ focused }) => (

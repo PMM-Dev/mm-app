@@ -8,58 +8,11 @@ import Theme from "../style/Theme";
 import PostPreview from "../components/PostPreview";
 import RestaurantTypeCard from "../components/RestaurantTypeCard";
 import CustomCard from "../components/CustomCard";
-<<<<<<< HEAD
-import {TouchableOpacity} from "react-native";
-import PostCard from "../components/PostCard";
-import { useState, useEffect } from "react"
-=======
 import axios from "axios";
->>>>>>> 56b5d6ba028c0bcda46260138bd1bb4c61f8bdc0
 
 const Home = () => {
   const navigation = useNavigation();
-  const [count, setCount] = useState([]);
-  const Dummy = [
-    {
-      title : "♚♚이더리움 비트☆코인♚♚가입시$$전원 0.01코인 지급☜☜100%증정",
-      like : 98766,
-    },
-    {
-      title : "ddffddff",
-      like : 1
-    }
-  ];
-  const StringScreen = [
-    {screen:"KoreanList"},
-    {screen:"WesternList"},
-    {screen:"FlourList"},
-    {screen:"JapaneseList"},
-    {screen:"FastfoodList"},
-    {screen:"AsianList"},
-    {screen:"DessertList"},
-  ];
-  useEffect(()=>{
-    setCount(Dummy)
-  },[]);
-  const ScreenList = StringScreen.map((element,key) => 
-  <TouchableOpacity
-    key={key}
-    activeOpacity={0.8}
-    onPress={() => navigation.navigate(element.screen.toString())} >
-    <RestaurantTypeCard index={key} />
-  </TouchableOpacity>
-  );
-  const PostList = count.map((element,key)=>
-    <TouchableOpacity
-    key={key}
-    activeOpacity={0.8}
-    onPress={() => console.log("asdf")}>
-      <PostCard
-        description = {element.title}
-        like = {element.like}
-      ></PostCard>
-    </TouchableOpacity>
-  )
+
   return (
     <Screen>
       <CustomCard
@@ -73,16 +26,24 @@ const Home = () => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         >
-          {ScreenList}
+          <RestaurantTypeCard index={0} />
+          <RestaurantTypeCard index={1} />
+          <RestaurantTypeCard index={2} />
+          <RestaurantTypeCard index={3} />
+          <RestaurantTypeCard index={4} />
+          <RestaurantTypeCard index={5} />
+          <RestaurantTypeCard index={6} />
+          <RestaurantTypeCard index={7} />
         </ScrollView>
       </CustomCard>
       <CustomCard
         title="게시글"
         moreButtonTitle="더 보기"
-        onMoreClick={() => navigation.navigate("PostList")}
+        // onMoreClick={() => navigation.navigate("RestaurantList")}
         flex={3.5}
       >
-        {PostList}
+        <PostPreview />
+        <PostPreview />
       </CustomCard>
       <Card style={{ marginTop: 15, flex: 0 }}>
         <Card.Content>
