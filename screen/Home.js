@@ -8,13 +8,9 @@ import Theme from "../style/Theme";
 import PostPreview from "../components/PostPreview";
 import RestaurantTypeCard from "../components/RestaurantTypeCard";
 import CustomCard from "../components/CustomCard";
-<<<<<<< HEAD
 import {TouchableOpacity} from "react-native";
 import PostCard from "../components/PostCard";
 import { useState, useEffect } from "react"
-=======
-import axios from "axios";
->>>>>>> 56b5d6ba028c0bcda46260138bd1bb4c61f8bdc0
 
 const Home = () => {
   const navigation = useNavigation();
