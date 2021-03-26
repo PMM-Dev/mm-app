@@ -16,8 +16,8 @@ const RestaurantTypeCard = ({ index }) => {
   ];
   const icon = [<MaterialCommunityIcons name="rice" size={30} />];
 
-  return (
-    <Card
+  return ( 
+      <Card
       last={index === type.length - 1}
       color={
         colors[
