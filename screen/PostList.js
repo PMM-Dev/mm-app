@@ -8,7 +8,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import {TouchableOpacity} from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 
-const Comment = () => {
+const PostList = () => {
   const Dummy = 
   [{
     writer : "YUNSU",
@@ -134,4 +134,4 @@ const Holder = styled.View`
 `;
 
 
-export default Comment;
+export default PostList;
