@@ -8,7 +8,7 @@ const CommentText = ({description, like }) => {
 
   return ( 
     <Card>
-      <Title>{description} </Title>
+      <Title >{description} </Title>
       <Like>
           <AntDesign 
             name="thumbs-up"
@@ -22,10 +22,11 @@ const CommentText = ({description, like }) => {
 
 
 const Title = styled.Text`
-  margin-left : 15px;
-  font-size: 18px;
+  margin-left : 7px;
+  font-size: 20px;
   font-weight: 500;
-  text-align: center;
+  text-align: left;
+  flex : 1;
   width : 70%;
 `;
 
@@ -36,6 +37,7 @@ const Card = styled.View`
   width: 100%;
   height: 70px;
   border: 0.5px solid black;
+  overflow : hidden;
 `;
 
 const Likenum = styled.Text`

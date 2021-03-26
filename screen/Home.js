@@ -75,7 +75,7 @@ const Home = () => {
       <CustomCard
         title="게시글"
         moreButtonTitle="더 보기"
-        // onMoreClick={() => navigation.navigate("RestaurantList")}
+        onMoreClick={() => navigation.navigate("PostList")}
         flex={3.5}
       >
         {PostList}
