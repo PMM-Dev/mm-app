@@ -8,7 +8,7 @@ const CommentText = ({description, like }) => {
 
   return ( 
     <Card>
-      <Title >{description} </Title>
+      <Title numberOfLines={1}>{description} </Title>
       <Like>
           <AntDesign 
             name="thumbs-up"
