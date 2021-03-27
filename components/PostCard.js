@@ -4,18 +4,21 @@ import {Button} from "react-native-paper"
 import AntDesign from "react-native-vector-icons/Feather";
 
 
-const CommentText = ({description, like }) => {
+const CommentText = ({description, like,writer }) => {
 
   return ( 
     <Card>
       <Title numberOfLines={1}>{description} </Title>
-      <Like>
-          <AntDesign 
-            name="thumbs-up"
-            size = {22}
-          />         
-          <Likenum>{like}</Likenum>
-      </Like>
+      <Info>      
+        <Writer numberOfLines={1}>{writer}</Writer>
+        <Like>
+            <AntDesign 
+              name="thumbs-up"
+              size = {22}
+            />         
+            <Likenum>{like}</Likenum>
+        </Like>
+      </Info>
     </Card>
   );
 };
@@ -40,16 +43,27 @@ const Card = styled.View`
   overflow : hidden;
 `;
 
+const Writer = styled.Text`
+  font-size: 18px;
+  height : 50%;
+  overflow : hidden;
+`;
+
+const Info = styled.View`
+margin-left:15px;
+align-items: center;
+justify-content: center;
+width : 20%;
+`;
+
 const Likenum = styled.Text`
 text-align: center;
 width : 60%;
 `;
 
 const Like = styled.View`
-width : 20%;
-flexDirection: row;
-align-items: center;
-margin-left:15px;
+  flexDirection: row;
+  align-items: center;
 `;
 
 export default CommentText;

@@ -13,6 +13,7 @@ import WesternList from "../screen/WesternList";
 import AsianList from "../screen/AsianList";
 import Comment from "../screen/Comment";
 import PostList from "../screen/PostList";
+import Post from "../screen/Post";
 
 const Stack = createStackNavigator();
 
@@ -79,6 +80,11 @@ const HomeNavigator = () => {
         name="PostList"
         component={PostList}
         options={{ title: "게시글" }}
+      />
+      <Stack.Screen
+        name="Post"
+        component={Post}
+        options={{ title: "" }}
       />
     </Stack.Navigator>
   );

@@ -19,11 +19,29 @@ const Home = () => {
     {
       title : "♚♚이더리움 비트☆코인♚♚가입시$$전원 0.01코인 지급☜☜100%증정",
       like : 98766,
+      writer : "yunsu",
+      description : "비트코인드림",
+      time : {
+        year : 21,
+        month : 3,
+        day : 27,
+        hour : 16,
+        minute : 26,
+      }
     },
     {
-      title : "ddffddff",
-      like : 1
-    }
+      title : "♥",
+      like : 3,
+      writer : "yunsu",
+      description : "비af림",
+      time : {
+        year : 21,
+        month : 3,
+        day : 27,
+        hour : 16,
+        minute : 26,
+      }
+    },
   ];
   const StringScreen = [
     {screen:"KoreanList"},
@@ -49,10 +67,11 @@ const Home = () => {
     <TouchableOpacity
     key={key}
     activeOpacity={0.8}
-    onPress={() => console.log("asdf")}>
+    onPress={() => navigation.navigate("Post",{data : element})}>
       <PostCard
         description = {element.title}
         like = {element.like}
+        writer = {element.writer}
       ></PostCard>
     </TouchableOpacity>
   )
