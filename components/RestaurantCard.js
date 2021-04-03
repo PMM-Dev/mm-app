@@ -1,13 +1,17 @@
 import React from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components";
 
-const RestaurantCard = ({ name, location, price }) => {
-
-  return ( 
-    <Card>
-      <Title>{name}</Title>
-      <Explanation>위치 : {location} 가격 : {price}</Explanation>
-    </Card>
+const RestaurantCard = ({ key, onPress, name, location, price }) => {
+  return (
+    <TouchableOpacity key={key} activeOpacity={0.8} onPress={onPress}>
+      <Card>
+        <Title>{name}</Title>
+        <Explanation>
+          위치 : {location} 가격 : {price}
+        </Explanation>
+      </Card>
+    </TouchableOpacity>
   );
 };
 

@@ -8,6 +8,10 @@ import { ActivityIndicator, Colors } from "react-native-paper";
 import { AuthProvider, checkTokenAvailable } from "./components/AuthContext";
 import NavController from "./components/NavController";
 import Theme from "./style/Theme";
+// 성능 향상을 위해 이 코드 추가하라네, 알아만 둬
+// https://reactnavigation.org/docs/react-native-screens/
+import { enableScreens } from "react-native-screens";
+enableScreens();
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

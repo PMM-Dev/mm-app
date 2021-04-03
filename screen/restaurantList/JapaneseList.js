@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-paper";
 
 const Holder = styled.View`
@@ -11,20 +10,15 @@ const Holder = styled.View`
 
 const Title = styled.Text``;
 
-const AsianList = () => {
-  const navigation = useNavigation();
-
+const JapaneseList = ({ navigation: { navigate } }) => {
   return (
     <Holder>
-      <Title>Asian</Title>
-      <Button
-        mode="contained"
-        onPress={() => navigation.navigate("Restaurant")}
-      >
+      <Title>Japanese</Title>
+      <Button mode="contained" onPress={() => navigate("Restaurant")}>
         List
       </Button>
     </Holder>
   );
 };
 
-export default AsianList;
+export default JapaneseList;
