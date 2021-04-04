@@ -1,16 +1,17 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screen/Home";
-import RestaurantList from "../screen/RestaurantList";
 import Restaurant from "../screen/Restaurant";
-import FlourList from "../screen/FlourList";
-import DessertList from "../screen/DessertList";
-import FastfoodList from "../screen/FastfoodList";
-import JapaneseList from "../screen/JapaneseList";
-import KoreanList from "../screen/KoreanList";
-import NightfoodList from "../screen/NightfoodList";
-import WesternList from "../screen/WesternList";
-import AsianList from "../screen/AsianList";
+import RestaurantList from "../screen/restaurantList/RestaurantList";
+import FlourList from "../screen/restaurantList/FlourList";
+
+import DessertList from "../screen/restaurantList/DessertList";
+import FastfoodList from "../screen/restaurantList/FastfoodList";
+import JapaneseList from "../screen/restaurantList/JapaneseList";
+import KoreanList from "../screen/restaurantList/KoreanList";
+import NightfoodList from "../screen/restaurantList/NightfoodList";
+import WesternList from "../screen/restaurantList/WesternList";
+import AsianList from "../screen/restaurantList/AsianList";
 import Comment from "../screen/Comment";
 import PostList from "../screen/PostList";
 import Post from "../screen/Post";
