@@ -6,6 +6,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Theme from "../style/Theme";
 import RestaurantMenu from "../components/Home/RestaurantMenu";
 import PostMenu from "../components/Home/PostMenu";
+import {API_URL, API_TOKEN} from "@env"
 
 // 안쓰는 import 문이나, styled components의 css들 삭제해서 깔끔이 관리 부탁. 가독성을 위해...
 // 특히 styled componsnt css 같은 경우, 너가 작성할떄 깔끔히 정리 안해두면 나중에 지우고 추가할때 다시 확인하는데만 하루내 걸림.
@@ -46,6 +47,8 @@ const Home = () => {
   // 디자인이 확정이 아니고, 식당 리스트와 게시글의 기본 형태도 워낙 달라서, 2번. 그리고 CustomCard를 재활용하지 않고, 각각으로 분리.
   // 슬슬 스크린과 컴포넌트가 많아지니 폴더를 분리
   // ScreenList > RestaurantMenu // PostList > Postenu
+
+  console.log(API_URL);
 
   return (
     <Screen>

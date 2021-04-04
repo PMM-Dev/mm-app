@@ -4,64 +4,62 @@ import { useNavigation } from "@react-navigation/native";
 import { Button} from "react-native-paper";
 import CommentText from "../components/CommentText";
 import { useState, useEffect } from "react";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import {TouchableOpacity} from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 
-const Comment = () => {
-  const Dummy = 
-  [{
-    writer : "YUNSU",
-    description: "창평국밥맛있나?" ,
-    like : 10,
-  },
-  {
-    writer : "SOONCHAN",
-    description: "ㄴㄴ" ,
-    like : 5,
-  },
-  {
-    writer : "ASD",
-    description: "너 어디사냐?" ,
-    like : 3,
-  },
-  {
-    writer : "SOONCHAN",
-    description: "기숙사" ,
-    like : 2,
-  },
-  {
-    writer : "ASD",
-    description: "창평국밥 앞으로 나와라" ,
-    like : 2,
-  },
-  {
-    writer : "SOONCHAN",
-    description: "ㅇㅇㅇ" ,
-    like : 3,
-  },
-  {
-    writer : "YUNSU",
-    description: "YUNSU" ,
-    like : 9,
-  },
-  {
-    writer : "YUNSU",
-    description: "YUNSU" ,
-    like : 9,
-  },
-  {
-    writer : "YUNSU",
-    description: "YUNSU" ,
-    like : 9,
-  },
+const Dummy = 
+[{
+  writer : "YUNSU",
+  description: "창평국밥맛있나?" ,
+  like : 10,
+},
+{
+  writer : "SOONCHAN",
+  description: "ㄴㄴ" ,
+  like : 5,
+},
+{
+  writer : "ASD",
+  description: "너 어디사냐?" ,
+  like : 3,
+},
+{
+  writer : "SOONCHAN",
+  description: "기숙사" ,
+  like : 2,
+},
+{
+  writer : "ASD",
+  description: "창평국밥 앞으로 나와라" ,
+  like : 2,
+},
+{
+  writer : "SOONCHAN",
+  description: "ㅇㅇㅇ" ,
+  like : 3,
+},
+{
+  writer : "YUNSU",
+  description: "YUNSU" ,
+  like : 9,
+},
+{
+  writer : "YUNSU",
+  description: "YUNSU" ,
+  like : 9,
+},
+{
+  writer : "YUNSU",
+  description: "YUNSU" ,
+  like : 9,
+},
 ];
+
+const Comment = () => {
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
     const paddingToBottom = 20;
     return layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom;
   };
-  const navigation = useNavigation();
   const [text, setText] = useState('');
   const [count, setCount] = useState([]);
   useEffect(()=>{
