@@ -13,6 +13,7 @@ import PostCard from "../components/PostCard";
 import { useState, useEffect } from "react"
 import axios from "axios";
 import Restaurant from "../Restaurant.js"
+import {API_URL, API_TOKEN} from '@env'
 
 const Home = () => {
   const navigation = useNavigation();
@@ -54,26 +55,11 @@ const Home = () => {
     {screen:"AsianList"},
     {screen:"DessertList"},
   ];
+    
+  console.log(API_URL);
 
-  const asdf = async() => {asdff = await axios({
-      method: "post",
-      url:
-        "http://http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/v1/restaurant/save",
-      data: {
-        name: "test",
-        type: Restaurant.KOREAN,
-        price: Restaurant.CHEAP,
-        location: Restaurant.BACKGATE,
-        deliveryable: true,
-        latitude: 12,
-        longitude: 12,
-      },
-    }).then((res) => console.log(res));}
-
-  
   useEffect(()=>{
     setCount(Dummy)
-    asdf();
   },[]);
   const ScreenList = StringScreen.map((element,key) => 
   <TouchableOpacity
