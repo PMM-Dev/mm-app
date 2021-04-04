@@ -138,22 +138,22 @@ const navigation = useNavigation();
 useEffect(()=>{
     setCount(Dummy)
   },[]);
-const PostList = count.map((element,key)=>
-    <TouchableOpacity
-    key={key}
-    activeOpacity={0.8}
-    onPress={() => navigation.navigate("Post",{data : element})}>
-      <PostCard
-        description = {element.title}
-        like = {element.like}
-        writer = {element.writer}
-      ></PostCard>
-    </TouchableOpacity>
-  )
+  
   return (
     <Holder>
       <ScrollView>
-        {PostList}
+        {count.map((element,key)=>
+        <TouchableOpacity
+          key={key}
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate("Post",{data : element})}>
+          <PostCard
+            description = {element.title}
+            like = {element.like}
+            writer = {element.writer}
+          ></PostCard>
+        </TouchableOpacity>
+      )}
       </ScrollView>
     </Holder>
   );
