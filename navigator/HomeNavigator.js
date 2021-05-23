@@ -20,7 +20,11 @@ const Stack = createStackNavigator();
 
 const HomeNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Stack.Screen name="Home" component={Home} options={{ title: "홈" }} />
       <Stack.Screen
         name="RestaurantList"
@@ -82,11 +86,7 @@ const HomeNavigator = () => {
         component={PostList}
         options={{ title: "게시글" }}
       />
-       <Stack.Screen
-        name="Post"
-        component={Post}
-        options={{ title: "" }}
-      />
+      <Stack.Screen name="Post" component={Post} options={{ title: "" }} />
     </Stack.Navigator>
   );
 };

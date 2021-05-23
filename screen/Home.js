@@ -1,18 +1,20 @@
 import React from "react";
-import { View } from "react-native";
+import {
+  View,
+  Image,
+  Dimensions,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import styled from "styled-components";
-import { Card } from "react-native-paper";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Theme from "../style/Theme";
 import RestaurantMenu from "../components/Home/RestaurantMenu";
 import PostMenu from "../components/Home/PostMenu";
-
-// 안쓰는 import 문이나, styled components의 css들 삭제해서 깔끔이 관리 부탁. 가독성을 위해...
-// 특히 styled componsnt css 같은 경우, 너가 작성할떄 깔끔히 정리 안해두면 나중에 지우고 추가할때 다시 확인하는데만 하루내 걸림.
-// 컴포넌트 내에서 hooks, return, 객체, 함수 막 들어가서 복잡해지기 시작하면 공백줄 넣어서 구별 부탁.
-// 폴더도 이제 추가해서 정리 부탁함. 급한건 내가 옮겼는데, 너가 상황봐서 옮겨주셈
-// ** 파일 위치 옮길때 import 문 자동으로 수정되는 거 있고 안되는 거 있으니, 조심하셈 **
-// 그 외에는 내가 리뷰 남긴거 읽으면 될듯. Map 은 안봤음. 작동을 위한 코드도 길고, 아직 확정된게 크게 없어서, 후순위로 일단은
+import logo_text from "../assets/logo_text.png";
+//이거 넣는법 까먹음
+// 음식 버튼 부분 component화 시켜서 개선
 
 const StringScreen = [
   { screen: "KoreanList" },
@@ -35,77 +37,235 @@ const Dummy = [
   },
 ];
 
-const Home = () => {
-  // 컴포넌트 안에는 해당 컴포넌트와 관련된 것만
-  // Dummy 나 스크린 리스트와 같은 것은 Home 컴포넌트 밖에 다시 const 새로 선언
+const win = Dimensions.get("window");
 
-  // ScreenList, PostList 와 같이 분리한 컴포넌트가 사소한 버튼 수즌을 넘어가면 별도의 파일로 분리해야 함.
-  // 컴포넌트는 보통 UI 별로 분리함. 하지만 이들은 뭔가 모순적임. 실질적인 UI 부분은 Button 뿐인데, 단순히 map 때문에 List 마냥 취급 받는 중.
-  // 1. Map 같은 코드적인 부분은 Home 의 return () 안에서 사용하고, 버튼을 별도 의 파일로 만들거나
-  // 2. 식당 리스트 한 파트, 게시글 리스트 한 파트의 컴포넌트를 통째로 분리해야함. (<CustomCard></CustomCard> 이 파트 전체)
-  // 디자인이 확정이 아니고, 식당 리스트와 게시글의 기본 형태도 워낙 달라서, 2번. 그리고 CustomCard를 재활용하지 않고, 각각으로 분리.
-  // 슬슬 스크린과 컴포넌트가 많아지니 폴더를 분리
-  // ScreenList > RestaurantMenu // PostList > Postenu
+const Home = () => {
+  const [text, onChangeText] = React.useState();
 
   return (
     <Screen>
-      <RestaurantMenu restaurantTypeList={StringScreen} />
-      <PostMenu postPreviewList={Dummy} />
-
-      <Card style={{ marginTop: 15, flex: 0 }}>
-        <Card.Content>
-          <CardContentWrapper>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "flex-start",
-                alignItems: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Title>공지</Title>
-              <Content>게시판</Content>
-            </View>
-            <MaterialIcons
-              name="fiber-new"
-              size={20}
-              color={Theme.hlColor}
-              style={{ marginRight: 5 }}
-            />
-          </CardContentWrapper>
-        </Card.Content>
-      </Card>
-      <EmptySpace />
+      <Logo>
+        <Logopos>
+          <Image source={require("../assets/logo.png")} style={styles.logo} />
+          <Image
+            source={require("../assets/logo_text.png")}
+            style={styles.logo_text}
+          />
+        </Logopos>
+      </Logo>
+      <Foodlist>
+        <Searchbar>
+          <TextInput
+            onChangeText={onChangeText}
+            value={text}
+            style={styles.input}
+            placeholder="위치 / 음식 키워드로 검색해주세요"
+          />
+          <SearchButtonPos>
+            <TouchableOpacity onPress={() => console.log("pressed")}>
+              <Image
+                source={require("../assets/search_1.png")}
+                style={styles.search_button}
+              />
+            </TouchableOpacity>
+          </SearchButtonPos>
+        </Searchbar>
+        <Buttons>
+          <ButtonsFirstRow>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_1.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_2.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_3.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_4.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_5.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+          </ButtonsFirstRow>
+          <ButtonsSecondRow>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_6.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_7.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_8.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_9.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+            <EachButton>
+              <TouchableOpacity>
+                <Image
+                  source={require("../assets/icon_10.png")}
+                  style={styles.food_button}
+                />
+              </TouchableOpacity>
+            </EachButton>
+          </ButtonsSecondRow>
+        </Buttons>
+      </Foodlist>
+      <Post></Post>
     </Screen>
   );
 };
 
 export default Home;
 
-const EmptySpace = styled.View`
+const Screen = styled.View`
+  flex: 1;
+  background-color: #ffffff;
+`;
+
+const Logo = styled.View`
+  width: 100%;
+  height: 14%;
   flex: 1;
 `;
 
-const RecentPostHolder = styled.View``;
-
-const Title = styled.Text`
-  font-size: 15px;
-  margin-left: 5px;
-  margin-right: 10px;
-`;
-
-const Content = styled.Text`
-  font-size: 13px;
-  opacity: 0.65;
-`;
-
-const CardContentWrapper = styled.View`
+const Logopos = styled.View`
+  width: 60%;
+  height: 80%;
   flex: 1;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: row;
+  bottom: -10px;
+`;
+
+const Foodlist = styled.View`
+  width: 100%;
+  height: 32%;
+  background-color: #eff0f4;
+`;
+
+const Searchbar = styled.View`
+  width: 100%;
+  height: 32%;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
 `;
 
-const Screen = styled.View`
-  flex: 1;
+const SearchButtonPos = styled.View`
+  width: 70%;
+  height: 70%;
+  position: absolute;
+  right: -80px;
 `;
+
+const Buttons = styled.View`
+  width: 100%;
+  height: 72%;
+  align-items: center;
+`;
+
+const ButtonsFirstRow = styled.View`
+  width: 90%;
+  height: 40%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const EachButton = styled.View`
+  width: 20%;
+`;
+
+const ButtonsSecondRow = styled.View`
+  width: 90%;
+  height: 40%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  top: 3px;
+`;
+
+const Post = styled.View`
+  width: 100%;
+  height: 52%;
+`;
+
+const styles = StyleSheet.create({
+  logo: {
+    width: "20%",
+    height: "80%",
+    resizeMode: "contain",
+  },
+  logo_text: {
+    width: "70%",
+    height: "80%",
+    resizeMode: "contain",
+  },
+  input: {
+    width: "90%",
+    backgroundColor: "#ffffff",
+    height: "80%",
+    borderRadius: 5,
+    paddingLeft: 20,
+    color: "#D4D7DB",
+    fontSize: 16,
+  },
+  search_button: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+  },
+  food_button: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+  },
+});
