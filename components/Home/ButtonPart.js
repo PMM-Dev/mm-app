@@ -9,7 +9,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_1.png")}
+              source={require("../../assets/HomeFoodIcon/icon_1.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -17,7 +17,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_2.png")}
+              source={require("../../assets/HomeFoodIcon/icon_2.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -25,7 +25,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_3.png")}
+              source={require("../../assets/HomeFoodIcon/icon_3.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -33,7 +33,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_4.png")}
+              source={require("../../assets/HomeFoodIcon/icon_4.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -41,7 +41,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_5.png")}
+              source={require("../../assets/HomeFoodIcon/icon_5.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -51,7 +51,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_6.png")}
+              source={require("../../assets/HomeFoodIcon/icon_6.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -59,7 +59,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_7.png")}
+              source={require("../../assets/HomeFoodIcon/icon_7.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -67,7 +67,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_8.png")}
+              source={require("../../assets/HomeFoodIcon/icon_8.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -75,7 +75,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_9.png")}
+              source={require("../../assets/HomeFoodIcon/icon_9.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>
@@ -83,7 +83,7 @@ const ButtonPart = () => {
         <EachButton>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/icon_10.png")}
+              source={require("../../assets/HomeFoodIcon/icon_10.png")}
               style={styles.food_button}
             />
           </TouchableOpacity>

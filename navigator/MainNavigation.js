@@ -1,11 +1,11 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Image } from "react-native";
 import Setting from "../screen/Setting";
 import HomeNavigator from "./HomeNavigator";
 import Randombox from "../screen/Randombox";
 import Mapping from "../screen/Mapping";
-import NavIcon from "../components/NavIcon";
 import Theme from "../style/Theme";
 
 const BottomTab = createBottomTabNavigator();
@@ -15,7 +15,7 @@ const MainNavigation = () => {
     <NavigationContainer>
       <BottomTab.Navigator
         tabBarOptions={{
-          style: { height: 55, paddingBottom: 5, paddingTop: 3 },
+          style: { height: 90, paddingBottom: 5, paddingTop: 3 },
           activeTintColor: Theme.hlColor,
         }}
       >
@@ -23,34 +23,48 @@ const MainNavigation = () => {
           name="HomeNavigator"
           component={HomeNavigator}
           options={{
-            title: "뭐먹",
-            tabBarIcon: ({ focused }) => (
-              <NavIcon type="AntDesign" name="home" focused={focused} />
-            ),
+            title: "홈",
+            tabBarIcon: ({ focused }) => {return(
+             <Image source = { require("../assets/NavigatorIcon/home.png") }
+              style = {{width:60,height:60}}
+             />
+            )},
           }}
         />
         <BottomTab.Screen
           name="Mapping"
           component={Mapping}
           options={{
-            title: "주위먹",
-            tabBarIcon: ({ focused }) => (
-              <NavIcon type="Feather" name="map-pin" focused={focused} />
-            ),
+            title: "위치",
+            tabBarIcon: ({ focused }) => {return(
+              <Image source = { require("../assets/NavigatorIcon/map.png") }
+               style = {{width:60,height:60}}
+              />
+             )},
+          }}
+        />
+        <BottomTab.Screen
+          name="Theme"
+          component={Randombox}
+          options={{
+            title: "테마",
+            tabBarIcon: ({ focused }) => {return(
+              <Image source = { require("../assets/NavigatorIcon/theme.png")  }
+               style = {{width:60,height:60}}
+              />
+             )},
           }}
         />
         <BottomTab.Screen
           name="Randombox"
           component={Randombox}
           options={{
-            title: "뽑아먹",
-            tabBarIcon: ({ focused }) => (
-              <NavIcon
-                type="MaterialCommunityIcons"
-                name="slot-machine-outline"
-                focused={focused}
+            title: "뽑기",
+            tabBarIcon: ({ focused }) => {return(
+              <Image source = {require("../assets/NavigatorIcon/game.png") }
+               style = {{width:60,height:60}}
               />
-            ),
+             )},
           }}
         />
         <BottomTab.Screen
@@ -58,12 +72,14 @@ const MainNavigation = () => {
           component={Setting}
           options={{
             title: "설정",
-            tabBarIcon: ({ focused }) => (
-              <NavIcon type="AntDesign" name="setting" focused={focused} />
-            ),
+            tabBarIcon: ({ focused }) => {return(
+              <Image source = {require("../assets/NavigatorIcon/setting.png")}
+               style = {{width:60,height:60}}
+              />
+             )},
           }}
         />
-      </BottomTab.Navigator>
+      </BottomTab.Navigator>    
     </NavigationContainer>
   );
 };

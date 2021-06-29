@@ -1,12 +1,4 @@
 import React from "react";
-import {
-  View,
-  Image,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
 import styled from "styled-components";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Theme from "../style/Theme";
@@ -17,10 +9,6 @@ import SearchbarPart from "../components/Home/SearchbarPart";
 import LogoPart from "../components/Home/LogoPart";
 import PostPart from "../components/Home/PostPart";
 import NoticePart from "../components/Home/NoticePart";
-//이거 넣는법 까먹음 알아야됨
-
-// 음식 버튼 부분 component화 시켜서 개선
-//음식 버튼 색깔 이미지랑 다름
 
 const StringScreen = [
   { screen: "KoreanList" },
