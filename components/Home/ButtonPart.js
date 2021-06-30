@@ -95,34 +95,35 @@ const ButtonPart = () => {
 
 const styles = StyleSheet.create({
   food_button: {
-    width: "100%",
+    width: "98%",
     height: "100%",
-    resizeMode: "contain",
+    borderRadius: 10,
   },
 });
 
 const Buttons = styled.View`
+  top: 2%;
   width: 100%;
   height: 72%;
   align-items: center;
 `;
 
 const ButtonsFirstRow = styled.View`
-  width: 95%;
-  height: 40%;
+  width: 90%;
+  height: 45%;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 `;
 
 const EachButton = styled.View`
-  width: 17%;
+  width: 20%;
   margin: 0px;
 `;
 
 const ButtonsSecondRow = styled.View`
-  width: 95%;
-  height: 40%;
+  width: 90%;
+  height: 45%;
   justify-content: center;
   align-items: center;
   flex-direction: row;

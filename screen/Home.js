@@ -9,6 +9,9 @@ import SearchbarPart from "../components/Home/SearchbarPart";
 import LogoPart from "../components/Home/LogoPart";
 import PostPart from "../components/Home/PostPart";
 import NoticePart from "../components/Home/NoticePart";
+import { ScrollView, KeyboardAvoidingView, Dimensions } from "react-native";
+
+const chartHeight = Dimensions.get("window").height;
 
 const StringScreen = [
   { screen: "KoreanList" },
@@ -23,21 +26,33 @@ const StringScreen = [
 const Home = () => {
   return (
     <Screen>
-      <LogoPart />
-      <Foodlist>
-        <SearchbarPart />
-        <ButtonPart />
-      </Foodlist>
-      <PostNotice>
-        <PostPart />
-        <NoticePart />
-      </PostNotice>
-      <WhiteSpace />
+      <Scroll>
+        <Wrapper>
+          <LogoPart />
+          <Foodlist>
+            <SearchbarPart />
+            <ButtonPart />
+          </Foodlist>
+          <PostNotice>
+            <PostPart />
+            <NoticePart />
+          </PostNotice>
+          <WhiteSpace />
+        </Wrapper>
+      </Scroll>
     </Screen>
   );
 };
 
 export default Home;
+
+const Wrapper = styled.View`
+  height: ${chartHeight};
+`;
+
+const Scroll = styled.ScrollView`
+  width: 100%;
+`;
 
 const WhiteSpace = styled.View`
   width: 100%;
@@ -45,7 +60,8 @@ const WhiteSpace = styled.View`
 `;
 
 const Screen = styled.View`
-  flex: 1;
+  width: 100%;
+  height: 100%;
   background-color: #ffffff;
 `;
 

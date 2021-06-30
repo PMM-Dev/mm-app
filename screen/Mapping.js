@@ -8,10 +8,19 @@ import MapView, {
   Callout,
   CalloutSubview,
 } from "react-native-maps";
-import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from "react-native";
+
 import * as Location from "expo-location";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SearchbarMapPart from "../components/Map/SearchbarMapPart";
+
+const chartHeight = Dimensions.get("window").height;
 
 const Mapping = () => {
   const [marker, setmarker] = useState([
@@ -75,41 +84,43 @@ const Mapping = () => {
         </View>
       ) : (
         <View>
-          <Container>
-            <MapView
-              style={{ flex: 1 }}
-              initialRegion={{
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                latitudeDelta: 0.009,
-                longitudeDelta: 0.009,
-              }}
-              showsUserLocation={true}
-              provider={PROVIDER_GOOGLE}
-              customMapStyle={mapStyle}
-              zoomEnabled={true}
-              followUserLocation={true}
-              showsMyLocationButton={true}
-              ref={mapRef}
-              onPress={() => setbookMarkPressed(false)}
-            >
-              {marker.map((makrer, index) => (
-                <Marker
-                  key={index}
-                  coordinate={makrer.latlng}
-                  title={marker.title}
-                  description={marker.description}
-                  onPress={() => setbookMarkPressed(true)}
+          <Scroll>
+            <Wrapper>
+              <Container>
+                <MapView
+                  style={{ flex: 1 }}
+                  initialRegion={{
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.009,
+                    longitudeDelta: 0.009,
+                  }}
+                  showsUserLocation={true}
+                  provider={PROVIDER_GOOGLE}
+                  customMapStyle={mapStyle}
+                  zoomEnabled={true}
+                  followUserLocation={true}
+                  showsMyLocationButton={true}
+                  ref={mapRef}
+                  onPress={() => setbookMarkPressed(false)}
                 >
-                  <Callout tooltip={true}></Callout>
-                </Marker>
-              ))}
-              {/* <Marker coordinate={location.coords}>
+                  {marker.map((makrer, index) => (
+                    <Marker
+                      key={index}
+                      coordinate={makrer.latlng}
+                      title={marker.title}
+                      description={marker.description}
+                      onPress={() => setbookMarkPressed(true)}
+                    >
+                      <Callout tooltip={true}></Callout>
+                    </Marker>
+                  ))}
+                  {/* <Marker coordinate={location.coords}>
                 <MarkerCircle />
               </Marker> */}
-            </MapView>
-            <SearchbarMapPart />
-            {/* <PosButton
+                </MapView>
+                <SearchbarMapPart />
+                {/* <PosButton
               style={{
                 position: "absolute", //use absolute position to show button on top of the map
                 bottom: "5%", //for center align
@@ -133,8 +144,10 @@ const Mapping = () => {
                 <Image source={require("../assets/search_1.png")} />
               </TouchableOpacity>
             </PosButton> */}
-          </Container>
-          {bookMarkPressed ? <Explanation></Explanation> : <NotYet />}
+              </Container>
+              {bookMarkPressed ? <Explanation></Explanation> : <NotYet />}
+            </Wrapper>
+          </Scroll>
         </View>
       )}
     </>
@@ -142,6 +155,14 @@ const Mapping = () => {
 };
 
 const NotYet = styled.View``;
+
+const Wrapper = styled.View`
+  height: ${chartHeight};
+`;
+
+const Scroll = styled.ScrollView`
+  width: 100%;
+`;
 
 const Explanation = styled.View`
   width: 100%;

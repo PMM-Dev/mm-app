@@ -16,6 +16,7 @@ const SearchbarPart = () => {
         value={text}
         style={styles.input}
         placeholder="위치 / 음식 키워드로 검색해주세요"
+        placeholderTextColor="#D4D7DB"
       />
       <SearchButtonPos>
         <TouchableOpacity onPress={() => console.log("pressed")}>
@@ -31,7 +32,8 @@ const SearchbarPart = () => {
 
 const Searchbar = styled.View`
   width: 100%;
-  height: 32%;
+  height: 26%;
+  top: 3px;
   justify-content: center;
   align-items: center;
   flex-direction: row;

@@ -24,11 +24,14 @@ const MainNavigation = () => {
           component={HomeNavigator}
           options={{
             title: "홈",
-            tabBarIcon: ({ focused }) => {return(
-             <Image source = { require("../assets/NavigatorIcon/home.png") }
-              style = {{width:60,height:60}}
-             />
-            )},
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  source={require("../assets/NavigatorIcon/home.png")}
+                  style={{ width: 60, height: 60 }}
+                />
+              );
+            },
           }}
         />
         <BottomTab.Screen
@@ -36,11 +39,14 @@ const MainNavigation = () => {
           component={Mapping}
           options={{
             title: "위치",
-            tabBarIcon: ({ focused }) => {return(
-              <Image source = { require("../assets/NavigatorIcon/map.png") }
-               style = {{width:60,height:60}}
-              />
-             )},
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  source={require("../assets/NavigatorIcon/map.png")}
+                  style={{ width: 60, height: 60 }}
+                />
+              );
+            },
           }}
         />
         <BottomTab.Screen
@@ -48,11 +54,14 @@ const MainNavigation = () => {
           component={Randombox}
           options={{
             title: "테마",
-            tabBarIcon: ({ focused }) => {return(
-              <Image source = { require("../assets/NavigatorIcon/theme.png")  }
-               style = {{width:60,height:60}}
-              />
-             )},
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  source={require("../assets/NavigatorIcon/theme.png")}
+                  style={{ width: 60, height: 60 }}
+                />
+              );
+            },
           }}
         />
         <BottomTab.Screen
@@ -60,11 +69,14 @@ const MainNavigation = () => {
           component={Randombox}
           options={{
             title: "뽑기",
-            tabBarIcon: ({ focused }) => {return(
-              <Image source = {require("../assets/NavigatorIcon/game.png") }
-               style = {{width:60,height:60}}
-              />
-             )},
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  source={require("../assets/NavigatorIcon/game.png")}
+                  style={{ width: 60, height: 60 }}
+                />
+              );
+            },
           }}
         />
         <BottomTab.Screen
@@ -72,14 +84,17 @@ const MainNavigation = () => {
           component={Setting}
           options={{
             title: "설정",
-            tabBarIcon: ({ focused }) => {return(
-              <Image source = {require("../assets/NavigatorIcon/setting.png")}
-               style = {{width:60,height:60}}
-              />
-             )},
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  source={require("../assets/NavigatorIcon/setting.png")}
+                  style={{ width: 60, height: 60 }}
+                />
+              );
+            },
           }}
         />
-      </BottomTab.Navigator>    
+      </BottomTab.Navigator>
     </NavigationContainer>
   );
 };
