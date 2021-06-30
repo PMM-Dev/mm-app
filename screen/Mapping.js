@@ -1,8 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { ActivityIndicator, Button, Colors } from "react-native-paper";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { ActivityIndicator, Colors } from "react-native-paper";
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Callout,
+  CalloutSubview,
+} from "react-native-maps";
 import { Image, TouchableOpacity, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -20,7 +25,7 @@ const Mapping = () => {
     },
     {
       title: "title",
-      description: "des",
+      description: "de1s",
       latlng: {
         latitude: 35.17506512263509,
         longitude: 126.90547337534295,
@@ -37,6 +42,7 @@ const Mapping = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [bookMarkPressed, setbookMarkPressed] = useState(false);
   const mapRef = React.createRef();
   const preLoad = async () => {
     let { status } = await Location.requestPermissionsAsync();
@@ -57,7 +63,6 @@ const Mapping = () => {
 
   if (errorMsg) {
   }
-
   return (
     <>
       {isLoading ? (
@@ -86,6 +91,7 @@ const Mapping = () => {
               followUserLocation={true}
               showsMyLocationButton={true}
               ref={mapRef}
+              onPress={() => setbookMarkPressed(false)}
             >
               {marker.map((makrer, index) => (
                 <Marker
@@ -93,14 +99,17 @@ const Mapping = () => {
                   coordinate={makrer.latlng}
                   title={marker.title}
                   description={marker.description}
-                />
+                  onPress={() => setbookMarkPressed(true)}
+                >
+                  <Callout tooltip={true}></Callout>
+                </Marker>
               ))}
               {/* <Marker coordinate={location.coords}>
                 <MarkerCircle />
               </Marker> */}
             </MapView>
             <SearchbarMapPart />
-            <PosButton
+            {/* <PosButton
               style={{
                 position: "absolute", //use absolute position to show button on top of the map
                 bottom: "5%", //for center align
@@ -108,7 +117,7 @@ const Mapping = () => {
                 alignSelf: "flex-end", //for align to right
               }}
             >
-              <Button
+              <TouchableOpacity
                 mode="text"
                 color="#ffffff"
                 onPress={() => {
@@ -119,16 +128,29 @@ const Mapping = () => {
                     longitudeDelta: 0.009,
                   });
                 }}
+                style={{ borderColor: "black" }}
               >
-                <Icon name="crosshairs-gps" size={48} color="red" />
-              </Button>
-            </PosButton>
+                <Image source={require("../assets/search_1.png")} />
+              </TouchableOpacity>
+            </PosButton> */}
           </Container>
+          {bookMarkPressed ? <Explanation></Explanation> : <NotYet />}
         </View>
       )}
     </>
   );
 };
+
+const NotYet = styled.View``;
+
+const Explanation = styled.View`
+  width: 100%;
+  height: 30%;
+  border: 1px solid black;
+  bottom: 0%;
+  position: absolute;
+  background-color: white;
+`;
 
 const PosButton = styled.View`
   border-radius: 70px;
