@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ActivityIndicator, Button, Colors } from "react-native-paper";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { Image, TouchableOpacity, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import SearchbarMapPart from "../components/Map/SearchbarMapPart";
 
 const Mapping = () => {
   const [marker, setmarker] = useState([
@@ -97,30 +99,31 @@ const Mapping = () => {
                 <MarkerCircle />
               </Marker> */}
             </MapView>
-          </Container>
-          <PosButton
-            style={{
-              position: "absolute", //use absolute position to show button on top of the map
-              bottom: "5%", //for center align
-              right: "10%",
-              alignSelf: "flex-end", //for align to right
-            }}
-          >
-            <Button
-              mode="text"
-              color="#ffffff"
-              onPress={() => {
-                mapRef.current.animateToRegion({
-                  latitude: location.coords.latitude,
-                  longitude: location.coords.longitude,
-                  latitudeDelta: 0.009,
-                  longitudeDelta: 0.009,
-                });
+            <SearchbarMapPart />
+            <PosButton
+              style={{
+                position: "absolute", //use absolute position to show button on top of the map
+                bottom: "5%", //for center align
+                right: "10%",
+                alignSelf: "flex-end", //for align to right
               }}
             >
-              <Icon name="crosshairs-gps" size={48} color="red" />
-            </Button>
-          </PosButton>
+              <Button
+                mode="text"
+                color="#ffffff"
+                onPress={() => {
+                  mapRef.current.animateToRegion({
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.009,
+                    longitudeDelta: 0.009,
+                  });
+                }}
+              >
+                <Icon name="crosshairs-gps" size={48} color="red" />
+              </Button>
+            </PosButton>
+          </Container>
         </View>
       )}
     </>

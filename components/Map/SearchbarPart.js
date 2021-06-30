@@ -31,28 +31,28 @@ const SearchbarPart = () => {
 
 const Searchbar = styled.View`
   width: 100%;
-  height: 32%;
-  justify-content: center;
+  height: 100%;
+  justify-content: flex-end;
   align-items: center;
   flex-direction: row;
 `;
 
 const SearchButtonPos = styled.View`
   width: 20%;
-  height: 70%;
+  height: 85%;
   position: absolute;
-  right: 2%;
+  right: -2%;
 `;
 
 const styles = StyleSheet.create({
   input: {
-    width: "90%",
+    width: "95%",
     backgroundColor: "#ffffff",
-    height: "80%",
+    height: "100%",
     borderRadius: 5,
     paddingLeft: 20,
     color: "#D4D7DB",
-    fontSize: 16,
+    fontSize: 14,
   },
   search_button: {
     width: "100%",
