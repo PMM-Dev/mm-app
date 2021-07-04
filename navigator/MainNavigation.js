@@ -16,6 +16,7 @@ const MainNavigation = () => {
       <BottomTab.Navigator
         tabBarOptions={{
           style: { height: 90, paddingBottom: 5, paddingTop: 3 },
+          labelStyle: { fontSize: 13 },
           activeTintColor: Theme.hlColor,
         }}
       >
