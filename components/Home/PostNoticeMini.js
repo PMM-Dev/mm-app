@@ -43,6 +43,7 @@ const Title_Text = styled.Text`
   color: #000000;
   text-align: left;
   width: 100%;
+  font-family: "NanumSquare";
 `;
 
 const Date = styled.View`
@@ -56,6 +57,7 @@ const Date_Text = styled.Text`
   font-size: 10px;
   font-weight: 100;
   margin-left: 30px;
+  font-family: "NanumSquare";
 `;
 
 export default PostNoticeMini;

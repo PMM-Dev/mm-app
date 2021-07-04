@@ -7,11 +7,10 @@ import logo_text from "../assets/logo_text.png";
 import ButtonPart from "../components/Home/ButtonPart";
 import SearchbarPart from "../components/Home/SearchbarPart";
 import LogoPart from "../components/Home/LogoPart";
-import PostPart from "../components/Home/PostPart";
+import PostPart from "../components/PostPart";
 import NoticePart from "../components/Home/NoticePart";
-import { ScrollView, KeyboardAvoidingView, Dimensions } from "react-native";
-
-const chartHeight = Dimensions.get("window").height;
+import { ScrollView, KeyboardAvoidingView } from "react-native";
+import constants from "../constants";
 
 const StringScreen = [
   { screen: "KoreanList" },
@@ -47,7 +46,7 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.View`
-  height: ${chartHeight};
+  height: ${constants.height};
 `;
 
 const Scroll = styled.ScrollView`

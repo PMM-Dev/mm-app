@@ -39,7 +39,10 @@ const Setting = () => {
           />
         )}
         right={(props) => (
-          <IconButton {...props} icon="more-vert" onPress={() => {}} />
+          <IconButton
+            {...props}
+            icon={require("../assets/CommonIcons/dots-vertical.png")}
+          />
         )}
       />
       <Button mode="contained" onPress={logout}>
