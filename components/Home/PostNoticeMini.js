@@ -40,10 +40,10 @@ const Title_Text = styled.Text`
   margin-left: 30px;
   font-size: 12px;
   font-weight: 700;
-  color: #000000;
+  color: ${(props) => props.theme.fontBlack};
   text-align: left;
   width: 100%;
-  font-family: "NanumSquare";
+  ${(props) => props.theme.NanumSquareFont}
 `;
 
 const Date = styled.View`
@@ -57,7 +57,7 @@ const Date_Text = styled.Text`
   font-size: 10px;
   font-weight: 100;
   margin-left: 30px;
-  font-family: "NanumSquare";
+  ${(props) => props.theme.NanumSquareFont}
 `;
 
 export default PostNoticeMini;

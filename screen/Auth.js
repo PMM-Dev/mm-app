@@ -71,7 +71,6 @@ const Auth = () => {
       <Button
         icon="google"
         mode="contained"
-        color="#DC143C"
         loading={isWaiting}
         onPress={check}
       >

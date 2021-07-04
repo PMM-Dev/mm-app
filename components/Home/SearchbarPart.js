@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import Theme from "../../style/Theme";
 
 const SearchbarPart = () => {
   const [text, onChangeText] = useState();
@@ -16,7 +17,7 @@ const SearchbarPart = () => {
         value={text}
         style={styles.input}
         placeholder="위치 / 음식 키워드로 검색해주세요"
-        placeholderTextColor="#D4D7DB"
+        placeholderTextColor={Theme.fontGray}
       />
       <SearchButtonPos>
         <TouchableOpacity onPress={() => console.log("pressed")}>

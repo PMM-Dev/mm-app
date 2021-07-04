@@ -12,7 +12,6 @@ import KoreanList from "../screen/restaurantList/KoreanList";
 import NightfoodList from "../screen/restaurantList/NightfoodList";
 import WesternList from "../screen/restaurantList/WesternList";
 import AsianList from "../screen/restaurantList/AsianList";
-import Comment from "../screen/Comment";
 import PostList from "../screen/PostList";
 import Post from "../screen/Post";
 
@@ -75,11 +74,6 @@ const HomeNavigator = () => {
         name="NightfoodList"
         component={NightfoodList}
         options={{ title: "야식" }}
-      />
-      <Stack.Screen
-        name="Comment"
-        component={Comment}
-        options={{ title: "전체보기" }}
       />
       <Stack.Screen
         name="PostList"

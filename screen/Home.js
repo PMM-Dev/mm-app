@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Theme from "../style/Theme";
-import RestaurantMenu from "../components/Home/RestaurantMenu";
 import logo_text from "../assets/logo_text.png";
 import ButtonPart from "../components/Home/ButtonPart";
 import SearchbarPart from "../components/Home/SearchbarPart";
@@ -60,13 +59,13 @@ const WhiteSpace = styled.View`
 const Screen = styled.View`
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
 const Foodlist = styled.View`
   width: 100%;
   height: 28%;
-  background-color: #eff0f4;
+  background-color: ${(props) => props.theme.backgroundGray};
 `;
 
 const PostNotice = styled.View`
