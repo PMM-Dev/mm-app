@@ -17,7 +17,6 @@ import {
 } from "react-native";
 
 import * as Location from "expo-location";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SearchbarMapPart from "../components/Map/SearchbarMapPart";
 
 const chartHeight = Dimensions.get("window").height;

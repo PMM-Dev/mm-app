@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Theme from "../style/Theme";
 import RestaurantMenu from "../components/Home/RestaurantMenu";
 import logo_text from "../assets/logo_text.png";

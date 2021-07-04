@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const RestaurantTypeCard = ({ index }) => {
   const colors = ["#e3ffff", "#ffe0d9", "#fff6d9"];
@@ -14,10 +13,9 @@ const RestaurantTypeCard = ({ index }) => {
     "야식",
     "카페\n디저트",
   ];
-  const icon = [<MaterialCommunityIcons name="rice" size={30} />];
 
-  return ( 
-      <Card
+  return (
+    <Card
       last={index === type.length - 1}
       color={
         colors[
@@ -27,7 +25,6 @@ const RestaurantTypeCard = ({ index }) => {
         ]
       }
     >
-      {icon[0]}
       <Title>{type[index]}</Title>
     </Card>
   );

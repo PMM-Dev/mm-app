@@ -5,8 +5,8 @@ const palette = {
 };
 
 const ui = {
-  font: `
-    font-family: 'DoHyeon-Regular';
+  DoHyeonFont: `
+    font-family: 'DoHyeon';
     `,
 };
 
