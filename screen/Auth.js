@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "react-native-paper";
 import { useGoogleLogIn } from "../components/AuthContext";
-import Icon from "react-native-vector-icons/Ionicons";
 
 const Page = styled.View`
   justify-content: flex-start;
@@ -13,11 +12,11 @@ const Page = styled.View`
 
 const Bold = styled.Text`
   color: white;
-  ${(props) => props.theme.font}
+  ${(props) => props.theme.DoHyeonFont}
 `;
 
 const Title = styled.Text`
-  ${(props) => props.theme.font}
+  ${(props) => props.theme.DoHyeonFont}
   font-weight: 500;
   font-size: 50px;
   color: black;
@@ -25,7 +24,7 @@ const Title = styled.Text`
 `;
 
 const SubTitle = styled.Text`
-  ${(props) => props.theme.font}
+  ${(props) => props.theme.DoHyeonFont}
   font-weight: 300;
   font-size: 15px;
   color: black;
@@ -65,7 +64,6 @@ const Auth = () => {
 
   return (
     <Page>
-      <Icon name="md-fast-food-outline" size={90} style={{ marginTop: 150 }} />
       <BackgroundCircle />
       <BackgroundCircle2 />
       <Title>뭐먹</Title>
@@ -73,7 +71,6 @@ const Auth = () => {
       <Button
         icon="google"
         mode="contained"
-        color="#DC143C"
         loading={isWaiting}
         onPress={check}
       >

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Searchbar, Button, List, Checkbox } from "react-native-paper";
+import Theme from "../style/Theme";
 
 const View = styled.View`
   background-color: white;
@@ -120,7 +121,7 @@ const Randombox = () => {
 
         <Button
           mode="contained"
-          color="#8A2BE2"
+          color={Theme.purple}
           onPress={() => console.log("Pressed")}
         >
           <Bold>랜덤으로 뽑기!</Bold>
