@@ -20,7 +20,10 @@ export default function App() {
   const preLoad = async () => {
     try {
       await Font.loadAsync({
-        "DoHyeon-Regular": require("./assets/fonts/DoHyeon-Regular.ttf"),
+        DoHyeon: require("./assets/fonts/DoHyeon.ttf"),
+      });
+      await Font.loadAsync({
+        NanumSquare: require("./assets/fonts/NanumSquare.ttf"),
       });
 
       const savedToken = await AsyncStorage.getItem("@savedToken");

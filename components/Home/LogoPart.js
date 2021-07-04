@@ -29,7 +29,7 @@ const Logopos = styled.View`
   justify-content: center;
   align-items: flex-end;
   flex-direction: row;
-  bottom: -10px;
+  bottom: -6px;
 `;
 
 const styles = StyleSheet.create({
