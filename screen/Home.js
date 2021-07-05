@@ -19,11 +19,11 @@ const StringScreen = [
   { screen: "AsianList" },
   { screen: "DessertList" },
 ];
-
+const ht = Math.floor(constants.height) - 120;
 const Home = () => {
   return (
     <Screen>
-      <Scroll>
+      <Scroll contentContainerStyle={{ flex: 1 }}>
         <Wrapper>
           <LogoPart />
           <Foodlist>
@@ -44,7 +44,7 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.View`
-  height: ${constants.height};
+  height: ${ht};
 `;
 
 const Scroll = styled.ScrollView`

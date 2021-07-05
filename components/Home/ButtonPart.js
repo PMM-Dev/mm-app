@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 const ButtonPart = () => {
   return (
@@ -8,84 +8,54 @@ const ButtonPart = () => {
       <ButtonsFirstRow>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_1.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_1.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_2.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_2.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_3.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_3.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_4.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_4.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_5.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_5.png")} />
           </TouchableOpacity>
         </EachButton>
       </ButtonsFirstRow>
       <ButtonsSecondRow>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_6.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_6.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_7.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_7.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_8.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_8.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_9.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_9.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/HomeFoodIcon/icon_10.png")}
-              style={styles.food_button}
-            />
+            <Img source={require("../../assets/HomeFoodIcon/icon_10.png")} />
           </TouchableOpacity>
         </EachButton>
       </ButtonsSecondRow>
@@ -93,13 +63,11 @@ const ButtonPart = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  food_button: {
-    width: "98%",
-    height: "100%",
-    borderRadius: 10,
-  },
-});
+const Img = styled.Image`
+  width: 98%;
+  height: 100%;
+  border-radius: 10px;
+`;
 
 const Buttons = styled.View`
   top: 2%;

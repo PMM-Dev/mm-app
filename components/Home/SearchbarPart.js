@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import Theme from "../../style/Theme";
+import { TouchableOpacity } from "react-native";
 
 const SearchbarPart = () => {
   const [text, onChangeText] = useState();
@@ -12,24 +11,37 @@ const SearchbarPart = () => {
 
   return (
     <Searchbar>
-      <TextInput
+      <TextInputView
         onChangeText={onChangeText}
         value={text}
-        style={styles.input}
         placeholder="위치 / 음식 키워드로 검색해주세요"
-        placeholderTextColor={Theme.fontGray}
+        placeholderTextColor="#D4D7DB"
+        underlineColorAndroid="rgba(0,0,0,0)"
       />
       <SearchButtonPos>
         <TouchableOpacity onPress={() => console.log("pressed")}>
-          <Image
-            source={require("../../assets/search_1.png")}
-            style={styles.search_button}
-          />
+          <SearchButtonImage source={require("../../assets/search_1.png")} />
         </TouchableOpacity>
       </SearchButtonPos>
     </Searchbar>
   );
 };
+
+const TextInputView = styled.TextInput`
+  width: 90%;
+  background-color: ${(props) => props.theme.backgroundWhite};
+  height: 80%;
+  border-radius: 5px;
+  padding-left: 20px;
+  color: ${(props) => props.theme.fontBlack};
+  font-size: 16px;
+`;
+
+const SearchButtonImage = styled.Image`
+  width: 100%;
+  height: 100%;
+  resize-mode: contain;
+`;
 
 const Searchbar = styled.View`
   width: 100%;
@@ -46,22 +58,5 @@ const SearchButtonPos = styled.View`
   position: absolute;
   right: 2%;
 `;
-
-const styles = StyleSheet.create({
-  input: {
-    width: "90%",
-    backgroundColor: "#ffffff",
-    height: "80%",
-    borderRadius: 5,
-    paddingLeft: 20,
-    color: "#D4D7DB",
-    fontSize: 16,
-  },
-  search_button: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-  },
-});
 
 export default SearchbarPart;
