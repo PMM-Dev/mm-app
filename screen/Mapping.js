@@ -170,14 +170,8 @@ const Mapping = () => {
               </Container>
               {bookMarkPressed ? (
                 <Explanation>
-                  <ExplanationUpView
-                    data={dummy[whichBookmark]}
-                    whichBookmark={whichBookmark}
-                  />
-                  <ExplanationDownView
-                    data={dummy[whichBookmark]}
-                    whichBookmark={whichBookmark}
-                  />
+                  <ExplanationUpView data={dummy[whichBookmark]} />
+                  <ExplanationDownView data={dummy[whichBookmark]} />
                 </Explanation>
               ) : (
                 <NotYet />

@@ -2,27 +2,24 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 
-const ExplanationUpView = ({ data, whichBookmark }) => {
+const ExplanationUpView = ({ data }) => {
+  console.log(data);
   return (
     <ExplanationUp>
       <ExplanationTitle>
-        <ExplanationTitleText>{data[whichBookmark].title}</ExplanationTitleText>
+        <ExplanationTitleText>{data.title}</ExplanationTitleText>
       </ExplanationTitle>
       <ExplanationAddressContact>
         <ExplanationAddress>
-          <ExplanationAddressText>
-            주소: {data[whichBookmark].address}
-          </ExplanationAddressText>
+          <ExplanationAddressText>주소: {data.address}</ExplanationAddressText>
         </ExplanationAddress>
         <ExplanationContact>
-          <ExplanationContactText>
-            연락처: {data[whichBookmark].number}
-          </ExplanationContactText>
+          <ExplanationContactText>연락처: {data.number}</ExplanationContactText>
         </ExplanationContact>
       </ExplanationAddressContact>
       <HeartButtonPos>
         <TouchableOpacity>
-          {data[whichBookmark].bookmarked ? (
+          {data.bookmarked ? (
             <HeartImg source={require("../../assets/heart_2.png")} />
           ) : (
             <HeartImg source={require("../../assets/heart_1.png")} />

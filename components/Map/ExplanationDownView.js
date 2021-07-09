@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import StarMaker from "./StarMaker";
 
-const ExplanationDownView = ({ data, whichBookmark }) => {
+const ExplanationDownView = ({ data }) => {
   return (
     <ExplanationDown>
       <ExplanationImage>
@@ -11,7 +11,7 @@ const ExplanationDownView = ({ data, whichBookmark }) => {
       </ExplanationImage>
       <ExplanationRateButton>
         <ExplanationRate>
-          <StarMaker rate={data[whichBookmark].rating} />
+          <StarMaker rate={data.rating} />
         </ExplanationRate>
         <ExplanationTag></ExplanationTag>
         <ExplanationMoreButton>
