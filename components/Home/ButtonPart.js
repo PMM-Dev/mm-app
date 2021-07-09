@@ -2,17 +2,39 @@ import React from "react";
 import styled from "styled-components";
 import { TouchableOpacity } from "react-native";
 
-const ButtonPart = () => {
+const StringScreen = [
+  { genre: "KOREAN" },
+  { genre: "FLOUR" },
+  { genre: "WESTERN" },
+  { genre: "ASIAN" },
+  { genre: "JAPANESE" },
+  { genre: "DESSERT" },
+  { genre: "FASTFOOD" },
+];
+
+const ButtonPart = ({ navigation }) => {
   return (
     <Buttons>
       <ButtonsFirstRow>
         <EachButton>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("ResList", {
+                param: StringScreen[0],
+              })
+            }
+          >
             <Img source={require("../../assets/HomeFoodIcon/icon_1.png")} />
           </TouchableOpacity>
         </EachButton>
         <EachButton>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("ResList", {
+                param: StringScreen[1],
+              })
+            }
+          >
             <Img source={require("../../assets/HomeFoodIcon/icon_2.png")} />
           </TouchableOpacity>
         </EachButton>

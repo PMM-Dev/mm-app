@@ -5,15 +5,13 @@ import logo_text from "../assets/logo_text.png";
 import ButtonPart from "../components/Home/ButtonPart";
 import SearchbarPart from "../components/Home/SearchbarPart";
 import LogoPart from "../components/Home/LogoPart";
-import PostPart from "../components/PostPart";
-import NoticePart from "../components/Home/NoticePart";
-import { ScrollView, KeyboardAvoidingView } from "react-native";
 import constants from "../constants";
-import { useNavigation } from "@react-navigation/native";
 
 const ht = Math.floor(constants.height) - 120;
-const Home = () => {
-  const navigation = useNavigation();
+
+const ResList = ({ route, navigation }) => {
+  const genre = route.params.param.genre;
+  console.log(genre);
   return (
     <Screen>
       <Scroll contentContainerStyle={{ flex: 1 }}>
@@ -23,18 +21,42 @@ const Home = () => {
             <SearchbarPart />
             <ButtonPart navigation={navigation} />
           </Foodlist>
-          <PostNotice>
-            <PostPart />
-            <NoticePart />
-          </PostNotice>
-          <WhiteSpace />
+          <WhiteSpace>
+            <ResScroll contentContainerStyle={{ flex: 1 }}>
+              <FilterView></FilterView>
+              <ResPageView></ResPageView>
+            </ResScroll>
+          </WhiteSpace>
         </Wrapper>
       </Scroll>
     </Screen>
   );
 };
 
-export default Home;
+export default ResList;
+
+const ResScroll = styled.ScrollView`
+  width: 100%;
+  height: 100%;
+  border: black 1px;
+`;
+
+const FilterView = styled.View`
+  width: 100%;
+  height: 6%;
+  border: black 1px;
+`;
+
+const ResPageView = styled.View`
+  width: 100%;
+  height: 94%;
+  border: black 1px;
+`;
+
+const WhiteSpace = styled.View`
+  width: 100%;
+  height: 58%;
+`;
 
 const Wrapper = styled.View`
   height: ${ht};
@@ -42,11 +64,6 @@ const Wrapper = styled.View`
 
 const Scroll = styled.ScrollView`
   width: 100%;
-`;
-
-const WhiteSpace = styled.View`
-  width: 100%;
-  height: 5%;
 `;
 
 const Screen = styled.View`
@@ -59,11 +76,4 @@ const Foodlist = styled.View`
   width: 100%;
   height: 28%;
   background-color: ${(props) => props.theme.backgroundGray};
-`;
-
-const PostNotice = styled.View`
-  width: 100%;
-  height: 53%;
-  justify-content: center;
-  align-items: center;
 `;

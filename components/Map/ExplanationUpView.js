@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 
 const ExplanationUpView = ({ data }) => {
-  console.log(data);
   return (
     <ExplanationUp>
       <ExplanationTitle>
