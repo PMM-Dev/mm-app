@@ -6,7 +6,7 @@ import {
   useProfile,
 } from "../components/AuthContext";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import {
   SETTING_ARROW,
   SETTING_BOOKMARK_ICON,
@@ -50,28 +50,34 @@ const Setting = () => {
               </InformationView>
             </Profile>
             <IconView>
-              <Icon source={SETTING_BOOKMARK_ICON} />
-              <Icon source={SETTING_ASKING_ICON} />
-              <Icon source={SETTING_SERVICE_ICON} />
+              <IconButton>
+                <IconImage source={SETTING_BOOKMARK_ICON} />
+              </IconButton>
+              <IconButton>
+                <IconImage source={SETTING_ASKING_ICON} />
+              </IconButton>
+              <IconButton>
+                <IconImage source={SETTING_SERVICE_ICON} />
+              </IconButton>
             </IconView>
           </ProfileView>
           <MenuView>
-            <Menu>
+            <MenuButton>
               <MenuTitle>프로필</MenuTitle>
               <MenuArrow source={SETTING_ARROW} />
-            </Menu>
-            <Menu>
+            </MenuButton>
+            <MenuButton>
               <MenuTitle>내가 쓴 글</MenuTitle>
               <MenuArrow source={SETTING_ARROW} />
-            </Menu>
-            <Menu>
+            </MenuButton>
+            <MenuButton>
               <MenuTitle>알림 설정</MenuTitle>
               <MenuArrow source={SETTING_ARROW} />
-            </Menu>
-            <Menu last>
+            </MenuButton>
+            <MenuButton last onPress={logout}>
               <MenuTitle>로그아웃</MenuTitle>
               <MenuArrow source={SETTING_ARROW} />
-            </Menu>
+            </MenuButton>
           </MenuView>
         </SrollViewWrapper>
       </ScrollView>
@@ -158,9 +164,14 @@ const IconView = styled.View`
   width: 100%;
 `;
 
-const Icon = styled.Image`
+const IconButton = styled.TouchableOpacity`
   width: 20%;
   aspect-ratio: 1;
+`;
+
+const IconImage = styled.Image`
+  width: 100%;
+  height: 100%;
 `;
 
 const MenuView = styled.View`
@@ -169,14 +180,14 @@ const MenuView = styled.View`
   align-items: center;
 `;
 
-const Menu = styled.View`
+const MenuButton = styled.TouchableOpacity`
   width: 100%;
   height: 15%;
+  ${(props) => (props.last ? "" : "border-bottom-width: 1.5px;")};
+  border-bottom-color: ${(props) => props.theme.backgroundGray};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  ${(props) => (props.last ? "" : "border-bottom-width: 1.5px;")};
-  border-bottom-color: ${(props) => props.theme.backgroundGray};
 `;
 
 const MenuTitle = styled.Text`
