@@ -25,6 +25,12 @@ export default function App() {
       await Font.loadAsync({
         NanumSquare: require("./assets/fonts/NanumSquare.ttf"),
       });
+      await Font.loadAsync({
+        NanumBarunGothic: require("./assets/fonts/NanumBarunGothic.ttf"),
+      });
+      await Font.loadAsync({
+        NanumBarunGothicBold: require("./assets/fonts/NanumBarunGothicBold.ttf"),
+      });
 
       const savedToken = await AsyncStorage.getItem("@savedToken");
       if (savedToken === null || savedToken !== "") {
