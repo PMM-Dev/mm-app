@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { LinearGradient } from "expo-linear-gradient";
 import {
   useloadProfile,
   useLogOut,
   useProfile,
-} from "../components/AuthContext";
-import { LinearGradient } from "expo-linear-gradient";
-import { TouchableOpacity, StyleSheet } from "react-native";
+} from "../../components/AuthContext";
+import { StyleSheet } from "react-native";
 import {
   SETTING_ARROW,
   SETTING_BOOKMARK_ICON,
   SETTING_ASKING_ICON,
   SETTING_SERVICE_ICON,
-} from "../images/index";
-import constants from "../constants";
+} from "../../images/index";
+import constants from "../../constants";
 
-const Setting = () => {
+const Setting = ({ navigation: { navigate } }) => {
   const logout = useLogOut();
   const loadProfile = useloadProfile();
   const { email, name, picture } = useProfile();
@@ -50,13 +50,13 @@ const Setting = () => {
               </InformationView>
             </Profile>
             <IconView>
-              <IconButton>
+              <IconButton onPress={() => navigate("Bookmark")}>
                 <IconImage source={SETTING_BOOKMARK_ICON} />
               </IconButton>
               <IconButton>
                 <IconImage source={SETTING_ASKING_ICON} />
               </IconButton>
-              <IconButton>
+              <IconButton onPress={() => navigate("Credit")}>
                 <IconImage source={SETTING_SERVICE_ICON} />
               </IconButton>
             </IconView>

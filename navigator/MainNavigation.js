@@ -2,11 +2,12 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
-import Setting from "../screen/Setting";
+
 import HomeNavigator from "./HomeNavigator";
 import Randombox from "../screen/Randombox";
 import Mapping from "../screen/Mapping";
 import Theme from "../style/Theme";
+import SettingNavigator from "./SettingNavigator";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -81,8 +82,8 @@ const MainNavigation = () => {
           }}
         />
         <BottomTab.Screen
-          name="Setting"
-          component={Setting}
+          name="SettingNavigator"
+          component={SettingNavigator}
           options={{
             title: "설정",
             tabBarIcon: ({ focused }) => {
