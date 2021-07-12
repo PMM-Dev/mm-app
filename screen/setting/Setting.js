@@ -8,6 +8,7 @@ import {
 } from "../../components/AuthContext";
 import { StyleSheet } from "react-native";
 import {
+  SETTING_GUEST_PORTRAIT,
   SETTING_ARROW,
   SETTING_BOOKMARK_ICON,
   SETTING_ASKING_ICON,
@@ -22,6 +23,7 @@ const Setting = ({ navigation: { navigate } }) => {
 
   useEffect(() => {
     loadProfile();
+    console.log(picture);
   }, []);
 
   return (
@@ -32,17 +34,21 @@ const Setting = ({ navigation: { navigate } }) => {
           <ProfileView>
             <Profile>
               <LinearGradient
-                colors={["#EC575F", "#EE774D", "#EEA68C"]}
+                colors={["#FF3D52", "#FF603A"]}
                 style={styles.profileGradient}
               >
-                <ProfileImageIcon>
-                  <ProfileImage
-                    source={{
-                      uri: picture,
-                    }}
+                <Portrait>
+                  <PortraitImage
+                    source={
+                      picture === undefined
+                        ? SETTING_GUEST_PORTRAIT
+                        : {
+                            uri: picture,
+                          }
+                    }
                     resizeMode={"cover"}
                   />
-                </ProfileImageIcon>
+                </Portrait>
               </LinearGradient>
               <InformationView>
                 <NameTitle>{name + " 님"}</NameTitle>
@@ -127,14 +133,14 @@ const Profile = styled.View`
   justify-content: flex-start;
 `;
 
-const ProfileImageIcon = styled.View`
+const Portrait = styled.View`
   width: 93%;
   aspect-ratio: 1;
   background-color: ${(props) => props.theme.backgroundGray};
   border-radius: 1000px;
 `;
 
-const ProfileImage = styled.Image`
+const PortraitImage = styled.Image`
   width: 100%;
   height: 100%;
   border-radius: 1000px;
@@ -197,7 +203,6 @@ const MenuTitle = styled.Text`
 const MenuArrow = styled.Image`
   height: 20px;
   width: 9.8px;
-  /* aspect-ratio: 0.2; */
 `;
 
 export default Setting;

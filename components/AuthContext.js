@@ -39,16 +39,31 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
     }
   };
 
+  const guestLogin = async () => {
+    try {
+      await AsyncStorage.setItem("@savedToken", "GUEST");
+      setProfile({
+        email: undefined,
+        name: "guest" + Math.floor(Math.random() * 10000000),
+        picture: undefined,
+      });
+      setIsLoggedIn(true);
+    } catch (e) {
+      console.log("[Catch] Guest login failed :  " + e);
+    }
+  };
+
   const loadProfile = async () => {
     // This is temp functions with google api data
     // This must be changed as Spring server data
     try {
-      const token = await AsyncStorage.getItem("@savedToken");
-      const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const { email, name, picture } = await user.json();
-      setProfile({ email, name, picture });
+      const accessToken = await AsyncStorage.getItem("@savedToken");
+
+      if (accessToken === "GUEST") {
+        loadGuestProfile();
+      } else {
+        await loadGoogleProfile(accessToken);
+      }
     } catch (e) {
       console.log(e);
       setProfile({
@@ -59,15 +74,38 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
     }
   };
 
-  const logOut = async () => {
-    const accessToken = await AsyncStorage.getItem("@savedToken");
-    await Google.logOutAsync({
-      accessToken,
-      androidClientId: GOOLGE_ID,
+  const loadGuestProfile = () => {
+    setProfile({
+      email: undefined,
+      name: "guest" + Math.floor(Math.random() * 10000000),
+      picture: undefined,
     });
+  };
 
-    await AsyncStorage.setItem("@savedToken", "");
-    setIsLoggedIn(false);
+  const loadGoogleProfile = async (accessToken) => {
+    const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    const { email, name, picture } = await user.json();
+    setProfile({ email, name, picture });
+  };
+
+  const logOut = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem("@savedToken");
+
+      if (accessToken !== "GUEST") {
+        await Google.logOutAsync({
+          accessToken,
+          androidClientId: GOOLGE_ID,
+        });
+      }
+    } catch (e) {
+      console.log("[Catch] logout failed :  " + e);
+    } finally {
+      await AsyncStorage.setItem("@savedToken", "");
+      setIsLoggedIn(false);
+    }
   };
 
   return (
@@ -77,6 +115,7 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
         profile,
         loadProfile,
         googleLogin,
+        guestLogin,
         logOut,
       }}
     >
@@ -85,9 +124,9 @@ export const AuthProvider = ({ isLoggedIn: initIsLoggedIn, children }) => {
   );
 };
 
-export const checkTokenAvailable = async (token) => {
+export const checkTokenAvailable = async (accessToken) => {
   const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${accessToken}` },
   });
   const { id } = await user.json();
 
@@ -115,6 +154,11 @@ export const useloadProfile = () => {
 export const useGoogleLogIn = () => {
   const { googleLogin } = useContext(AuthContext);
   return googleLogin;
+};
+
+export const useGuestLogIn = () => {
+  const { guestLogin } = useContext(AuthContext);
+  return guestLogin;
 };
 
 export const useLogOut = () => {
