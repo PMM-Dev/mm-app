@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Button } from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import { useGoogleLogIn } from "../components/AuthContext";
 import {
   INTRO_LOGO,
@@ -33,7 +33,7 @@ const Intro = () => {
           colors={[Theme.hlRed, Theme.hlOrange]}
           style={styles.profileGradient}
         >
-          <GoogleLoginButton>
+          <GoogleLoginButton onPress={check}>
             <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN} />
           </GoogleLoginButton>
           <GuestModeView>
@@ -54,6 +54,9 @@ const Intro = () => {
           </Button> */}
         </LinearGradient>
       </AuthView>
+      <LoadingMask>
+        <ActivityIndicator color={Theme.fontBlack} size={"large"} />
+      </LoadingMask>
     </Page>
   );
 };
@@ -69,8 +72,18 @@ const styles = StyleSheet.create({
 
 const Page = styled.View`
   position: relative;
+  flex: 1;
+`;
+
+const LoadingMask = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
 `;
 
 const LogoView = styled.View`
