@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ActivityIndicator } from "react-native-paper";
-import { useGoogleLogIn } from "../components/AuthContext";
+import { useGoogleLogIn, useGuestLogIn } from "../components/AuthContext";
 import {
   INTRO_LOGO,
   INTRO_LOGO_TEXT,
@@ -14,11 +14,12 @@ import Theme from "../style/Theme";
 
 const Intro = () => {
   const googleLogin = useGoogleLogIn();
+  const guestLogin = useGuestLogIn();
   const [isWaiting, setIsWaiting] = useState(false);
 
-  const check = async () => {
+  const check = async (login) => {
     setIsWaiting(true);
-    await googleLogin();
+    await login();
     setIsWaiting(false);
   };
 
@@ -33,25 +34,15 @@ const Intro = () => {
           colors={[Theme.hlRed, Theme.hlOrange]}
           style={styles.profileGradient}
         >
-          <GoogleLoginButton onPress={check}>
+          <GoogleLoginButton onPress={() => check(googleLogin)}>
             <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN} />
           </GoogleLoginButton>
           <GuestModeView>
-            <GuestModeButton>
+            <GuestModeButton onPress={() => check(guestLogin)}>
               <GuestModeButtonText>Guest mode</GuestModeButtonText>
               <GuestModeTriangle source={INTRO_TRIANGLE} />
             </GuestModeButton>
           </GuestModeView>
-
-          {/* <Button
-            icon="google"
-            mode="contained"
-            loading={isWaiting}
-            onPress={check}
-            style={styles.googleLoginButton}
-          >
-            <Bold>Sign in with Google</Bold>
-          </Button> */}
         </LinearGradient>
       </AuthView>
       {isWaiting ? (
