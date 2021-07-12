@@ -1,27 +1,29 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { LinearGradient } from "expo-linear-gradient";
 import {
   useloadProfile,
   useLogOut,
   useProfile,
-} from "../components/AuthContext";
-import { LinearGradient } from "expo-linear-gradient";
+} from "../../components/AuthContext";
 import { StyleSheet } from "react-native";
 import {
+  SETTING_GUEST_PORTRAIT,
   SETTING_ARROW,
   SETTING_BOOKMARK_ICON,
   SETTING_ASKING_ICON,
   SETTING_SERVICE_ICON,
-} from "../images/index";
-import constants from "../constants";
+} from "../../images/index";
+import constants from "../../constants";
 
-const Setting = () => {
+const Setting = ({ navigation: { navigate } }) => {
   const logout = useLogOut();
   const loadProfile = useloadProfile();
   const { email, name, picture } = useProfile();
 
   useEffect(() => {
     loadProfile();
+    console.log(picture);
   }, []);
 
   return (
@@ -32,17 +34,21 @@ const Setting = () => {
           <ProfileView>
             <Profile>
               <LinearGradient
-                colors={["#EC575F", "#EE774D", "#EEA68C"]}
+                colors={["#FF3D52", "#FF603A"]}
                 style={styles.profileGradient}
               >
-                <ProfileImageIcon>
-                  <ProfileImage
-                    source={{
-                      uri: picture,
-                    }}
+                <Portrait>
+                  <PortraitImage
+                    source={
+                      picture === undefined
+                        ? SETTING_GUEST_PORTRAIT
+                        : {
+                            uri: picture,
+                          }
+                    }
                     resizeMode={"cover"}
                   />
-                </ProfileImageIcon>
+                </Portrait>
               </LinearGradient>
               <InformationView>
                 <NameTitle>{name + " 님"}</NameTitle>
@@ -50,28 +56,34 @@ const Setting = () => {
               </InformationView>
             </Profile>
             <IconView>
-              <Icon source={SETTING_BOOKMARK_ICON} />
-              <Icon source={SETTING_ASKING_ICON} />
-              <Icon source={SETTING_SERVICE_ICON} />
+              <IconButton onPress={() => navigate("Bookmark")}>
+                <IconImage source={SETTING_BOOKMARK_ICON} />
+              </IconButton>
+              <IconButton>
+                <IconImage source={SETTING_ASKING_ICON} />
+              </IconButton>
+              <IconButton onPress={() => navigate("Credit")}>
+                <IconImage source={SETTING_SERVICE_ICON} />
+              </IconButton>
             </IconView>
           </ProfileView>
           <MenuView>
-            <Menu>
+            <MenuButton>
               <MenuTitle>프로필</MenuTitle>
               <MenuArrow source={SETTING_ARROW} />
-            </Menu>
-            <Menu>
+            </MenuButton>
+            <MenuButton>
               <MenuTitle>내가 쓴 글</MenuTitle>
               <MenuArrow source={SETTING_ARROW} />
-            </Menu>
-            <Menu>
+            </MenuButton>
+            <MenuButton>
               <MenuTitle>알림 설정</MenuTitle>
               <MenuArrow source={SETTING_ARROW} />
-            </Menu>
-            <Menu last>
+            </MenuButton>
+            <MenuButton last onPress={logout}>
               <MenuTitle>로그아웃</MenuTitle>
               <MenuArrow source={SETTING_ARROW} />
-            </Menu>
+            </MenuButton>
           </MenuView>
         </SrollViewWrapper>
       </ScrollView>
@@ -121,14 +133,14 @@ const Profile = styled.View`
   justify-content: flex-start;
 `;
 
-const ProfileImageIcon = styled.View`
+const Portrait = styled.View`
   width: 93%;
   aspect-ratio: 1;
   background-color: ${(props) => props.theme.backgroundGray};
   border-radius: 1000px;
 `;
 
-const ProfileImage = styled.Image`
+const PortraitImage = styled.Image`
   width: 100%;
   height: 100%;
   border-radius: 1000px;
@@ -158,9 +170,14 @@ const IconView = styled.View`
   width: 100%;
 `;
 
-const Icon = styled.Image`
+const IconButton = styled.TouchableOpacity`
   width: 20%;
   aspect-ratio: 1;
+`;
+
+const IconImage = styled.Image`
+  width: 100%;
+  height: 100%;
 `;
 
 const MenuView = styled.View`
@@ -169,14 +186,14 @@ const MenuView = styled.View`
   align-items: center;
 `;
 
-const Menu = styled.View`
+const MenuButton = styled.TouchableOpacity`
   width: 100%;
   height: 15%;
+  ${(props) => (props.last ? "" : "border-bottom-width: 1.5px;")};
+  border-bottom-color: ${(props) => props.theme.backgroundGray};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  ${(props) => (props.last ? "" : "border-bottom-width: 1.5px;")};
-  border-bottom-color: ${(props) => props.theme.backgroundGray};
 `;
 
 const MenuTitle = styled.Text`
@@ -186,7 +203,6 @@ const MenuTitle = styled.Text`
 const MenuArrow = styled.Image`
   height: 20px;
   width: 9.8px;
-  /* aspect-ratio: 0.2; */
 `;
 
 export default Setting;

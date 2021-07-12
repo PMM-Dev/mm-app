@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Auth from "../screen/Auth";
+import Intro from "../screen/Intro";
 
 const Stack = createStackNavigator();
 
@@ -13,7 +13,7 @@ const AuthNavigation = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Login" component={Auth} />
+        <Stack.Screen name="Login" component={Intro} />
       </Stack.Navigator>
     </NavigationContainer>
   );
