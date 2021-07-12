@@ -21,7 +21,7 @@ import SearchbarMapPart from "../components/Map/SearchbarMapPart";
 import ExplanationUpView from "../components/Map/ExplanationUpView";
 import ExplanationDownView from "../components/Map/ExplanationDownView";
 
-const ht = Math.floor(constants.height) - 90;
+const ht = Math.floor(constants.height) - 130;
 const wt = constants.width;
 
 const dummy = [

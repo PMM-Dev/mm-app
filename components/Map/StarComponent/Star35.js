@@ -26,6 +26,7 @@ const Star35 = () => {
 const Img = styled.Image`
   height: 80%;
   width: 80%;
+  resize-mode: contain;
 `;
 
 const StarWraper = styled.View`

@@ -7,8 +7,54 @@ import SearchbarPart from "../components/Home/SearchbarPart";
 import LogoPart from "../components/Home/LogoPart";
 import constants from "../constants";
 import { LinearGradient } from "expo-linear-gradient";
+import ResCard from "../components/Home/ResList/ResCard";
 
 const ht = Math.floor(constants.height) - 120;
+
+const dummy = [
+  {
+    title: "용봉동 길성유부",
+    address: "광주광역시 북구 용봉동 151-77번지 1층",
+    number: "062-266-1202",
+    rating: 4.5,
+    bookmarked: true,
+  },
+  {
+    title: "용봉동 rlsdfkljsaklv",
+    address: "광주광역sdfasg77번지 1층",
+    number: "062-266adgjnsghf-1202",
+    rating: 5,
+    bookmarked: false,
+  },
+  {
+    title: "용봉동 길성유부",
+    address: "광주광역시 북구 용봉동 151-77번지 1층",
+    number: "062-266-1202",
+    rating: 4.5,
+    bookmarked: true,
+  },
+  {
+    title: "용봉동 rlsdfkljsaklv",
+    address: "광주광역sdfasg77번지 1층",
+    number: "062-266adgjnsghf-1202",
+    rating: 5,
+    bookmarked: false,
+  },
+  {
+    title: "용봉동 길성유부",
+    address: "광주광역시 북구 용봉동 151-77번지 1층",
+    number: "062-266-1202",
+    rating: 4.5,
+    bookmarked: true,
+  },
+  {
+    title: "용봉동 rlsdfkljsaklv",
+    address: "광주광역sdfasg77번지 1층",
+    number: "062-266adgjnsghf-1202",
+    rating: 5,
+    bookmarked: false,
+  },
+];
 
 const ResList = ({ route, navigation }) => {
   const genre = route.params.param.genre;
@@ -45,8 +91,12 @@ const ResList = ({ route, navigation }) => {
                 </FilterView5>
               </FilterView>
             </LinearGradient>
-            <ResScroll contentContainerStyle={{ flex: 1 }}>
-              <ResPageView></ResPageView>
+            <ResScroll>
+              {dummy.map((data, index) => (
+                <ResView>
+                  <ResCard key={index} data={data} />
+                </ResView>
+              ))}
             </ResScroll>
           </WhiteSpace>
         </Wrapper>
@@ -56,6 +106,12 @@ const ResList = ({ route, navigation }) => {
 };
 
 export default ResList;
+
+const ResView = styled.View`
+  height: 140px;
+  width: 100%;
+  align-items: center;
+`;
 
 const Wtext = styled.Text`
   font-size: 11px;
@@ -67,35 +123,35 @@ const Wtext = styled.Text`
   border-right-color: ${(props) => props.theme.backgroundWhite};
 `;
 
-const FilterView1 = styled.View`
+const FilterView1 = styled.TouchableOpacity`
   height: 100%;
   width: 15%;
   justify-content: center;
   align-content: center;
 `;
 
-const FilterView2 = styled.View`
+const FilterView2 = styled.TouchableOpacity`
   height: 100%;
   width: 17%;
   justify-content: center;
   align-content: center;
 `;
 
-const FilterView3 = styled.View`
+const FilterView3 = styled.TouchableOpacity`
   height: 100%;
   width: 22%;
   justify-content: center;
   align-content: center;
 `;
 
-const FilterView4 = styled.View`
+const FilterView4 = styled.TouchableOpacity`
   height: 100%;
   width: 22%;
   justify-content: center;
   align-content: center;
 `;
 
-const FilterView5 = styled.View`
+const FilterView5 = styled.TouchableOpacity`
   height: 100%;
   width: 22%;
   justify-content: center;
@@ -111,12 +167,6 @@ const FilterView = styled.View`
   width: 100%;
   height: 100%;
   flex-direction: row;
-`;
-
-const ResPageView = styled.View`
-  width: 100%;
-  height: 95%;
-  border: black 1px;
 `;
 
 const WhiteSpace = styled.View`
