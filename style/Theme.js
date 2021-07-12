@@ -1,5 +1,6 @@
 const palette = {
-  hlColor: "#c56cf0",
+  hlRed: "#FF3D52",
+  hlOrange: "#FF603A",
   fontBigBlack: "#1a1a1a",
   fontBlack: "#333333",
   fontGray: "#b9c4e1",

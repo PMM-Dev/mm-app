@@ -32,7 +32,7 @@ const Setting = ({ navigation: { navigate } }) => {
           <ProfileView>
             <Profile>
               <LinearGradient
-                colors={["#EC575F", "#EE774D", "#EEA68C"]}
+                colors={["#FF3D52", "#FF603A"]}
                 style={styles.profileGradient}
               >
                 <ProfileImageIcon>
