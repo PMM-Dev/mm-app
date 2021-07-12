@@ -54,9 +54,11 @@ const Intro = () => {
           </Button> */}
         </LinearGradient>
       </AuthView>
-      <LoadingMask>
-        <ActivityIndicator color={Theme.fontBlack} size={"large"} />
-      </LoadingMask>
+      {isWaiting ? (
+        <LoadingMask>
+          <ActivityIndicator color={Theme.fontBlack} size={"large"} />
+        </LoadingMask>
+      ) : null}
     </Page>
   );
 };
