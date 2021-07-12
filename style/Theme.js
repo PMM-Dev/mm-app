@@ -1,9 +1,11 @@
 const palette = {
   hlColor: "#c56cf0",
-  fontBlack: "#000000",
-  fontGray: "#D4D7DB",
+  fontBigBlack: "#1a1a1a",
+  fontBlack: "#333333",
+  fontGray: "#b9c4e1",
   backgroundWhite: "#ffffff",
   backgroundGray: "#eff0f4",
+  borderGray: "#EFEFEF",
   purple: "#8A2BE2",
 };
 
@@ -13,6 +15,12 @@ const ui = {
     `,
   NanumSquareFont: `
     font-family: 'NanumSquare';
+    `,
+  NanumGothicFont: `
+    font-family: 'NanumBarunGothic';
+    `,
+  NanumGothicBoldFont: `
+    font-family: 'NanumBarunGothicBold';
     `,
 };
 
