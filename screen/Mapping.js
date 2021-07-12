@@ -21,7 +21,8 @@ import SearchbarMapPart from "../components/Map/SearchbarMapPart";
 import ExplanationUpView from "../components/Map/ExplanationUpView";
 import ExplanationDownView from "../components/Map/ExplanationDownView";
 
-const ht = Math.floor(constants.height) - 120;
+const ht = Math.floor(constants.height) - 90;
+const wt = constants.width;
 
 const dummy = [
   {
@@ -142,14 +143,7 @@ const Mapping = () => {
                 {bookMarkPressed ? (
                   <NotYet />
                 ) : (
-                  <PosButton
-                    style={{
-                      position: "absolute", //use absolute position to show button on top of the map
-                      bottom: "5%", //for center align
-                      right: "10%",
-                      alignSelf: "flex-end", //for align to right
-                    }}
-                  >
+                  <PosButton>
                     <TouchableOpacity
                       mode="text"
                       color="#ffffff"
@@ -161,9 +155,15 @@ const Mapping = () => {
                           longitudeDelta: 0.009,
                         });
                       }}
-                      style={{ borderColor: "black" }}
+                      style={{
+                        borderColor: "black",
+                        width: "100%",
+                        height: "100%",
+                        justifyContent: "center",
+                        alignContent: "center",
+                      }}
                     >
-                      <Image source={require("../assets/search_1.png")} />
+                      <Img source={require("../assets/position.png")} />
                     </TouchableOpacity>
                   </PosButton>
                 )}
@@ -204,8 +204,20 @@ const Explanation = styled.View`
   border-radius: 10px;
 `;
 
+const Img = styled.Image`
+  width: 80%;
+  height: 80%;
+  resize-mode: contain;
+`;
+
 const PosButton = styled.View`
   border-radius: 70px;
+  position: absolute;
+  bottom: 10%;
+  right: 0%;
+  align-self: flex-end;
+  width: 100px;
+  height: 100px;
 `;
 
 const MarkerCircle = styled.View`
