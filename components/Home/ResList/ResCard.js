@@ -2,37 +2,34 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { TouchableOpacity } from "react-native";
 import StarMaker from "../../Map/StarMaker";
+import { FULLHEART, EMPTYHEART, TMP } from "../../../images/index";
 
 const ResCard = ({ data }) => {
   return (
     <View>
       <ImageView>
-        <ExplanationImageImg source={require("../../../assets/tmp.jpg")} />
+        <ExplanationImageImg source={TMP} />
       </ImageView>
       <ExplanationView>
         <ExplanationTitle>
-          <ExplanationTitleText>{data.title}</ExplanationTitleText>
+          <ExplanationTitleText>{data.name}</ExplanationTitleText>
         </ExplanationTitle>
         <ExplanationTag></ExplanationTag>
         <ExplanationRate>
           <StarMaker rate={data.rating} />
         </ExplanationRate>
         <ExplanationMoreButton>
-          <TouchableOpacity>
-            <ExplanationMoreButtonText>
-              후기 더 보러가기 +
-            </ExplanationMoreButtonText>
-          </TouchableOpacity>
+          <ExplanationMoreButtonText>
+            후기 더 보러가기 +
+          </ExplanationMoreButtonText>
         </ExplanationMoreButton>
       </ExplanationView>
       <HeartButtonPos>
-        <TouchableOpacity>
-          {data.bookmarked ? (
-            <HeartImg source={require("../../../assets/heart_2.png")} />
-          ) : (
-            <HeartImg source={require("../../../assets/heart_1.png")} />
-          )}
-        </TouchableOpacity>
+        {data.bookmarked ? (
+          <HeartImg source={FULLHEART} />
+        ) : (
+          <HeartImg source={EMPTYHEART} />
+        )}
       </HeartButtonPos>
     </View>
   );
@@ -44,7 +41,7 @@ const HeartImg = styled.Image`
   resize-mode: contain;
 `;
 
-const HeartButtonPos = styled.View`
+const HeartButtonPos = styled.TouchableOpacity`
   position: absolute;
   width: 10%;
   height: 30%;
@@ -56,7 +53,7 @@ const ExplanationMoreButtonText = styled.Text`
   font-family: "NanumSquare";
 `;
 
-const ExplanationMoreButton = styled.View`
+const ExplanationMoreButton = styled.TouchableOpacity`
   height: 12%;
   width: 100%;
 `;

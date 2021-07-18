@@ -14,6 +14,7 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
+import { POSITION } from "../images/index";
 import constants from "../constants";
 
 import * as Location from "expo-location";
@@ -143,28 +144,18 @@ const Mapping = () => {
                 {bookMarkPressed ? (
                   <NotYet />
                 ) : (
-                  <PosButton>
-                    <TouchableOpacity
-                      mode="text"
-                      color="#ffffff"
-                      onPress={() => {
-                        mapRef.current.animateToRegion({
-                          latitude: location.coords.latitude,
-                          longitude: location.coords.longitude,
-                          latitudeDelta: 0.009,
-                          longitudeDelta: 0.009,
-                        });
-                      }}
-                      style={{
-                        borderColor: "black",
-                        width: "100%",
-                        height: "100%",
-                        justifyContent: "center",
-                        alignContent: "center",
-                      }}
-                    >
-                      <Img source={require("../assets/position.png")} />
-                    </TouchableOpacity>
+                  <PosButton
+                    mode="text"
+                    onPress={() => {
+                      mapRef.current.animateToRegion({
+                        latitude: location.coords.latitude,
+                        longitude: location.coords.longitude,
+                        latitudeDelta: 0.009,
+                        longitudeDelta: 0.009,
+                      });
+                    }}
+                  >
+                    <Img source={POSITION} />
                   </PosButton>
                 )}
               </Container>
@@ -210,7 +201,7 @@ const Img = styled.Image`
   resize-mode: contain;
 `;
 
-const PosButton = styled.View`
+const PosButton = styled.TouchableOpacity`
   border-radius: 70px;
   position: absolute;
   bottom: 10%;
@@ -218,6 +209,7 @@ const PosButton = styled.View`
   align-self: flex-end;
   width: 100px;
   height: 100px;
+  justify-content: center;
 `;
 
 const MarkerCircle = styled.View`

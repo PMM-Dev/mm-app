@@ -1,6 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { TouchableOpacity } from "react-native";
+import {
+  HOME_FOOD_ICON_KOREAN,
+  HOME_FOOD_ICON_FLOUR,
+  HOME_FOOD_ICON_WESTERN,
+  HOME_FOOD_ICON_ASIAN,
+  HOME_FOOD_ICON_JAPANESE,
+  HOME_FOOD_ICON_DESSERT,
+  HOME_FOOD_ICON_NIGHTFOOD,
+  HOME_FOOD_ICON_FASTFOOD,
+  HOME_FOOD_ICON_DELIEVERY,
+  HOME_FOOD_ICON_RANKING,
+} from "../../images/index";
 
 const StringScreen = [
   { genre: "KOREAN" },
@@ -16,69 +28,49 @@ const ButtonPart = ({ navigation }) => {
   return (
     <Buttons>
       <ButtonsFirstRow>
-        <EachButton>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("ResList", {
-                param: StringScreen[0],
-              })
-            }
-          >
-            <Img source={require("../../assets/HomeFoodIcon/icon_1.png")} />
-          </TouchableOpacity>
+        <EachButton
+          onPress={() =>
+            navigation.navigate("ResList", {
+              param: StringScreen[0],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_KOREAN} />
+        </EachButton>
+        <EachButton
+          onPress={() =>
+            navigation.navigate("ResList", {
+              param: StringScreen[1],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_FLOUR} />
         </EachButton>
         <EachButton>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("ResList", {
-                param: StringScreen[1],
-              })
-            }
-          >
-            <Img source={require("../../assets/HomeFoodIcon/icon_2.png")} />
-          </TouchableOpacity>
+          <Img source={HOME_FOOD_ICON_WESTERN} />
         </EachButton>
         <EachButton>
-          <TouchableOpacity>
-            <Img source={require("../../assets/HomeFoodIcon/icon_3.png")} />
-          </TouchableOpacity>
+          <Img source={HOME_FOOD_ICON_ASIAN} />
         </EachButton>
         <EachButton>
-          <TouchableOpacity>
-            <Img source={require("../../assets/HomeFoodIcon/icon_4.png")} />
-          </TouchableOpacity>
-        </EachButton>
-        <EachButton>
-          <TouchableOpacity>
-            <Img source={require("../../assets/HomeFoodIcon/icon_5.png")} />
-          </TouchableOpacity>
+          <Img source={HOME_FOOD_ICON_JAPANESE} />
         </EachButton>
       </ButtonsFirstRow>
       <ButtonsSecondRow>
         <EachButton>
-          <TouchableOpacity>
-            <Img source={require("../../assets/HomeFoodIcon/icon_6.png")} />
-          </TouchableOpacity>
+          <Img source={HOME_FOOD_ICON_DESSERT} />
         </EachButton>
         <EachButton>
-          <TouchableOpacity>
-            <Img source={require("../../assets/HomeFoodIcon/icon_7.png")} />
-          </TouchableOpacity>
+          <Img source={HOME_FOOD_ICON_NIGHTFOOD} />
         </EachButton>
         <EachButton>
-          <TouchableOpacity>
-            <Img source={require("../../assets/HomeFoodIcon/icon_8.png")} />
-          </TouchableOpacity>
+          <Img source={HOME_FOOD_ICON_FASTFOOD} />
         </EachButton>
         <EachButton>
-          <TouchableOpacity>
-            <Img source={require("../../assets/HomeFoodIcon/icon_9.png")} />
-          </TouchableOpacity>
+          <Img source={HOME_FOOD_ICON_DELIEVERY} />
         </EachButton>
         <EachButton>
-          <TouchableOpacity>
-            <Img source={require("../../assets/HomeFoodIcon/icon_10.png")} />
-          </TouchableOpacity>
+          <Img source={HOME_FOOD_ICON_RANKING} />
         </EachButton>
       </ButtonsSecondRow>
     </Buttons>
@@ -106,7 +98,7 @@ const ButtonsFirstRow = styled.View`
   flex-direction: row;
 `;
 
-const EachButton = styled.View`
+const EachButton = styled.TouchableOpacity`
   width: 20%;
   margin: 0px;
 `;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import SearchbarPart from "./SearchbarPart";
+import { FILTER } from "../../images/index";
 
 const SearchbarMapPart = () => {
   return (
@@ -10,20 +11,15 @@ const SearchbarMapPart = () => {
         <SearchbarPart />
       </SearchBar>
       <SettingButtonPos>
-        <SettingButton>
-          <TouchableOpacity onPress={() => console.log("pressed")}>
-            <Image
-              source={require("../../assets/filter.png")}
-              style={styles.search_button}
-            />
-          </TouchableOpacity>
+        <SettingButton onPress={() => console.log("pressed")}>
+          <Image source={FILTER} style={styles.search_button} />
         </SettingButton>
       </SettingButtonPos>
     </SearchBarMap>
   );
 };
 
-const SettingButton = styled.View`
+const SettingButton = styled.TouchableOpacity`
   width: 100%;
   height: 100%;
 `;

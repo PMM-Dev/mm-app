@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+
 import Star00 from "./StarComponent/Star00";
 import Star05 from "./StarComponent/Star05";
 import Star10 from "./StarComponent/Star10";

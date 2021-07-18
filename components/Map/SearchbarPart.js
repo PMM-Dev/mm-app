@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { SEARCHBAR } from "../../images/index";
 
 const SearchbarPart = () => {
   const [text, onChangeText] = useState();
@@ -17,13 +18,8 @@ const SearchbarPart = () => {
         style={styles.input}
         placeholder="위치 / 음식 키워드로 검색해주세요"
       />
-      <SearchButtonPos>
-        <TouchableOpacity onPress={() => console.log("pressed")}>
-          <Image
-            source={require("../../assets/search_1.png")}
-            style={styles.search_button}
-          />
-        </TouchableOpacity>
+      <SearchButtonPos onPress={() => console.log("pressed")}>
+        <Image source={SEARCHBAR} style={styles.search_button} />
       </SearchButtonPos>
     </Searchbar>
   );
@@ -37,7 +33,7 @@ const Searchbar = styled.View`
   flex-direction: row;
 `;
 
-const SearchButtonPos = styled.View`
+const SearchButtonPos = styled.TouchableOpacity`
   width: 20%;
   height: 85%;
   position: absolute;

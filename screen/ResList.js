@@ -13,42 +13,44 @@ const ht = Math.floor(constants.height) - 120;
 
 const dummy = [
   {
-    title: "용봉동 길성유부",
-    address: "광주광역시 북구 용봉동 151-77번지 1층",
-    number: "062-266-1202",
-    rating: 4.5,
-    bookmarked: true,
+    name: "창창",
+    type: "KOREAN",
+    price: "CHEAP",
+    location: "ARTGATE",
+    deliveryable: false,
+    latitude: 12,
+    longitude: 24,
   },
   {
-    title: "용봉동 rlsdfkljsaklv",
+    name: "용봉동 rlsdfkljsaklv",
     address: "광주광역sdfasg77번지 1층",
     number: "062-266adgjnsghf-1202",
     rating: 5,
     bookmarked: false,
   },
   {
-    title: "용봉동 길성유부",
+    name: "용봉동 길성유부",
     address: "광주광역시 북구 용봉동 151-77번지 1층",
     number: "062-266-1202",
     rating: 4.5,
     bookmarked: true,
   },
   {
-    title: "용봉동 rlsdfkljsaklv",
+    name: "용봉동 rlsdfkljsaklv",
     address: "광주광역sdfasg77번지 1층",
     number: "062-266adgjnsghf-1202",
     rating: 5,
     bookmarked: false,
   },
   {
-    title: "용봉동 길성유부",
+    name: "용봉동 길성유부",
     address: "광주광역시 북구 용봉동 151-77번지 1층",
     number: "062-266-1202",
     rating: 4.5,
     bookmarked: true,
   },
   {
-    title: "용봉동 rlsdfkljsaklv",
+    name: "용봉동 rlsdfkljsaklv",
     address: "광주광역sdfasg77번지 1층",
     number: "062-266adgjnsghf-1202",
     rating: 5,
@@ -70,7 +72,7 @@ const ResList = ({ route, navigation }) => {
           </Foodlist>
           <WhiteSpace>
             <LinearGradient
-              colors={["#FF3D52", "#FF603A"]}
+              colors={[Theme.hlRed, Theme.hlOrange]}
               style={{ width: "100%", height: "6%" }}
             >
               <FilterView>
@@ -93,8 +95,8 @@ const ResList = ({ route, navigation }) => {
             </LinearGradient>
             <ResScroll>
               {dummy.map((data, index) => (
-                <ResView>
-                  <ResCard key={index} data={data} />
+                <ResView key={index}>
+                  <ResCard data={data} />
                 </ResView>
               ))}
             </ResScroll>

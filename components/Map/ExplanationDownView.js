@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import StarMaker from "./StarMaker";
+import { TMP } from "../../images/index";
 
 const ExplanationDownView = ({ data }) => {
   return (
     <ExplanationDown>
       <ExplanationImage>
-        <ExplanationImageImg source={require("../../assets/tmp.jpg")} />
+        <ExplanationImageImg source={TMP} />
       </ExplanationImage>
       <ExplanationRateButton>
         <ExplanationRate>
@@ -15,11 +16,9 @@ const ExplanationDownView = ({ data }) => {
         </ExplanationRate>
         <ExplanationTag></ExplanationTag>
         <ExplanationMoreButton>
-          <TouchableOpacity>
-            <ExplanationMoreButtonText>
-              후기 더 보러가기 +
-            </ExplanationMoreButtonText>
-          </TouchableOpacity>
+          <ExplanationMoreButtonText>
+            후기 더 보러가기 +
+          </ExplanationMoreButtonText>
         </ExplanationMoreButton>
       </ExplanationRateButton>
     </ExplanationDown>
@@ -28,7 +27,7 @@ const ExplanationDownView = ({ data }) => {
 
 const ExplanationMoreButtonText = styled.Text``;
 
-const ExplanationMoreButton = styled.View`
+const ExplanationMoreButton = styled.TouchableOpacity`
   height: 30%;
   width: 100%;
 `;

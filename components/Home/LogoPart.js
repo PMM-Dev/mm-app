@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { LOGO, LOGO_TEXT } from "../../images/index";
 
 const SearchbarPart = () => {
   return (
     <Logo>
       <Logopos>
-        <LogoImage source={require("../../assets/logo.png")} />
-        <LogoTextImage source={require("../../assets/logo_text.png")} />
+        <LogoImage source={LOGO} />
+        <LogoTextImage source={LOGO_TEXT} />
       </Logopos>
     </Logo>
   );

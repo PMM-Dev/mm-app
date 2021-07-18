@@ -1,23 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import { EMPTYSTAR, FULLSTAR, HALFSTAR } from "../../../images/index";
 
 const Star50 = () => {
   return (
     <StarWraper>
       <FirstStar>
-        <Img source={require("../../../assets/star_3.png")} />
+        <Img source={FULLSTAR} />
       </FirstStar>
       <SecondStar>
-        <Img source={require("../../../assets/star_3.png")} />
+        <Img source={FULLSTAR} />
       </SecondStar>
       <ThirdStar>
-        <Img source={require("../../../assets/star_3.png")} />
+        <Img source={FULLSTAR} />
       </ThirdStar>
       <ForthStar>
-        <Img source={require("../../../assets/star_3.png")} />
+        <Img source={FULLSTAR} />
       </ForthStar>
       <FifthStar>
-        <Img source={require("../../../assets/star_3.png")} />
+        <Img source={FULLSTAR} />
       </FifthStar>
     </StarWraper>
   );

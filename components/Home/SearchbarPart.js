@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { TouchableOpacity } from "react-native";
+import { SEARCHBAR } from "../../images/index";
 
 const SearchbarPart = () => {
   const [text, onChangeText] = useState();
@@ -18,10 +19,8 @@ const SearchbarPart = () => {
         placeholderTextColor="#D4D7DB"
         underlineColorAndroid="rgba(0,0,0,0)"
       />
-      <SearchButtonPos>
-        <TouchableOpacity onPress={() => console.log("pressed")}>
-          <SearchButtonImage source={require("../../assets/search_1.png")} />
-        </TouchableOpacity>
+      <SearchButtonPos onPress={() => console.log("pressed")}>
+        <SearchButtonImage source={SEARCHBAR} />
       </SearchButtonPos>
     </Searchbar>
   );
@@ -52,7 +51,7 @@ const Searchbar = styled.View`
   flex-direction: row;
 `;
 
-const SearchButtonPos = styled.View`
+const SearchButtonPos = styled.TouchableOpacity`
   width: 20%;
   height: 70%;
   position: absolute;

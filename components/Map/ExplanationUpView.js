@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { FULLHEART, EMPTYHEART } from "../../images/index";
 
 const ExplanationUpView = ({ data }) => {
-<<<<<<< HEAD
-=======
-  console.log(data);
->>>>>>> master
   return (
     <ExplanationUp>
       <ExplanationTitle>
@@ -21,13 +18,11 @@ const ExplanationUpView = ({ data }) => {
         </ExplanationContact>
       </ExplanationAddressContact>
       <HeartButtonPos>
-        <TouchableOpacity>
-          {data.bookmarked ? (
-            <HeartImg source={require("../../assets/heart_2.png")} />
-          ) : (
-            <HeartImg source={require("../../assets/heart_1.png")} />
-          )}
-        </TouchableOpacity>
+        {data.bookmarked ? (
+          <HeartImg source={FULLHEART} />
+        ) : (
+          <HeartImg source={EMPTYHEART} />
+        )}
       </HeartButtonPos>
     </ExplanationUp>
   );
@@ -38,7 +33,7 @@ const HeartImg = styled.Image`
   width: 100%;
 `;
 
-const HeartButtonPos = styled.View`
+const HeartButtonPos = styled.TouchableOpacity`
   position: absolute;
   width: 10%;
   height: 40%;
