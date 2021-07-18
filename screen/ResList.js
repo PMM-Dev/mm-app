@@ -8,59 +8,31 @@ import LogoPart from "../components/Home/LogoPart";
 import constants from "../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import ResCard from "../components/Home/ResList/ResCard";
+import axios from "axios";
+import { API_URL, API_TOKEN } from "@env";
+import { useState, useEffect } from "react";
 
 const ht = Math.floor(constants.height) - 120;
 
-const dummy = [
-  {
-    name: "창창",
-    type: "KOREAN",
-    price: "CHEAP",
-    location: "ARTGATE",
-    deliveryable: false,
-    latitude: 12,
-    longitude: 24,
-  },
-  {
-    name: "용봉동 rlsdfkljsaklv",
-    address: "광주광역sdfasg77번지 1층",
-    number: "062-266adgjnsghf-1202",
-    rating: 5,
-    bookmarked: false,
-  },
-  {
-    name: "용봉동 길성유부",
-    address: "광주광역시 북구 용봉동 151-77번지 1층",
-    number: "062-266-1202",
-    rating: 4.5,
-    bookmarked: true,
-  },
-  {
-    name: "용봉동 rlsdfkljsaklv",
-    address: "광주광역sdfasg77번지 1층",
-    number: "062-266adgjnsghf-1202",
-    rating: 5,
-    bookmarked: false,
-  },
-  {
-    name: "용봉동 길성유부",
-    address: "광주광역시 북구 용봉동 151-77번지 1층",
-    number: "062-266-1202",
-    rating: 4.5,
-    bookmarked: true,
-  },
-  {
-    name: "용봉동 rlsdfkljsaklv",
-    address: "광주광역sdfasg77번지 1층",
-    number: "062-266adgjnsghf-1202",
-    rating: 5,
-    bookmarked: false,
-  },
-];
-
 const ResList = ({ route, navigation }) => {
   const genre = route.params.param.genre;
+  const [list, setlist] = useState("");
   console.log(genre);
+  useEffect(() => {
+    axios
+      .get(API_URL + "/api/restaurant/condition" + "?type=" + genre)
+      .then(function (response) {
+        setlist(response.data);
+        console.log(list);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+  }, []);
+
   return (
     <Screen>
       <Scroll contentContainerStyle={{ flex: 1 }}>
@@ -94,11 +66,15 @@ const ResList = ({ route, navigation }) => {
               </FilterView>
             </LinearGradient>
             <ResScroll>
-              {dummy.map((data, index) => (
-                <ResView key={index}>
-                  <ResCard data={data} />
-                </ResView>
-              ))}
+              {list == "" ? (
+                <></>
+              ) : (
+                list.map((data, index) => (
+                  <ResView key={index}>
+                    <ResCard data={data} />
+                  </ResView>
+                ))
+              )}
             </ResScroll>
           </WhiteSpace>
         </Wrapper>
@@ -108,6 +84,8 @@ const ResList = ({ route, navigation }) => {
 };
 
 export default ResList;
+
+const NOTYET = styled.View``;
 
 const ResView = styled.View`
   height: 140px;

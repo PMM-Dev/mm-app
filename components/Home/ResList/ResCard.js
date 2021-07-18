@@ -14,9 +14,19 @@ const ResCard = ({ data }) => {
         <ExplanationTitle>
           <ExplanationTitleText>{data.name}</ExplanationTitleText>
         </ExplanationTitle>
-        <ExplanationTag></ExplanationTag>
+        <ExplanationTag>
+          <ExplanationTagText>asdf</ExplanationTagText>
+          <ExplanationTagText>asdf</ExplanationTagText>
+          <ExplanationTagText>asdf</ExplanationTagText>
+          {/* {data.themes.map((list, index) => {
+            <ExplanationTagText key={index}>
+              asdf#{list.theme}
+            </ExplanationTagText>;
+            console.log(list.theme);
+          })} */}
+        </ExplanationTag>
         <ExplanationRate>
-          <StarMaker rate={data.rating} />
+          <StarMaker rate={data.reviewCount} />
         </ExplanationRate>
         <ExplanationMoreButton>
           <ExplanationMoreButtonText>
@@ -25,7 +35,7 @@ const ResCard = ({ data }) => {
         </ExplanationMoreButton>
       </ExplanationView>
       <HeartButtonPos>
-        {data.bookmarked ? (
+        {true ? ( //data.bookmarked
           <HeartImg source={FULLHEART} />
         ) : (
           <HeartImg source={EMPTYHEART} />
@@ -34,6 +44,12 @@ const ResCard = ({ data }) => {
     </View>
   );
 };
+
+const ExplanationTagText = styled.Text`
+  font-family: "NanumSquare";
+  color: ${(props) => props.theme.hlRed};
+  font-size: 10px;
+`;
 
 const HeartImg = styled.Image`
   height: 100%;
@@ -61,6 +77,7 @@ const ExplanationMoreButton = styled.TouchableOpacity`
 const ExplanationTag = styled.View`
   height: 9%;
   width: 100%;
+  flex-direction: row;
 `;
 
 const ExplanationRate = styled.View`
