@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
 
 import HomeNavigator from "./HomeNavigator";
-import Gacha from "../screen/Gacha";
+import Gacha from "../screen/Gacha/Gacha";
 import Mapping from "../screen/Mapping";
 import Theme from "../style/Theme";
 import SettingNavigator from "./SettingNavigator";

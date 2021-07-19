@@ -140,9 +140,4 @@ const GuestModeTriangle = styled.Image`
   aspect-ratio: 1;
 `;
 
-const Bold = styled.Text`
-  color: white;
-  ${(props) => props.theme.DoHyeonFont}
-`;
-
 export default Intro;

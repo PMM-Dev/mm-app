@@ -11,6 +11,29 @@ const palette = {
 };
 
 const ui = {
+  opacityMask50: `
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  `,
+  opacityMask10: `
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+  `,
+};
+
+const Font = {
   DoHyeonFont: `
     font-family: 'DoHyeon';
     `,
@@ -25,4 +48,4 @@ const ui = {
     `,
 };
 
-export default { ...ui, ...palette };
+export default { ...palette, ...ui, ...Font };
