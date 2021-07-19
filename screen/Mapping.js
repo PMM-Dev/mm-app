@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { ActivityIndicator, Colors } from "react-native-paper";
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
@@ -15,11 +14,16 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
+import { POSITION } from "../images/index";
+import constants from "../constants";
 
 import * as Location from "expo-location";
 import SearchbarMapPart from "../components/Map/SearchbarMapPart";
+import ExplanationUpView from "../components/Map/ExplanationUpView";
+import ExplanationDownView from "../components/Map/ExplanationDownView";
 
-const chartHeight = Dimensions.get("window").height;
+const ht = Math.floor(constants.height) - 130;
+const wt = constants.width;
 
 const dummy = [
   {
@@ -27,12 +31,14 @@ const dummy = [
     address: "광주광역시 북구 용봉동 151-77번지 1층",
     number: "062-266-1202",
     rating: 4.5,
+    bookmarked: true,
   },
   {
     title: "용봉동 rlsdfkljsaklv",
     address: "광주광역sdfasg77번지 1층",
     number: "062-266adgjnsghf-1202",
     rating: 5,
+    bookmarked: false,
   },
 ];
 
@@ -93,7 +99,7 @@ const Mapping = () => {
         <View></View>
       ) : (
         <View>
-          <Scroll>
+          <Scroll contentContainerStyle={{ flex: 1 }}>
             <Wrapper>
               <Container>
                 <MapView
@@ -139,60 +145,24 @@ const Mapping = () => {
                   <NotYet />
                 ) : (
                   <PosButton
-                    style={{
-                      position: "absolute", //use absolute position to show button on top of the map
-                      bottom: "5%", //for center align
-                      right: "10%",
-                      alignSelf: "flex-end", //for align to right
+                    mode="text"
+                    onPress={() => {
+                      mapRef.current.animateToRegion({
+                        latitude: location.coords.latitude,
+                        longitude: location.coords.longitude,
+                        latitudeDelta: 0.009,
+                        longitudeDelta: 0.009,
+                      });
                     }}
                   >
-                    <TouchableOpacity
-                      mode="text"
-                      color="#ffffff"
-                      onPress={() => {
-                        mapRef.current.animateToRegion({
-                          latitude: location.coords.latitude,
-                          longitude: location.coords.longitude,
-                          latitudeDelta: 0.009,
-                          longitudeDelta: 0.009,
-                        });
-                      }}
-                      style={{ borderColor: "black" }}
-                    >
-                      <Image source={require("../assets/search_1.png")} />
-                    </TouchableOpacity>
+                    <Img source={POSITION} />
                   </PosButton>
                 )}
               </Container>
               {bookMarkPressed ? (
                 <Explanation>
-                  <ExplanationUp>
-                    <ExplanationTitle>
-                      <ExplanationTitleText>
-                        {dummy[whichBookmark].title}
-                      </ExplanationTitleText>
-                    </ExplanationTitle>
-                    <ExplanationAddressContact>
-                      <ExplanationAddress>
-                        <ExplanationAddressText>
-                          주소: {dummy[whichBookmark].address}
-                        </ExplanationAddressText>
-                      </ExplanationAddress>
-                      <ExplanationContact>
-                        <ExplanationContactText>
-                          연락처: {dummy[whichBookmark].number}
-                        </ExplanationContactText>
-                      </ExplanationContact>
-                    </ExplanationAddressContact>
-                  </ExplanationUp>
-                  <ExplanationDown>
-                    <ExplanationImage>
-                      <ExplanationImageImg
-                        source={require("../assets/tmp.jpg")}
-                      />
-                    </ExplanationImage>
-                    <ExplanationRateButton></ExplanationRateButton>
-                  </ExplanationDown>
+                  <ExplanationUpView data={dummy[whichBookmark]} />
+                  <ExplanationDownView data={dummy[whichBookmark]} />
                 </Explanation>
               ) : (
                 <NotYet />
@@ -205,75 +175,10 @@ const Mapping = () => {
   );
 };
 
-const ExplanationImageImg = styled.Image`
-  height: 70%;
-  width: 80%;
-  border-radius: 15px;
-`;
-
-const ExplanationDown = styled.View`
-  height: 60%;
-  width: 100%;
-  flex-direction: row;
-`;
-
-const ExplanationImage = styled.View`
-  height: 100%;
-  width: 35%;
-  border: 1px black;
-  align-items: center;
-`;
-
-const ExplanationRateButton = styled.View`
-  height: 100%;
-  width: 65%;
-`;
-
-const ExplanationUp = styled.View`
-  height: 40%;
-  width: 100%;
-  right: -4%;
-`;
-
-const ExplanationTitle = styled.View`
-  height: 50%;
-  width: 100%;
-  justify-content: center;
-`;
-
-const ExplanationTitleText = styled.Text`
-  font-size: 22px;
-`;
-
-const ExplanationAddressText = styled.Text`
-  font-size: 12px;
-  letter-spacing: 1px;
-`;
-
-const ExplanationContactText = styled.Text`
-  font-size: 12px;
-  letter-spacing: 1px;
-`;
-
-const ExplanationAddressContact = styled.View`
-  height: 50%;
-  width: 100%;
-`;
-
-const ExplanationAddress = styled.View`
-  height: 40%;
-  width: 100%;
-`;
-
-const ExplanationContact = styled.View`
-  height: 40%;
-  width: 100%;
-`;
-
 const NotYet = styled.View``;
 
 const Wrapper = styled.View`
-  height: ${chartHeight};
+  height: ${ht};
 `;
 
 const Scroll = styled.ScrollView`
@@ -287,11 +192,24 @@ const Explanation = styled.View`
   bottom: 0%;
   position: absolute;
   background-color: white;
-  border-radius: 10;
+  border-radius: 10px;
 `;
 
-const PosButton = styled.View`
+const Img = styled.Image`
+  width: 80%;
+  height: 80%;
+  resize-mode: contain;
+`;
+
+const PosButton = styled.TouchableOpacity`
   border-radius: 70px;
+  position: absolute;
+  bottom: 10%;
+  right: 0%;
+  align-self: flex-end;
+  width: 100px;
+  height: 100px;
+  justify-content: center;
 `;
 
 const MarkerCircle = styled.View`
@@ -303,7 +221,8 @@ const MarkerCircle = styled.View`
 
 const View = styled.View`
   background-color: white;
-  flex: 1;
+  height: 100%;
+  width: 100%;
   justify-content: center;
   align-items: center;
 `;

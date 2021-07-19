@@ -1,20 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import { Image, StyleSheet } from "react-native";
+import { LOGO, LOGO_TEXT } from "../../images/index";
 
 const SearchbarPart = () => {
   return (
     <Logo>
       <Logopos>
-        <Image source={require("../../assets/logo.png")} style={styles.logo} />
-        <Image
-          source={require("../../assets/logo_text.png")}
-          style={styles.logo_text}
-        />
+        <LogoImage source={LOGO} />
+        <LogoTextImage source={LOGO_TEXT} />
       </Logopos>
     </Logo>
   );
 };
+
+const LogoImage = styled.Image`
+  width: 20%;
+  height: 80%;
+  resize-mode: contain;
+`;
+
+const LogoTextImage = styled.Image`
+  width: 70%;
+  height: 80%;
+  resize-mode: contain;
+`;
 
 const Logo = styled.View`
   width: 100%;
@@ -31,18 +40,5 @@ const Logopos = styled.View`
   flex-direction: row;
   bottom: -6px;
 `;
-
-const styles = StyleSheet.create({
-  logo: {
-    width: "20%",
-    height: "80%",
-    resizeMode: "contain",
-  },
-  logo_text: {
-    width: "70%",
-    height: "80%",
-    resizeMode: "contain",
-  },
-});
 
 export default SearchbarPart;

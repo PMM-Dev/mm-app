@@ -23,7 +23,6 @@ const Setting = ({ navigation: { navigate } }) => {
 
   useEffect(() => {
     loadProfile();
-    console.log(picture);
   }, []);
 
   return (

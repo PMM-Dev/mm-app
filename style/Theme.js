@@ -8,6 +8,7 @@ const palette = {
   backgroundGray: "#eff0f4",
   borderGray: "#EFEFEF",
   purple: "#8A2BE2",
+  borderGray2: "#efefef",
 };
 
 const ui = {

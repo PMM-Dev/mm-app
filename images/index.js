@@ -8,3 +8,37 @@ export const SETTING_ARROW = require("../assets/SettingIcon/arrow.png");
 export const SETTING_BOOKMARK_ICON = require("../assets/SettingIcon/set_1.png");
 export const SETTING_ASKING_ICON = require("../assets/SettingIcon/set_2.png");
 export const SETTING_SERVICE_ICON = require("../assets/SettingIcon/set_3.png");
+
+export const HOME_FOOD_ICON_KOREAN = require("../assets/HomeFoodIcon/icon_1.png");
+export const HOME_FOOD_ICON_FLOUR = require("../assets/HomeFoodIcon/icon_2.png");
+export const HOME_FOOD_ICON_WESTERN = require("../assets/HomeFoodIcon/icon_3.png");
+export const HOME_FOOD_ICON_ASIAN = require("../assets/HomeFoodIcon/icon_4.png");
+export const HOME_FOOD_ICON_JAPANESE = require("../assets/HomeFoodIcon/icon_5.png");
+export const HOME_FOOD_ICON_DESSERT = require("../assets/HomeFoodIcon/icon_6.png");
+export const HOME_FOOD_ICON_NIGHTFOOD = require("../assets/HomeFoodIcon/icon_7.png");
+export const HOME_FOOD_ICON_FASTFOOD = require("../assets/HomeFoodIcon/icon_8.png");
+export const HOME_FOOD_ICON_DELIEVERY = require("../assets/HomeFoodIcon/icon_9.png");
+export const HOME_FOOD_ICON_RANKING = require("../assets/HomeFoodIcon/icon_10.png");
+
+export const LOGO = require("../assets/logo.png");
+export const LOGO_TEXT = require("../assets/logo_text.png");
+
+export const SEARCHBAR = require("../assets/search_1.png");
+
+export const FULLHEART = require("../assets/heart_2.png");
+export const EMPTYHEART = require("../assets/heart_1.png");
+
+export const TMP = require("../assets/tmp.jpg");
+
+export const FILTER = require("../assets/filter.png");
+export const POSITION = require("../assets/position.png");
+
+export const NAVIGATOR_HOME = require("../assets/NavigatorIcon/home.png");
+export const NAVIGATOR_MAP = require("../assets/NavigatorIcon/map.png");
+export const NAVIGATOR_THEME = require("../assets/NavigatorIcon/theme.png");
+export const NAVIGATOR_GAME = require("../assets/NavigatorIcon/game.png");
+export const NAVIGATOR_SETTING = require("../assets/NavigatorIcon/setting.png");
+
+export const FULLSTAR = require("../assets/star_3.png");
+export const HALFSTAR = require("../assets/star_2.png");
+export const EMPTYSTAR = require("../assets/star_1.png");
