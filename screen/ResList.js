@@ -71,7 +71,7 @@ const ResList = ({ route, navigation }) => {
               ) : (
                 list.map((data, index) => (
                   <ResView key={index}>
-                    <ResCard data={data} />
+                    <ResCard data={data} navigation={navigation} />
                   </ResView>
                 ))
               )}

@@ -7,6 +7,7 @@ import ResList from "../screen/ResList";
 
 import PostList from "../screen/PostList";
 import Post from "../screen/Post";
+import Res from "../screen/Res";
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const HomeNavigator = () => {
         component={PostList}
         options={{ title: "게시글" }}
       />
+      <Stack.Screen name="Res" component={Res} options={{ title: "음식점" }} />
       <Stack.Screen name="Post" component={Post} options={{ title: "" }} />
     </Stack.Navigator>
   );

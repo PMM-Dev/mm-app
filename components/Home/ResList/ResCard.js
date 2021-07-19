@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native";
 import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART, TMP } from "../../../images/index";
 
-const ResCard = ({ data }) => {
+const ResCard = ({ data, navigation }) => {
   return (
     <View>
       <ImageView>
@@ -28,7 +28,14 @@ const ResCard = ({ data }) => {
         <ExplanationRate>
           <StarMaker rate={data.reviewCount} />
         </ExplanationRate>
-        <ExplanationMoreButton>
+        <ExplanationMoreButton
+          onPress={() =>
+            navigation.navigate("Res", {
+              param: data,
+              picture: TMP,
+            })
+          }
+        >
           <ExplanationMoreButtonText>
             후기 더 보러가기 +
           </ExplanationMoreButtonText>
