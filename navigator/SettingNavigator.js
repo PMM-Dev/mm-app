@@ -1,8 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Setting from "../screen/setting/Setting";
-import Bookmark from "../screen/setting/Bookmark";
-import Credit from "../screen/setting/Credit";
+import Setting from "../screen/Setting/Setting";
+import Bookmark from "../screen/Setting/Bookmark";
+import Credit from "../screen/Setting/Credit";
 
 const Stack = createStackNavigator();
 
