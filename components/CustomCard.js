@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import AntDesign from "react-native-vector-icons/AntDesign";
+//import AntDesign from "react-native-vector-icons/AntDesign";
 import Theme from "../style/Theme";
 
 const CustomCard = ({

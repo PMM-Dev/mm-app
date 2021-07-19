@@ -1,68 +1,62 @@
 import React from "react";
 import styled from "styled-components";
-import {Button} from "react-native-paper"
-import AntDesign from "react-native-vector-icons/Feather";
+import { Button } from "react-native-paper";
+//import AntDesign from "react-native-vector-icons/Feather";
 
-
-const CommentText = ({description, like,writer }) => {
-
-  return ( 
+const CommentText = ({ description, like, writer }) => {
+  return (
     <Card>
       <Title numberOfLines={1}>{description} </Title>
-      <Info>      
+      <Info>
         <Writer numberOfLines={1}>{writer}</Writer>
         <Like>
-            <AntDesign 
-              name="thumbs-up"
-              size = {22}
-            />         
-            <Likenum>{like}</Likenum>
+          <AntDesign name="thumbs-up" size={22} />
+          <Likenum>{like}</Likenum>
         </Like>
       </Info>
     </Card>
   );
 };
 
-
 const Title = styled.Text`
-  margin-left : 7px;
+  margin-left: 7px;
   font-size: 20px;
   font-weight: 500;
   text-align: left;
-  flex : 1;
-  width : 70%;
+  flex: 1;
+  width: 70%;
 `;
 
 const Card = styled.View`
   justify-content: flex-start;
   align-items: center;
-  flexDirection: row;
+  flexdirection: row;
   width: 100%;
   height: 70px;
   border: 0.5px solid black;
-  overflow : hidden;
+  overflow: hidden;
 `;
 
 const Writer = styled.Text`
   font-size: 18px;
-  height : 50%;
-  overflow : hidden;
+  height: 50%;
+  overflow: hidden;
 `;
 
 const Info = styled.View`
-margin-left:15px;
-align-items: center;
-justify-content: center;
-width : 20%;
+  margin-left: 15px;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
 `;
 
 const Likenum = styled.Text`
-text-align: center;
-width : 60%;
+  text-align: center;
+  width: 60%;
 `;
 
 const Like = styled.View`
-  flexDirection: row;
+  flexdirection: row;
   align-items: center;
 `;
 

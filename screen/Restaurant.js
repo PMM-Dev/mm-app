@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-paper";
 import CommentText from "../components/CommentText";
 import { useState, useEffect } from "react";
-import AntDesign from "react-native-vector-icons/AntDesign";
+//import AntDesign from "react-native-vector-icons/AntDesign";
 import { TouchableOpacity } from "react-native";
 
 const Dummy = [

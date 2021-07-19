@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
 
 import HomeNavigator from "./HomeNavigator";
-import Randombox from "../screen/Randombox";
+import Gacha from "../screen/Gacha";
 import Mapping from "../screen/Mapping";
 import Theme from "../style/Theme";
 import SettingNavigator from "./SettingNavigator";
@@ -53,7 +53,7 @@ const MainNavigation = () => {
         />
         <BottomTab.Screen
           name="Theme"
-          component={Randombox}
+          component={Gacha}
           options={{
             title: "테마",
             tabBarIcon: ({ focused }) => {
@@ -67,8 +67,8 @@ const MainNavigation = () => {
           }}
         />
         <BottomTab.Screen
-          name="Randombox"
-          component={Randombox}
+          name="Gacha"
+          component={Gacha}
           options={{
             title: "뽑기",
             tabBarIcon: ({ focused }) => {
