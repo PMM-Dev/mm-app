@@ -5,6 +5,7 @@ import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART, TMP } from "../../../images/index";
 
 const ResCard = ({ data, navigation }) => {
+  console.log(data);
   return (
     <View>
       <ImageView>
@@ -15,15 +16,9 @@ const ResCard = ({ data, navigation }) => {
           <ExplanationTitleText>{data.name}</ExplanationTitleText>
         </ExplanationTitle>
         <ExplanationTag>
-          <ExplanationTagText>asdf</ExplanationTagText>
-          <ExplanationTagText>asdf</ExplanationTagText>
-          <ExplanationTagText>asdf</ExplanationTagText>
-          {/* {data.themes.map((list, index) => {
-            <ExplanationTagText key={index}>
-              asdf#{list.theme}
-            </ExplanationTagText>;
-            console.log(list.theme);
-          })} */}
+          {data.themes.map((list, index) => (
+            <ExplanationTagText key={index}>{list.theme}</ExplanationTagText>
+          ))}
         </ExplanationTag>
         <ExplanationRate>
           <StarMaker rate={data.reviewCount} />

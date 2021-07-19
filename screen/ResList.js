@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Theme from "../style/Theme";
 import logo_text from "../assets/logo_text.png";
@@ -8,29 +8,21 @@ import LogoPart from "../components/Home/LogoPart";
 import constants from "../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import ResCard from "../components/Home/ResList/ResCard";
-import axios from "axios";
-import { API_URL, API_TOKEN } from "@env";
-import { useState, useEffect } from "react";
+import { getRestaurantList } from "../components/AppApi";
 
 const ht = Math.floor(constants.height) - 120;
 
 const ResList = ({ route, navigation }) => {
   const genre = route.params.param.genre;
-  const [list, setlist] = useState("");
-  console.log(genre);
+  const [list, setList] = useState([]);
+
   useEffect(() => {
-    axios
-      .get(API_URL + "/api/restaurant/condition" + "?type=" + genre)
-      .then(function (response) {
-        setlist(response.data);
-        console.log(list);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
+    async function init() {
+      let gotList = await getRestaurantList(genre);
+      setList(gotList);
+      console.log(list);
+    }
+    init();
   }, []);
 
   return (
@@ -66,7 +58,7 @@ const ResList = ({ route, navigation }) => {
               </FilterView>
             </LinearGradient>
             <ResScroll>
-              {list == "" ? (
+              {list === [] ? (
                 <></>
               ) : (
                 list.map((data, index) => (
