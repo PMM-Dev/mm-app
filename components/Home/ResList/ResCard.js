@@ -5,7 +5,6 @@ import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART, TMP } from "../../../images/index";
 
 const ResCard = ({ data, navigation }) => {
-  console.log(data);
   return (
     <View>
       <ImageView>

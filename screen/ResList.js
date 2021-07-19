@@ -20,7 +20,6 @@ const ResList = ({ route, navigation }) => {
     async function init() {
       let gotList = await getRestaurantList(genre);
       setList(gotList);
-      console.log(list);
     }
     init();
   }, []);

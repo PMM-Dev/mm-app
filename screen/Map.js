@@ -19,8 +19,7 @@ import constants from "../constants";
 
 import * as Location from "expo-location";
 import SearchbarMapPart from "../components/Map/SearchbarMapPart";
-import ExplanationUpView from "../components/Map/ExplanationUpView";
-import ExplanationDownView from "../components/Map/ExplanationDownView";
+import ExplanationView from "../components/Map/Explanation";
 
 const ht = Math.floor(constants.height) - 130;
 const wt = constants.width;
@@ -42,7 +41,7 @@ const dummy = [
   },
 ];
 
-const Mapping = () => {
+const Map = () => {
   const [marker, setmarker] = useState([
     {
       title: "title",
@@ -160,10 +159,7 @@ const Mapping = () => {
                 )}
               </Container>
               {bookMarkPressed ? (
-                <Explanation>
-                  <ExplanationUpView data={dummy[whichBookmark]} />
-                  <ExplanationDownView data={dummy[whichBookmark]} />
-                </Explanation>
+                <ExplanationView data={dummy[whichBookmark]} />
               ) : (
                 <NotYet />
               )}
@@ -183,16 +179,6 @@ const Wrapper = styled.View`
 
 const Scroll = styled.ScrollView`
   width: 100%;
-`;
-
-const Explanation = styled.View`
-  width: 100%;
-  height: 30%;
-  border: 1px solid black;
-  bottom: 0%;
-  position: absolute;
-  background-color: white;
-  border-radius: 10px;
 `;
 
 const Img = styled.Image`
@@ -261,4 +247,4 @@ const mapStyle = [
   },
 ];
 
-export default Mapping;
+export default Map;
