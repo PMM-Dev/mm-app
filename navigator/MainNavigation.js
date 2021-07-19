@@ -5,7 +5,7 @@ import { Image } from "react-native";
 
 import HomeNavigator from "./HomeNavigator";
 import Randombox from "../screen/Randombox";
-import Mapping from "../screen/Mapping";
+import Map from "../screen/Map";
 import Theme from "../style/Theme";
 import SettingNavigator from "./SettingNavigator";
 import {
@@ -44,8 +44,8 @@ const MainNavigation = () => {
           }}
         />
         <BottomTab.Screen
-          name="Mapping"
-          component={Mapping}
+          name="Map"
+          component={Map}
           options={{
             title: "위치",
             tabBarIcon: ({ focused }) => {
