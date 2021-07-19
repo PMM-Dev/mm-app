@@ -49,9 +49,7 @@ const NoticePart = () => {
           <Notice_Title_Title_Text>공지사항</Notice_Title_Title_Text>
         </Notice_Title_Title>
         <Notice_Title_Button>
-          <TouchableOpacity>
-            <Notice_Title_Button_Text>더보기+</Notice_Title_Button_Text>
-          </TouchableOpacity>
+          <Notice_Title_Button_Text>더보기+</Notice_Title_Button_Text>
         </Notice_Title_Button>
       </Notice_Title>
       <Notice_Content></Notice_Content>
@@ -80,7 +78,7 @@ const Notice_Title_Title = styled.View`
   align-items: flex-start;
 `;
 
-const Notice_Title_Button = styled.View`
+const Notice_Title_Button = styled.TouchableOpacity`
   width: 20%;
   height: 100%;
   justify-content: flex-end;

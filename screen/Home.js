@@ -1,34 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import Theme from "../style/Theme";
-import logo_text from "../assets/logo_text.png";
 import ButtonPart from "../components/Home/ButtonPart";
 import SearchbarPart from "../components/Home/SearchbarPart";
 import LogoPart from "../components/Home/LogoPart";
-import PostPart from "../components/PostPart";
+import PostPart from "../components/Home/PostPart";
 import NoticePart from "../components/Home/NoticePart";
-import { ScrollView, KeyboardAvoidingView } from "react-native";
 import constants from "../constants";
+import { useNavigation } from "@react-navigation/native";
 
-const StringScreen = [
-  { screen: "KoreanList" },
-  { screen: "WesternList" },
-  { screen: "FlourList" },
-  { screen: "JapaneseList" },
-  { screen: "FastfoodList" },
-  { screen: "AsianList" },
-  { screen: "DessertList" },
-];
-
+const ht = Math.floor(constants.height) - 120;
 const Home = () => {
+  const navigation = useNavigation();
   return (
     <Screen>
-      <Scroll>
+      <Scroll contentContainerStyle={{ flex: 1 }}>
         <Wrapper>
           <LogoPart />
           <Foodlist>
             <SearchbarPart />
-            <ButtonPart />
+            <ButtonPart navigation={navigation} />
           </Foodlist>
           <PostNotice>
             <PostPart />
@@ -44,7 +35,7 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.View`
-  height: ${constants.height};
+  height: ${ht};
 `;
 
 const Scroll = styled.ScrollView`

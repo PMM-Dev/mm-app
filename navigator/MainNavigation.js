@@ -5,9 +5,16 @@ import { Image } from "react-native";
 
 import HomeNavigator from "./HomeNavigator";
 import Gacha from "../screen/Gacha/Gacha";
-import Mapping from "../screen/Mapping";
+import Map from "../screen/Map";
 import Theme from "../style/Theme";
 import SettingNavigator from "./SettingNavigator";
+import {
+  NAVIGATOR_HOME,
+  NAVIGATOR_MAP,
+  NAVIGATOR_THEME,
+  NAVIGATOR_SETTING,
+  NAVIGATOR_GAME,
+} from "../images/index";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -29,7 +36,7 @@ const MainNavigation = () => {
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  source={require("../assets/NavigatorIcon/home.png")}
+                  source={NAVIGATOR_HOME}
                   style={{ width: 60, height: 60 }}
                 />
               );
@@ -37,14 +44,14 @@ const MainNavigation = () => {
           }}
         />
         <BottomTab.Screen
-          name="Mapping"
-          component={Mapping}
+          name="Map"
+          component={Map}
           options={{
             title: "위치",
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  source={require("../assets/NavigatorIcon/map.png")}
+                  source={NAVIGATOR_MAP}
                   style={{ width: 60, height: 60 }}
                 />
               );
@@ -59,7 +66,7 @@ const MainNavigation = () => {
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  source={require("../assets/NavigatorIcon/theme.png")}
+                  source={NAVIGATOR_THEME}
                   style={{ width: 60, height: 60 }}
                 />
               );
@@ -74,7 +81,7 @@ const MainNavigation = () => {
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  source={require("../assets/NavigatorIcon/game.png")}
+                  source={NAVIGATOR_GAME}
                   style={{ width: 60, height: 60 }}
                 />
               );
@@ -89,7 +96,7 @@ const MainNavigation = () => {
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  source={require("../assets/NavigatorIcon/setting.png")}
+                  source={NAVIGATOR_SETTING}
                   style={{ width: 60, height: 60 }}
                 />
               );

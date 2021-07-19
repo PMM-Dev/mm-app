@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TouchableOpacity } from "react-native";
-import PostNoticeMini from "./Home/PostNoticeMini";
+import PostNoticeMini from "./PostNoticeMini";
 
 const Dummy = [
   {
@@ -50,9 +49,7 @@ const PostPart = () => {
           <Post_Title_Title_Text>게시글</Post_Title_Title_Text>
         </Post_Title_Title>
         <Post_Title_Button>
-          <TouchableOpacity>
-            <Post_Title_Button_Text>더보기+</Post_Title_Button_Text>
-          </TouchableOpacity>
+          <Post_Title_Button_Text>더보기+</Post_Title_Button_Text>
         </Post_Title_Button>
       </Post_Title>
       <Post_Content>
@@ -92,7 +89,7 @@ const Post_Title_Title = styled.View`
   align-items: flex-start;
 `;
 
-const Post_Title_Button = styled.View`
+const Post_Title_Button = styled.TouchableOpacity`
   width: 20%;
   height: 100%;
   justify-content: flex-end;
