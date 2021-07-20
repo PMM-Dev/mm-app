@@ -8,7 +8,7 @@ export const getRestaurantList = async (genre) => {
     );
     return response.data;
   } catch (e) {
-    console.log(e);
+    console.log("[AppApi][Exception] " + e);
     return [];
   }
 };

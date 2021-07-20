@@ -1,8 +1,7 @@
 // babel.config.js
 module.exports = {
-  presets: ["module:metro-react-native-babel-preset", "babel-preset-expo"],
+  presets: ["module:metro-react-native-babel-preset"],
   plugins: [
-    ["react-native-paper/babel"],
     [
       "module:react-native-dotenv",
       {
