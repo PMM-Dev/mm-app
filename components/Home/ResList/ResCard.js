@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { TouchableOpacity } from "react-native";
 import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART, TMP } from "../../../images/index";
 
