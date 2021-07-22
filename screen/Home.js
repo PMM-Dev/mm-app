@@ -9,7 +9,6 @@ import NoticePart from "../components/Home/NoticePart";
 import constants from "../constants";
 import { useNavigation } from "@react-navigation/native";
 
-const ht = Math.floor(constants.height) - 120;
 const Home = () => {
   const navigation = useNavigation();
   return (
@@ -35,7 +34,7 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.View`
-  height: ${ht};
+  height: ${constants.pureheight};
 `;
 
 const Scroll = styled.ScrollView`

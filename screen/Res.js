@@ -5,8 +5,6 @@ import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import ResExplanation from "../components/Home/Res/ResExplanation";
 import * as Location from "expo-location";
 
-const ht = Math.floor(constants.height) - 130;
-
 const Res = ({ route }) => {
   const data = route.params.param;
   const picture = route.params.picture;
@@ -139,7 +137,7 @@ const DownMap = styled.View`
 
 const Screen = styled.View`
   width: 100%;
-  height: ${ht};
+  height: ${constants.pureheight};
   background-color: ${(props) => props.theme.backgroundWhite};
   justify-content: center;
   align-items: center;

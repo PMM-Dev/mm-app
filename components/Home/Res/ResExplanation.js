@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART } from "../../../images/index";
+import KoreanEnum from "../../../KoreanEnum";
+import { Converter } from "../../Converter";
 
 const ResExplanation = ({ data, picture }) => {
   return (
@@ -27,10 +29,14 @@ const ResExplanation = ({ data, picture }) => {
             </DetailTitle>
             <DetailInfo>
               <DetailTitleContact>
-                <DetailInfoText>음식 종류 : {data.type}</DetailInfoText>
+                <DetailInfoText>
+                  음식 종류 : {Converter(data.type)}
+                </DetailInfoText>
               </DetailTitleContact>
               <DetailTitleAddress>
-                <DetailInfoText>가격대 : {data.price}</DetailInfoText>
+                <DetailInfoText>
+                  가격대 : {Converter(data.price)}
+                </DetailInfoText>
               </DetailTitleAddress>
             </DetailInfo>
             <DownRate>

@@ -1,28 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import MapView, {
-  PROVIDER_GOOGLE,
-  Marker,
-  Callout,
-  CalloutSubview,
-} from "react-native-maps";
-import {
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-} from "react-native";
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import { POSITION } from "../images/index";
 import constants from "../constants";
 
 import * as Location from "expo-location";
 import SearchbarMapPart from "../components/Map/SearchbarMapPart";
 import ExplanationView from "../components/Map/Explanation";
-
-const ht = Math.floor(constants.height) - 130;
-const wt = constants.width;
 
 const dummy = [
   {
@@ -91,6 +76,7 @@ const Map = () => {
   }, []);
 
   if (errorMsg) {
+    console.log(errorMsg);
   }
   return (
     <>
@@ -174,7 +160,7 @@ const Map = () => {
 const NotYet = styled.View``;
 
 const Wrapper = styled.View`
-  height: ${ht};
+  height: ${constants.pureheight};
 `;
 
 const Scroll = styled.ScrollView`

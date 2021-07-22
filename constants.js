@@ -5,4 +5,6 @@ const { width, height } = Dimensions.get("screen");
 
 const statusBarHeight = Constants.statusBarHeight;
 
-export default { width, height, statusBarHeight };
+const pureheight = Math.floor(height) - 130;
+
+export default { width, height, statusBarHeight, pureheight };
