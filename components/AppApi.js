@@ -12,3 +12,4 @@ export const getRestaurantList = async (genre) => {
     return [];
   }
 };
+
