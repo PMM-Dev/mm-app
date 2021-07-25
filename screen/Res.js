@@ -4,6 +4,8 @@ import constants from "../constants";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import ResExplanation from "../components/Home/Res/ResExplanation";
 import * as Location from "expo-location";
+import axios from "axios";
+import korLocationAPI from "../components/AppApi";
 
 const Res = ({ route }) => {
   const data = route.params.param;
@@ -12,6 +14,8 @@ const Res = ({ route }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
   const mapRef = React.createRef();
+  const [korLocation, setkorLocation] = useState([]);
+
   const preLoad = async () => {
     let { status } = await Location.requestPermissionsAsync();
     if (status !== "granted") {
@@ -30,6 +34,21 @@ const Res = ({ route }) => {
   };
 
   useEffect(() => {
+    // async function init() {
+    //   let gotkorLocation = await korLocationAPI(data);
+    //   setkorLocation(gotkorLocation);
+    // }
+    // init();
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${data.latitude},${data.longitude}&key=AIzaSyAct8xhJo8qFy1biCWJ1gscUATnNnKxVQ0&language=ko`
+      ) // 위도, 경도 google maps api로 보냄
+      .then((res) => {
+        setkorLocation(res.data.results[0].formatted_address);
+      })
+      .catch((error) => {
+        console.log("axios 구글 maps api 에러", error);
+      });
     preLoad();
   }, []);
 
@@ -40,7 +59,11 @@ const Res = ({ route }) => {
   return (
     <Screen>
       <ExplanationView>
-        <ResExplanation data={data} picture={picture} />
+        <ResExplanation
+          data={data}
+          picture={picture}
+          korLocation={korLocation}
+        />
       </ExplanationView>
       {isLoading ? (
         <></>

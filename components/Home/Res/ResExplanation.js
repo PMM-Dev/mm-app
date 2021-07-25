@@ -5,7 +5,7 @@ import { FULLHEART, EMPTYHEART } from "../../../images/index";
 import KoreanEnum from "../../../KoreanEnum";
 import { Converter } from "../../Converter";
 
-const ResExplanation = ({ data, picture }) => {
+const ResExplanation = ({ data, picture, korLocation }) => {
   return (
     <ResExplanationView>
       <UpView>
@@ -48,7 +48,7 @@ const ResExplanation = ({ data, picture }) => {
               <AboutTitleText>ABOUT</AboutTitleText>
             </AboutTitle>
             <AboutAddress>
-              <AboutAddressText>주소 : {data.longitude}</AboutAddressText>
+              <AboutAddressText>주소 : {korLocation}</AboutAddressText>
             </AboutAddress>
             <AboutDescription>
               <AboutDescriptionText>
