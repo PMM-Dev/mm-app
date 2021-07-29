@@ -5,7 +5,7 @@ import { FULLHEART, EMPTYHEART } from "../../../images/index";
 import KoreanEnum from "../../../KoreanEnum";
 import { Converter } from "../../Converter";
 
-const ResExplanation = ({ data, picture, korLocation }) => {
+const ResExplanation = ({ data, picture, Infofunc }) => {
   return (
     <ResExplanationView>
       <UpView>
@@ -13,50 +13,33 @@ const ResExplanation = ({ data, picture, korLocation }) => {
           <UpImage source={picture} />
         </UpImageView>
         <FilterView>
-          <FilterInfo>
+          <FilterInfo onPress={() => Infofunc(true)}>
             <FilterText>정보[Infomation]</FilterText>
           </FilterInfo>
-          <FilterReview>
+          <FilterReview onPress={() => Infofunc(false)}>
             <FilterText last={true}>리뷰[Review]</FilterText>
           </FilterReview>
         </FilterView>
       </UpView>
       <DownView>
-        <DownInfo>
-          <DownDetailInfo>
-            <DetailTitle>
-              <DetailTitleText>{data.name}</DetailTitleText>
-            </DetailTitle>
-            <DetailInfo>
-              <DetailTitleContact>
-                <DetailInfoText>
-                  음식 종류 : {Converter(data.type)}
-                </DetailInfoText>
-              </DetailTitleContact>
-              <DetailTitleAddress>
-                <DetailInfoText>
-                  가격대 : {Converter(data.price)}
-                </DetailInfoText>
-              </DetailTitleAddress>
-            </DetailInfo>
-            <DownRate>
-              <StarMaker rate={data.reviewCount} />
-            </DownRate>
-          </DownDetailInfo>
-          <DownAbout>
-            <AboutTitle>
-              <AboutTitleText>ABOUT</AboutTitleText>
-            </AboutTitle>
-            <AboutAddress>
-              <AboutAddressText>주소 : {korLocation}</AboutAddressText>
-            </AboutAddress>
-            <AboutDescription>
-              <AboutDescriptionText>
-                설명 : {data.description}
-              </AboutDescriptionText>
-            </AboutDescription>
-          </DownAbout>
-        </DownInfo>
+        <DownDetailInfo>
+          <DetailTitle>
+            <DetailTitleText>{data.name}</DetailTitleText>
+          </DetailTitle>
+          <DetailInfo>
+            <DetailTitleContact>
+              <DetailInfoText>
+                음식 종류 : {Converter(data.type)}
+              </DetailInfoText>
+            </DetailTitleContact>
+            <DetailTitleAddress>
+              <DetailInfoText>가격대 : {Converter(data.price)}</DetailInfoText>
+            </DetailTitleAddress>
+          </DetailInfo>
+          <DownRate>
+            <StarMaker rate={data.reviewCount} />
+          </DownRate>
+        </DownDetailInfo>
         <HeartButtonPos>
           {data.bookmarked ? (
             <HeartImg source={FULLHEART} />
@@ -74,39 +57,6 @@ const ResExplanationView = styled.View`
   height: 100%;
 `;
 
-const AboutDescriptionText = styled.Text`
-  text-align: center;
-  font-size: 12px;
-  font-family: "NanumSquare";
-`;
-
-const AboutAddressText = styled.Text`
-  text-align: center;
-  font-size: 12px;
-  font-family: "NanumSquare";
-`;
-
-const AboutTitleText = styled.Text`
-  text-align: center;
-  font-size: 18px;
-  font-family: "NanumSquare";
-`;
-
-const AboutAddress = styled.View`
-  height: 25%;
-  width: 100%;
-`;
-
-const AboutDescription = styled.View`
-  height: 45%;
-  width: 60%;
-`;
-
-const AboutTitle = styled.View`
-  height: 30%;
-  width: 100%;
-`;
-
 const DownRate = styled.View`
   height: 30%;
   width: 60%;
@@ -115,13 +65,14 @@ const DownRate = styled.View`
 const HeartImg = styled.Image`
   height: 100%;
   width: 100%;
+  resize-mode: cover;
 `;
 
 const HeartButtonPos = styled.TouchableOpacity`
   position: absolute;
-  width: 10%;
-  height: 10%;
-  top: 3%;
+  width: 13%;
+  height: 30%;
+  top: 4%;
   right: 4%;
 `;
 
@@ -134,6 +85,7 @@ const DetailInfoText = styled.Text`
 const DetailTitleAddress = styled.View`
   height: 50%;
   width: 100%;
+  margin-top: 3px;
   justify-content: center;
 `;
 
@@ -146,6 +98,7 @@ const DetailTitleContact = styled.View`
 const DetailInfo = styled.View`
   height: 25%;
   width: 100%;
+  margin-top: 3px;
   justify-content: center;
 `;
 
@@ -163,27 +116,13 @@ const DetailTitle = styled.View`
 
 const DownDetailInfo = styled.View`
   width: 100%;
-  height: 66%;
-  align-items: center;
-`;
-
-const DownAbout = styled.View`
-  width: 100%;
-  height: 33%;
-  justify-content: center;
+  height: 100%;
   align-items: center;
 `;
 
 const DownView = styled.View`
   width: 100%;
-  height: 46%;
-`;
-
-const DownInfo = styled.View`
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
+  height: 35%;
 `;
 
 const UpImage = styled.Image`
@@ -227,7 +166,7 @@ const FilterText = styled.Text`
 
 const UpView = styled.View`
   width: 100%;
-  height: 54%;
+  height: 65%;
   background-color: ${(props) => props.theme.backgroundGray};
 `;
 
