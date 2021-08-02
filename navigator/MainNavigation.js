@@ -97,6 +97,7 @@ const MainNavigation = () => {
                         },
                     }}
                 />
+
             </BottomTab.Navigator>
         </NavigationContainer>
     );

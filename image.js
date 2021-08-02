@@ -6,9 +6,11 @@ export const INTRO_TRIANGLE = require("./assets/IntroIcon/triangle.png");
 export const GACHA_MACHINE_IMG = require("./assets/gacha/gachaMachine.png");
 
 export const SETTING_GUEST_PORTRAIT = require("./assets/SettingIcon/guest_portrait.png");
-export const SETTING_ARROW = require("./assets/SettingIcon/arrow.png");
 export const SETTING_PROFILE_ICON = require("./assets/SettingIcon/profile.png");
-export const SETTING_REVIEW_ICON = require("./assets/SettingIcon/review.png");
+export const SETTING_LIKE_ICON = require("./assets/SettingIcon/heart.png")
+export const SETTING_ASKING_ICON = require("./assets/SettingIcon/asking.png")
+export const SETTING_SERVICE_ICON = require("./assets/SettingIcon/service.png")
+export const SETTING_PENCIL_ICON = require("./assets/SettingIcon/pen.png");
 export const SETTING_ALARM_ICON = require("./assets/SettingIcon/alarm.png");
 export const SETTING_LOGOUT_ICON = require("./assets/SettingIcon/logout.png")
 
