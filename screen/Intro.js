@@ -4,7 +4,7 @@ import {StyleSheet} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import {ActivityIndicator} from "react-native-paper";
 import {useGoogleLogIn, useGuestLogIn} from "../components/AuthContext";
-import {INTRO_GOOGLE_BTN, INTRO_LOGO, INTRO_LOGO_TEXT, INTRO_TRIANGLE,} from "../image";
+import {INTRO_GOOGLE_BTN, INTRO_LOGO_TEXT, INTRO_TRIANGLE,} from "../image";
 import Theme from "../style/Theme";
 
 const Intro = () => {
@@ -21,7 +21,7 @@ const Intro = () => {
     return (
         <Page>
             <LogoView>
-                <LogoImage source={INTRO_LOGO}/>
+                <LogoImage source={require("../assets/IntroIcon/big_logo.png")}/>
                 <LogoTextImage source={INTRO_LOGO_TEXT}/>
             </LogoView>
             <AuthView>
