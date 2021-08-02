@@ -15,11 +15,11 @@ const MenuView = ({navigate}) => {
             {/*    <Title>프로필</Title>*/}
             {/*</UtilButton>*/}
             <InfoMenuView>
-                <InfoButton left onPress={() => navigate("Bookmark")}>
+                <InfoButton left onPress={() => navigate("LikeHistory")}>
                     <BigTitle>20</BigTitle>
                     <Title info>좋아요</Title>
                 </InfoButton>
-                <InfoButton info onPress={() => navigate("Bookmark")}>
+                <InfoButton info onPress={() => navigate("ReviewHistory")}>
                     <BigTitle info>10</BigTitle>
                     <Title info>리뷰</Title>
                 </InfoButton>

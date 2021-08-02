@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const Bookmark = () => {
-  return <Page></Page>;
+const ReviewHistory = () => {
+    return <Page></Page>;
 };
 
 const Page = styled.View`
@@ -11,4 +11,4 @@ const Page = styled.View`
   background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
-export default Bookmark;
+export default ReviewHistory;
