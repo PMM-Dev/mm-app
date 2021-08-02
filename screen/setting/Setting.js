@@ -9,7 +9,7 @@ import {
     SETTING_LOGOUT_ICON,
     SETTING_PROFILE_ICON,
     SETTING_REVIEW_ICON
-} from "../../images/index";
+} from "../../image";
 import constants from "../../constants";
 
 const Setting = ({navigation: {navigate}}) => {

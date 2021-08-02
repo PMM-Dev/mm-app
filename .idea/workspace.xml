@@ -22,10 +22,12 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/assets/SettingIcon" />
     </key>
   </component>
@@ -42,7 +44,7 @@
       <workItem from="1627882877485" duration="68000" />
       <workItem from="1627882971505" duration="576000" />
       <workItem from="1627883637335" duration="2647000" />
-      <workItem from="1627891295809" duration="2931000" />
+      <workItem from="1627891295809" duration="3031000" />
     </task>
     <servers />
   </component>
