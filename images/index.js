@@ -7,6 +7,7 @@ export const GACHA_MACHINE_IMG = require("../assets/gacha/gachaMachine.png");
 
 export const SETTING_GUEST_PORTRAIT = require("../assets/SettingIcon/guest_portrait.png");
 export const SETTING_ARROW = require("../assets/SettingIcon/arrow.png");
-export const SETTING_BOOKMARK_ICON = require("../assets/SettingIcon/set_1.png");
-export const SETTING_ASKING_ICON = require("../assets/SettingIcon/set_2.png");
-export const SETTING_SERVICE_ICON = require("../assets/SettingIcon/set_3.png");
+export const SETTING_PROFILE_ICON = require("../assets/SettingIcon/profile.png");
+export const SETTING_REVIEW_ICON = require("../assets/SettingIcon/review.png");
+export const SETTING_ALARM_ICON = require("../assets/SettingIcon/alarm.png");
+export const SETTING_LOGOUT_ICON = require("../assets/SettingIcon/logout.png")

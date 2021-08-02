@@ -1,18 +1,24 @@
-// babel.config.js
-module.exports = {
-  presets: ["module:metro-react-native-babel-preset", "babel-preset-expo"],
-  plugins: [
-    ["react-native-paper/babel"],
-    [
-      "module:react-native-dotenv",
-      {
-        moduleName: "@env",
-        path: ".env",
-        blacklist: null,
-        whitelist: null,
-        safe: false,
-        allowUndefined: true,
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: ["module:metro-react-native-babel-preset"],
+    env: {
+      production: {
+        plugins: [
+          ["react-native-paper/babel"],
+          [
+            "module:react-native-dotenv",
+            {
+              moduleName: "@env",
+              path: ".env",
+              blacklist: null,
+              whitelist: null,
+              safe: false,
+              allowUndefined: true,
+            },
+          ],
+        ],
       },
-    ],
-  ],
+    },
+  };
 };
