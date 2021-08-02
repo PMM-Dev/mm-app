@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import constants from "../constants";
-<<<<<<< HEAD
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import ResExplanation from "../components/Home/Res/ResExplanation";
 import ResAboutInfo from "../components/Home/Res/ResAboutInfo";
@@ -198,80 +197,6 @@ const Res = ({ route }) => {
       )}
     </Screen>
   );
-=======
-import {EMPTYHEART, FULLHEART} from "../image";
-import StarMaker from "../components/Map/StarMaker";
-
-const ht = Math.floor(constants.height) - 120;
-
-const Res = ({route, navigation}) => {
-    const data = route.params.param;
-    const picture = route.params.picture;
-
-    return (
-        <Screen>
-            <UpView>
-                <UpImageView>
-                    <UpImage source={picture}/>
-                </UpImageView>
-                <FilterView>
-                    <FilterInfo>
-                        <FilterText>정보[Infomation]</FilterText>
-                    </FilterInfo>
-                    <FilterReview>
-                        <FilterText last={true}>리뷰[Review]</FilterText>
-                    </FilterReview>
-                </FilterView>
-            </UpView>
-            <DownView>
-                <DownInfo>
-                    <DownDetailInfo>
-                        <DetailTitle>
-                            <DetailTitleText>{data.name}</DetailTitleText>
-                        </DetailTitle>
-                        <DetailInfo>
-                            <DetailTitleContact>
-                                <DetailInfoText>음식 종류 : {data.type}</DetailInfoText>
-                            </DetailTitleContact>
-                            <DetailTitleAddress>
-                                <DetailInfoText>가격대 : {data.price}</DetailInfoText>
-                            </DetailTitleAddress>
-                        </DetailInfo>
-                        <DownRate>
-                            <StarMaker rate={data.reviewCount}/>
-                        </DownRate>
-                    </DownDetailInfo>
-                    <DownAbout>
-                        <AboutTitle>
-                            <AboutTitleText>ABOUT</AboutTitleText>
-                        </AboutTitle>
-                        <AboutAddress>
-                            <AboutAddressText>주소 : {data.longitude}</AboutAddressText>
-                        </AboutAddress>
-                        <AboutDescription>
-                            <AboutDescriptionText>
-                                설명 : {data.description}
-                            </AboutDescriptionText>
-                        </AboutDescription>
-                    </DownAbout>
-                </DownInfo>
-                <DownMap>
-                    <LocationTitle>
-                        <LocationTitleText>LOCATION</LocationTitleText>
-                    </LocationTitle>
-                    <LocationMap></LocationMap>
-                </DownMap>
-                <HeartButtonPos>
-                    {data.bookmarked ? (
-                        <HeartImg source={FULLHEART}/>
-                    ) : (
-                        <HeartImg source={EMPTYHEART}/>
-                    )}
-                </HeartButtonPos>
-            </DownView>
-        </Screen>
-    );
->>>>>>> 83c5acaa79ead358b9fe42c8ad4ac5286b131ab6
 };
 
 export default Res;
