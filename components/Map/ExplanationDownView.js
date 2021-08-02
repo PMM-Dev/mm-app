@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import StarMaker from "./StarMaker";
-import { TMP } from "../../images/index";
+import { TMP } from "../../image";
 
 const ExplanationDownView = ({ data }) => {
   return (

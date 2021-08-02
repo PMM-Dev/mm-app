@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { SEARCHBAR } from "../../images/index";
+import { SEARCHBAR } from "../../image";
 
 const SearchbarPart = () => {
   const [text, onChangeText] = useState();

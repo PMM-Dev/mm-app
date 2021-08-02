@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { EMPTYSTAR, FULLSTAR, HALFSTAR } from "../../../images/index";
+import { EMPTYSTAR, FULLSTAR, HALFSTAR } from "../../../image";
 
 const Star50 = () => {
   return (

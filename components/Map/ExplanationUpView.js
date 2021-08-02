@@ -1,31 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { FULLHEART, EMPTYHEART } from "../../images/index";
+import {EMPTYHEART, FULLHEART} from "../../image";
 
-const ExplanationUpView = ({ data }) => {
-  return (
-    <ExplanationUp>
-      <ExplanationTitle>
-        <ExplanationTitleText>{data.title}</ExplanationTitleText>
-      </ExplanationTitle>
-      <ExplanationAddressContact>
-        <ExplanationAddress>
-          <ExplanationAddressText>주소: {data.address}</ExplanationAddressText>
-        </ExplanationAddress>
-        <ExplanationContact>
-          <ExplanationContactText>연락처: {data.number}</ExplanationContactText>
-        </ExplanationContact>
-      </ExplanationAddressContact>
-      <HeartButtonPos>
-        {data.bookmarked ? (
-          <HeartImg source={FULLHEART} />
-        ) : (
-          <HeartImg source={EMPTYHEART} />
-        )}
-      </HeartButtonPos>
-    </ExplanationUp>
-  );
+const ExplanationUpView = ({data}) => {
+    return (
+        <ExplanationUp>
+            <ExplanationTitle>
+                <ExplanationTitleText>{data.title}</ExplanationTitleText>
+            </ExplanationTitle>
+            <ExplanationAddressContact>
+                <ExplanationAddress>
+                    <ExplanationAddressText>주소: {data.address}</ExplanationAddressText>
+                </ExplanationAddress>
+                <ExplanationContact>
+                    <ExplanationContactText>연락처: {data.number}</ExplanationContactText>
+                </ExplanationContact>
+            </ExplanationAddressContact>
+            <HeartButtonPos>
+                {data.bookmarked ? (
+                    <HeartImg source={FULLHEART}/>
+                ) : (
+                    <HeartImg source={EMPTYHEART}/>
+                )}
+            </HeartButtonPos>
+        </ExplanationUp>
+    );
 };
 
 const HeartImg = styled.Image`

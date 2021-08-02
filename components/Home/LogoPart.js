@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { LOGO, LOGO_TEXT } from "../../images/index";
+import {LOGO, LOGO_TEXT} from "../../image";
 
 const SearchbarPart = () => {
-  return (
-    <Logo>
-      <Logopos>
-        <LogoImage source={LOGO} />
-        <LogoTextImage source={LOGO_TEXT} />
-      </Logopos>
-    </Logo>
-  );
+    return (
+        <Logo>
+            <Logopos>
+                <LogoImage source={LOGO}/>
+                <LogoTextImage source={LOGO_TEXT}/>
+            </Logopos>
+        </Logo>
+    );
 };
 
 const LogoImage = styled.Image`
