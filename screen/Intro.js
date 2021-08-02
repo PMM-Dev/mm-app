@@ -1,66 +1,61 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { ActivityIndicator } from "react-native-paper";
-import { useGoogleLogIn, useGuestLogIn } from "../components/AuthContext";
-import {
-  INTRO_LOGO,
-  INTRO_LOGO_TEXT,
-  INTRO_GOOGLE_BTN,
-  INTRO_TRIANGLE,
-} from "../images/index";
+import {StyleSheet} from "react-native";
+import {LinearGradient} from "expo-linear-gradient";
+import {ActivityIndicator} from "react-native-paper";
+import {useGoogleLogIn, useGuestLogIn} from "../components/AuthContext";
+import {INTRO_GOOGLE_BTN, INTRO_LOGO_TEXT, INTRO_TRIANGLE,} from "../image";
 import Theme from "../style/Theme";
 
 const Intro = () => {
-  const googleLogin = useGoogleLogIn();
-  const guestLogin = useGuestLogIn();
-  const [isWaiting, setIsWaiting] = useState(false);
+    const googleLogin = useGoogleLogIn();
+    const guestLogin = useGuestLogIn();
+    const [isWaiting, setIsWaiting] = useState(false);
 
-  const check = async (login) => {
-    setIsWaiting(true);
-    await login();
-    setIsWaiting(false);
-  };
+    const check = async (login) => {
+        setIsWaiting(true);
+        await login();
+        setIsWaiting(false);
+    };
 
-  return (
-    <Page>
-      <LogoView>
-        <LogoImage source={INTRO_LOGO} />
-        <LogoTextImage source={INTRO_LOGO_TEXT} />
-      </LogoView>
-      <AuthView>
-        <LinearGradient
-          colors={[Theme.hlRed, Theme.hlOrange]}
-          style={styles.profileGradient}
-        >
-          <GoogleLoginButton onPress={() => check(googleLogin)}>
-            <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN} />
-          </GoogleLoginButton>
-          <GuestModeView>
-            <GuestModeButton onPress={() => check(guestLogin)}>
-              <GuestModeButtonText>Guest mode</GuestModeButtonText>
-              <GuestModeTriangle source={INTRO_TRIANGLE} />
-            </GuestModeButton>
-          </GuestModeView>
-        </LinearGradient>
-      </AuthView>
-      {isWaiting ? (
-        <LoadingMask>
-          <ActivityIndicator color={Theme.fontBlack} size={"large"} />
-        </LoadingMask>
-      ) : null}
-    </Page>
-  );
+    return (
+        <Page>
+            <LogoView>
+                <LogoImage source={require("../assets/IntroIcon/big_logo.png")}/>
+                <LogoTextImage source={INTRO_LOGO_TEXT}/>
+            </LogoView>
+            <AuthView>
+                <LinearGradient
+                    colors={[Theme.hlRed, Theme.hlOrange]}
+                    style={styles.profileGradient}
+                >
+                    <GoogleLoginButton onPress={() => check(googleLogin)}>
+                        <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN}/>
+                    </GoogleLoginButton>
+                    <GuestModeView>
+                        <GuestModeButton onPress={() => check(guestLogin)}>
+                            <GuestModeButtonText>Guest mode</GuestModeButtonText>
+                            <GuestModeTriangle source={INTRO_TRIANGLE}/>
+                        </GuestModeButton>
+                    </GuestModeView>
+                </LinearGradient>
+            </AuthView>
+            {isWaiting ? (
+                <LoadingMask>
+                    <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
+                </LoadingMask>
+            ) : null}
+        </Page>
+    );
 };
 
 const styles = StyleSheet.create({
-  profileGradient: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+    profileGradient: {
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
 });
 
 const Page = styled.View`

@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import {Image, StyleSheet} from "react-native";
 import SearchbarPart from "./SearchbarPart";
-import { FILTER } from "../../images/index";
+import {FILTER} from "../../image";
 
 const SearchbarMapPart = () => {
-  return (
-    <SearchBarMap>
-      <SearchBar>
-        <SearchbarPart />
-      </SearchBar>
-      <SettingButtonPos>
-        <SettingButton onPress={() => console.log("pressed")}>
-          <Image source={FILTER} style={styles.search_button} />
-        </SettingButton>
-      </SettingButtonPos>
-    </SearchBarMap>
-  );
+    return (
+        <SearchBarMap>
+            <SearchBar>
+                <SearchbarPart/>
+            </SearchBar>
+            <SettingButtonPos>
+                <SettingButton onPress={() => console.log("pressed")}>
+                    <Image source={FILTER} style={styles.search_button}/>
+                </SettingButton>
+            </SettingButtonPos>
+        </SearchBarMap>
+    );
 };
 
 const SettingButton = styled.TouchableOpacity`
@@ -25,11 +25,11 @@ const SettingButton = styled.TouchableOpacity`
 `;
 
 const styles = StyleSheet.create({
-  search_button: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-  },
+    search_button: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "contain",
+    },
 });
 
 const SearchBarMap = styled.View`

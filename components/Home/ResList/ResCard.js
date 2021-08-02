@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import StarMaker from "../../Map/StarMaker";
-import { FULLHEART, EMPTYHEART, TMP } from "../../../images/index";
+import { FULLHEART, EMPTYHEART, TMP } from "../../../image";
 
 const ResCard = ({ data, navigation }) => {
   return (

@@ -1,18 +1,19 @@
 import axios from "axios";
-import { API_URL, API_TOKEN } from "@env";
+import {API_URL} from "@env";
 
 export const getRestaurantList = async (genre) => {
-  try {
-    const response = await axios.get(
-      API_URL + "/api/restaurant/condition" + "?type=" + genre
-    );
-    return response.data;
-  } catch (e) {
-    console.log("[AppApi][Exception] " + e);
-    return [];
-  }
+    try {
+        const response = await axios.get(
+            API_URL + "/api/restaurant/condition" + "?type=" + genre
+        );
+        return response.data;
+    } catch (e) {
+        console.log("[AppApi][Exception] " + e);
+        return [];
+    }
 };
 
+<<<<<<< HEAD
 // export const korLocationAPI = async (data) => {
 //   try {
 //     const response = await axios.get(
@@ -24,3 +25,5 @@ export const getRestaurantList = async (genre) => {
 //     return [];
 //   }
 // };
+=======
+>>>>>>> 83c5acaa79ead358b9fe42c8ad4ac5286b131ab6

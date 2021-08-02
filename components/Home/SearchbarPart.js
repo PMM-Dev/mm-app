@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import { TouchableOpacity } from "react-native";
-import { SEARCHBAR } from "../../images/index";
+import {SEARCHBAR} from "../../image";
 
 const SearchbarPart = () => {
-  const [text, onChangeText] = useState();
+    const [text, onChangeText] = useState();
 
-  useEffect(() => {
-    return () => onChangeText("");
-  }, []);
+    useEffect(() => {
+        return () => onChangeText("");
+    }, []);
 
-  return (
-    <Searchbar>
-      <TextInputView
-        onChangeText={onChangeText}
-        value={text}
-        placeholder="위치 / 음식 키워드로 검색해주세요"
-        placeholderTextColor="#D4D7DB"
-        underlineColorAndroid="rgba(0,0,0,0)"
-      />
-      <SearchButtonPos onPress={() => console.log("pressed")}>
-        <SearchButtonImage source={SEARCHBAR} />
-      </SearchButtonPos>
-    </Searchbar>
-  );
+    return (
+        <Searchbar>
+            <TextInputView
+                onChangeText={onChangeText}
+                value={text}
+                placeholder="위치 / 음식 키워드로 검색해주세요"
+                placeholderTextColor="#D4D7DB"
+                underlineColorAndroid="rgba(0,0,0,0)"
+            />
+            <SearchButtonPos onPress={() => console.log("pressed")}>
+                <SearchButtonImage source={SEARCHBAR}/>
+            </SearchButtonPos>
+        </Searchbar>
+    );
 };
 
 const TextInputView = styled.TextInput`
