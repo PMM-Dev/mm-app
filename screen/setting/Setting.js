@@ -1,101 +1,116 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import {LinearGradient} from "expo-linear-gradient";
-import {useloadProfile, useLogOut, useProfile,} from "../../components/AuthContext";
-import {StyleSheet} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import {
-    SETTING_ALARM_ICON,
-    SETTING_GUEST_PORTRAIT,
-    SETTING_LOGOUT_ICON,
-    SETTING_PROFILE_ICON,
-    SETTING_REVIEW_ICON
+  useloadProfile,
+  useLogOut,
+  useProfile,
+} from "../../components/AuthContext";
+import { StyleSheet } from "react-native";
+import {
+  SETTING_ALARM_ICON,
+  SETTING_GUEST_PORTRAIT,
+  SETTING_LOGOUT_ICON,
+  SETTING_PROFILE_ICON,
+  SETTING_REVIEW_ICON,
 } from "../../image";
 import constants from "../../constants";
 
+const Setting = ({ navigation: { navigate } }) => {
+  const logout = useLogOut();
+  const loadProfile = useloadProfile();
+  const { email, name, picture } = useProfile();
 
-const Setting = ({navigation: {navigate}}) => {
-    const logout = useLogOut();
-    const loadProfile = useloadProfile();
-    const {email, name, picture} = useProfile();
+  useEffect(() => {
+    loadProfile();
+    console.log(picture);
+  }, []);
 
-    useEffect(() => {
-        loadProfile();
-        console.log(picture);
-    }, []);
-
-    return (
-        <Page>
-            <ScrollView>
-                <SrollViewWrapper>
-                    <StatusBarSpace/>
-                    <ProfileView>
-                        <Profile>
-                            <LinearGradient
-                                colors={["#FF3D52", "#FF603A"]}
-                                style={styles.profileGradient}
-                            >
-                                <Portrait>
-                                    <PortraitImage
-                                        source={
-                                            picture === undefined
-                                                ? SETTING_GUEST_PORTRAIT
-                                                : {
-                                                    uri: picture,
-                                                }
-                                        }
-                                        resizeMode={"cover"}
-                                    />
-                                </Portrait>
-                            </LinearGradient>
-                            <InformationView>
-                                <NameTitle>{name + " 님"}</NameTitle>
-                                <EmailTitle>{email}</EmailTitle>
-                            </InformationView>
-                        </Profile>
-                        {/*<IconView>*/}
-                        {/*    <IconButton onPress={() => navigate("Bookmark")}>*/}
-                        {/*        <IconImage source={SETTING_BOOKMARK_ICON}/>*/}
-                        {/*    </IconButton>*/}
-                        {/*    <IconButton>*/}
-                        {/*        <IconImage source={SETTING_ASKING_ICON}/>*/}
-                        {/*    </IconButton>*/}
-                        {/*    <IconButton onPress={() => navigate("Credit")}>*/}
-                        {/*        <IconImage source={SETTING_SERVICE_ICON}/>*/}
-                        {/*    </IconButton>*/}
-                        {/*</IconView>*/}
-                    </ProfileView>
-                    <MenuView>
-                        <MenuButton>
-                            <MenuIcon source={SETTING_PROFILE_ICON} style={{tintColor: "#000000"}}/>
-                            <MenuTitle>프로필</MenuTitle>
-                        </MenuButton>
-                        <MenuButton>
-                            <MenuIcon source={SETTING_REVIEW_ICON} style={{tintColor: "#000000"}}/>
-                            <MenuTitle>내가 쓴 리뷰</MenuTitle>
-                        </MenuButton>
-                        <MenuButton>
-                            <MenuIcon source={SETTING_ALARM_ICON} style={{tintColor: "#000000"}}/>
-                            <MenuTitle>알림 설정</MenuTitle>
-                        </MenuButton>
-                        <MenuButton last onPress={logout}>
-                            <MenuIcon source={SETTING_LOGOUT_ICON} style={{tintColor: "#FF3D52"}}/>
-                            <MenuTitle>로그아웃</MenuTitle>
-                        </MenuButton>
-                    </MenuView>
-                </SrollViewWrapper>
-            </ScrollView>
-        </Page>
-    );
+  return (
+    <Page>
+      <ScrollView>
+        <SrollViewWrapper>
+          <StatusBarSpace />
+          <ProfileView>
+            <Profile>
+              <LinearGradient
+                colors={["#FF3D52", "#FF603A"]}
+                style={styles.profileGradient}
+              >
+                <Portrait>
+                  <PortraitImage
+                    source={
+                      picture === undefined
+                        ? SETTING_GUEST_PORTRAIT
+                        : {
+                            uri: picture,
+                          }
+                    }
+                    resizeMode={"cover"}
+                  />
+                </Portrait>
+              </LinearGradient>
+              <InformationView>
+                <NameTitle>{name + " 님"}</NameTitle>
+                <EmailTitle>{email}</EmailTitle>
+              </InformationView>
+            </Profile>
+            {/*<IconView>*/}
+            {/*    <IconButton onPress={() => navigate("Bookmark")}>*/}
+            {/*        <IconImage source={SETTING_BOOKMARK_ICON}/>*/}
+            {/*    </IconButton>*/}
+            {/*    <IconButton>*/}
+            {/*        <IconImage source={SETTING_ASKING_ICON}/>*/}
+            {/*    </IconButton>*/}
+            {/*    <IconButton onPress={() => navigate("Credit")}>*/}
+            {/*        <IconImage source={SETTING_SERVICE_ICON}/>*/}
+            {/*    </IconButton>*/}
+            {/*</IconView>*/}
+          </ProfileView>
+          <MenuView>
+            <MenuButton>
+              <MenuIcon
+                source={SETTING_PROFILE_ICON}
+                style={{ tintColor: "#000000" }}
+              />
+              <MenuTitle>프로필</MenuTitle>
+            </MenuButton>
+            <MenuButton>
+              <MenuIcon
+                source={SETTING_REVIEW_ICON}
+                style={{ tintColor: "#000000" }}
+              />
+              <MenuTitle>내가 쓴 리뷰</MenuTitle>
+            </MenuButton>
+            <MenuButton>
+              <MenuIcon
+                source={SETTING_ALARM_ICON}
+                style={{ tintColor: "#000000" }}
+              />
+              <MenuTitle>알림 설정</MenuTitle>
+            </MenuButton>
+            <MenuButton last onPress={logout}>
+              <MenuIcon
+                source={SETTING_LOGOUT_ICON}
+                style={{ tintColor: "#FF3D52" }}
+              />
+              <MenuTitle>로그아웃</MenuTitle>
+            </MenuButton>
+          </MenuView>
+        </SrollViewWrapper>
+      </ScrollView>
+    </Page>
+  );
 };
 
 const styles = StyleSheet.create({
-    profileGradient: {
-        width: "22%",
-        aspectRatio: 1,
-        borderRadius: 1000,
-        justifyContent: "center",
-        alignItems: "center",
-    },
+  profileGradient: {
+    width: "22%",
+    aspectRatio: 1,
+    borderRadius: 1000,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 const Page = styled.View`
@@ -201,6 +216,6 @@ const MenuIcon = styled.Image`
   height: ${constants.vw(6)};
   width: ${constants.vw(6)};
   margin-right: 10px;
-`
+`;
 
 export default Setting;

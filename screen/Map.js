@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
-import { POSITION } from "../images/index";
+import { POSITION } from "../image";
 import constants from "../constants";
 
 import * as Location from "expo-location";

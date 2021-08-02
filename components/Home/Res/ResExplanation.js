@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import StarMaker from "../../Map/StarMaker";
-import { FULLHEART, EMPTYHEART } from "../../../images/index";
+import { FULLHEART, EMPTYHEART } from "../../../image";
 import KoreanEnum from "../../../KoreanEnum";
 import { Converter } from "../../Converter";
 

@@ -15,4 +15,4 @@ const statusBarHeight = Constants.statusBarHeight;
 
 const pureheight = Math.floor(height) - 130;
 
-export default { width, height, statusBarHeight, pureheight };
+export default { width, height, vw, vh, statusBarHeight, pureheight };
