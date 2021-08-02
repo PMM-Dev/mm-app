@@ -7,6 +7,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
   <component name="ProjectId" id="1w9sPYwafYFy7mhsY8p5uqeOpvk" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -23,7 +26,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -44,8 +47,9 @@
       <workItem from="1627882877485" duration="68000" />
       <workItem from="1627882971505" duration="576000" />
       <workItem from="1627883637335" duration="2647000" />
-      <workItem from="1627891295809" duration="6794000" />
-      <workItem from="1627898909899" duration="453000" />
+      <workItem from="1627891295809" duration="3415000" />
+      <workItem from="1627901967105" duration="1433000" />
+      <workItem from="1627903667689" duration="266000" />
     </task>
     <servers />
   </component>
