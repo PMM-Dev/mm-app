@@ -9,17 +9,22 @@ import Map from "../screen/Map";
 import Theme from "../style/Theme";
 import SettingNavigator from "./SettingNavigator";
 import {NAVIGATOR_GAME, NAVIGATOR_HOME, NAVIGATOR_MAP, NAVIGATOR_SETTING, NAVIGATOR_THEME,} from "../image";
+import constants from "../constants";
 
 const BottomTab = createBottomTabNavigator();
 
 const MainNavigation = () => {
+    const navigatorHeight = constants.vh(8);
+    const navigatorIconSize = constants.vh(6);
+    const navigatorLabalSize = constants.vh(1.5);
+
     return (
         <NavigationContainer>
             <BottomTab.Navigator
                 tabBarOptions={{
-                    style: {height: 90, paddingBottom: 5, paddingTop: 3},
-                    labelStyle: {fontSize: 13},
-                    activeTintColor: Theme.hlColor,
+                    style: {height: navigatorHeight, paddingBottom: 5, paddingTop: 3},
+                    labelStyle: {fontSize: navigatorLabalSize},
+                    activeTintColor: Theme.hlOrange,
                 }}
             >
                 <BottomTab.Screen
@@ -31,7 +36,7 @@ const MainNavigation = () => {
                             return (
                                 <Image
                                     source={NAVIGATOR_HOME}
-                                    style={{width: 60, height: 60}}
+                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
                         },
@@ -46,7 +51,7 @@ const MainNavigation = () => {
                             return (
                                 <Image
                                     source={NAVIGATOR_MAP}
-                                    style={{width: 60, height: 60}}
+                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
                         },
@@ -61,7 +66,7 @@ const MainNavigation = () => {
                             return (
                                 <Image
                                     source={NAVIGATOR_THEME}
-                                    style={{width: 60, height: 60}}
+                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
                         },
@@ -76,7 +81,7 @@ const MainNavigation = () => {
                             return (
                                 <Image
                                     source={NAVIGATOR_GAME}
-                                    style={{width: 60, height: 60}}
+                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
                         },
@@ -91,7 +96,7 @@ const MainNavigation = () => {
                             return (
                                 <Image
                                     source={NAVIGATOR_SETTING}
-                                    style={{width: 60, height: 60}}
+                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
                         },

@@ -41,6 +41,7 @@ export const POSITION = require("./assets/position.png");
 export const NAVIGATOR_HOME = require("./assets/NavigatorIcon/home.png");
 export const NAVIGATOR_MAP = require("./assets/NavigatorIcon/map.png");
 export const NAVIGATOR_THEME = require("./assets/NavigatorIcon/theme.png");
+export const NAVIGATOR_GACHA = require("./assets/NavigatorIcon/gacha.png");
 export const NAVIGATOR_GAME = require("./assets/NavigatorIcon/game.png");
 export const NAVIGATOR_SETTING = require("./assets/NavigatorIcon/setting.png");
 
