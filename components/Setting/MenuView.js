@@ -72,7 +72,7 @@ const InfoButton = styled.TouchableOpacity`
 const BigTitle = styled.Text`
   font-size: ${constants.vw(5)};
   font-weight: bold;
-  color: ${(props) => props.theme.fontBigBlack};
+  color: ${(props) => props.theme.fontDeepBlack};
 `
 
 const UtilMenuView = styled.View`
@@ -95,7 +95,7 @@ const Title = styled.Text`
   margin-left: ${(props) => props.info ? 0 : `${constants.vw(4)}`};
   font-size: ${constants.vw(4.2)};
 
-  color: ${(props) => props.info ? props.theme.fontBlackGray : props.theme.fontBigBlack};
+  color: ${(props) => props.info ? props.theme.fontBlackGray : props.theme.fontDeepBlack};
 `;
 
 const Icon = styled.Image`

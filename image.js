@@ -1,3 +1,5 @@
+export const MAGNIFY = require("./assets/CommonIcons/magnify.png")
+
 export const INTRO_LOGO = require("./assets/IntroIcon/big_logo.png");
 export const INTRO_LOGO_TEXT = require("./assets/IntroIcon/big_logo_text.png");
 export const INTRO_GOOGLE_BTN = require("./assets/IntroIcon/google_sign_btn.png");
