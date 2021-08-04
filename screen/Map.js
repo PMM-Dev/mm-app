@@ -59,7 +59,7 @@ const Map = () => {
   const [whichBookmark, setwhichBookmark] = useState(-1);
   const mapRef = React.createRef();
   const preLoad = async () => {
-    let { status } = await Location.requestPermissionsAsync();
+    let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       setErrorMsg("Permission to access location was denied");
       return;

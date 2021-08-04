@@ -4,42 +4,11 @@ import constants from "../constants";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import ResExplanation from "../components/Home/Res/ResExplanation";
 import ResAboutInfo from "../components/Home/Res/ResAboutInfo";
+import ResReview from "../components/Home/Res/ResReview";
 import * as Location from "expo-location";
 import axios from "axios";
-import korLocationAPI from "../components/AppApi";
-import StarMaker from "../components/Map/StarMaker";
-
-const dummy = [
-  {
-    picture: 28,
-    name: "니니",
-    rating: 3,
-    date: "20200612",
-    description:
-      "ㅁ나러ㅏㅣㅇ너 ㅏㅣ처파ㅣ너아ㅣ ㅓㅏㅣㅊ터ㅠ퍄ㅐ넢asdfjsdklj lkjblk jsldkjf lksdfj kljxciov개잘먹음",
-  },
-  {
-    picture: 28,
-    name: "니니",
-    rating: 1.5,
-    date: "20200612",
-    description: "개잘먹음2",
-  },
-  {
-    picture: 28,
-    name: "니니",
-    rating: 3,
-    date: "20200612",
-    description: "개잘먹음",
-  },
-  {
-    picture: 28,
-    name: "니니",
-    rating: 1.5,
-    date: "20200612",
-    description: "개잘먹음2",
-  },
-];
+import { korLocationAPI } from "../components/GoogleAppApi";
+import { getRestaurantComment } from "../components/AppApi";
 
 const Res = ({ route }) => {
   const data = route.params.param;
@@ -50,9 +19,10 @@ const Res = ({ route }) => {
   const mapRef = React.createRef();
   const [korLocation, setkorLocation] = useState([]);
   const [InformationActive, setInformationActive] = useState(true);
+  const [commentData, setcommentData] = useState([]);
 
   const preLoad = async () => {
-    let { status } = await Location.requestPermissionsAsync();
+    let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       setErrorMsg("Permission to access location was denied");
       return;
@@ -69,21 +39,16 @@ const Res = ({ route }) => {
   };
 
   useEffect(() => {
-    // async function init() {
-    //   let gotkorLocation = await korLocationAPI(data);
-    //   setkorLocation(gotkorLocation);
-    // }
-    // init();
-    axios
-      .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${data.latitude},${data.longitude}&key=AIzaSyAct8xhJo8qFy1biCWJ1gscUATnNnKxVQ0&language=ko`
-      ) // 위도, 경도 google maps api로 보냄
-      .then((res) => {
-        setkorLocation(res.data.results[0].formatted_address);
-      })
-      .catch((error) => {
-        console.log("axios 구글 maps api 에러", error);
-      });
+    async function initLocation() {
+      let gotkorLocation = await korLocationAPI(data);
+      setkorLocation(gotkorLocation);
+    }
+    async function initComment() {
+      let gotRestaurantComment = await getRestaurantComment(data.id);
+      setcommentData(gotRestaurantComment);
+    }
+    initLocation();
+    initComment();
     preLoad();
   }, []);
 
@@ -147,52 +112,7 @@ const Res = ({ route }) => {
         )
       ) : (
         <ReviewView>
-          <ReviewTitle>
-            <ReviewTitleNum>
-              <ReviewTitleNumText>최근리뷰 224개</ReviewTitleNumText>
-            </ReviewTitleNum>
-            <ReviewTitleFilter>
-              <ReviewTitleFilterRecent>
-                <ReviewTitleFilterText>최신순</ReviewTitleFilterText>
-              </ReviewTitleFilterRecent>
-              <ReviewTitleFilterStarHigh>
-                <ReviewTitleFilterText>별점높은순</ReviewTitleFilterText>
-              </ReviewTitleFilterStarHigh>
-              <ReviewTitleFilterStarLow>
-                <ReviewTitleFilterText last={true}>
-                  별점낮은순
-                </ReviewTitleFilterText>
-              </ReviewTitleFilterStarLow>
-            </ReviewTitleFilter>
-          </ReviewTitle>
-          <ReviewContentList>
-            {dummy.map((data, index) => (
-              <ReviewContent key={index}>
-                <ReviewContentTop>
-                  <ReviewContentTopImageView>
-                    <ReviewContentTopImage source={data.picture} />
-                  </ReviewContentTopImageView>
-                  <ReviewContentTopNameStarView>
-                    <ReviewContentTopNameView>
-                      <ReviewContentTopNameText>
-                        {data.name} {"  >  "}
-                      </ReviewContentTopNameText>
-                    </ReviewContentTopNameView>
-                    <ReviewContentTopStarView>
-                      <ReviewContentTopStarStarMakerView>
-                        <StarMaker rate={data.rating}></StarMaker>
-                      </ReviewContentTopStarStarMakerView>
-                    </ReviewContentTopStarView>
-                  </ReviewContentTopNameStarView>
-                </ReviewContentTop>
-                <ReviewContentBottom>
-                  <ReviewContentBottomText numberOfLines={1}>
-                    {data.description}
-                  </ReviewContentBottomText>
-                </ReviewContentBottom>
-              </ReviewContent>
-            ))}
-          </ReviewContentList>
+          <ResReview data={commentData} />
         </ReviewView>
       )}
     </Screen>
@@ -201,131 +121,9 @@ const Res = ({ route }) => {
 
 export default Res;
 
-const ReviewContentTopStarStarMakerView = styled.View`
-  height: 60%;
-  width: 50%;
-`;
-
-const ReviewContentTopNameStarView = styled.View`
-  height: 100%;
-  width: 82%;
-  margin-left: 8px;
-`;
-
-const ReviewContentTopNameText = styled.Text`
-  font-family: "NanumSquare";
-  color: ${(props) => props.theme.fontBlack};
-  font-size: 14px;
-`;
-
-const ReviewContentTopNameView = styled.View`
-  height: 40%;
-  width: 82%;
-  justify-content: center;
-`;
-
-const ReviewContentTopStarView = styled.View`
-  height: 50%;
-  width: 82%;
-`;
-
-const ReviewContentTopImage = styled.Image`
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-`;
-
-const ReviewContentTopImageView = styled.View`
-  height: 80%;
-  width: 18%;
-`;
-
-const ReviewContentTop = styled.View`
-  height: 80%;
-  width: 100%;
-  flex-direction: row;
-`;
-
-const ReviewContentBottomText = styled.Text`
-  font-family: "NanumSquare";
-  color: ${(props) => props.theme.fontBlack};
-  font-size: 12px;
-`;
-
-const ReviewContentBottom = styled.View`
-  height: 20%;
-  width: 100%;
-  overflow: hidden;
-`;
-
-const ReviewContent = styled.View`
-  height: 100px;
-  width: 100%;
-  align-items: center;
-`;
-
-const ReviewTitleFilterStarLow = styled.TouchableOpacity`
-  width: 35%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const ReviewTitleFilterStarHigh = styled.TouchableOpacity`
-  width: 35%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const ReviewTitleFilterRecent = styled.TouchableOpacity`
-  width: 30%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const ReviewTitleFilterText = styled.Text`
-  font-family: "NanumSquare";
-  color: ${(props) => props.theme.fontBlack};
-  text-align: center;
-  font-size: 11px;
-  ${(props) => (props.last ? "" : "border-right-width: 1.5px;")};
-  border-right-color: ${(props) => props.theme.fontBlack};
-`;
-
-const ReviewTitleNumText = styled.Text`
-  font-family: "NanumSquare";
-  font-size: 18px;
-`;
-
-const ReviewTitleFilter = styled.View`
-  width: 50%;
-  height: 100%;
-  flex-direction: row;
-`;
-
-const ReviewTitleNum = styled.View`
-  width: 50%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const ReviewTitle = styled.View`
-  width: 90%;
-  height: 18%;
-  border-top-width: 1px;
-  border-top-color: ${(props) => props.theme.borderGray2};
-  flex-direction: row;
-`;
-
-const ReviewContentList = styled.ScrollView`
-  width: 90%;
-  height: 76%;
-`;
-
 const ReviewView = styled.View`
   width: 100%;
   height: 36%;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Container = styled.View`
