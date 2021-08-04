@@ -10,8 +10,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import ResCard from "../components/Home/ResList/ResCard";
 import { getRestaurantList } from "../components/AppApi";
 
-const ht = Math.floor(constants.height) - 120;
-
 const ResList = ({ route, navigation }) => {
   const genre = route.params.param.genre;
   const [list, setList] = useState([]);
@@ -146,7 +144,7 @@ const WhiteSpace = styled.View`
 `;
 
 const Wrapper = styled.View`
-  height: ${ht};
+  height: ${constants.pureheight};
 `;
 
 const Scroll = styled.ScrollView`

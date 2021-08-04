@@ -1,81 +1,152 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import constants from "../constants";
-import {EMPTYHEART, FULLHEART} from "../image";
-import StarMaker from "../components/Map/StarMaker";
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import ResExplanation from "../components/Home/Res/ResExplanation";
+import ResAboutInfo from "../components/Home/Res/ResAboutInfo";
+import ResReview from "../components/Home/Res/ResReview";
+import * as Location from "expo-location";
+import axios from "axios";
+import { korLocationAPI } from "../components/GoogleAppApi";
+import { getRestaurantComment } from "../components/AppApi";
 
-const ht = Math.floor(constants.height) - 120;
+const Res = ({ route }) => {
+  const data = route.params.param;
+  const picture = route.params.picture;
+  const [marker, setMarker] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const mapRef = React.createRef();
+  const [korLocation, setkorLocation] = useState([]);
+  const [InformationActive, setInformationActive] = useState(true);
+  const [commentData, setcommentData] = useState([]);
 
-const Res = ({route, navigation}) => {
-    const data = route.params.param;
-    const picture = route.params.picture;
+  const preLoad = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
+      return;
+    }
+    setMarker({
+      title: "title",
+      description: "des",
+      latlng: {
+        latitude: data.latitude,
+        longitude: data.longitude,
+      },
+    });
+    setIsLoading(false);
+  };
 
-    return (
-        <Screen>
-            <UpView>
-                <UpImageView>
-                    <UpImage source={picture}/>
-                </UpImageView>
-                <FilterView>
-                    <FilterInfo>
-                        <FilterText>정보[Infomation]</FilterText>
-                    </FilterInfo>
-                    <FilterReview>
-                        <FilterText last={true}>리뷰[Review]</FilterText>
-                    </FilterReview>
-                </FilterView>
-            </UpView>
-            <DownView>
-                <DownInfo>
-                    <DownDetailInfo>
-                        <DetailTitle>
-                            <DetailTitleText>{data.name}</DetailTitleText>
-                        </DetailTitle>
-                        <DetailInfo>
-                            <DetailTitleContact>
-                                <DetailInfoText>음식 종류 : {data.type}</DetailInfoText>
-                            </DetailTitleContact>
-                            <DetailTitleAddress>
-                                <DetailInfoText>가격대 : {data.price}</DetailInfoText>
-                            </DetailTitleAddress>
-                        </DetailInfo>
-                        <DownRate>
-                            <StarMaker rate={data.reviewCount}/>
-                        </DownRate>
-                    </DownDetailInfo>
-                    <DownAbout>
-                        <AboutTitle>
-                            <AboutTitleText>ABOUT</AboutTitleText>
-                        </AboutTitle>
-                        <AboutAddress>
-                            <AboutAddressText>주소 : {data.longitude}</AboutAddressText>
-                        </AboutAddress>
-                        <AboutDescription>
-                            <AboutDescriptionText>
-                                설명 : {data.description}
-                            </AboutDescriptionText>
-                        </AboutDescription>
-                    </DownAbout>
-                </DownInfo>
-                <DownMap>
-                    <LocationTitle>
-                        <LocationTitleText>LOCATION</LocationTitleText>
-                    </LocationTitle>
-                    <LocationMap></LocationMap>
-                </DownMap>
-                <HeartButtonPos>
-                    {data.bookmarked ? (
-                        <HeartImg source={FULLHEART}/>
-                    ) : (
-                        <HeartImg source={EMPTYHEART}/>
-                    )}
-                </HeartButtonPos>
-            </DownView>
-        </Screen>
-    );
+  useEffect(() => {
+    async function initLocation() {
+      let gotkorLocation = await korLocationAPI(data);
+      setkorLocation(gotkorLocation);
+    }
+    async function initComment() {
+      let gotRestaurantComment = await getRestaurantComment(data.id);
+      setcommentData(gotRestaurantComment);
+    }
+    initLocation();
+    initComment();
+    preLoad();
+  }, []);
+
+  if (errorMsg) {
+    console.log(errorMsg);
+  }
+
+  return (
+    <Screen>
+      <ExplanationView>
+        <ResExplanation
+          data={data}
+          picture={picture}
+          Infofunc={setInformationActive}
+        />
+      </ExplanationView>
+      {InformationActive ? (
+        isLoading ? (
+          <></>
+        ) : (
+          <>
+            <ResAboutInfo data={data} korLocation={korLocation} />
+            <DownMap>
+              <LocationTitle>
+                <LocationTitleText>LOCATION</LocationTitleText>
+              </LocationTitle>
+              <LocationMap>
+                <View>
+                  <Scroll contentContainerStyle={{ flex: 1 }}>
+                    <Container>
+                      <MapView
+                        style={{ flex: 1 }}
+                        initialRegion={{
+                          latitude: data.latitude,
+                          longitude: data.longitude,
+                          latitudeDelta: 0.0008,
+                          longitudeDelta: 0.0008,
+                        }}
+                        showsUserLocation={true}
+                        provider={PROVIDER_GOOGLE}
+                        customMapStyle={mapStyle}
+                        zoomEnabled={true}
+                        followUserLocation={true}
+                        showsMyLocationButton={true}
+                        ref={mapRef}
+                      >
+                        <Marker
+                          coordinate={marker.latlng}
+                          title={marker.title}
+                          description={marker.description}
+                        >
+                          <Callout tooltip={true}></Callout>
+                        </Marker>
+                      </MapView>
+                    </Container>
+                  </Scroll>
+                </View>
+              </LocationMap>
+            </DownMap>
+          </>
+        )
+      ) : (
+        <ReviewView>
+          <ResReview data={commentData} />
+        </ReviewView>
+      )}
+    </Screen>
+  );
 };
 
 export default Res;
+
+const ReviewView = styled.View`
+  width: 100%;
+  height: 36%;
+`;
+
+const Container = styled.View`
+  width: 100%;
+  height: 100%;
+`;
+
+const Scroll = styled.ScrollView`
+  width: 100%;
+`;
+
+const View = styled.View`
+  background-color: white;
+  height: 100%;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ExplanationView = styled.View`
+  width: 100%;
+  height: 64%;
+`;
 
 const LocationTitleText = styled.Text`
   text-align: center;
@@ -84,179 +155,56 @@ const LocationTitleText = styled.Text`
 `;
 
 const LocationTitle = styled.View`
-  height: 30%;
+  height: 15%;
   width: 100%;
 `;
 
 const LocationMap = styled.View`
-  height: 70%;
+  height: 85%;
   width: 100%;
-`;
-
-const AboutDescriptionText = styled.Text`
-  text-align: center;
-  font-size: 12px;
-  font-family: "NanumSquare";
-`;
-
-const AboutAddressText = styled.Text`
-  text-align: center;
-  font-size: 12px;
-  font-family: "NanumSquare";
-`;
-
-const AboutTitleText = styled.Text`
-  text-align: center;
-  font-size: 18px;
-  font-family: "NanumSquare";
-`;
-
-const AboutAddress = styled.View`
-  height: 25%;
-  width: 100%;
-`;
-
-const AboutDescription = styled.View`
-  height: 45%;
-  width: 60%;
-`;
-
-const AboutTitle = styled.View`
-  height: 30%;
-  width: 100%;
-`;
-
-const DownRate = styled.View`
-  height: 30%;
-  width: 60%;
-`;
-
-const HeartImg = styled.Image`
-  height: 100%;
-  width: 100%;
-`;
-
-const HeartButtonPos = styled.TouchableOpacity`
-  position: absolute;
-  width: 10%;
-  height: 10%;
-  top: 0%;
-  right: 4%;
-`;
-
-const DetailInfoText = styled.Text`
-  text-align: center;
-  font-size: 12px;
-  font-family: "NanumSquare";
-`;
-
-const DetailTitleAddress = styled.View`
-  height: 50%;
-  width: 100%;
-  justify-content: center;
-`;
-
-const DetailTitleContact = styled.View`
-  height: 50%;
-  width: 100%;
-  justify-content: center;
-`;
-
-const DetailInfo = styled.View`
-  height: 25%;
-  width: 100%;
-  justify-content: center;
-`;
-
-const DetailTitleText = styled.Text`
-  text-align: center;
-  font-size: 28px;
-  font-family: "NanumSquare";
-`;
-
-const DetailTitle = styled.View`
-  height: 25%;
-  width: 100%;
-  justify-content: center;
-`;
-
-const DownDetailInfo = styled.View`
-  width: 100%;
-  height: 66%;
-  align-items: center;
-`;
-
-const DownAbout = styled.View`
-  width: 100%;
-  height: 33%;
-  justify-content: center;
-  align-items: center;
-`;
-
-const DownView = styled.View`
-  width: 100%;
-  height: 58%;
-`;
-
-const DownInfo = styled.View`
-  width: 100%;
-  height: 60%;
-  justify-content: center;
   align-items: center;
 `;
 
 const DownMap = styled.View`
   width: 100%;
-  height: 40%;
-`;
-
-const UpImage = styled.Image`
-  height: 100%;
-  width: 100%;
-  border-radius: 20px;
-  resize-mode: cover;
-`;
-
-const UpImageView = styled.View`
-  width: 100%;
-  height: 86%;
-`;
-
-const FilterView = styled.View`
-  width: 100%;
-  height: 14%;
-  flex-direction: row;
-`;
-
-const FilterInfo = styled.TouchableOpacity`
-  width: 50%;
-  height: 100%;
+  height: 23%;
   justify-content: center;
-`;
-
-const FilterReview = styled.TouchableOpacity`
-  width: 50%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const FilterText = styled.Text`
-  font-family: "NanumSquare";
-  color: ${(props) => props.theme.fontBlack};
-  text-align: center;
-  font-size: 16px;
-  ${(props) => (props.last ? "" : "border-right-width: 1.5px;")};
-  border-right-color: ${(props) => props.theme.fontBlack};
-`;
-
-const UpView = styled.View`
-  width: 100%;
-  height: 42%;
-  background-color: ${(props) => props.theme.backgroundGray};
+  align-items: center;
 `;
 
 const Screen = styled.View`
   width: 100%;
-  height: ${ht};
+  height: ${constants.pureheight};
   background-color: ${(props) => props.theme.backgroundWhite};
+  justify-content: center;
+  align-items: center;
 `;
+
+const mapStyle = [
+  {
+    featureType: "road.arterial",
+    elementType: "labels",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "labels",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "road.local",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+];
