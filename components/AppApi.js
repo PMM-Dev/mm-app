@@ -24,3 +24,21 @@ export const getRestaurantComment = async (id) => {
     return [];
   }
 };
+
+export const postRestaurantComment = async (review) => {
+  try {
+    const res = await axios({
+      method: "POST",
+      url: API_URL + "/api/restaurant/4/review",
+      data: {
+        authorEmail: "test",
+        description: review,
+        grade: 4,
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log("[AppApi][Exception] " + e);
+    return [];
+  }
+};

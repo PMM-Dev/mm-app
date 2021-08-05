@@ -10,7 +10,7 @@ export const SETTING_ARROW = require("./assets/SettingIcon/arrow.png");
 export const SETTING_PROFILE_ICON = require("./assets/SettingIcon/profile.png");
 export const SETTING_REVIEW_ICON = require("./assets/SettingIcon/review.png");
 export const SETTING_ALARM_ICON = require("./assets/SettingIcon/alarm.png");
-export const SETTING_LOGOUT_ICON = require("./assets/SettingIcon/logout.png")
+export const SETTING_LOGOUT_ICON = require("./assets/SettingIcon/logout.png");
 
 export const HOME_FOOD_ICON_KOREAN = require("./assets/HomeFoodIcon/icon_1.png");
 export const HOME_FOOD_ICON_FLOUR = require("./assets/HomeFoodIcon/icon_2.png");
@@ -31,7 +31,7 @@ export const SEARCHBAR = require("./assets/search_1.png");
 export const FULLHEART = require("./assets/heart_2.png");
 export const EMPTYHEART = require("./assets/heart_1.png");
 
-export const TMP = require("./assets/tmp.jpg");
+export const TMP = require("./assets/tmp2.jpg");
 
 export const FILTER = require("./assets/filter.png");
 export const POSITION = require("./assets/position.png");

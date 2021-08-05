@@ -9,6 +9,7 @@ import * as Location from "expo-location";
 import axios from "axios";
 import { korLocationAPI } from "../components/GoogleAppApi";
 import { getRestaurantComment } from "../components/AppApi";
+import { postRestaurantComment } from "../components/AppApi";
 
 const Res = ({ route }) => {
   const data = route.params.param;
@@ -20,6 +21,7 @@ const Res = ({ route }) => {
   const [korLocation, setkorLocation] = useState([]);
   const [InformationActive, setInformationActive] = useState(true);
   const [commentData, setcommentData] = useState([]);
+  const [review, setreview] = useState("");
 
   const preLoad = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -113,6 +115,30 @@ const Res = ({ route }) => {
       ) : (
         <ReviewView>
           <ResReview data={commentData} />
+          <ReviewWrite>
+            <TmpTextInput
+              value={review}
+              onChangeText={(text) => setreview(text)}
+            />
+            <TmpButtonPos>
+              <TmpButton
+                onPress={() => {
+                  let res = postRestaurantComment(review);
+                  setcommentData((prev) => [
+                    ...prev,
+                    {
+                      author: "test",
+                      description: review,
+                      grade: 3,
+                      id: res.data,
+                      likeCount: 0,
+                    },
+                  ]);
+                  setreview("");
+                }}
+              />
+            </TmpButtonPos>
+          </ReviewWrite>
         </ReviewView>
       )}
     </Screen>
@@ -121,9 +147,34 @@ const Res = ({ route }) => {
 
 export default Res;
 
+const TmpButton = styled.TouchableOpacity`
+  width: 100%;
+  height: 100%;
+`;
+
+const ReviewWrite = styled.View`
+  width: 90%;
+  height: 15%;
+  border: 1px black;
+`;
+
+const TmpTextInput = styled.TextInput``;
+
+const TmpButtonPos = styled.View`
+  position: absolute;
+  width: 10%;
+  height: 90%;
+  top: 5%;
+  right: 3%;
+  border: 1px solid;
+  background-color: red;
+`;
+
 const ReviewView = styled.View`
   width: 100%;
-  height: 36%;
+  height: 30%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Container = styled.View`

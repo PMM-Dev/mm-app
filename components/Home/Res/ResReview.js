@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import StarMaker from "../../Map/StarMaker";
+import { postRestaurantComment } from "../../AppApi";
 
 const ResReview = ({ data }) => {
   return (
@@ -172,12 +174,13 @@ const ReviewTitle = styled.View`
 
 const ReviewContentList = styled.ScrollView`
   width: 90%;
-  height: 76%;
+  height: 50%;
+  border: 1px black;
 `;
 
 const ResReviewView = styled.View`
   width: 100%;
-  height: 100%;
+  height: 90%;
   justify-content: center;
   align-items: center;
 `;
