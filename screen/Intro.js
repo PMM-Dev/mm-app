@@ -10,12 +10,12 @@ import Theme from "../style/Theme";
 const Intro = () => {
     const googleLogin = useGoogleLogIn();
     const guestLogin = useGuestLogIn();
-    const [isWaiting, setIsWaiting] = useState(false);
+    const [isLogging, setIsLogging] = useState(false);
 
-    const check = async (login) => {
-        setIsWaiting(true);
+    const requestLogin = async (login) => {
+        setIsLogging(true);
         await login();
-        setIsWaiting(false);
+        setIsLogging(false);
     };
 
     return (
@@ -29,18 +29,18 @@ const Intro = () => {
                     colors={[Theme.hlRed, Theme.hlOrange]}
                     style={styles.profileGradient}
                 >
-                    <GoogleLoginButton onPress={() => check(googleLogin)}>
+                    <GoogleLoginButton onPress={() => requestLogin(googleLogin)}>
                         <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN}/>
                     </GoogleLoginButton>
                     <GuestModeView>
-                        <GuestModeButton onPress={() => check(guestLogin)}>
+                        <GuestModeButton onPress={() => requestLogin(guestLogin)}>
                             <GuestModeButtonText>Guest mode</GuestModeButtonText>
                             <GuestModeTriangle source={INTRO_TRIANGLE}/>
                         </GuestModeButton>
                     </GuestModeView>
                 </LinearGradient>
             </AuthView>
-            {isWaiting ? (
+            {isLogging ? (
                 <LoadingMask>
                     <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
                 </LoadingMask>
