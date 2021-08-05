@@ -49,8 +49,8 @@ const Setting = ({navigation: {navigate}}) => {
 };
 
 const Page = styled.View`
-  width: ${constants.width};
-  height: ${constants.height - constants.statusBarHeight};
+  width: ${constants.width}px;
+  height: ${constants.height - constants.statusBarHeight}px;
   background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
@@ -58,24 +58,24 @@ const ScrollView = styled.ScrollView`
   width: 100%;
 `;
 const SrollViewWrapper = styled.View`
-  height: ${constants.height - 2 * constants.statusBarHeight};
+  height: ${constants.height - 2 * constants.statusBarHeight}px;
 `;
 
 const StatusBarSpace = styled.View`
   width: 100%;
-  height: ${constants.statusBarHeight};
+  height: ${constants.statusBarHeight}px;
 `;
 
 const HeaderView = styled.View`
   flex: 0.3;
   justify-content: flex-end;
   align-items: flex-end;
-  padding-right: ${constants.vw(4)};
+  padding-right: ${constants.vw(4)}px;
 `
 
 const Icon = styled.Image`
-  height: ${constants.vw(5.6)};
-  width: ${constants.vw(5.6)};
+  height: ${constants.vw(5.6)}px;
+  width: ${constants.vw(5.6)}px;
 `
 
 const ProfileView = styled.View`
@@ -83,7 +83,7 @@ const ProfileView = styled.View`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding-left: ${constants.vw(10)};
+  padding-left: ${constants.vw(10)}px;
 `;
 
 const Portrait = styled.View`
@@ -106,12 +106,12 @@ const Information = styled.View`
 const NameTitle = styled.Text`
   max-width: 260px;
   ${(props) => props.theme.NanumGothicBoldFont}
-  font-size: ${constants.vw(6)};
+  font-size: ${constants.vw(6)}px;
 `;
 
 const EmailTitle = styled.Text`
   color: ${(props) => props.theme.fontGray};
-  font-size: ${constants.vw(3.7)};
+  font-size: ${constants.vw(3.7)}px;
 `;
 
 export default Setting;

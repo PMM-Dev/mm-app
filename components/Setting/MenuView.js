@@ -70,7 +70,7 @@ const InfoButton = styled.TouchableOpacity`
 `
 
 const BigTitle = styled.Text`
-  font-size: ${constants.vw(5)};
+  font-size: ${constants.vw(5)}px;
   font-weight: bold;
   color: ${(props) => props.theme.fontDeepBlack};
 `
@@ -83,7 +83,7 @@ const UtilMenuView = styled.View`
 const UtilButton = styled.TouchableOpacity`
   width: 100%;
   height: 15%;
-  padding-left: ${constants.vw(7)};
+  padding-left: ${constants.vw(7)}px;
   ${(props) => (props.last ? "border-bottom-width: 1.5px;" : "")};
   border-bottom-color: ${(props) => props.theme.backgroundGray};
   flex-direction: row;
@@ -92,15 +92,15 @@ const UtilButton = styled.TouchableOpacity`
 `;
 
 const Title = styled.Text`
-  margin-left: ${(props) => props.info ? 0 : `${constants.vw(4)}`};
-  font-size: ${constants.vw(4.2)};
+  margin-left: ${(props) => props.info ? 0 : `${constants.vw(4)}`}px;
+  font-size: ${constants.vw(4.2)}px;
 
   color: ${(props) => props.info ? props.theme.fontBlackGray : props.theme.fontDeepBlack};
 `;
 
 const Icon = styled.Image`
-  height: ${constants.vw(5.6)};
-  width: ${constants.vw(5.6)};
+  height: ${constants.vw(5.6)}px;
+  width: ${constants.vw(5.6)}px;
 `
 
 export default MenuView;

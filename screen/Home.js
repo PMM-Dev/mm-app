@@ -33,7 +33,7 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.View`
-  height: ${ht};
+  height: ${ht}px;
 `;
 
 const Scroll = styled.ScrollView`

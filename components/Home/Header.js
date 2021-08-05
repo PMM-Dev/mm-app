@@ -18,16 +18,16 @@ const Header = () => {
 
 const Bar = styled.View`
   width: 100%;
-  height: ${constants.vh(7) + constants.statusBarHeight};
+  height: ${constants.vh(7) + constants.statusBarHeight}px;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-  padding-left: ${constants.vw(5)};;
+  padding-left: ${constants.vw(5)}px;
 `;
 
 const Logo = styled.Image`
-  height: ${constants.vh(7)};
-  width: ${constants.vh(7.5) * 2.76470588235294};;
+  height: ${constants.vh(7)}px;
+  width: ${constants.vh(7.5) * 2.76470588235294}px;
 `;
 
 const ButtonsHolder = styled.View`
@@ -42,13 +42,13 @@ const Button = styled.TouchableOpacity`
   padding: 3px;
   background-color: ${(props) => props.theme.backgroundDarkerGray};
   border-radius: 1000px;
-  margin-right: ${constants.vw(2)};
-  margin-bottom: ${constants.vw(2)};
+  margin-right: ${constants.vw(2)}px;
+  margin-bottom: ${constants.vw(2)}px;
 `
 
 const Icon = styled.Image`
-  width: ${constants.vw(6.5)};
-  height: ${constants.vw(6.5)};
+  width: ${constants.vw(6.5)}px;
+  height: ${constants.vw(6.5)}px;
 `
 
 export default Header;
