@@ -1,18 +1,20 @@
 const palette = {
-  hlRed: "#FF3D52",
-  hlOrange: "#FF603A",
-  fontBigBlack: "#1a1a1a",
-  fontBlack: "#333333",
-  fontGray: "#b9c4e1",
-  backgroundWhite: "#ffffff",
-  backgroundGray: "#eff0f4",
-  borderGray: "#EFEFEF",
-  purple: "#8A2BE2",
-  borderGray2: "#efefef",
+    hlRed: "#FF3D52",
+    hlOrange: "#FF603A",
+    fontDeepBlack: "#1a1a1a",
+    fontBlack: "#333333",
+    fontBlackGray: "#9098B6",
+    fontGray: "#b9c4e1",
+    backgroundWhite: "#ffffff",
+    backgroundGray: "#eff0f4",
+    backgroundDarkerGray: "#dadae0",
+    borderGray: "#EFEFEF",
+    purple: "#8A2BE2",
+    borderGray2: "#efefef",
 };
 
 const ui = {
-  opacityMask50: `
+    opacityMask50: `
   position: absolute;
   top: 0;
   left: 0;
@@ -22,7 +24,7 @@ const ui = {
   justify-content: center;
   align-items: center;
   `,
-  opacityMask10: `
+    opacityMask10: `
   position: absolute;
   top: 0;
   left: 0;
@@ -35,18 +37,18 @@ const ui = {
 };
 
 const Font = {
-  DoHyeonFont: `
+    DoHyeonFont: `
     font-family: 'DoHyeon';
     `,
-  NanumSquareFont: `
+    NanumSquareFont: `
     font-family: 'NanumSquare';
     `,
-  NanumGothicFont: `
+    NanumGothicFont: `
     font-family: 'NanumBarunGothic';
     `,
-  NanumGothicBoldFont: `
+    NanumGothicBoldFont: `
     font-family: 'NanumBarunGothicBold';
     `,
 };
 
-export default { ...palette, ...ui, ...Font };
+export default {...palette, ...ui, ...Font};
