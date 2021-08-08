@@ -5,35 +5,34 @@ import Header from "../components/Home/Header";
 import PostPart from "../components/Home/PostPart";
 import NoticePart from "../components/Home/NoticePart";
 import constants from "../constants";
-import {useNavigation} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
-const ht = Math.floor(constants.height) - 120;
 const Home = () => {
-    const navigation = useNavigation();
-    return (
-        <Screen>
-            <Scroll contentContainerStyle={{flex: 1}}>
-                <Wrapper>
-                    <Header/>
-                    <Foodlist>
-                        {/*<SearchbarPart/>*/}
-                        <ButtonPart navigation={navigation}/>
-                    </Foodlist>
-                    <PostNotice>
-                        <PostPart/>
-                        <NoticePart/>
-                    </PostNotice>
-                    <WhiteSpace/>
-                </Wrapper>
-            </Scroll>
-        </Screen>
-    );
+  const navigation = useNavigation();
+  return (
+    <Screen>
+      <Scroll contentContainerStyle={{ flex: 1 }}>
+        <Wrapper>
+          <Header />
+          <Foodlist>
+            {/*<SearchbarPart/>*/}
+            <ButtonPart navigation={navigation} />
+          </Foodlist>
+          <PostNotice>
+            <PostPart />
+            <NoticePart />
+          </PostNotice>
+          <WhiteSpace />
+        </Wrapper>
+      </Scroll>
+    </Screen>
+  );
 };
 
 export default Home;
 
 const Wrapper = styled.View`
-  height: ${ht}px;
+  height: ${constants.pureheight};
 `;
 
 const Scroll = styled.ScrollView`

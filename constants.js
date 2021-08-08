@@ -1,16 +1,18 @@
-import {Dimensions} from "react-native";
+import { Dimensions } from "react-native";
 import Constants from "expo-constants";
 
-const {width, height} = Dimensions.get("screen");
+const { width, height } = Dimensions.get("screen");
 
 const vw = (percent) => {
-    return Math.round(width * (percent / 100))
-}
+  return Math.round(width * (percent / 100));
+};
 
 const vh = (percent) => {
-    return Math.round(height * (percent / 100))
-}
+  return Math.round(height * (percent / 100));
+};
 
 const statusBarHeight = Constants.statusBarHeight;
 
-export default {width, height, vw, vh, statusBarHeight};
+const pureheight = Math.floor(height) - 130;
+
+export default { width, height, vw, vh, statusBarHeight, pureheight };
