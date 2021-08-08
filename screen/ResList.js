@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Theme from "../style/Theme";
-import logo_text from "../assets/logo_text.png";
 import ButtonPart from "../components/Home/ButtonPart";
 import SearchbarPart from "../components/Home/SearchbarPart";
-import LogoPart from "../components/Home/LogoPart";
+import LogoPart from "../components/Home/Header";
 import constants from "../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import ResCard from "../components/Home/ResList/ResCard";

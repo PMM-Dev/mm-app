@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Theme from "../style/Theme";
 import ButtonPart from "../components/Home/ButtonPart";
-import SearchbarPart from "../components/Home/SearchbarPart";
-import LogoPart from "../components/Home/LogoPart";
+import Header from "../components/Home/Header";
 import PostPart from "../components/Home/PostPart";
 import NoticePart from "../components/Home/NoticePart";
 import constants from "../constants";
@@ -15,9 +13,9 @@ const Home = () => {
     <Screen>
       <Scroll contentContainerStyle={{ flex: 1 }}>
         <Wrapper>
-          <LogoPart />
+          <Header />
           <Foodlist>
-            <SearchbarPart />
+            {/*<SearchbarPart/>*/}
             <ButtonPart navigation={navigation} />
           </Foodlist>
           <PostNotice>

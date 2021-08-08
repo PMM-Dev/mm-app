@@ -15,6 +15,7 @@ import {
   SETTING_REVIEW_ICON,
 } from "../../image";
 import constants from "../../constants";
+import MenuViews from "../../components/Setting/MenuView";
 
 const Setting = ({ navigation: { navigate } }) => {
   const logout = useLogOut();
@@ -114,8 +115,8 @@ const styles = StyleSheet.create({
 });
 
 const Page = styled.View`
-  width: 100%;
-  height: 100%;
+  width: ${constants.width}px;
+  height: ${constants.height - constants.statusBarHeight}px;
   background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
@@ -123,32 +124,25 @@ const ScrollView = styled.ScrollView`
   width: 100%;
 `;
 const SrollViewWrapper = styled.View`
-  height: ${constants.height};
+  height: ${constants.height - 2 * constants.statusBarHeight}px;
 `;
 
 const StatusBarSpace = styled.View`
   width: 100%;
-  height: ${constants.statusBarHeight};
+  height: ${constants.statusBarHeight}px;
 `;
 
 const ProfileView = styled.View`
   flex: 1;
-  background-color: ${(props) => props.theme.backgroundGray};
-  justify-content: center;
-  align-items: center;
-`;
-
-const Profile = styled.View`
-  width: 75%;
-  height: 38%;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
+  padding-left: ${constants.vw(10)}px;
 `;
 
 const Portrait = styled.View`
-  width: 93%;
+  width: 22%;
   aspect-ratio: 1;
-  background-color: ${(props) => props.theme.backgroundGray};
   border-radius: 1000px;
 `;
 
@@ -158,38 +152,15 @@ const PortraitImage = styled.Image`
   border-radius: 1000px;
 `;
 
-const InformationView = styled.View`
-  justify-content: center;
-  margin-left: 6%;
-`;
-
 const NameTitle = styled.Text`
   max-width: 260px;
   ${(props) => props.theme.NanumGothicBoldFont}
-  font-size: 30px;
+  font-size: ${constants.vw(6)}px;
 `;
 
 const EmailTitle = styled.Text`
   color: ${(props) => props.theme.fontGray};
-`;
-
-const IconView = styled.View`
-  position: absolute;
-  bottom: 0px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const IconButton = styled.TouchableOpacity`
-  width: 20%;
-  aspect-ratio: 1;
-`;
-
-const IconImage = styled.Image`
-  width: 100%;
-  height: 100%;
+  font-size: ${constants.vw(3.7)}px;
 `;
 
 const MenuView = styled.View`

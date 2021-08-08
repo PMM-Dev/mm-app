@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mm-app",
+    "name": "sckwon770",
     "slug": "mm-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,9 +17,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.pmm.mm",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.pmm.mm",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
