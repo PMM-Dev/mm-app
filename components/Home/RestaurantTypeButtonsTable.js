@@ -12,6 +12,7 @@ import {
     HOME_FOOD_ICON_RANKING,
     HOME_FOOD_ICON_WESTERN,
 } from "../../image";
+import constants from "../../constants";
 
 const StringScreen = [
     {genre: "KOREAN"},
@@ -23,11 +24,11 @@ const StringScreen = [
     {genre: "FASTFOOD"},
 ];
 
-const ButtonPart = ({navigation}) => {
+const RestaurantTypeButtonsTable = ({navigation}) => {
     return (
-        <Buttons>
-            <ButtonsFirstRow>
-                <EachButton
+        <ButtonsTable>
+            <ButtonsRow>
+                <Button
                     onPress={() =>
                         navigation.navigate("ResList", {
                             param: StringScreen[0],
@@ -35,8 +36,8 @@ const ButtonPart = ({navigation}) => {
                     }
                 >
                     <Img source={HOME_FOOD_ICON_KOREAN}/>
-                </EachButton>
-                <EachButton
+                </Button>
+                <Button
                     onPress={() =>
                         navigation.navigate("ResList", {
                             param: StringScreen[1],
@@ -44,71 +45,66 @@ const ButtonPart = ({navigation}) => {
                     }
                 >
                     <Img source={HOME_FOOD_ICON_FLOUR}/>
-                </EachButton>
-                <EachButton>
+                </Button>
+                <Button>
                     <Img source={HOME_FOOD_ICON_WESTERN}/>
-                </EachButton>
-                <EachButton>
+                </Button>
+                <Button>
                     <Img source={HOME_FOOD_ICON_ASIAN}/>
-                </EachButton>
-                <EachButton>
+                </Button>
+                <Button>
                     <Img source={HOME_FOOD_ICON_JAPANESE}/>
-                </EachButton>
-            </ButtonsFirstRow>
-            <ButtonsSecondRow>
-                <EachButton>
+                </Button>
+            </ButtonsRow>
+            <ButtonsRow>
+                <Button>
                     <Img source={HOME_FOOD_ICON_DESSERT}/>
-                </EachButton>
-                <EachButton>
+                </Button>
+                <Button>
                     <Img source={HOME_FOOD_ICON_NIGHTFOOD}/>
-                </EachButton>
-                <EachButton>
+                </Button>
+                <Button>
                     <Img source={HOME_FOOD_ICON_FASTFOOD}/>
-                </EachButton>
-                <EachButton>
+                </Button>
+                <Button>
                     <Img source={HOME_FOOD_ICON_DELIEVERY}/>
-                </EachButton>
-                <EachButton>
+                </Button>
+                <Button>
                     <Img source={HOME_FOOD_ICON_RANKING}/>
-                </EachButton>
-            </ButtonsSecondRow>
-        </Buttons>
+                </Button>
+            </ButtonsRow>
+        </ButtonsTable>
     );
 };
 
+const ButtonsTable = styled.View`
+  padding-top: ${constants.vh(1)}px;
+  padding-bottom: ${constants.vh(1.5)}px;
+  background-color: ${(props) => props.theme.backgroundWhite};
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.fontGray};
+  margin-bottom: ${constants.vh(2)}px;
+`;
+
+const ButtonsRow = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Button = styled.TouchableOpacity`
+  width: ${constants.vw(17)}px;
+  height: ${constants.vw(17)}px;;
+  margin-right: ${constants.vw(1.5)}px;;;
+  margin-bottom: ${constants.vw(1.5)}px;;;
+`;
+
 const Img = styled.Image`
-  width: 98%;
+  width: 100%;
   height: 100%;
   border-radius: 10px;
 `;
 
-const Buttons = styled.View`
-  top: 2%;
-  width: 100%;
-  height: 72%;
-  align-items: center;
-`;
 
-const ButtonsFirstRow = styled.View`
-  width: 90%;
-  height: 45%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-`;
-
-const EachButton = styled.TouchableOpacity`
-  width: 20%;
-  margin: 0px;
-`;
-
-const ButtonsSecondRow = styled.View`
-  width: 90%;
-  height: 45%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  top: 3px;
-`;
-
-export default ButtonPart;
+export default RestaurantTypeButtonsTable;

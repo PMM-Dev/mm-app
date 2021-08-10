@@ -1,32 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import ButtonPart from "../components/Home/ButtonPart";
+import RestaurantTypeButtonsTable from "../components/Home/RestaurantTypeButtonsTable";
 import Header from "../components/Home/Header";
 import PostPart from "../components/Home/PostPart";
 import NoticePart from "../components/Home/NoticePart";
 import constants from "../constants";
-import { useNavigation } from "@react-navigation/native";
+import {useNavigation} from "@react-navigation/native";
 
 const Home = () => {
-  const navigation = useNavigation();
-  return (
-    <Screen>
-      <Scroll contentContainerStyle={{ flex: 1 }}>
-        <Wrapper>
-          <Header />
-          <Foodlist>
-            {/*<SearchbarPart/>*/}
-            <ButtonPart navigation={navigation} />
-          </Foodlist>
-          <PostNotice>
-            <PostPart />
-            <NoticePart />
-          </PostNotice>
-          <WhiteSpace />
-        </Wrapper>
-      </Scroll>
-    </Screen>
-  );
+    const navigation = useNavigation();
+    return (
+        <Screen>
+            <Scroll contentContainerStyle={{flex: 1}}>
+                <Wrapper>
+                    <Header/>
+                    <RestaurantTypeButtonsTable navigation={navigation}/>
+                    <PostPart/>
+                    <NoticePart/>
+                </Wrapper>
+            </Scroll>
+        </Screen>
+    );
 };
 
 export default Home;
@@ -39,20 +33,9 @@ const Scroll = styled.ScrollView`
   width: 100%;
 `;
 
-const WhiteSpace = styled.View`
-  width: 100%;
-  height: 5%;
-`;
-
 const Screen = styled.View`
   width: 100%;
   height: 100%;
-  background-color: ${(props) => props.theme.backgroundWhite};
-`;
-
-const Foodlist = styled.View`
-  width: 100%;
-  height: 28%;
   background-color: ${(props) => props.theme.backgroundGray};
 `;
 

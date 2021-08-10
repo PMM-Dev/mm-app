@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Theme from "../style/Theme";
-import ButtonPart from "../components/Home/ButtonPart";
+import RestaurantTypeButtonsTable from "../components/Home/RestaurantTypeButtonsTable";
 import SearchbarPart from "../components/Home/SearchbarPart";
 import LogoPart from "../components/Home/Header";
 import constants from "../constants";
@@ -28,7 +28,7 @@ const ResList = ({ route, navigation }) => {
           <LogoPart />
           <Foodlist>
             <SearchbarPart />
-            <ButtonPart navigation={navigation} />
+            <RestaurantTypeButtonsTable navigation={navigation} />
           </Foodlist>
           <WhiteSpace>
             <LinearGradient

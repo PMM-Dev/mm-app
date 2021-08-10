@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {LOGO_TEXT, MAGNIFY} from "../../image";
+import {LOGO_TEXT, MAGNIFY_ICON} from "../../image";
 import constants from "../../constants";
 
 const Header = () => {
@@ -9,7 +9,7 @@ const Header = () => {
             <Logo source={LOGO_TEXT}/>
             <ButtonsHolder>
                 <Button>
-                    <Icon source={MAGNIFY} style={{tintColor: "#000000"}}/>
+                    <Icon source={MAGNIFY_ICON} style={{tintColor: "#000000"}}/>
                 </Button>
             </ButtonsHolder>
         </Bar>
@@ -18,11 +18,12 @@ const Header = () => {
 
 const Bar = styled.View`
   width: 100%;
-  height: ${constants.vh(7) + constants.statusBarHeight}px;
+  height: ${constants.vh(5.5) + constants.statusBarHeight}px;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   padding-left: ${constants.vw(5)}px;
+  background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
 const Logo = styled.Image`
@@ -39,16 +40,19 @@ const ButtonsHolder = styled.View`
 `
 
 const Button = styled.TouchableOpacity`
-  padding: 3px;
-  background-color: ${(props) => props.theme.backgroundDarkerGray};
+  justify-content: center;
+  align-items: center;
+  width: ${constants.vw(8.5)}px;
+  height: ${constants.vw(8.5)}px;
   border-radius: 1000px;
+  background-color: ${(props) => props.theme.backgroundDarkerGray};
   margin-right: ${constants.vw(2)}px;
   margin-bottom: ${constants.vw(2)}px;
 `
 
 const Icon = styled.Image`
-  width: ${constants.vw(6.5)}px;
-  height: ${constants.vw(6.5)}px;
+  width: ${constants.vw(5.5)}px;
+  height: ${constants.vw(5.5)}px;
 `
 
 export default Header;
