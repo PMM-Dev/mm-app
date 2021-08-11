@@ -1,4 +1,5 @@
-export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify_white.png")
+export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png")
+export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png")
 
 export const INTRO_LOGO = require("./assets/IntroIcon/big_logo.png");
 export const INTRO_LOGO_TEXT = require("./assets/IntroIcon/big_logo_text.png");

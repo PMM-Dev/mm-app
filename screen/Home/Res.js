@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import constants from "../constants";
+import constants from "../../constants";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
-import ResExplanation from "../components/Home/Res/ResExplanation";
-import ResAboutInfo from "../components/Home/Res/ResAboutInfo";
-import ResReview from "../components/Home/Res/ResReview";
+import ResExplanation from "../../components/Home/Res/ResExplanation";
+import ResAboutInfo from "../../components/Home/Res/ResAboutInfo";
+import ResReview from "../../components/Home/Res/ResReview";
 import * as Location from "expo-location";
 import axios from "axios";
-import { korLocationAPI } from "../components/GoogleAppApi";
-import { getRestaurantComment } from "../components/AppApi";
-import { postRestaurantComment } from "../components/AppApi";
+import { korLocationAPI } from "../../components/GoogleAppApi";
+import { getRestaurantComment } from "../../components/AppApi";
+import { postRestaurantComment } from "../../components/AppApi";
 
 const Res = ({ route }) => {
   const data = route.params.param;

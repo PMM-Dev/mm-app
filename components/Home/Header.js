@@ -3,12 +3,16 @@ import styled from "styled-components";
 import {LOGO_TEXT, MAGNIFY_ICON} from "../../image";
 import constants from "../../constants";
 
-const Header = () => {
+const Header = ({navigation}) => {
     return (
         <Bar>
             <Logo source={LOGO_TEXT}/>
             <ButtonsHolder>
-                <Button>
+                <Button onPress={() =>
+                    navigation.navigate("Search", {
+                        param: {searchType: "HOME"},
+                    })
+                }>
                     <Icon source={MAGNIFY_ICON} style={{tintColor: "#000000"}}/>
                 </Button>
             </ButtonsHolder>
