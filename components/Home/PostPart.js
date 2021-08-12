@@ -44,17 +44,12 @@ const Dummy = [
 
 const PostPart = () => {
   return (
-    <Post>
-      <Post_Title>
-        <Post_Title_Title>
-          <Post_Title_Title_Text>게시글</Post_Title_Title_Text>
-        </Post_Title_Title>
-        <Post_Title_Button>
-          <Post_Title_Button_Text>더보기+</Post_Title_Button_Text>
-        </Post_Title_Button>
-      </Post_Title>
-      <Post_Content>
-        <Post_Content_Content>
+    <HomePart>
+      <Header>
+          <Title>게시글</Title>
+          <MoreButton>더보기 +</MoreButton>
+      </Header>
+      <Content>
           {Dummy.map((element, key) => (
             <PostNoticeMini
               description={element.title}
@@ -64,60 +59,49 @@ const PostPart = () => {
               key={key}
             />
           ))}
-        </Post_Content_Content>
-      </Post_Content>
-    </Post>
+      </Content>
+    </HomePart>
   );
 };
-const Post = styled.View`
+
+const HomePart = styled.View`
   width: 100%;
-  height: 50%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background-color: ${(props) => props.theme.backgroundWhite};
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.fontGray};
+  margin-bottom: ${constants.vh(1)}px;
 `;
 
-const Post_Title = styled.View`
+const Header = styled.View`
   width: 90%;
-  height: 28%;
+  display: flex;
   flex-direction: row;
-  bottom: 5px;
-`;
-
-const Post_Title_Title = styled.View`
-  width: 80%;
-  height: 100%;
-  justify-content: flex-end;
-  align-items: flex-start;
-`;
-
-const Post_Title_Button = styled.TouchableOpacity`
-  width: 20%;
-  height: 100%;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: flex-end;
+  margin-bottom: 10px;
 `;
 
-const Post_Title_Title_Text = styled.Text`
-  font-size: ${constants.vw(4.8)}px;
+const Title = styled.Text`
+${(props) => props.theme.NanumGothicBoldFont};
+font-size: ${constants.vw(5)}px;;
 `;
 
-const Post_Title_Button_Text = styled.Text`
-  font-size: ${constants.vw(3)}px;
+const MoreButton = styled.Text`
+  font-size: ${constants.vw(3.3)}px;
+  color: ${(props) => props.theme.hlOrange};
 `;
 
-const Post_Content = styled.View`
+const Content = styled.View`
   width: 90%;
   height: 72%;
   border: 0.5px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Post_Content_Content = styled.View`
-  width: 100%;
-  height: 95%;
-  justify-content: center;
-  align-items: center;
+  border-radius: ${constants.vw(1)}px;
 `;
 
 export default PostPart;

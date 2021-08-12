@@ -1,4 +1,5 @@
-export const MAGNIFY = require("./assets/CommonIcons/magnify.png")
+export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png")
+export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png")
 
 export const INTRO_LOGO = require("./assets/IntroIcon/big_logo.png");
 export const INTRO_LOGO_TEXT = require("./assets/IntroIcon/big_logo_text.png");
@@ -43,8 +44,7 @@ export const POSITION = require("./assets/position.png");
 export const NAVIGATOR_HOME = require("./assets/NavigatorIcon/home.png");
 export const NAVIGATOR_MAP = require("./assets/NavigatorIcon/map.png");
 export const NAVIGATOR_THEME = require("./assets/NavigatorIcon/theme.png");
-export const NAVIGATOR_GACHA = require("./assets/NavigatorIcon/gacha.png");
-export const NAVIGATOR_GAME = require("./assets/NavigatorIcon/game.png");
+export const NAVIGATOR_GAME = require("./assets/NavigatorIcon/gacha.png");
 export const NAVIGATOR_SETTING = require("./assets/NavigatorIcon/setting.png");
 
 export const FULLSTAR = require("./assets/star_3.png");
