@@ -24,7 +24,7 @@ const ResCard = ({ data, navigation }) => {
         </ExplanationRate>
         <ExplanationMoreButton
           onPress={() =>
-            navigation.navigate("Res", {
+            navigation.navigate("Restaurant", {
               param: data,
               picture: TMP,
             })
