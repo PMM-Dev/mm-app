@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import constants from "../../../constants";
 
 const ResAboutInfo = ({ data, korLocation }) => {
   return (
@@ -26,19 +27,19 @@ const ResAboutInfoView = styled.View`
 
 const AboutDescriptionText = styled.Text`
   text-align: center;
-  font-size: 12px;
+  font-size: ${constants.vw(3)}px;
   font-family: "NanumSquare";
 `;
 
 const AboutAddressText = styled.Text`
   text-align: center;
-  font-size: 12px;
+  font-size: ${constants.vw(3)}px;
   font-family: "NanumSquare";
 `;
 
 const AboutTitleText = styled.Text`
   text-align: center;
-  font-size: 18px;
+  font-size: ${constants.vw(4.6)}px;
   font-family: "NanumSquare";
 `;
 

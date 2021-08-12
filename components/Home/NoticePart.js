@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TouchableOpacity } from "react-native";
+import constants from "../../constants";
 
 const Dummy = [
   {
@@ -86,11 +86,11 @@ const Notice_Title_Button = styled.TouchableOpacity`
 `;
 
 const Notice_Title_Title_Text = styled.Text`
-  font-size: 18px;
+  font-size: ${constants.vw(4.8)}px;
 `;
 
 const Notice_Title_Button_Text = styled.Text`
-  font-size: 12px;
+  font-size: ${constants.vw(3)}px;
 `;
 
 const Notice_Content = styled.View`

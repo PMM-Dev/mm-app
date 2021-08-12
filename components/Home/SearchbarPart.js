@@ -1,28 +1,29 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {SEARCHBAR} from "../../image";
+import { SEARCHBAR } from "../../image";
+import constants from "../../constants";
 
 const SearchbarPart = () => {
-    const [text, onChangeText] = useState();
+  const [text, onChangeText] = useState();
 
-    useEffect(() => {
-        return () => onChangeText("");
-    }, []);
+  useEffect(() => {
+    return () => onChangeText("");
+  }, []);
 
-    return (
-        <Searchbar>
-            <TextInputView
-                onChangeText={onChangeText}
-                value={text}
-                placeholder="위치 / 음식 키워드로 검색해주세요"
-                placeholderTextColor="#D4D7DB"
-                underlineColorAndroid="rgba(0,0,0,0)"
-            />
-            <SearchButtonPos onPress={() => console.log("pressed")}>
-                <SearchButtonImage source={SEARCHBAR}/>
-            </SearchButtonPos>
-        </Searchbar>
-    );
+  return (
+    <Searchbar>
+      <TextInputView
+        onChangeText={onChangeText}
+        value={text}
+        placeholder="위치 / 음식 키워드로 검색해주세요"
+        placeholderTextColor="#D4D7DB"
+        underlineColorAndroid="rgba(0,0,0,0)"
+      />
+      <SearchButtonPos onPress={() => console.log("pressed")}>
+        <SearchButtonImage source={SEARCHBAR} />
+      </SearchButtonPos>
+    </Searchbar>
+  );
 };
 
 const TextInputView = styled.TextInput`
@@ -30,9 +31,9 @@ const TextInputView = styled.TextInput`
   background-color: ${(props) => props.theme.backgroundWhite};
   height: 80%;
   border-radius: 5px;
-  padding-left: 20px;
+  padding-left: ${constants.vw(6)}px;
   color: ${(props) => props.theme.fontBlack};
-  font-size: 16px;
+  font-size: ${constants.vw(2.6)}px;
 `;
 
 const SearchButtonImage = styled.Image`

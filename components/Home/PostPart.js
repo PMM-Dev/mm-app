@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PostNoticeMini from "./PostNoticeMini";
+import constants from "../../constants";
 
 const Dummy = [
   {
@@ -97,11 +98,11 @@ const Post_Title_Button = styled.TouchableOpacity`
 `;
 
 const Post_Title_Title_Text = styled.Text`
-  font-size: 18px;
+  font-size: ${constants.vw(4.8)}px;
 `;
 
 const Post_Title_Button_Text = styled.Text`
-  font-size: 12px;
+  font-size: ${constants.vw(3)}px;
 `;
 
 const Post_Content = styled.View`

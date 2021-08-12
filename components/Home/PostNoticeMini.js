@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { TouchableOpacity } from "react-native";
+import constants from "../../constants";
 
 const PostNoticeMini = ({ description, year, month, day }) => {
   return (
@@ -37,8 +38,8 @@ const Title = styled.View`
 `;
 
 const Title_Text = styled.Text`
-  margin-left: 30px;
-  font-size: 12px;
+  margin-left: ${constants.vw(8)}px;
+  font-size: ${constants.vw(3)}px;
   font-weight: 700;
   color: ${(props) => props.theme.fontBlack};
   text-align: left;
@@ -54,10 +55,10 @@ const Date = styled.View`
 
 const Date_Text = styled.Text`
   width: 100%;
-  font-size: 10px;
+  font-size: ${constants.vw(2.65)}px;
   font-weight: 100;
-  margin-left: 30px;
-  ${(props) => props.theme.NanumSquareFont}
+  margin-left: ${constants.vw(2.1)}px;
+  ${(props) => props.theme.NanumSquareFont};
 `;
 
 export default PostNoticeMini;

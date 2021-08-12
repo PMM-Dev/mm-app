@@ -76,13 +76,13 @@ export default ResList;
 const NOTYET = styled.View``;
 
 const ResView = styled.View`
-  height: 140px;
+  height: ${constants.vw(36)}px;
   width: 100%;
   align-items: center;
 `;
 
 const Wtext = styled.Text`
-  font-size: 11px;
+  font-size: ${constants.vw(3)}px;
   color: #ffffff;
   text-align: center;
   font-family: "NanumSquare";

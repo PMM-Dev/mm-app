@@ -4,6 +4,7 @@ import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART } from "../../../image";
 import KoreanEnum from "../../../KoreanEnum";
 import { Converter } from "../../Converter";
+import constants from "../../../constants";
 
 const ResExplanation = ({ data, picture, Infofunc }) => {
   return (
@@ -37,7 +38,7 @@ const ResExplanation = ({ data, picture, Infofunc }) => {
             </DetailTitleAddress>
           </DetailInfo>
           <DownRate>
-            <StarMaker rate={data.reviewCount} />
+            <StarMaker rate={data.averageGrade} />
           </DownRate>
         </DownDetailInfo>
         <HeartButtonPos>
@@ -78,7 +79,7 @@ const HeartButtonPos = styled.TouchableOpacity`
 
 const DetailInfoText = styled.Text`
   text-align: center;
-  font-size: 12px;
+  font-size: ${constants.vw(3)}px;
   font-family: "NanumSquare";
 `;
 
@@ -104,7 +105,7 @@ const DetailInfo = styled.View`
 
 const DetailTitleText = styled.Text`
   text-align: center;
-  font-size: 28px;
+  font-size: ${constants.vw(7.2)}px;
   font-family: "NanumSquare";
 `;
 
@@ -159,7 +160,7 @@ const FilterText = styled.Text`
   font-family: "NanumSquare";
   color: ${(props) => props.theme.fontBlack};
   text-align: center;
-  font-size: 16px;
+  font-size: ${constants.vw(4)}px;
   ${(props) => (props.last ? "" : "border-right-width: 1.5px;")};
   border-right-color: ${(props) => props.theme.fontBlack};
 `;

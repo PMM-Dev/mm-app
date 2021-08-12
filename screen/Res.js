@@ -10,10 +10,11 @@ import axios from "axios";
 import { korLocationAPI } from "../components/GoogleAppApi";
 import { getRestaurantComment } from "../components/AppApi";
 import { postRestaurantComment } from "../components/AppApi";
+import { useloadProfile, useProfile } from "../components/AuthContext";
 
 const Res = ({ route }) => {
   const data = route.params.param;
-  const picture = route.params.picture;
+  const resPicture = route.params.picture;
   const [marker, setMarker] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -22,7 +23,8 @@ const Res = ({ route }) => {
   const [InformationActive, setInformationActive] = useState(true);
   const [commentData, setcommentData] = useState([]);
   const [review, setreview] = useState("");
-
+  const { email, name, picture } = useProfile();
+  const loadProfile = useloadProfile();
   const preLoad = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -49,6 +51,7 @@ const Res = ({ route }) => {
       let gotRestaurantComment = await getRestaurantComment(data.id);
       setcommentData(gotRestaurantComment);
     }
+    loadProfile();
     initLocation();
     initComment();
     preLoad();
@@ -63,7 +66,7 @@ const Res = ({ route }) => {
       <ExplanationView>
         <ResExplanation
           data={data}
-          picture={picture}
+          picture={resPicture}
           Infofunc={setInformationActive}
         />
       </ExplanationView>
@@ -114,7 +117,7 @@ const Res = ({ route }) => {
         )
       ) : (
         <ReviewView>
-          <ResReview data={commentData} />
+          <ResReview data={commentData} reviewCount={data.reviewCount} />
           <ReviewWrite>
             <TmpTextInput
               value={review}
@@ -123,14 +126,14 @@ const Res = ({ route }) => {
             <TmpButtonPos>
               <TmpButton
                 onPress={() => {
-                  let res = postRestaurantComment(review);
+                  let response = postRestaurantComment(review, email, data.id);
                   setcommentData((prev) => [
                     ...prev,
                     {
-                      author: "test",
+                      authorEmail: email,
                       description: review,
                       grade: 3,
-                      id: res.data,
+                      id: response.data,
                       likeCount: 0,
                     },
                   ]);
@@ -201,7 +204,7 @@ const ExplanationView = styled.View`
 
 const LocationTitleText = styled.Text`
   text-align: center;
-  font-size: 18px;
+  font-size: ${constants.vw(4.6)}px;
   font-family: "NanumSquare";
 `;
 

@@ -16,7 +16,7 @@ export const getRestaurantList = async (genre) => {
 export const getRestaurantComment = async (id) => {
   try {
     const response = await axios.get(
-      API_URL + "/api/restaurant/" + id + "/review/list"
+      API_URL + "/api/restaurant/" + id + "/review"
     );
     return response.data;
   } catch (e) {
@@ -25,18 +25,17 @@ export const getRestaurantComment = async (id) => {
   }
 };
 
-export const postRestaurantComment = async (review) => {
+export const postRestaurantComment = async (review, userEmail, id) => {
   try {
-    const res = await axios({
-      method: "POST",
-      url: API_URL + "/api/restaurant/4/review",
-      data: {
-        authorEmail: "test",
+    const response = await axios.post(
+      API_URL + "/api/restaurant/" + id + "/review",
+      {
+        authorEmail: userEmail,
         description: review,
         grade: 4,
-      },
-    });
-    return res;
+      }
+    );
+    return response;
   } catch (e) {
     console.log("[AppApi][Exception] " + e);
     return [];

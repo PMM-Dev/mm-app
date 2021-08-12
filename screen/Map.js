@@ -179,14 +179,14 @@ const PosButton = styled.TouchableOpacity`
   bottom: 10%;
   right: 0%;
   align-self: flex-end;
-  width: 100px;
-  height: 100px;
+  width: ${constants.vw(25)}px;
+  height: ${constants.vw(25)}px;
   justify-content: center;
 `;
 
 const MarkerCircle = styled.View`
-  width: 15px;
-  height: 15px;
+  width: ${constants.vw(3.8)}px;
+  height: ${constants.vw(3.8)}px;
   border-radius: 70px;
   background-color: red;
 `;

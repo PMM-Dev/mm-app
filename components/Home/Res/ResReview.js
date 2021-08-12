@@ -3,13 +3,14 @@ import styled from "styled-components";
 import axios from "axios";
 import StarMaker from "../../Map/StarMaker";
 import { postRestaurantComment } from "../../AppApi";
+import constants from "../../../constants";
 
-const ResReview = ({ data }) => {
+const ResReview = ({ data, reviewCount }) => {
   return (
     <ResReviewView>
       <ReviewTitle>
         <ReviewTitleNum>
-          <ReviewTitleNumText>최근리뷰 224개</ReviewTitleNumText>
+          <ReviewTitleNumText>최근리뷰 {reviewCount}개</ReviewTitleNumText>
         </ReviewTitleNum>
         <ReviewTitleFilter>
           <ReviewTitleFilterRecent>
@@ -65,13 +66,13 @@ const ReviewContentTopStarStarMakerView = styled.View`
 const ReviewContentTopNameStarView = styled.View`
   height: 100%;
   width: 82%;
-  margin-left: 8px;
+  margin-left: ${constants.vw(2)}px;
 `;
 
 const ReviewContentTopNameText = styled.Text`
   font-family: "NanumSquare";
   color: ${(props) => props.theme.fontBlack};
-  font-size: 14px;
+  font-size: ${constants.vw(3)}px;
 `;
 
 const ReviewContentTopNameView = styled.View`
@@ -105,7 +106,7 @@ const ReviewContentTop = styled.View`
 const ReviewContentBottomText = styled.Text`
   font-family: "NanumSquare";
   color: ${(props) => props.theme.fontBlack};
-  font-size: 12px;
+  font-size: ${constants.vw(3)}px;
 `;
 
 const ReviewContentBottom = styled.View`
@@ -115,7 +116,7 @@ const ReviewContentBottom = styled.View`
 `;
 
 const ReviewContent = styled.View`
-  height: 100px;
+  height: ${constants.vw(25)}px;
   width: 100%;
   align-items: center;
 `;
@@ -142,14 +143,14 @@ const ReviewTitleFilterText = styled.Text`
   font-family: "NanumSquare";
   color: ${(props) => props.theme.fontBlack};
   text-align: center;
-  font-size: 11px;
+  font-size: ${constants.vw(3)}px;
   ${(props) => (props.last ? "" : "border-right-width: 1.5px;")};
   border-right-color: ${(props) => props.theme.fontBlack};
 `;
 
 const ReviewTitleNumText = styled.Text`
   font-family: "NanumSquare";
-  font-size: 18px;
+  font-size: ${constants.vw(4.6)}px;
 `;
 
 const ReviewTitleFilter = styled.View`

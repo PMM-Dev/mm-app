@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART, TMP } from "../../../image";
+import constants from "../../../constants";
 
 const ResCard = ({ data, navigation }) => {
   return (
@@ -19,7 +20,7 @@ const ResCard = ({ data, navigation }) => {
           ))}
         </ExplanationTag>
         <ExplanationRate>
-          <StarMaker rate={data.reviewCount} />
+          <StarMaker rate={data.averageGrade} />
         </ExplanationRate>
         <ExplanationMoreButton
           onPress={() =>
@@ -48,7 +49,7 @@ const ResCard = ({ data, navigation }) => {
 const ExplanationTagText = styled.Text`
   font-family: "NanumSquare";
   color: ${(props) => props.theme.hlRed};
-  font-size: 10px;
+  font-size: ${constants.vw(2.6)}px;
 `;
 
 const HeartImg = styled.Image`
@@ -93,7 +94,7 @@ const ExplanationTitle = styled.View`
 `;
 
 const ExplanationTitleText = styled.Text`
-  font-size: 18px;
+  font-size: ${constants.vw(4.6)}px;
   font-family: "NanumSquare";
 `;
 
@@ -110,7 +111,7 @@ const View = styled.View`
   flex-direction: row;
   border-bottom-width: 3px;
   border-bottom-color: ${(props) => props.theme.borderGray2};
-  padding-bottom: 10px;
+  padding-bottom: ${constants.vw(2.6)}px;
   justify-content: center;
   align-content: center;
 `;
