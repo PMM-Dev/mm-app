@@ -78,7 +78,6 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
 };
 
 const ButtonsTable = styled.View`
-  padding-top: ${constants.vh(1)}px;
   padding-bottom: ${constants.vh(1.5)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
   border-bottom-width: 1px;

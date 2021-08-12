@@ -9,10 +9,10 @@ const SearchTypeBar = ({searchType}) => {
     const [selectedType, setSelectedType] = useState();
 
     useEffect(() => {
-            if (searchType === "HOME") {
+            if (searchType === "Home") {
                 setTypes(["식당", "게시글", "유저"]);
                 setSelectedType("식당")
-            } else if (searchType === "RESTAURANT") {
+            } else if (searchType === "Res") {
                 setTypes("식당");
                 setSelectedType("식당")
             }

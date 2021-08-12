@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Theme from "../../style/Theme";
-import RestaurantTypeButtonsTable from "../../components/Home/RestaurantTypeButtonsTable";
-import LogoPart from "../../components/Home/Header";
+import Header from "../../components/Home/Header";
 import constants from "../../constants";
 import {LinearGradient} from "expo-linear-gradient";
 import ResCard from "../../components/Home/ResList/ResCard";
 import {getRestaurantList} from "../../components/AppApi";
+import KoreanEnum from "../../KoreanEnum";
 
 const ResList = ({route, navigation}) => {
     const genre = route.params.param.genre;
@@ -25,10 +25,7 @@ const ResList = ({route, navigation}) => {
         <Screen>
             <Scroll contentContainerStyle={{flex: 1}}>
                 <Wrapper>
-                    <LogoPart/>
-                    <Foodlist>
-                        <RestaurantTypeButtonsTable navigation={navigation}/>
-                    </Foodlist>
+                    <Header route={route} navigation={navigation} genre={KoreanEnum[genre]}/>
                     <WhiteSpace>
                         <LinearGradient
                             colors={[Theme.hlRed, Theme.hlOrange]}

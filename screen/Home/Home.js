@@ -5,15 +5,13 @@ import Header from "../../components/Home/Header";
 import PostPart from "../../components/Home/PostPart";
 import NoticePart from "../../components/Home/NoticePart";
 import constants from "../../constants";
-import {useNavigation} from "@react-navigation/native";
 
-const Home = () => {
-    const navigation = useNavigation();
+const Home = ({route, navigation}) => {
     return (
         <Screen>
             <Scroll contentContainerStyle={{flex: 1}}>
                 <Wrapper>
-                    <Header navigation={navigation}/>
+                    <Header route={route} navigation={navigation}/>
                     <RestaurantTypeButtonsTable navigation={navigation}/>
                     <PostPart/>
                     <NoticePart/>

@@ -3,16 +3,13 @@ import styled from "styled-components";
 import constants from "../../constants";
 import SearchTypeBar from "../../components/Home/Search/SearchTypeBar";
 import SearchTextInput from "../../components/Home/SearchTextInput";
-import {ARROW_LEFT_ICON} from "../../image";
-import Theme from "../../style/Theme";
+import BackButton from "./BackButton";
 
 const Search = ({route, navigation}) => {
     return (
         <Screen>
             <InputBar>
-                <BackButton onPress={() => navigation.goBack()}>
-                    <Icon source={ARROW_LEFT_ICON} style={{tintColor: Theme.fontBlack}}/>
-                </BackButton>
+                <BackButton goBack={navigation.goBack()}/>
                 <SearchTextInput/>
             </InputBar>
             <SearchTypeBar searchType={route.params.param.searchType}/>
@@ -37,18 +34,6 @@ const InputBar = styled.View`
   justify-content: center;
   align-items: flex-end;
   padding-bottom: ${constants.vh(1)}px;
-`
-const BackButton = styled.TouchableOpacity`
-  width: ${constants.vw(9)}px;
-  height: ${constants.vw(9)}px;
-  justify-content: center;
-  align-items: flex-start;
-  padding-right: ${constants.vw(1)}px;;
-`
-
-const Icon = styled.Image`
-  width: 100%;
-  resize-mode: contain;
 `
 
 const Scroll = styled.ScrollView`
