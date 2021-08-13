@@ -13,7 +13,7 @@ import MapNavigator from "./MapNavigator";
 
 const BottomTab = createBottomTabNavigator();
 
-const MainNavigation = () => {
+const MainNavigator = () => {
     const navigatorHeight = constants.vh(8);
     const navigatorIconSize = constants.vh(6);
     const navigatorLabalSize = constants.vh(1.5);
@@ -108,4 +108,4 @@ const MainNavigation = () => {
     );
 };
 
-export default MainNavigation;
+export default MainNavigator;
