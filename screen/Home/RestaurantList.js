@@ -25,7 +25,7 @@ const RestaurantList = ({route, navigation}) => {
         <Screen>
             <Scroll contentContainerStyle={{flex: 1}}>
                 <Wrapper>
-                    <Header route={route} navigation={navigation} genre={KoreanEnum[genre]}/>
+                    <Header route={route} navigation={navigation} title={KoreanEnum[genre]}/>
                     <WhiteSpace>
                         <LinearGradient
                             colors={[Theme.hlRed, Theme.hlOrange]}

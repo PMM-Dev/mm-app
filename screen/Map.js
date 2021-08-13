@@ -9,6 +9,7 @@ import * as Location from "expo-location";
 import SearchbarMapPart from "../components/Map/SearchbarMapPart";
 import ExplanationView from "../components/Map/Explanation";
 import Theme from "../style/Theme";
+import Header from "../components/Header/Header";
 
 const dummy = [
   {
@@ -27,7 +28,7 @@ const dummy = [
   },
 ];
 
-const Map = () => {
+const Map = ({route, navigation}) => {
   const mapRef = React.createRef();
   const [marker, setmarker] = useState([
     {
@@ -102,6 +103,7 @@ const Map = () => {
           <Scroll contentContainerStyle={{ flex: 1 }}>
             <Wrapper>
               <Container>
+                <Header navigation={navigation} route={route} title={"지도"} />
                 <MapView
                   style={{ flex: 1 }}
                   initialRegion={{
@@ -140,7 +142,7 @@ const Map = () => {
                 <MarkerCircle />
               </Marker> */}
                 </MapView>
-                <SearchbarMapPart />
+                {/*<SearchbarMapPart />*/}
                 {bookMarkPressed ? (
                   <NotYet />
                 ) : (

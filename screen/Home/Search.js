@@ -3,7 +3,7 @@ import styled from "styled-components";
 import constants from "../../constants";
 import SearchTypeBar from "../../components/Home/Search/SearchTypeBar";
 import SearchTextInput from "../../components/Home/SearchTextInput";
-import BackButton from "./BackButton";
+import BackButton from "../../components/Header/BackButton";
 
 const Search = ({route, navigation}) => {
     return (

@@ -18,6 +18,7 @@ const Button = styled.TouchableOpacity`
   justify-content: center;
   align-items: flex-start;
   padding-right: ${constants.vw(1)}px;;
+  padding-bottom: ${constants.vh(0.5)}px;;
 `
 
 const Icon = styled.Image`
