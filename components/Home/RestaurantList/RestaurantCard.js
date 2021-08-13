@@ -1,40 +1,47 @@
 import React from "react";
 import styled from "styled-components";
 import StarMaker from "../../Map/StarMaker";
-import { FULLHEART, EMPTYHEART, TMP } from "../../../image";
+import { FULLHEART, EMPTYHEART, RESTAURANT_IMAGE } from "../../../image";
 import constants from "../../../constants";
 
 const RestaurantCard = ({ data, navigation }) => {
   return (
     <View>
-      <ImageView>
-        <ExplanationImageImg source={TMP} />
-      </ImageView>
-      <ExplanationView>
-        <ExplanationTitle>
-          <ExplanationTitleText>{data.name}</ExplanationTitleText>
-        </ExplanationTitle>
-        <ExplanationTag>
-          {data.themes.map((list, index) => (
-            <ExplanationTagText key={index}>{list.theme}</ExplanationTagText>
-          ))}
-        </ExplanationTag>
-        <ExplanationRate>
-          <StarMaker rate={data.averageGrade} />
-        </ExplanationRate>
-        <ExplanationMoreButton
+      <ExplanationPart>
+        <ExplanationRestaurantNavigate
           onPress={() =>
             navigation.navigate("Restaurant", {
               param: data,
-              picture: TMP,
+              picture: RESTAURANT_IMAGE,
             })
           }
+          activeOpacity={1}
         >
-          <ExplanationMoreButtonText>
-            후기 더 보러가기 +
-          </ExplanationMoreButtonText>
-        </ExplanationMoreButton>
-      </ExplanationView>
+          <ImageView>
+            <ExplanationImageImg source={RESTAURANT_IMAGE} />
+          </ImageView>
+          <ExplanationView>
+            <ExplanationTitle>
+              <ExplanationTitleText>{data.name}</ExplanationTitleText>
+            </ExplanationTitle>
+            <ExplanationTag>
+              {data.themes.map((list, index) => (
+                <ExplanationTagText key={index}>
+                  #{list.theme}
+                </ExplanationTagText>
+              ))}
+            </ExplanationTag>
+            <ExplanationRate>
+              <StarMaker rate={data.averageGrade} />
+            </ExplanationRate>
+            <ExplanationMoreButton>
+              <ExplanationMoreButtonText>
+                후기 더 보러가기 +
+              </ExplanationMoreButtonText>
+            </ExplanationMoreButton>
+          </ExplanationView>
+        </ExplanationRestaurantNavigate>
+      </ExplanationPart>
       <HeartButtonPos>
         {true ? ( //data.bookmarked
           <HeartImg source={FULLHEART} />
@@ -46,10 +53,24 @@ const RestaurantCard = ({ data, navigation }) => {
   );
 };
 
+const ExplanationPart = styled.View`
+  height: 100%;
+  width: 100%;
+  border-bottom-width: 3px;
+  border-bottom-color: ${(props) => props.theme.borderGray2};
+  padding-bottom: ${constants.vw(2.6)}px;
+`;
+
+const ExplanationRestaurantNavigate = styled.TouchableOpacity`
+  height: 100%;
+  width: 100%;
+  flex-direction: row;
+`;
+
 const ExplanationTagText = styled.Text`
   font-family: "NanumSquare";
   color: ${(props) => props.theme.hlRed};
-  font-size: ${constants.vw(2.6)}px;
+  font-size: ${constants.vw(2.2)}px;
 `;
 
 const HeartImg = styled.Image`
@@ -68,9 +89,10 @@ const HeartButtonPos = styled.TouchableOpacity`
 
 const ExplanationMoreButtonText = styled.Text`
   font-family: "NanumSquare";
+  font-size: ${constants.vw(3)}px;
 `;
 
-const ExplanationMoreButton = styled.TouchableOpacity`
+const ExplanationMoreButton = styled.View`
   height: 12%;
   width: 100%;
 `;
@@ -83,7 +105,7 @@ const ExplanationTag = styled.View`
 
 const ExplanationRate = styled.View`
   height: 40%;
-  width: 100%;
+  width: 60%;
 `;
 
 const ExplanationTitle = styled.View`
@@ -94,7 +116,7 @@ const ExplanationTitle = styled.View`
 `;
 
 const ExplanationTitleText = styled.Text`
-  font-size: ${constants.vw(4.6)}px;
+  font-size: ${constants.vw(4)}px;
   font-family: "NanumSquare";
 `;
 
@@ -108,17 +130,11 @@ const ExplanationImageImg = styled.Image`
 const View = styled.View`
   width: 90%;
   height: 100%;
-  flex-direction: row;
-  border-bottom-width: 3px;
-  border-bottom-color: ${(props) => props.theme.borderGray2};
-  padding-bottom: ${constants.vw(2.6)}px;
-  justify-content: center;
-  align-content: center;
 `;
 
 const ImageView = styled.View`
   height: 100%;
-  width: 35%;
+  width: 30%;
   justify-content: center;
   align-content: center;
 `;

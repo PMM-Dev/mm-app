@@ -4,6 +4,7 @@ import axios from "axios";
 import StarMaker from "../../Map/StarMaker";
 import { postRestaurantComment } from "../../AppApi";
 import constants from "../../../constants";
+import { COMMENT_PROFILE } from "../../../image";
 
 const Review = ({ data, reviewCount }) => {
   return (
@@ -31,7 +32,7 @@ const Review = ({ data, reviewCount }) => {
           <ReviewContent key={index}>
             <ReviewContentTop>
               <ReviewContentTopImageView>
-                <ReviewContentTopImage source={data.picture} />
+                <ReviewContentTopImage source={COMMENT_PROFILE} />
               </ReviewContentTopImageView>
               <ReviewContentTopNameStarView>
                 <ReviewContentTopNameView>
@@ -119,6 +120,8 @@ const ReviewContent = styled.View`
   height: ${constants.vw(25)}px;
   width: 100%;
   align-items: center;
+  margin-left: 7px;
+  margin-top: 4px;
 `;
 
 const ReviewTitleFilterStarLow = styled.TouchableOpacity`
@@ -181,7 +184,7 @@ const ReviewContentList = styled.ScrollView`
 
 const ResReviewView = styled.View`
   width: 100%;
-  height: 90%;
+  height: 60%;
   justify-content: center;
   align-items: center;
 `;
