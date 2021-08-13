@@ -5,7 +5,7 @@ import Intro from "../screen/Intro";
 
 const Stack = createStackNavigator();
 
-const AuthNavigation = () => {
+const AuthNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -19,4 +19,4 @@ const AuthNavigation = () => {
   );
 };
 
-export default AuthNavigation;
+export default AuthNavigator;

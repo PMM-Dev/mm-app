@@ -5,11 +5,11 @@ import {Image} from "react-native";
 
 import HomeNavigator from "./HomeNavigator";
 import Gacha from "../screen/Gacha/Gacha";
-import Map from "../screen/Map";
 import Theme from "../style/Theme";
 import SettingNavigator from "./SettingNavigator";
 import {NAVIGATOR_GAME, NAVIGATOR_HOME, NAVIGATOR_MAP, NAVIGATOR_SETTING, NAVIGATOR_THEME,} from "../image";
 import constants from "../constants";
+import MapNavigator from "./MapNavigator";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -43,8 +43,8 @@ const MainNavigation = () => {
                     }}
                 />
                 <BottomTab.Screen
-                    name="Map"
-                    component={Map}
+                    name="MapNavigator"
+                    component={MapNavigator}
                     options={{
                         title: "위치",
                         tabBarIcon: ({focused}) => {

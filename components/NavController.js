@@ -1,11 +1,11 @@
 import React from "react";
 import { useIsLoggedIn } from "./AuthContext";
 import MainNavigation from "../navigator/MainNavigation";
-import AuthNavigation from "../navigator/AuthNavigation";
+import AuthNavigator from "../navigator/AuthNavigator";
 
 const NavController = () => {
   const isLoggedIn = useIsLoggedIn();
-  return <>{isLoggedIn ? <MainNavigation /> : <AuthNavigation />}</>;
+  return <>{isLoggedIn ? <MainNavigation /> : <AuthNavigator />}</>;
 };
 
 export default NavController;
