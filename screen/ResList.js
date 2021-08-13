@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Theme from "../style/Theme";
 import ButtonPart from "../components/Home/ButtonPart";
 import SearchbarPart from "../components/Home/SearchbarPart";
-import LogoPart from "../components/Home/Header";
+import LogoPart from "../components/Header/Header";
 import constants from "../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import ResCard from "../components/Home/ResList/ResCard";

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Theme from "../../style/Theme";
-import Header from "../../components/Home/Header";
+import Header from "../../components/Header/Header";
 import constants from "../../constants";
 import {LinearGradient} from "expo-linear-gradient";
 import ResCard from "../../components/Home/ResList/ResCard";
