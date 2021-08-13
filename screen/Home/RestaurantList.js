@@ -4,7 +4,7 @@ import Theme from "../../style/Theme";
 import Header from "../../components/Header/Header";
 import constants from "../../constants";
 import {LinearGradient} from "expo-linear-gradient";
-import ResCard from "../../components/Home/ResList/ResCard";
+import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
 import {getRestaurantList} from "../../components/AppApi";
 import KoreanEnum from "../../KoreanEnum";
 
@@ -55,7 +55,7 @@ const RestaurantList = ({route, navigation}) => {
                             ) : (
                                 list.map((data, index) => (
                                     <ResView key={index}>
-                                        <ResCard data={data} navigation={navigation}/>
+                                        <RestaurantCard data={data} navigation={navigation}/>
                                     </ResView>
                                 ))
                             )}

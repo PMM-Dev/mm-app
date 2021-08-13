@@ -6,7 +6,7 @@ import KoreanEnum from "../../../KoreanEnum";
 import { Converter } from "../../Converter";
 import constants from "../../../constants";
 
-const ResExplanation = ({ data, picture, Infofunc }) => {
+const Explanation = ({ data, picture, Infofunc }) => {
   return (
     <ResExplanationView>
       <UpView>
@@ -171,4 +171,4 @@ const UpView = styled.View`
   background-color: ${(props) => props.theme.backgroundGray};
 `;
 
-export default ResExplanation;
+export default Explanation;

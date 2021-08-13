@@ -6,7 +6,7 @@ import SearchbarPart from "../components/Home/SearchbarPart";
 import LogoPart from "../components/Header/Header";
 import constants from "../constants";
 import { LinearGradient } from "expo-linear-gradient";
-import ResCard from "../components/Home/ResList/ResCard";
+import RestaurantCard from "../components/Home/RestaurantList/RestaurantCard";
 import { getRestaurantList } from "../components/AppApi";
 
 const ResList = ({ route, navigation }) => {
@@ -59,7 +59,7 @@ const ResList = ({ route, navigation }) => {
               ) : (
                 list.map((data, index) => (
                   <ResView key={index}>
-                    <ResCard data={data} navigation={navigation} />
+                    <RestaurantCard data={data} navigation={navigation} />
                   </ResView>
                 ))
               )}

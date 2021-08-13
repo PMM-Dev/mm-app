@@ -5,7 +5,7 @@ import StarMaker from "../../Map/StarMaker";
 import { postRestaurantComment } from "../../AppApi";
 import constants from "../../../constants";
 
-const ResReview = ({ data, reviewCount }) => {
+const Review = ({ data, reviewCount }) => {
   return (
     <ResReviewView>
       <ReviewTitle>
@@ -186,4 +186,4 @@ const ResReviewView = styled.View`
   align-items: center;
 `;
 
-export default ResReview;
+export default Review;

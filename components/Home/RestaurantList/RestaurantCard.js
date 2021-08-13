@@ -4,7 +4,7 @@ import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART, TMP } from "../../../image";
 import constants from "../../../constants";
 
-const ResCard = ({ data, navigation }) => {
+const RestaurantCard = ({ data, navigation }) => {
   return (
     <View>
       <ImageView>
@@ -128,4 +128,4 @@ const ExplanationView = styled.View`
   width: 65%;
 `;
 
-export default ResCard;
+export default RestaurantCard;

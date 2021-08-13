@@ -2,9 +2,9 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import constants from "../../constants";
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from "react-native-maps";
-import ResExplanation from "../../components/Home/Res/ResExplanation";
-import ResAboutInfo from "../../components/Home/Res/ResAboutInfo";
-import ResReview from "../../components/Home/Res/ResReview";
+import Explanation from "../../components/Home/Restaurant/Explanation";
+import ResAboutInfo from "../../components/Home/Restaurant/AboutInfo";
+import Review from "../../components/Home/Restaurant/Review";
 import * as Location from "expo-location";
 import {useloadProfile, useProfile} from "../../components/AuthContext";
 import {korLocationAPI} from "../../components/GoogleAppApi";
@@ -64,7 +64,7 @@ const Restaurant = ({route}) => {
     return (
         <Screen>
             <ExplanationView>
-                <ResExplanation
+                <Explanation
                     data={data}
                     picture={resPicture}
                     Infofunc={setInformationActive}
@@ -117,7 +117,7 @@ const Restaurant = ({route}) => {
                 )
             ) : (
                 <ReviewView>
-                    <ResReview data={commentData} reviewCount={data.reviewCount}/>
+                    <Review data={commentData} reviewCount={data.reviewCount}/>
                     <ReviewWrite>
                         <TmpTextInput
                             value={review}
