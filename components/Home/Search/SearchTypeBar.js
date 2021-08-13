@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components";
-import Theme from "../../../style/Theme";
-import {ActivityIndicator} from "react-native-paper";
 import constants from "../../../constants";
 
 const SearchTypeBar = ({searchType}) => {
@@ -37,7 +35,7 @@ const Bar = styled.View`
   flex-direction: row;
 `
 const Menu = styled.TouchableOpacity`
-  width: ${(props) => constants.vw(100 / props.length)};
+  width: ${(props) => constants.vw(100 / props.length)}px;
   height: 100%;
   justify-content: center;
   align-items: center;

@@ -26,14 +26,15 @@ export default Home;
 const Screen = styled.View`
   width: 100%;
   height: 100%;
-  background-color: ${(props) => props.theme.backgroundGray};
 `;
 
 
 const Scroll = styled.ScrollView`
   width: 100%;
+  background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
 const Wrapper = styled.View`
-  height: ${constants.pureheight};
+  height: ${constants.pureheight}px;
+  background-color: ${(props) => props.theme.backgroundGray};
 `;

@@ -1,13 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import { POSITION } from "../image";
+import {ActivityIndicator} from "react-native-paper";
 import constants from "../constants";
 
 import * as Location from "expo-location";
 import SearchbarMapPart from "../components/Map/SearchbarMapPart";
 import ExplanationView from "../components/Map/Explanation";
+import Theme from "../style/Theme";
 
 const dummy = [
   {
@@ -55,33 +56,33 @@ const Map = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [bookMarkPressed, setbookMarkPressed] = useState(false);
-  const [whichBookmark, setwhichBookmark] = useState(-1);
+  const [bookMarkPressed, setBookMarkPressed] = useState(false);
+  const [whichBookmark, setWhichBookmark] = useState(-1);
   const mapRef = React.createRef();
-  const preLoad = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
-    }
-
-    let curlocation = await Location.getCurrentPositionAsync({});
-    setLocation(curlocation);
-
-    setIsLoading(false);
-  };
 
   useEffect(() => {
-    preLoad();
-  }, []);
+    async function preLoad () {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
 
-  if (errorMsg) {
-    console.log(errorMsg);
-  }
+      let curLocation = await Location.getCurrentPositionAsync({});
+      setLocation(curLocation);
+
+      setIsLoading(false);
+    }
+
+    preLoad();
+    if (errorMsg) {
+      console.log(errorMsg);
+    }
+  }, []);
   return (
     <>
       {isLoading ? (
-        <View></View>
+          <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
       ) : (
         <View>
           <Scroll contentContainerStyle={{ flex: 1 }}>
@@ -103,8 +104,8 @@ const Map = () => {
                   showsMyLocationButton={true}
                   ref={mapRef}
                   onPress={() => {
-                    setbookMarkPressed(false);
-                    setwhichBookmark(-1);
+                    setBookMarkPressed(false);
+                    setWhichBookmark(-1);
                   }}
                 >
                   {marker.map((makrer, index) => (
@@ -114,8 +115,8 @@ const Map = () => {
                       title={marker.title}
                       description={marker.description}
                       onPress={() => {
-                        setbookMarkPressed(true);
-                        setwhichBookmark(index);
+                        setBookMarkPressed(true);
+                        setWhichBookmark(index);
                       }}
                     >
                       <Callout tooltip={true}></Callout>
