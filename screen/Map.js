@@ -28,6 +28,7 @@ const dummy = [
 ];
 
 const Map = () => {
+  const mapRef = React.createRef();
   const [marker, setmarker] = useState([
     {
       title: "title",
@@ -55,36 +56,49 @@ const Map = () => {
     longitudeDelta: 0.009,
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState();
   const [bookMarkPressed, setBookMarkPressed] = useState(false);
   const [whichBookmark, setWhichBookmark] = useState(-1);
-  const mapRef = React.createRef();
 
   useEffect(() => {
-    async function preLoad () {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+    async function getPermission() {
+      const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
-        return;
+        return false;
       }
 
-      let curLocation = await Location.getCurrentPositionAsync({});
-      setLocation(curLocation);
-
-      setIsLoading(false);
+      return true;
     }
 
-    preLoad();
+    async function getLastLocation () {
+      const lastLocation = await Location.getLastKnownPositionAsync();
+      setLocation(lastLocation);
+    }
+
+    async function getCurrentLocation () {
+      const currentLocation = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest});
+      setLocation(currentLocation);
+    }
+
+    const permission = getPermission();
+    if (!permission){
+      return;
+    }
+
+    getLastLocation();
     if (errorMsg) {
       console.log(errorMsg);
     }
+    setIsLoading(false);
+
+    getCurrentLocation();
   }, []);
   return (
-    <>
+    <Page>
       {isLoading ? (
           <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
       ) : (
-        <View>
           <Scroll contentContainerStyle={{ flex: 1 }}>
             <Wrapper>
               <Container>
@@ -152,16 +166,22 @@ const Map = () => {
               )}
             </Wrapper>
           </Scroll>
-        </View>
       )}
-    </>
+    </Page>
   );
 };
+
+const Page = styled.View`
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`
 
 const NotYet = styled.View``;
 
 const Wrapper = styled.View`
-  height: ${constants.pureheight};
+  height: ${constants.pureheight}px;
 `;
 
 const Scroll = styled.ScrollView`
