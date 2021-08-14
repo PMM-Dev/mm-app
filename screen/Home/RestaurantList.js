@@ -1,70 +1,74 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Theme from "../../style/Theme";
 import Header from "../../components/Header/Header";
 import constants from "../../constants";
-import {LinearGradient} from "expo-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
-import {getRestaurantList} from "../../components/AppApi";
+import { getRestaurantList } from "../../components/AppApi";
 import KoreanEnum from "../../KoreanEnum";
 
-const RestaurantList = ({route, navigation}) => {
-    const genre = route.params.param.genre;
-    const [list, setList] = useState([]);
+const RestaurantList = ({ route, navigation }) => {
+  const genre = route.params.param.genre;
+  const [list, setList] = useState([]);
 
-    useEffect(() => {
-        async function init() {
-            let gotList = await getRestaurantList(genre);
-            setList(gotList);
-        }
+  useEffect(() => {
+    async function init() {
+      let gotList = await getRestaurantList(genre);
+      setList(gotList);
+    }
 
-        init();
-    }, []);
+    init();
+  }, []);
 
-    return (
-        <Screen>
-            <Scroll contentContainerStyle={{flex: 1}}>
-                <Wrapper>
-                    <Header route={route} navigation={navigation} title={KoreanEnum[genre]}/>
-                    <WhiteSpace>
-                        <LinearGradient
-                            colors={[Theme.hlRed, Theme.hlOrange]}
-                            style={{width: "100%", height: "6%"}}
-                        >
-                            <FilterView>
-                                <FilterView1>
-                                    <Wtext>영업중</Wtext>
-                                </FilterView1>
-                                <FilterView2>
-                                    <Wtext>심야</Wtext>
-                                </FilterView2>
-                                <FilterView3>
-                                    <Wtext>가격낮은순</Wtext>
-                                </FilterView3>
-                                <FilterView4>
-                                    <Wtext>후기많은순</Wtext>
-                                </FilterView4>
-                                <FilterView5>
-                                    <Wtext last={true}>관심많은순</Wtext>
-                                </FilterView5>
-                            </FilterView>
-                        </LinearGradient>
-                        <ResScroll>
-                            {list === [] ? (
-                                <></>
-                            ) : (
-                                list.map((data, index) => (
-                                    <ResView key={index}>
-                                        <RestaurantCard data={data} navigation={navigation}/>
-                                    </ResView>
-                                ))
-                            )}
-                        </ResScroll>
-                    </WhiteSpace>
-                </Wrapper>
-            </Scroll>
-        </Screen>
-    );
+  return (
+    <Screen>
+      <Scroll contentContainerStyle={{ flex: 1 }}>
+        <Wrapper>
+          <Header
+            route={route}
+            navigation={navigation}
+            title={KoreanEnum[genre]}
+          />
+          <WhiteSpace>
+            <LinearGradient
+              colors={[Theme.hlRed, Theme.hlOrange]}
+              style={{ width: "100%", height: "6%" }}
+            >
+              <FilterView>
+                <FilterView1>
+                  <Wtext>영업중</Wtext>
+                </FilterView1>
+                <FilterView2>
+                  <Wtext>심야</Wtext>
+                </FilterView2>
+                <FilterView3>
+                  <Wtext>가격낮은순</Wtext>
+                </FilterView3>
+                <FilterView4>
+                  <Wtext>후기많은순</Wtext>
+                </FilterView4>
+                <FilterView5>
+                  <Wtext last={true}>관심많은순</Wtext>
+                </FilterView5>
+              </FilterView>
+            </LinearGradient>
+            <ResScroll>
+              {list === [] ? (
+                <></>
+              ) : (
+                list.map((data, index) => (
+                  <ResView key={index}>
+                    <RestaurantCard data={data} navigation={navigation} />
+                  </ResView>
+                ))
+              )}
+            </ResScroll>
+          </WhiteSpace>
+        </Wrapper>
+      </Scroll>
+    </Screen>
+  );
 };
 
 export default RestaurantList;
@@ -72,7 +76,7 @@ export default RestaurantList;
 const NOTYET = styled.View``;
 
 const ResView = styled.View`
-  height: 140px;
+  height: ${constants.vh(13)}px;
   width: 100%;
   align-items: center;
 `;
@@ -135,7 +139,7 @@ const FilterView = styled.View`
 
 const WhiteSpace = styled.View`
   width: 100%;
-  height: 58%;
+  height: 100%;
 `;
 
 const Wrapper = styled.View`

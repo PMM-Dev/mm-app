@@ -1,5 +1,5 @@
-export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png")
-export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png")
+export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png");
+export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png");
 
 export const INTRO_LOGO = require("./assets/IntroIcon/big_logo.png");
 export const INTRO_LOGO_TEXT = require("./assets/IntroIcon/big_logo_text.png");
@@ -10,9 +10,9 @@ export const GACHA_MACHINE_IMG = require("./assets/gacha/gachaMachine.png");
 
 export const SETTING_GUEST_PORTRAIT = require("./assets/SettingIcon/guest_portrait.png");
 export const SETTING_PROFILE_ICON = require("./assets/SettingIcon/profile.png");
-export const SETTING_LIKE_ICON = require("./assets/SettingIcon/heart.png")
-export const SETTING_ASKING_ICON = require("./assets/SettingIcon/asking.png")
-export const SETTING_SERVICE_ICON = require("./assets/SettingIcon/service.png")
+export const SETTING_LIKE_ICON = require("./assets/SettingIcon/heart.png");
+export const SETTING_ASKING_ICON = require("./assets/SettingIcon/asking.png");
+export const SETTING_SERVICE_ICON = require("./assets/SettingIcon/service.png");
 export const SETTING_PENCIL_ICON = require("./assets/SettingIcon/pen.png");
 export const SETTING_ALARM_ICON = require("./assets/SettingIcon/alarm.png");
 export const SETTING_LOGOUT_ICON = require("./assets/SettingIcon/logout.png");
@@ -50,3 +50,6 @@ export const NAVIGATOR_SETTING = require("./assets/NavigatorIcon/setting.png");
 export const FULLSTAR = require("./assets/star_3.png");
 export const HALFSTAR = require("./assets/star_2.png");
 export const EMPTYSTAR = require("./assets/star_1.png");
+
+export const COMMENT_PROFILE = require("./assets/profile.png");
+export const RESTAURANT_IMAGE = require("./assets/img_box.png");
