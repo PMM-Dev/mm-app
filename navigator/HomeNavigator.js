@@ -3,7 +3,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import Home from "../screen/Home/Home";
 import RestaurantList from "../screen/Home/RestaurantList";
 import Restaurant from "../screen/Home/Restaurant";
-import Search from "../screen/Home/Search";
+import Search from "../screen/Search";
 
 const Stack = createStackNavigator();
 

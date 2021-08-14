@@ -10,7 +10,7 @@ const SearchTypeBar = ({searchType}) => {
         if (searchType === "Home") {
             setTypes(["식당", "게시글", "유저"]);
             setSelectedType("식당")
-        } else if (searchType === "RestaurantList") {
+        } else if (searchType === "RestaurantList" || searchType === "Map") {
             setTypes(["식당"]);
             setSelectedType("식당")
         }
