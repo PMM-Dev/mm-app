@@ -24,13 +24,17 @@ const RestaurantCard = ({ data, navigation }) => {
             <ExplanationTitle>
               <ExplanationTitleText>{data.name}</ExplanationTitleText>
             </ExplanationTitle>
-            <ExplanationTag>
-              {data.themes.map((list, index) => (
-                <ExplanationTagText key={index}>
-                  #{list.theme}
-                </ExplanationTagText>
-              ))}
-            </ExplanationTag>
+            {data.themes == "" ? (
+              <></>
+            ) : (
+              <ExplanationTag>
+                {data.themes.map((list, index) => (
+                  <ExplanationTagText key={index}>
+                    #{list.theme}
+                  </ExplanationTagText>
+                ))}
+              </ExplanationTag>
+            )}
             <ExplanationRate>
               <StarMaker rate={data.averageGrade} />
             </ExplanationRate>
@@ -44,9 +48,9 @@ const RestaurantCard = ({ data, navigation }) => {
       </ExplanationPart>
       <HeartButtonPos>
         {true ? ( //data.bookmarked
-          <HeartImg source={FULLHEART} />
-        ) : (
           <HeartImg source={EMPTYHEART} />
+        ) : (
+          <HeartImg source={FULLHEART} />
         )}
       </HeartButtonPos>
     </View>
@@ -56,7 +60,7 @@ const RestaurantCard = ({ data, navigation }) => {
 const ExplanationPart = styled.View`
   height: 100%;
   width: 100%;
-  border-bottom-width: 3px;
+  border-bottom-width: 1.5px;
   border-bottom-color: ${(props) => props.theme.borderGray2};
   padding-bottom: ${constants.vw(2.6)}px;
 `;
@@ -81,15 +85,16 @@ const HeartImg = styled.Image`
 
 const HeartButtonPos = styled.TouchableOpacity`
   position: absolute;
-  width: 10%;
-  height: 30%;
-  top: 5%;
+  width: 8%;
+  height: 24%;
+  top: 10%;
   right: 3%;
 `;
 
 const ExplanationMoreButtonText = styled.Text`
   font-family: "NanumSquare";
-  font-size: ${constants.vw(3)}px;
+  font-size: ${constants.vw(2.6)}px;
+  color: ${(props) => props.theme.fontBlackGray};
 `;
 
 const ExplanationMoreButton = styled.View`
@@ -98,14 +103,16 @@ const ExplanationMoreButton = styled.View`
 `;
 
 const ExplanationTag = styled.View`
+  margin-top: 3px;
   height: 9%;
   width: 100%;
   flex-direction: row;
 `;
 
 const ExplanationRate = styled.View`
+  top: -1%;
   height: 40%;
-  width: 60%;
+  width: 80%;
 `;
 
 const ExplanationTitle = styled.View`
@@ -116,8 +123,8 @@ const ExplanationTitle = styled.View`
 `;
 
 const ExplanationTitleText = styled.Text`
-  font-size: ${constants.vw(4)}px;
-  font-family: "NanumSquare";
+  font-size: ${constants.vw(4.5)}px;
+  ${(props) => props.theme.NanumSquare};
 `;
 
 const ExplanationImageImg = styled.Image`
