@@ -10,10 +10,16 @@ import SettingNavigator from "./SettingNavigator";
 import {NAVIGATOR_GAME, NAVIGATOR_HOME, NAVIGATOR_MAP, NAVIGATOR_SETTING, NAVIGATOR_THEME,} from "../image";
 import constants from "../constants";
 import MapNavigator from "./MapNavigator";
+import {useLoadProfileData} from "../components/AuthContext";
 
 const BottomTab = createBottomTabNavigator();
 
 const MainNavigator = () => {
+    const loadProfileData = useLoadProfileData();
+    useEffect( () => {
+        loadProfileData();
+    }, [])
+
     const navigatorHeight = constants.vh(8);
     const navigatorIconSize = constants.vh(6);
     const navigatorLabalSize = constants.vh(1.5);
