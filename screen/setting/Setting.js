@@ -1,19 +1,13 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
-import {useloadProfile, useProfile,} from "../../components/AuthContext";
+import {useProfile} from "../../components/AuthContext";
 import {SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON} from "../../image";
 import constants from "../../constants";
 import MenuViews from '../../components/Setting/MenuView'
 
 
 const Setting = ({navigation: {navigate}}) => {
-  const loadProfile = useloadProfile();
   const {email, name, picture} = useProfile();
-
-  useEffect(() => {
-    loadProfile();
-    console.log(picture);
-  }, []);
 
   return (
       <Page>

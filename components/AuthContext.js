@@ -3,6 +3,7 @@ import * as Google from "expo-google-app-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID} from "@env";
 
+const guestToken = "GUEST";
 
 export const AuthContext = createContext();
 
@@ -42,7 +43,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
 
     const guestLogin = async () => {
         try {
-            await AsyncStorage.setItem("@savedToken", "GUEST");
+            await AsyncStorage.setItem("@savedToken", guestToken);
             setProfile({
                 email: undefined,
                 name: "guest" + Math.floor(Math.random() * 10000000),
@@ -54,24 +55,20 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
         }
     };
 
-    const loadProfile = async () => {
+    const loadProfileData = async () => {
         // This is temp functions with google api data
         // This must be changed as Spring server data
         try {
             const accessToken = await AsyncStorage.getItem("@savedToken");
 
-            if (accessToken === "GUEST") {
+            if (accessToken === guestToken) {
                 loadGuestProfile();
             } else {
                 await loadGoogleProfile(accessToken);
             }
         } catch (e) {
             console.log(e);
-            setProfile({
-                email: "failed",
-                name: "failed",
-                picture: "",
-            });
+            setIsLoggedIn(false);
         }
     };
 
@@ -95,7 +92,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
         try {
             const accessToken = await AsyncStorage.getItem("@savedToken");
 
-            if (accessToken !== "GUEST") {
+            if (accessToken !== guestToken) {
                 await Google.logOutAsync({
                     accessToken,
                     androidClientId: GOOLGE_ID,
@@ -114,7 +111,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             value={{
                 isLoggedIn,
                 profile,
-                loadProfile,
+                loadProfileData,
                 googleLogin,
                 guestLogin,
                 logOut,
@@ -125,16 +122,24 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
     );
 };
 
-export const checkTokenAvailable = async (accessToken) => {
+export const isAvailableToken = async (accessToken) => {
+    // Guest Login
+    if (accessToken === guestToken) {
+        return true;
+    }
+
+    // Access Token?JWT? 이 일치하는 유저가 있는지 DB에 확인
+    // Google 코드 제거
+
     const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
         headers: {Authorization: `Bearer ${accessToken}`},
     });
     const {id} = await user.json();
+    if (id !== undefined) {
+        return true;
+    }
 
-    // Check whether there is id from db.
-
-    if (id !== undefined) return true;
-    else return false;
+    return false;
 };
 
 export const useIsLoggedIn = () => {
@@ -147,9 +152,9 @@ export const useProfile = () => {
     return profile;
 };
 
-export const useloadProfile = () => {
-    const {loadProfile} = useContext(AuthContext);
-    return loadProfile;
+export const useLoadProfileData = () => {
+    const {loadProfileData} = useContext(AuthContext);
+    return loadProfileData;
 };
 
 export const useGoogleLogIn = () => {

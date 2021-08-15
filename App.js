@@ -5,7 +5,7 @@ import {ThemeProvider} from "styled-components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Font from "expo-font";
 import {ActivityIndicator, Colors} from "react-native-paper";
-import {AuthProvider, checkTokenAvailable} from "./components/AuthContext";
+import {AuthProvider, isAvailableToken} from "./components/AuthContext";
 import NavController from "./components/NavController";
 import Theme from "./style/Theme";
 // 성능 향상을 위해 이 코드 추가하라네, 알아만 둬
@@ -18,7 +18,7 @@ export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const preLoad = async () => {
+    const preLoadSystem = async () => {
         try {
             await Font.loadAsync({
                 DoHyeon: require("./assets/fonts/DoHyeon.ttf"),
@@ -32,21 +32,30 @@ export default function App() {
             await Font.loadAsync({
                 NanumBarunGothicBold: require("./assets/fonts/NanumBarunGothicBold.ttf"),
             });
-
-            const savedToken = await AsyncStorage.getItem("@savedToken");
-            if (savedToken === null || savedToken !== "") {
-                const check = await checkTokenAvailable(savedToken);
-                if (check) setIsLoggedIn(true);
-            }
-
-            setIsLoading(false);
         } catch (e) {
-            console.log("[Error] Init eror : " + e);
+            console.log("[Error] Failed to preload the system resource : " + e);
         }
     };
 
+    const preLoadAuth = async () => {
+        try {
+            const savedToken = await AsyncStorage.getItem("@savedToken");
+            if (savedToken !== null || savedToken !== "") {
+                const isAvailable = await isAvailableToken(savedToken);
+                if (isAvailable) {
+                    setIsLoggedIn(true);
+                }
+            }
+        } catch (e) {
+            console.log("[Error] Failed to preload the auth data : " + e);
+        }
+    }
+
     useEffect(() => {
-        preLoad();
+        preLoadSystem();
+        preLoadAuth();
+
+        setIsLoading(false);
     }, []);
 
     return (

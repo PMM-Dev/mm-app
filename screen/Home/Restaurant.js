@@ -6,7 +6,7 @@ import Explanation from "../../components/Home/Restaurant/Explanation";
 import ResAboutInfo from "../../components/Home/Restaurant/AboutInfo";
 import Review from "../../components/Home/Restaurant/Review";
 import * as Location from "expo-location";
-import { useloadProfile, useProfile } from "../../components/AuthContext";
+import { useProfile } from "../../components/AuthContext";
 import { korLocationAPI } from "../../components/GoogleAppApi";
 import {
   getRestaurantComment,
@@ -25,7 +25,6 @@ const Restaurant = ({ route }) => {
   const [commentData, setcommentData] = useState([]);
   const [review, setreview] = useState("");
   const { email, name, picture } = useProfile();
-  const loadProfile = useloadProfile();
   const preLoad = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -54,7 +53,6 @@ const Restaurant = ({ route }) => {
       setcommentData(gotRestaurantComment);
     }
 
-    loadProfile();
     initLocation();
     initComment();
     preLoad();
