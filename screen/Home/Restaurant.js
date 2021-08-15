@@ -9,7 +9,7 @@ import * as Location from "expo-location";
 import { useProfile } from "../../components/AuthContext";
 import { korLocationAPI } from "../../components/GoogleAppApi";
 import {
-  getRestaurantComment,
+  getRestaurantComments,
   postRestaurantComment,
 } from "../../components/AppApi";
 
@@ -49,7 +49,7 @@ const Restaurant = ({ route }) => {
     }
 
     async function initComment() {
-      let gotRestaurantComment = await getRestaurantComment(data.id);
+      let gotRestaurantComment = await getRestaurantComments(data.id);
       setcommentData(gotRestaurantComment);
     }
 
