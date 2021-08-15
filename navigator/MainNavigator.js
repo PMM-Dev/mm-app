@@ -7,7 +7,7 @@ import HomeNavigator from "./HomeNavigator";
 import Gacha from "../screen/Gacha/Gacha";
 import Theme from "../style/Theme";
 import SettingNavigator from "./SettingNavigator";
-import {NAVIGATOR_GAME, NAVIGATOR_HOME, NAVIGATOR_MAP, NAVIGATOR_SETTING, NAVIGATOR_THEME,} from "../image";
+import {NAVIGATOR_GACHA, NAVIGATOR_HOME_UNSELECTED, NAVIGATOR_MAP_UNSELECTED, NAVIGATOR_SETTING_UNSELECTED, NAVIGATOR_THEME_UNSELECTED,} from "../image";
 import constants from "../constants";
 import MapNavigator from "./MapNavigator";
 import {useLoadProfileData} from "../components/AuthContext";
@@ -41,7 +41,7 @@ const MainNavigator = () => {
                         tabBarIcon: ({focused}) => {
                             return (
                                 <Image
-                                    source={NAVIGATOR_HOME}
+                                    source={NAVIGATOR_HOME_UNSELECTED}
                                     style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
@@ -56,7 +56,7 @@ const MainNavigator = () => {
                         tabBarIcon: ({focused}) => {
                             return (
                                 <Image
-                                    source={NAVIGATOR_MAP}
+                                    source={NAVIGATOR_MAP_UNSELECTED}
                                     style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
@@ -71,7 +71,7 @@ const MainNavigator = () => {
                         tabBarIcon: ({focused}) => {
                             return (
                                 <Image
-                                    source={NAVIGATOR_THEME}
+                                    source={NAVIGATOR_THEME_UNSELECTED}
                                     style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
@@ -86,7 +86,7 @@ const MainNavigator = () => {
                         tabBarIcon: ({focused}) => {
                             return (
                                 <Image
-                                    source={NAVIGATOR_GAME}
+                                    source={NAVIGATOR_GACHA}
                                     style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
@@ -101,7 +101,7 @@ const MainNavigator = () => {
                         tabBarIcon: ({focused}) => {
                             return (
                                 <Image
-                                    source={NAVIGATOR_SETTING}
+                                    source={NAVIGATOR_SETTING_UNSELECTED}
                                     style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
                             );
