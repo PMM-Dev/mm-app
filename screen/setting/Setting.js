@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import {useProfile} from "../../components/AuthContext";
 import {SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON} from "../../image";
@@ -11,7 +11,7 @@ const Setting = ({navigation: {navigate}}) => {
 
   return (
       <Page>
-        <ScrollView>
+        <ScrollView alwaysBounceVertical={false}>
           <SrollViewWrapper>
             <StatusBarSpace/>
             <HeaderView>
