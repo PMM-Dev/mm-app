@@ -95,7 +95,10 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             if (accessToken !== guestToken) {
                 await Google.logOutAsync({
                     accessToken,
-                    androidClientId: GOOLGE_ID,
+                    iosClientId: IOS_INEXPO_GOOGLE_CLIENT_ID,
+                    // iosStandaloneAppClientId: IOS_GOOGLE_CLIENT_ID,
+                    androidClientId: ANDROID_INEXPO_GOOGLE_CLIENT_ID,
+                    // androidStandaloneAppClientId: ANDROID_GOOGLE_CLIENT_ID,
                 });
             }
         } catch (e) {
