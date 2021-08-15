@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import {useProfile} from "../../components/AuthContext";
 import {SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON} from "../../image";
@@ -7,40 +7,41 @@ import MenuViews from '../../components/Setting/MenuView'
 
 
 const Setting = ({navigation: {navigate}}) => {
-  const {email, name, picture} = useProfile();
+        const {email, name, picture} = useProfile();
 
-  return (
-      <Page>
-        <ScrollView alwaysBounceVertical={false}>
-          <SrollViewWrapper>
-            <StatusBarSpace/>
-            <HeaderView>
-              <Icon source={SETTING_PENCIL_ICON} style={{tintColor: "#000000"}}/>
-            </HeaderView>
-            <ProfileView>
-              <Portrait>
-                <PortraitImage
-                    source={
-                      picture === undefined
-                          ? SETTING_GUEST_PORTRAIT
-                          : {
-                            uri: picture,
-                          }
-                    }
-                    resizeMode={"cover"}
-                />
-              </Portrait>
-              <Information>
-                <NameTitle>{name}</NameTitle>
-                <EmailTitle>{email}</EmailTitle>
-              </Information>
-            </ProfileView>
-            <MenuViews navigate={navigate}/>
-          </SrollViewWrapper>
-        </ScrollView>
-      </Page>
-  );
-};
+        return (
+            <Page>
+                <ScrollView alwaysBounceVertical={false}>
+                    <SrollViewWrapper>
+                        <StatusBarSpace/>
+                        <HeaderView>
+                            <Icon source={SETTING_PENCIL_ICON} style={{tintColor: "#000000"}}/>
+                        </HeaderView>
+                        <ProfileView>
+                            <Portrait>
+                                <PortraitImage
+                                    source={
+                                        picture === undefined
+                                            ? SETTING_GUEST_PORTRAIT
+                                            : {
+                                                uri: picture,
+                                            }
+                                    }
+                                    resizeMode={"cover"}
+                                />
+                            </Portrait>
+                            <Information>
+                                <NameTitle>{name}</NameTitle>
+                                <EmailTitle>{email}</EmailTitle>
+                            </Information>
+                        </ProfileView>
+                        <MenuViews navigate={navigate}/>
+                    </SrollViewWrapper>
+                </ScrollView>
+            </Page>
+        );
+    }
+;
 
 const Page = styled.View`
   width: ${constants.width}px;
