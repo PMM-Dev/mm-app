@@ -83,10 +83,10 @@ const ResView = styled.View`
 `;
 
 const Wtext = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   font-size: 11px;
   color: #ffffff;
   text-align: center;
-  font-family: "NanumSquare";
   font-weight: bold;
   ${(props) => (props.last ? "" : "border-right-width: 1.5px;")};
   border-right-color: ${(props) => props.theme.backgroundWhite};

@@ -204,9 +204,9 @@ const ExplanationView = styled.View`
 `;
 
 const LocationTitleText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   text-align: center;
   font-size: ${constants.vw(4.6)}px;
-  font-family: "NanumSquare";
 `;
 
 const LocationTitle = styled.View`

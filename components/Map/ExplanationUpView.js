@@ -1,31 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import { EMPTYHEART, FULLHEART } from "../../image";
+import {EMPTYHEART, FULLHEART} from "../../image";
 import constants from "../../constants";
 
-const ExplanationUpView = ({ data }) => {
-  return (
-    <ExplanationUp>
-      <ExplanationTitle>
-        <ExplanationTitleText>{data.title}</ExplanationTitleText>
-      </ExplanationTitle>
-      <ExplanationAddressContact>
-        <ExplanationAddress>
-          <ExplanationAddressText>주소: {data.address}</ExplanationAddressText>
-        </ExplanationAddress>
-        <ExplanationContact>
-          <ExplanationContactText>연락처: {data.number}</ExplanationContactText>
-        </ExplanationContact>
-      </ExplanationAddressContact>
-      <HeartButtonPos>
-        {data.bookmarked ? (
-          <HeartImg source={FULLHEART} />
-        ) : (
-          <HeartImg source={EMPTYHEART} />
-        )}
-      </HeartButtonPos>
-    </ExplanationUp>
-  );
+const ExplanationUpView = ({data}) => {
+    return (
+        <ExplanationUp>
+            <ExplanationTitle>
+                <ExplanationTitleText>{data.title}</ExplanationTitleText>
+            </ExplanationTitle>
+            <ExplanationAddressContact>
+                <ExplanationAddress>
+                    <ExplanationAddressText>주소: {data.address}</ExplanationAddressText>
+                </ExplanationAddress>
+                <ExplanationContact>
+                    <ExplanationContactText>연락처: {data.number}</ExplanationContactText>
+                </ExplanationContact>
+            </ExplanationAddressContact>
+            <HeartButtonPos>
+                {data.bookmarked ? (
+                    <HeartImg source={FULLHEART}/>
+                ) : (
+                    <HeartImg source={EMPTYHEART}/>
+                )}
+            </HeartButtonPos>
+        </ExplanationUp>
+    );
 };
 
 const HeartImg = styled.Image`
@@ -54,15 +54,18 @@ const ExplanationTitle = styled.View`
 `;
 
 const ExplanationTitleText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   font-size: ${constants.vw(5.6)}px;
 `;
 
 const ExplanationAddressText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   font-size: ${constants.vw(3)}px;
   letter-spacing: 1px;
 `;
 
 const ExplanationContactText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   font-size: ${constants.vw(3)}px;
   letter-spacing: 1px;
 `;

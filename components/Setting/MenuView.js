@@ -70,6 +70,7 @@ const InfoButton = styled.TouchableOpacity`
 `
 
 const BigTitle = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   font-size: ${constants.vw(5)}px;
   font-weight: bold;
   color: ${(props) => props.theme.fontDeepBlack};
@@ -92,6 +93,7 @@ const UtilButton = styled.TouchableOpacity`
 `;
 
 const Title = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   margin-left: ${(props) => props.info ? 0 : `${constants.vw(4)}`}px;
   font-size: ${constants.vw(4.2)}px;
 

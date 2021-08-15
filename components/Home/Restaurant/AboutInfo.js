@@ -2,20 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import constants from "../../../constants";
 
-const ResAboutInfo = ({ data, korLocation }) => {
-  return (
-    <ResAboutInfoView>
-      <AboutTitle>
-        <AboutTitleText>ABOUT</AboutTitleText>
-      </AboutTitle>
-      <AboutAddress>
-        <AboutAddressText>주소 : {korLocation}</AboutAddressText>
-      </AboutAddress>
-      <AboutDescription>
-        <AboutDescriptionText>설명 : {data.description}</AboutDescriptionText>
-      </AboutDescription>
-    </ResAboutInfoView>
-  );
+const ResAboutInfo = ({data, korLocation}) => {
+    return (
+        <ResAboutInfoView>
+            <AboutTitle>
+                <AboutTitleText>ABOUT</AboutTitleText>
+            </AboutTitle>
+            <AboutAddress>
+                <AboutAddressText>주소 : {korLocation}</AboutAddressText>
+            </AboutAddress>
+            <AboutDescription>
+                <AboutDescriptionText>설명 : {data.description}</AboutDescriptionText>
+            </AboutDescription>
+        </ResAboutInfoView>
+    );
 };
 
 const ResAboutInfoView = styled.View`
@@ -26,21 +26,21 @@ const ResAboutInfoView = styled.View`
 `;
 
 const AboutDescriptionText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   text-align: center;
   font-size: ${constants.vw(3)}px;
-  font-family: "NanumSquare";
 `;
 
 const AboutAddressText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   text-align: center;
   font-size: ${constants.vw(3)}px;
-  font-family: "NanumSquare";
 `;
 
 const AboutTitleText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont};
   text-align: center;
   font-size: ${constants.vw(4.6)}px;
-  font-family: "NanumSquare";
 `;
 
 const AboutAddress = styled.View`

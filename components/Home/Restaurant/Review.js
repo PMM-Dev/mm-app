@@ -71,7 +71,7 @@ const ReviewContentTopNameStarView = styled.View`
 `;
 
 const ReviewContentTopNameText = styled.Text`
-  font-family: "NanumSquare";
+  ${(props) => props.theme.NanumSquareFont};
   color: ${(props) => props.theme.fontBlack};
   font-size: ${constants.vw(3)}px;
 `;
@@ -105,7 +105,7 @@ const ReviewContentTop = styled.View`
 `;
 
 const ReviewContentBottomText = styled.Text`
-  font-family: "NanumSquare";
+  ${(props) => props.theme.NanumSquareFont};
   color: ${(props) => props.theme.fontBlack};
   font-size: ${constants.vw(3)}px;
 `;
@@ -143,7 +143,7 @@ const ReviewTitleFilterRecent = styled.TouchableOpacity`
 `;
 
 const ReviewTitleFilterText = styled.Text`
-  font-family: "NanumSquare";
+  ${(props) => props.theme.NanumSquareFont};
   color: ${(props) => props.theme.fontBlack};
   text-align: center;
   font-size: ${constants.vw(3)}px;
@@ -152,7 +152,7 @@ const ReviewTitleFilterText = styled.Text`
 `;
 
 const ReviewTitleNumText = styled.Text`
-  font-family: "NanumSquare";
+  ${(props) => props.theme.NanumSquareFont};
   font-size: ${constants.vw(4.6)}px;
 `;
 
