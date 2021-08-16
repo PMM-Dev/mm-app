@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import StarMaker from "./StarMaker";
-import { TMP } from "../../image";
+import { RESTAURANT_IMAGE } from "../../image";
 
 const ExplanationDownView = ({ data }) => {
   return (
     <ExplanationDown>
       <ExplanationImage>
-        <ExplanationImageImg source={TMP} />
+        <ExplanationImageImg source={RESTAURANT_IMAGE} />
       </ExplanationImage>
       <ExplanationRateButton>
         <ExplanationRate>
