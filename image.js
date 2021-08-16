@@ -28,18 +28,16 @@ export const HOME_FOOD_ICON_FASTFOOD = require("./assets/HomeFoodIcon/icon_8.png
 export const HOME_FOOD_ICON_DELIEVERY = require("./assets/HomeFoodIcon/icon_9.png");
 export const HOME_FOOD_ICON_RANKING = require("./assets/HomeFoodIcon/icon_10.png");
 
-export const LOGO = require("./assets/logo.png");
-export const LOGO_TEXT = require("./assets/logo_text.png");
+export const LOGO = require("./assets/CommonIcons/logo.png");
+export const LOGO_TEXT = require("./assets/CommonIcons/logo_text.png");
 
-export const SEARCHBAR = require("./assets/search_1.png");
+export const SEARCHBAR = require("./assets/CommonIcons/search_1.png");
 
-export const FULLHEART = require("./assets/heart_2.png");
-export const EMPTYHEART = require("./assets/heart_1.png");
+export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
+export const EMPTYHEART = require("./assets/CommonIcons/heart_1.png");
 
-export const TMP = require("./assets/tmp2.jpg");
-
-export const FILTER = require("./assets/filter.png");
-export const POSITION = require("./assets/position.png");
+export const FILTER = require("./assets/CommonIcons/filter.png");
+export const POSITION = require("./assets/CommonIcons/position.png");
 
 export const NAVIGATOR_HOME = require("./assets/NavigatorIcon/home.png");
 export const NAVIGATOR_MAP = require("./assets/NavigatorIcon/map.png");
@@ -47,9 +45,9 @@ export const NAVIGATOR_THEME = require("./assets/NavigatorIcon/theme.png");
 export const NAVIGATOR_GAME = require("./assets/NavigatorIcon/gacha.png");
 export const NAVIGATOR_SETTING = require("./assets/NavigatorIcon/setting.png");
 
-export const FULLSTAR = require("./assets/star_3.png");
-export const HALFSTAR = require("./assets/star_2.png");
-export const EMPTYSTAR = require("./assets/star_1.png");
+export const FULLSTAR = require("./assets/CommonIcons/star_3.png");
+export const HALFSTAR = require("./assets/CommonIcons/star_2.png");
+export const EMPTYSTAR = require("./assets/CommonIcons/star_1.png");
 
-export const COMMENT_PROFILE = require("./assets/profile.png");
-export const RESTAURANT_IMAGE = require("./assets/img_box.png");
+export const COMMENT_PROFILE = require("./assets/CommonIcons/profile.png");
+export const RESTAURANT_IMAGE = require("./assets/CommonIcons/img_box.png");
