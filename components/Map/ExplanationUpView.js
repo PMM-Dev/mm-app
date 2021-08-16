@@ -54,18 +54,18 @@ const ExplanationTitle = styled.View`
 `;
 
 const ExplanationTitleText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   font-size: ${constants.vw(5.6)}px;
 `;
 
 const ExplanationAddressText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   font-size: ${constants.vw(3)}px;
   letter-spacing: 1px;
 `;
 
 const ExplanationContactText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   font-size: ${constants.vw(3)}px;
   letter-spacing: 1px;
 `;

@@ -105,7 +105,7 @@ const NameTitle = styled.Text`
 `;
 
 const EmailTitle = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   color: ${(props) => props.theme.fontGray};
   font-size: ${constants.vw(3.7)}px;
 `;

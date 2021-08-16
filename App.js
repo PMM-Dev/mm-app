@@ -16,22 +16,18 @@ enableScreens();
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isSystemLoading, setIsSystemLoading] = useState(true);
+    const [isAuthLoading, setIsAuthLoading] = useState(true);
 
     const preLoadSystem = async () => {
         try {
             await Font.loadAsync({
                 DoHyeon: require("./assets/fonts/DoHyeon.ttf"),
-            });
-            await Font.loadAsync({
                 NanumSquare: require("./assets/fonts/NanumSquare.ttf"),
-            });
-            await Font.loadAsync({
                 NanumBarunGothic: require("./assets/fonts/NanumBarunGothic.ttf"),
-            });
-            await Font.loadAsync({
                 NanumBarunGothicBold: require("./assets/fonts/NanumBarunGothicBold.ttf"),
             });
+            setIsSystemLoading(false);
         } catch (e) {
             console.log("[Error] Failed to preload the system resource : " + e);
         }
@@ -46,6 +42,7 @@ export default function App() {
                     setIsLoggedIn(true);
                 }
             }
+            setIsAuthLoading(false);
         } catch (e) {
             console.log("[Error] Failed to preload the auth data : " + e);
         }
@@ -53,14 +50,12 @@ export default function App() {
 
     useEffect(() => {
         preLoadSystem();
-        preLoadAuth();
-
-        setIsLoading(false);
+        preLoadAuth()
     }, []);
 
     return (
         <>
-            {isLoading ? (
+            {(isSystemLoading || isAuthLoading) ? (
                 <View
                     style={{flex: 1, justifyContent: "center", alignContent: "center"}}
                 >

@@ -54,7 +54,7 @@ const Date = styled.View`
 `;
 
 const Date_Text = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   width: 100%;
   font-size: ${constants.vw(2.65)}px;
   font-weight: 100;

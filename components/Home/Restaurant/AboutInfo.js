@@ -26,19 +26,19 @@ const ResAboutInfoView = styled.View`
 `;
 
 const AboutDescriptionText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   text-align: center;
   font-size: ${constants.vw(3)}px;
 `;
 
 const AboutAddressText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   text-align: center;
   font-size: ${constants.vw(3)}px;
 `;
 
 const AboutTitleText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   text-align: center;
   font-size: ${constants.vw(4.6)}px;
 `;

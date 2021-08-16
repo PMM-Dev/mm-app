@@ -78,7 +78,7 @@ const HeartButtonPos = styled.TouchableOpacity`
 `;
 
 const DetailInfoText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   text-align: center;
   font-size: ${constants.vw(3)}px;
 `;
@@ -104,7 +104,7 @@ const DetailInfo = styled.View`
 `;
 
 const DetailTitleText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   text-align: center;
   font-size: ${constants.vw(7.2)}px;
 `;
@@ -157,7 +157,7 @@ const FilterReview = styled.TouchableOpacity`
 `;
 
 const FilterText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont};
+  ${(props) => props.theme.NanumSquareFont}
   color: ${(props) => props.theme.fontBlack};
   text-align: center;
   font-size: ${constants.vw(4)}px;
