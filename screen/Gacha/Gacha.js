@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import styled from "styled-components";
+import LottieView from 'lottie-react-native';
 import {GACHA_MACHINE_IMG} from "../../image";
 import ConditionPanel from "./ConditionPanel";
+import {TouchableOpacity} from "react-native";
 
 const Gacha = () => {
-    const [isConditionSet, setIsConditionSet] = React.useState(false);
+    const [isConditionSet, setIsConditionSet] = React.useState(true);
 
     const [korean, setKorean] = React.useState(false);
     const [flour, setFlour] = React.useState(false);
@@ -21,6 +23,18 @@ const Gacha = () => {
     const [frontgate, setFrontgate] = React.useState(false);
     const [sidegate, setSidegate] = React.useState(false);
     const [backgate, setBackgate] = React.useState(false);
+
+    const cardPackLottieView = useRef(null);
+
+    // useEffect(() => {
+    //     play();
+    // }, []);
+
+    const play = () => {
+        cardPackLottieView.current.reset();
+        cardPackLottieView.current.play();
+
+    }
 
     return (
         <Page>
@@ -56,7 +70,14 @@ const Gacha = () => {
                 />
             ) : (
                 <GachaView>
-                    <Machine source={GACHA_MACHINE_IMG}/>
+                    <TouchableOpacity onPress={() => play()}>
+                        <LottieView ref={cardPackLottieView} source={require("../../assets/animation/test.json")}
+                                    style={{
+                                        width: 500,
+                                        backgroundColor: '#eee',
+                                    }} autoPlay loop />
+                    </TouchableOpacity>
+                    {/*<Machine source={GACHA_MACHINE_IMG}/>*/}
                     {/* <ResultPanel /> */}
                 </GachaView>
             )}
