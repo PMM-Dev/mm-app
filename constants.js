@@ -13,6 +13,6 @@ const vh = (percent) => {
 
 const statusBarHeight = Constants.statusBarHeight;
 
-const pureheight = vh(90);
+const pureheight = vh(92);
 
 export default { width, height, vw, vh, statusBarHeight, pureheight };
