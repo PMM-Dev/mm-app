@@ -39,11 +39,25 @@ export const EMPTYHEART = require("./assets/CommonIcons/heart_1.png");
 export const FILTER = require("./assets/CommonIcons/filter.png");
 export const POSITION = require("./assets/CommonIcons/position.png");
 
-export const NAVIGATOR_HOME = require("./assets/NavigatorIcon/home.png");
-export const NAVIGATOR_MAP = require("./assets/NavigatorIcon/map.png");
-export const NAVIGATOR_THEME = require("./assets/NavigatorIcon/theme.png");
-export const NAVIGATOR_GAME = require("./assets/NavigatorIcon/gacha.png");
-export const NAVIGATOR_SETTING = require("./assets/NavigatorIcon/setting.png");
+
+export const NAVIGATOR_HOME_UNSELECTED = require("./assets/NavigatorIcon/home.png");
+export const NAVIGATOR_MAP_UNSELECTED = require("./assets/NavigatorIcon/map.png");
+export const NAVIGATOR_THEME_UNSELECTED = require("./assets/NavigatorIcon/theme.png");
+export const NAVIGATOR_GACHA = require("./assets/NavigatorIcon/gacha.png");
+export const NAVIGATOR_SETTING_UNSELECTED = require("./assets/NavigatorIcon/setting.png");
+
+// PROPER RESOURCE,, USE AFTER MODIFIED ICON COME
+// export const NAVIGATOR_HOME_UNSELECTED = require("./assets/NavigatorIcon/home_unselected.png");
+// export const NAVIGATOR_MAP_UNSELECTED = require("./assets/NavigatorIcon/map_unselected.png");
+// export const NAVIGATOR_THEME_UNSELECTED = require("./assets/NavigatorIcon/theme_unselected.png");
+// export const NAVIGATOR_GACHA_UNSELECTED = require("./assets/NavigatorIcon/gacha.png");
+// export const NAVIGATOR_SETTING_UNSELECTED = require("./assets/NavigatorIcon/setting_unselected.png");
+
+// export const NAVIGATOR_HOME_SELECTED = require("./assets/NavigatorIcon/home_selected.png");
+// export const NAVIGATOR_MAP_SELECTED = require("./assets/NavigatorIcon/map_selected.png");
+// export const NAVIGATOR_THEME_SELECTED = require("./assets/NavigatorIcon/theme_selected.png");
+// export const NAVIGATOR_GACHA_SELECTED = require("./assets/Navigatoron/gacha.png");
+// export const NAVIGATOR_SETTING_SELECTED = require("./assets/NavigatorIcon/setting_selected.png");
 
 export const FULLSTAR = require("./assets/CommonIcons/star_3.png");
 export const HALFSTAR = require("./assets/CommonIcons/star_2.png");

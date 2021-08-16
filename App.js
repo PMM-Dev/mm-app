@@ -5,7 +5,7 @@ import {ThemeProvider} from "styled-components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Font from "expo-font";
 import {ActivityIndicator, Colors} from "react-native-paper";
-import {AuthProvider, checkTokenAvailable} from "./components/AuthContext";
+import {AuthProvider, isAvailableToken} from "./components/AuthContext";
 import NavController from "./components/NavController";
 import Theme from "./style/Theme";
 // 성능 향상을 위해 이 코드 추가하라네, 알아만 둬
@@ -16,42 +16,46 @@ enableScreens();
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isSystemLoading, setIsSystemLoading] = useState(true);
+    const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-    const preLoad = async () => {
+    const preLoadSystem = async () => {
         try {
             await Font.loadAsync({
                 DoHyeon: require("./assets/fonts/DoHyeon.ttf"),
-            });
-            await Font.loadAsync({
                 NanumSquare: require("./assets/fonts/NanumSquare.ttf"),
-            });
-            await Font.loadAsync({
                 NanumBarunGothic: require("./assets/fonts/NanumBarunGothic.ttf"),
-            });
-            await Font.loadAsync({
                 NanumBarunGothicBold: require("./assets/fonts/NanumBarunGothicBold.ttf"),
             });
-
-            const savedToken = await AsyncStorage.getItem("@savedToken");
-            if (savedToken === null || savedToken !== "") {
-                const check = await checkTokenAvailable(savedToken);
-                if (check) setIsLoggedIn(true);
-            }
-
-            setIsLoading(false);
+            setIsSystemLoading(false);
         } catch (e) {
-            console.log("[Error] Init eror : " + e);
+            console.log("[Error] Failed to preload the system resource : " + e);
         }
     };
 
+    const preLoadAuth = async () => {
+        try {
+            const savedToken = await AsyncStorage.getItem("@savedToken");
+            if (savedToken !== null || savedToken !== "") {
+                const isAvailable = await isAvailableToken(savedToken);
+                if (isAvailable) {
+                    setIsLoggedIn(true);
+                }
+            }
+            setIsAuthLoading(false);
+        } catch (e) {
+            console.log("[Error] Failed to preload the auth data : " + e);
+        }
+    }
+
     useEffect(() => {
-        preLoad();
+        preLoadSystem();
+        preLoadAuth()
     }, []);
 
     return (
         <>
-            {isLoading ? (
+            {(isSystemLoading || isAuthLoading) ? (
                 <View
                     style={{flex: 1, justifyContent: "center", alignContent: "center"}}
                 >

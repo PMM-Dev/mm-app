@@ -72,7 +72,7 @@ const ExplanationRestaurantNavigate = styled.TouchableOpacity`
 `;
 
 const ExplanationTagText = styled.Text`
-  font-family: "NanumSquare";
+  ${(props) => props.theme.NanumSquareFont}
   color: ${(props) => props.theme.hlRed};
   font-size: ${constants.vw(2.2)}px;
 `;
@@ -92,7 +92,7 @@ const HeartButtonPos = styled.TouchableOpacity`
 `;
 
 const ExplanationMoreButtonText = styled.Text`
-  font-family: "NanumSquare";
+  ${(props) => props.theme.NanumSquareFont}
   font-size: ${constants.vw(2.6)}px;
   color: ${(props) => props.theme.fontBlackGray};
 `;
@@ -123,8 +123,8 @@ const ExplanationTitle = styled.View`
 `;
 
 const ExplanationTitleText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont}
   font-size: ${constants.vw(4.5)}px;
-  ${(props) => props.theme.NanumSquare};
 `;
 
 const ExplanationImageImg = styled.Image`

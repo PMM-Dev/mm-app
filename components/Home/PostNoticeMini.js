@@ -38,13 +38,13 @@ const Title = styled.View`
 `;
 
 const Title_Text = styled.Text`
+  ${(props) => props.theme.NanumSquareFont}
   margin-left: ${constants.vw(8)}px;
   font-size: ${constants.vw(3)}px;
   font-weight: 700;
   color: ${(props) => props.theme.fontBlack};
   text-align: left;
   width: 100%;
-  ${(props) => props.theme.NanumSquareFont}
 `;
 
 const Date = styled.View`
@@ -54,11 +54,11 @@ const Date = styled.View`
 `;
 
 const Date_Text = styled.Text`
+  ${(props) => props.theme.NanumSquareFont}
   width: 100%;
   font-size: ${constants.vw(2.65)}px;
   font-weight: 100;
   margin-left: ${constants.vw(2.1)}px;
-  ${(props) => props.theme.NanumSquareFont};
 `;
 
 export default PostNoticeMini;

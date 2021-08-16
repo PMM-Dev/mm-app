@@ -9,7 +9,7 @@ import constants from "../../constants";
 const Home = ({route, navigation}) => {
     return (
         <Screen>
-            <Scroll contentContainerStyle={{flex: 1}}>
+            <Scroll contentContainerStyle={{flex: 1}} alwaysBounceVertical={false}>
                 <Wrapper>
                     <Header route={route} navigation={navigation}/>
                     <RestaurantTypeButtonsTable navigation={navigation}/>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "@env";
 
-export const getRestaurantList = async (genre) => {
+export const getRestaurantsByGenre = async (genre) => {
   try {
     const response = await axios.get(
       API_URL + "/api/restaurant/condition" + "?type=" + genre
@@ -13,7 +13,7 @@ export const getRestaurantList = async (genre) => {
   }
 };
 
-export const getRestaurantComment = async (id) => {
+export const getRestaurantComments = async (id) => {
   try {
     const response = await axios.get(
       API_URL + "/api/restaurant/" + id + "/review"

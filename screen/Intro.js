@@ -125,6 +125,7 @@ const GuestModeButton = styled.TouchableOpacity`
 `;
 
 const GuestModeButtonText = styled.Text`
+  font-family: 'NanumSquare';
   font-size: 13px;
   color: ${(props) => props.theme.backgroundWhite};
   padding-right: 5px;

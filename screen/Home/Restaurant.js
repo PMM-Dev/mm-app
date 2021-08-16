@@ -6,10 +6,10 @@ import Explanation from "../../components/Home/Restaurant/Explanation";
 import ResAboutInfo from "../../components/Home/Restaurant/AboutInfo";
 import Review from "../../components/Home/Restaurant/Review";
 import * as Location from "expo-location";
-import { useloadProfile, useProfile } from "../../components/AuthContext";
+import { useProfile } from "../../components/AuthContext";
 import { korLocationAPI } from "../../components/GoogleAppApi";
 import {
-  getRestaurantComment,
+  getRestaurantComments,
   postRestaurantComment,
 } from "../../components/AppApi";
 
@@ -25,7 +25,6 @@ const Restaurant = ({ route }) => {
   const [commentData, setcommentData] = useState([]);
   const [review, setreview] = useState("");
   const { email, name, picture } = useProfile();
-  const loadProfile = useloadProfile();
   const preLoad = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -50,11 +49,10 @@ const Restaurant = ({ route }) => {
     }
 
     async function initComment() {
-      let gotRestaurantComment = await getRestaurantComment(data.id);
+      let gotRestaurantComment = await getRestaurantComments(data.id);
       setcommentData(gotRestaurantComment);
     }
 
-    loadProfile();
     initLocation();
     initComment();
     preLoad();
@@ -206,9 +204,9 @@ const ExplanationView = styled.View`
 `;
 
 const LocationTitleText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont}
   text-align: center;
   font-size: ${constants.vw(4.6)}px;
-  font-family: "NanumSquare";
 `;
 
 const LocationTitle = styled.View`

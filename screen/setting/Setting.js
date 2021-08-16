@@ -1,52 +1,47 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
-import {useloadProfile, useProfile,} from "../../components/AuthContext";
+import {useProfile} from "../../components/AuthContext";
 import {SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON} from "../../image";
 import constants from "../../constants";
 import MenuViews from '../../components/Setting/MenuView'
 
 
 const Setting = ({navigation: {navigate}}) => {
-  const loadProfile = useloadProfile();
-  const {email, name, picture} = useProfile();
+        const {email, name, picture} = useProfile();
 
-  useEffect(() => {
-    loadProfile();
-    console.log(picture);
-  }, []);
-
-  return (
-      <Page>
-        <ScrollView>
-          <SrollViewWrapper>
-            <StatusBarSpace/>
-            <HeaderView>
-              <Icon source={SETTING_PENCIL_ICON} style={{tintColor: "#000000"}}/>
-            </HeaderView>
-            <ProfileView>
-              <Portrait>
-                <PortraitImage
-                    source={
-                      picture === undefined
-                          ? SETTING_GUEST_PORTRAIT
-                          : {
-                            uri: picture,
-                          }
-                    }
-                    resizeMode={"cover"}
-                />
-              </Portrait>
-              <Information>
-                <NameTitle>{name}</NameTitle>
-                <EmailTitle>{email}</EmailTitle>
-              </Information>
-            </ProfileView>
-            <MenuViews navigate={navigate}/>
-          </SrollViewWrapper>
-        </ScrollView>
-      </Page>
-  );
-};
+        return (
+            <Page>
+                <ScrollView alwaysBounceVertical={false}>
+                    <SrollViewWrapper>
+                        <StatusBarSpace/>
+                        <HeaderView>
+                            <Icon source={SETTING_PENCIL_ICON} style={{tintColor: "#000000"}}/>
+                        </HeaderView>
+                        <ProfileView>
+                            <Portrait>
+                                <PortraitImage
+                                    source={
+                                        picture === undefined
+                                            ? SETTING_GUEST_PORTRAIT
+                                            : {
+                                                uri: picture,
+                                            }
+                                    }
+                                    resizeMode={"cover"}
+                                />
+                            </Portrait>
+                            <Information>
+                                <NameTitle>{name}</NameTitle>
+                                <EmailTitle>{email}</EmailTitle>
+                            </Information>
+                        </ProfileView>
+                        <MenuViews navigate={navigate}/>
+                    </SrollViewWrapper>
+                </ScrollView>
+            </Page>
+        );
+    }
+;
 
 const Page = styled.View`
   width: ${constants.width}px;
@@ -104,12 +99,13 @@ const Information = styled.View`
 `;
 
 const NameTitle = styled.Text`
-  max-width: 260px;
   ${(props) => props.theme.NanumGothicBoldFont}
+  max-width: 260px;
   font-size: ${constants.vw(6)}px;
 `;
 
 const EmailTitle = styled.Text`
+  ${(props) => props.theme.NanumSquareFont}
   color: ${(props) => props.theme.fontGray};
   font-size: ${constants.vw(3.7)}px;
 `;
