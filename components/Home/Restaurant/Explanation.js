@@ -122,6 +122,7 @@ const DownDetailInfo = styled.View`
 `;
 
 const DownView = styled.View`
+  top: ${constants.vh(1)}px;
   width: 100%;
   height: 35%;
 `;
@@ -130,7 +131,7 @@ const UpImage = styled.Image`
   height: 100%;
   width: 100%;
   border-radius: 20px;
-  resize-mode: cover;
+  resize-mode: contain;
 `;
 
 const UpImageView = styled.View`

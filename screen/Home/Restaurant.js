@@ -12,8 +12,9 @@ import {
   getRestaurantComments,
   postRestaurantComment,
 } from "../../components/AppApi";
+import Header from "../../components/Header/Header";
 
-const Restaurant = ({ route }) => {
+const Restaurant = ({ route, navigation }) => {
   const data = route.params.param;
   const resPicture = route.params.picture;
   const [marker, setMarker] = useState([]);
@@ -64,92 +65,104 @@ const Restaurant = ({ route }) => {
 
   return (
     <Screen>
-      <ExplanationView>
-        <Explanation
-          data={data}
-          picture={resPicture}
-          Infofunc={setInformationActive}
-        />
-      </ExplanationView>
-      {InformationActive ? (
-        isLoading ? (
-          <></>
-        ) : (
-          <>
-            <ResAboutInfo data={data} korLocation={korLocation} />
-            <DownMap>
-              <LocationTitle>
-                <LocationTitleText>LOCATION</LocationTitleText>
-              </LocationTitle>
-              <LocationMap>
-                <View>
-                  <Scroll contentContainerStyle={{ flex: 1 }}>
-                    <Container>
-                      <MapView
-                        style={{ flex: 1 }}
-                        initialRegion={{
-                          latitude: data.latitude,
-                          longitude: data.longitude,
-                          latitudeDelta: 0.0008,
-                          longitudeDelta: 0.0008,
-                        }}
-                        showsUserLocation={true}
-                        provider={PROVIDER_GOOGLE}
-                        customMapStyle={mapStyle}
-                        zoomEnabled={true}
-                        followUserLocation={true}
-                        showsMyLocationButton={true}
-                        ref={mapRef}
-                      >
-                        <Marker
-                          coordinate={marker.latlng}
-                          title={marker.title}
-                          description={marker.description}
+      <Header route={route} navigation={navigation} title={data.name} />
+      <WhiteSpace>
+        <ExplanationView>
+          <Explanation
+            data={data}
+            picture={resPicture}
+            Infofunc={setInformationActive}
+          />
+        </ExplanationView>
+        {InformationActive ? (
+          isLoading ? (
+            <></>
+          ) : (
+            <>
+              <ResAboutInfo data={data} korLocation={korLocation} />
+              <DownMap>
+                <LocationTitle>
+                  <LocationTitleText>LOCATION</LocationTitleText>
+                </LocationTitle>
+                <LocationMap>
+                  <View>
+                    <Scroll contentContainerStyle={{ flex: 1 }}>
+                      <Container>
+                        <MapView
+                          style={{ flex: 1 }}
+                          initialRegion={{
+                            latitude: data.latitude,
+                            longitude: data.longitude,
+                            latitudeDelta: 0.0008,
+                            longitudeDelta: 0.0008,
+                          }}
+                          showsUserLocation={true}
+                          provider={PROVIDER_GOOGLE}
+                          customMapStyle={mapStyle}
+                          zoomEnabled={true}
+                          followUserLocation={true}
+                          showsMyLocationButton={true}
+                          ref={mapRef}
                         >
-                          <Callout tooltip={true}></Callout>
-                        </Marker>
-                      </MapView>
-                    </Container>
-                  </Scroll>
-                </View>
-              </LocationMap>
-            </DownMap>
-          </>
-        )
-      ) : (
-        <ReviewView>
-          <Review data={commentData} reviewCount={data.reviewCount} />
-          <ReviewWrite>
-            <TmpTextInput
-              value={review}
-              onChangeText={(text) => setreview(text)}
-            />
-            <TmpButtonPos>
-              <TmpButton
-                onPress={() => {
-                  let response = postRestaurantComment(review, email, data.id);
-                  setcommentData((prev) => [
-                    ...prev,
-                    {
-                      authorEmail: email,
-                      description: review,
-                      grade: 3,
-                      id: response.data,
-                      likeCount: 0,
-                    },
-                  ]);
-                  setreview("");
-                }}
+                          <Marker
+                            coordinate={marker.latlng}
+                            title={marker.title}
+                            description={marker.description}
+                          >
+                            <Callout tooltip={true}></Callout>
+                          </Marker>
+                        </MapView>
+                      </Container>
+                    </Scroll>
+                  </View>
+                </LocationMap>
+              </DownMap>
+            </>
+          )
+        ) : (
+          <ReviewView>
+            <Review data={commentData} reviewCount={data.reviewCount} />
+            <ReviewWrite>
+              <TmpTextInput
+                value={review}
+                onChangeText={(text) => setreview(text)}
               />
-            </TmpButtonPos>
-          </ReviewWrite>
-        </ReviewView>
-      )}
+              <TmpButtonPos>
+                <TmpButton
+                  onPress={() => {
+                    let response = postRestaurantComment(
+                      review,
+                      email,
+                      data.id
+                    );
+                    setcommentData((prev) => [
+                      ...prev,
+                      {
+                        authorEmail: email,
+                        description: review,
+                        grade: 3,
+                        id: response.data,
+                        likeCount: 0,
+                      },
+                    ]);
+                    setreview("");
+                  }}
+                />
+              </TmpButtonPos>
+            </ReviewWrite>
+          </ReviewView>
+        )}
+      </WhiteSpace>
     </Screen>
   );
 };
 
 export default Restaurant;
+
+const WhiteSpace = styled.View`
+  width: 100%;
+  height: ${constants.vh(93.7) - constants.statusBarHeight}px;
+`;
 
 const TmpButton = styled.TouchableOpacity`
   width: 100%;
@@ -200,7 +213,7 @@ const View = styled.View`
 
 const ExplanationView = styled.View`
   width: 100%;
-  height: 64%;
+  height: 46%;
 `;
 
 const LocationTitleText = styled.Text`
@@ -231,8 +244,6 @@ const Screen = styled.View`
   width: 100%;
   height: ${constants.pureheight};
   background-color: ${(props) => props.theme.backgroundWhite};
-  justify-content: center;
-  align-items: center;
 `;
 
 const mapStyle = [
