@@ -6,9 +6,10 @@ export const getJwtTokenBySocialToken = async (socialToken) => {
         const response = await axios.get(
             API_URL + "/api/auth/" + socialToken
         );
+        console.log(response);
         return response.data;
     } catch (e) {
-        console.error("[AppApi][Exception] failed getJwtTokenBySocialToken() " + e);
+        console.error("[AuthApi][Exception] failed getJwtTokenBySocialToken() " + e);
         return undefined;
     }
 }
@@ -20,7 +21,7 @@ export const loginByJwtToken = async (jwtToken) => {
         );
         return response.data;
     } catch (e) {
-        console.error("[AppApi][Exception] failed loginByJwtToken() " + e);
+        console.error("[AuthApi][Exception] failed loginByJwtToken() " + e);
         return undefined;
     }
 }
@@ -31,9 +32,10 @@ export const register = async (userSaveDto) => {
             API_URL + "/api/register",
             userSaveDto
         );
+        console.log(response);
         return response.data;
     } catch (e) {
-        console.error("[AppApi][Exception] failed register() " + e);
+        console.error("[AuthApi][Exception] failed register() " + e);
         return undefined;
     }
 }

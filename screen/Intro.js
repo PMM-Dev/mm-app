@@ -11,7 +11,7 @@ import {
     useLoadProfileData,
     useRegisterUser,
     USER_EXIST,
-    USER_NOT_EXIST, USER_FAILED
+    USER_NOT_EXIST, USER_FAILED, ADMIN_MODE_PASSWORD
 } from "../components/AuthContext";
 import {INTRO_GOOGLE_BTN, INTRO_BIG_LOGO_TEXT, INTRO_TRIANGLE, INTRO_BIG_LOGO,} from "../image";
 import Theme from "../style/Theme";
@@ -23,6 +23,7 @@ const Intro = () => {
     const loadProfileData = useLoadProfileData();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
+    // For auth error dialog
     const [errorDialogVisible, setErrorDialogVisible] = useState(false);
     const [errorContent, setErrorContent] = useState("");
     const showErrorDialog = (content) => {
@@ -31,17 +32,19 @@ const Intro = () => {
     }
     const hideErrorDialog = () => setErrorDialogVisible(false);
 
+    // For admin mode
     const isAdminMode = useIsAdminMode();
     const setAdminRegistrationMode = useSetAdminRegistrationMode();
     const [countForAdminRegistrationMode, setCountForAdminRegistrationMode] = useState(0);
     const triggerAdminRegistrationMode = () => {
         setCountForAdminRegistrationMode((prev) => prev + 1);
     }
-    const [adminModePassword, setAdminPassword] = useState("");
+    const [adminModePasswordInput, setAdminPasswordInput] = useState("");
     const checkAdminDialog = () => {
-        if (adminModePassword === "mmadmin") {
+        if (adminModePasswordInput === ADMIN_MODE_PASSWORD) {
             setAdminRegistrationMode();
         }
+        setAdminPasswordInput("");
         setCountForAdminRegistrationMode(0);
     }
 
@@ -63,9 +66,11 @@ const Intro = () => {
                 if (!loadResult) {
                     throw '프로필 정보를 로드하는 과정에서 문제가 발생했습니다.'
                 }
-            } else if (state === USER_FAILED) {
+            } else {
                 throw '알 수 없는 문제가 발생했습니다.';
             }
+
+            setAdminRegistrationMode(false);
             setIsLoggingIn(false);
         } catch (e) {
             showErrorDialog(e);
@@ -82,8 +87,8 @@ const Intro = () => {
                         <Dialog.Title>admin?</Dialog.Title>
                         <Dialog.Content>
                             <TextInput
-                                value={adminModePassword}
-                                onChangeText={text => setAdminPassword(text)}
+                                value={adminModePasswordInput}
+                                onChangeText={text => setAdminPasswordInput(text)}
                             />
                         </Dialog.Content>
                         <Dialog.Actions>
