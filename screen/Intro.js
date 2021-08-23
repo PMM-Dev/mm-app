@@ -2,49 +2,133 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import {StyleSheet} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
-import {ActivityIndicator} from "react-native-paper";
-import {useGoogleLogIn, useGuestLogIn} from "../components/AuthContext";
-import {INTRO_GOOGLE_BTN, INTRO_LOGO_TEXT, INTRO_TRIANGLE,} from "../image";
+import {ActivityIndicator, Button, Paragraph, Dialog, Portal, Provider, TextInput} from "react-native-paper";
+import {
+    useIsAdminMode,
+    useSetAdminRegistrationMode,
+    useLogInByGoogle,
+    useLogInByGuest,
+    useLoadProfileData,
+    useRegisterUser,
+    USER_EXIST,
+    USER_NOT_EXIST, USER_FAILED
+} from "../components/AuthContext";
+import {INTRO_GOOGLE_BTN, INTRO_BIG_LOGO_TEXT, INTRO_TRIANGLE, INTRO_BIG_LOGO,} from "../image";
 import Theme from "../style/Theme";
 
 const Intro = () => {
-    const googleLogin = useGoogleLogIn();
-    const guestLogin = useGuestLogIn();
-    const [isLogging, setIsLogging] = useState(false);
+    const loginByGoogle = useLogInByGoogle();
+    const loginByGuest = useLogInByGuest();
+    const registerUser = useRegisterUser();
+    const loadProfileData = useLoadProfileData();
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+    const [errorDialogVisible, setErrorDialogVisible] = useState(false);
+    const [errorContent, setErrorContent] = useState("");
+    const showErrorDialog = (content) => {
+        setErrorDialogVisible(true);
+        setErrorContent(content);
+    }
+    const hideErrorDialog = () => setErrorDialogVisible(false);
+
+    const isAdminMode = useIsAdminMode();
+    const setAdminRegistrationMode = useSetAdminRegistrationMode();
+    const [countForAdminRegistrationMode, setCountForAdminRegistrationMode] = useState(0);
+    const triggerAdminRegistrationMode = () => {
+        setCountForAdminRegistrationMode((prev) => prev + 1);
+    }
+    const [adminModePassword, setAdminPassword] = useState("");
+    const checkAdminDialog = () => {
+        if (adminModePassword === "mmadmin") {
+            setAdminRegistrationMode();
+        }
+        setCountForAdminRegistrationMode(0);
+    }
 
     const requestLogin = async (login) => {
-        setIsLogging(true);
-        await login();
-        setIsLogging(false);
+        try {
+            setIsLoggingIn(true);
+
+            const response = await login();
+            const state = response.state;
+            if (state === USER_EXIST) {
+                await loadProfileData();
+            } else if (state === USER_NOT_EXIST) {
+                const registerResult = await registerUser(response.data);
+                if (!registerResult) {
+                    throw '회원 가입하는 과정에서 문제가 발생했습니다.'
+                }
+
+                const loadResult = await loadProfileData();
+                if (!loadResult) {
+                    throw '프로필 정보를 로드하는 과정에서 문제가 발생했습니다.'
+                }
+            } else if (state === USER_FAILED) {
+                throw '알 수 없는 문제가 발생했습니다.';
+            }
+            setIsLoggingIn(false);
+        } catch (e) {
+            showErrorDialog(e);
+        } finally {
+            setIsLoggingIn(false);
+        }
     };
 
     return (
         <Page>
-            <LogoView>
-                <LogoImage source={require("../assets/IntroIcon/big_logo.png")}/>
-                <LogoTextImage source={INTRO_LOGO_TEXT}/>
-            </LogoView>
-            <AuthView>
-                <LinearGradient
-                    colors={[Theme.hlRed, Theme.hlOrange]}
-                    style={styles.profileGradient}
-                >
-                    <GoogleLoginButton onPress={() => requestLogin(googleLogin)}>
-                        <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN}/>
-                    </GoogleLoginButton>
-                    <GuestModeView>
-                        <GuestModeButton onPress={() => requestLogin(guestLogin)}>
-                            <GuestModeButtonText>Guest mode</GuestModeButtonText>
-                            <GuestModeTriangle source={INTRO_TRIANGLE}/>
-                        </GuestModeButton>
-                    </GuestModeView>
-                </LinearGradient>
-            </AuthView>
-            {isLogging ? (
-                <LoadingMask>
-                    <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
-                </LoadingMask>
-            ) : null}
+            <Provider>
+                <Portal>
+                    <Dialog visible={countForAdminRegistrationMode > 5}>
+                        <Dialog.Title>admin?</Dialog.Title>
+                        <Dialog.Content>
+                            <TextInput
+                                value={adminModePassword}
+                                onChangeText={text => setAdminPassword(text)}
+                            />
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button onPress={() => checkAdminDialog()}>Done</Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                    <Dialog visible={errorDialogVisible} onDismiss={hideErrorDialog}>
+                        <Dialog.Title>알림</Dialog.Title>
+                        <Dialog.Content>
+                            <Paragraph>{errorContent}</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button onPress={() => hideErrorDialog()}>확인</Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+                <LogoView>
+                    <BigLogo onPress={() => triggerAdminRegistrationMode()} activeOpacity={1}>
+                        {isAdminMode ? <LogoImage source={INTRO_BIG_LOGO} style={{tintColor: Theme.fontBlack}}/> :
+                            <LogoImage source={INTRO_BIG_LOGO}/>}
+                    </BigLogo>
+                    <BigLogoText source={INTRO_BIG_LOGO_TEXT}/>
+                </LogoView>
+                <AuthView>
+                    <LinearGradient
+                        colors={[Theme.hlRed, Theme.hlOrange]}
+                        style={styles.profileGradient}
+                    >
+                        <GoogleLoginButton onPress={() => requestLogin(loginByGoogle)}>
+                            <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN}/>
+                        </GoogleLoginButton>
+                        <GuestModeView>
+                            <GuestModeButton onPress={() => triggerAdminRegistrationMode()}>
+                                <GuestModeButtonText>Guest mode</GuestModeButtonText>
+                                <GuestModeTriangle source={INTRO_TRIANGLE}/>
+                            </GuestModeButton>
+                        </GuestModeView>
+                    </LinearGradient>
+                </AuthView>
+                {isLoggingIn ? (
+                    <LoadingMask>
+                        <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
+                    </LoadingMask>
+                ) : null}
+            </Provider>
         </Page>
     );
 };
@@ -81,13 +165,18 @@ const LogoView = styled.View`
   align-items: center;
 `;
 
-const LogoImage = styled.Image`
+const BigLogo = styled.TouchableOpacity`
   height: 25%;
   aspect-ratio: 0.76;
   margin-bottom: 5%;
 `;
 
-const LogoTextImage = styled.Image`
+const LogoImage = styled.Image`
+  width: 100%;
+  height: 100%;
+`
+
+const BigLogoText = styled.Image`
   height: 6.5%;
   aspect-ratio: 4.71;
 `;

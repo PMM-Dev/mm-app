@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import StarMaker from "../../Map/StarMaker";
-import { postRestaurantComment } from "../../AppApi";
+import { postRestaurantComment } from "../../Api/AppApi";
 import constants from "../../../constants";
 import { COMMENT_PROFILE } from "../../../image";
 

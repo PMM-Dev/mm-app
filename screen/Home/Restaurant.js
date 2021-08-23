@@ -7,11 +7,11 @@ import ResAboutInfo from "../../components/Home/Restaurant/AboutInfo";
 import Review from "../../components/Home/Restaurant/Review";
 import * as Location from "expo-location";
 import { useProfile } from "../../components/AuthContext";
-import { korLocationAPI } from "../../components/GoogleAppApi";
+import { korLocationAPI } from "../../components/Api/GoogleAppApi";
 import {
   getRestaurantComments,
   postRestaurantComment,
-} from "../../components/AppApi";
+} from "../../components/Api/AppApi";
 
 const Restaurant = ({ route }) => {
   const data = route.params.param;

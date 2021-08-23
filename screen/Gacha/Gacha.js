@@ -6,7 +6,7 @@ import ConditionPanel from "./ConditionPanel";
 import {TouchableOpacity} from "react-native";
 
 const Gacha = () => {
-    const [isConditionSet, setIsConditionSet] = React.useState(true);
+    const [isConditionSet, setIsConditionSet] = React.useState(false);
 
     const [korean, setKorean] = React.useState(false);
     const [flour, setFlour] = React.useState(false);

@@ -35,13 +35,13 @@ export default function App() {
 
     const preLoadAuth = async () => {
         try {
-            const savedToken = await AsyncStorage.getItem("@savedToken");
-            if (savedToken !== null || savedToken !== "") {
-                const isAvailable = await isAvailableToken(savedToken);
-                if (isAvailable) {
-                    setIsLoggedIn(true);
-                }
-            }
+            const jwtToken = await AsyncStorage.getItem("@jwtToken");
+            // if (jwtToken !== null || jwtToken !== "") {
+            //     const isAvailable = await isAvailableToken(jwtToken);
+            //     if (isAvailable) {
+            //         setIsLoggedIn(true);
+            //     }
+            // }
             setIsAuthLoading(false);
         } catch (e) {
             console.log("[Error] Failed to preload the auth data : " + e);

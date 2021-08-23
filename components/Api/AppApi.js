@@ -8,7 +8,7 @@ export const getRestaurantsByGenre = async (genre) => {
     );
     return response.data;
   } catch (e) {
-    console.log("[AppApi][Exception] " + e);
+    console.error("[AppApi][Exception] " + e);
     return [];
   }
 };
@@ -20,7 +20,7 @@ export const getRestaurantComments = async (id) => {
     );
     return response.data;
   } catch (e) {
-    console.log("[AppApi][Exception] " + e);
+    console.error("[AppApi][Exception] " + e);
     return [];
   }
 };
@@ -37,7 +37,7 @@ export const postRestaurantComment = async (review, userEmail, id) => {
     );
     return response;
   } catch (e) {
-    console.log("[AppApi][Exception] " + e);
+    console.error("[AppApi][Exception] " + e);
     return [];
   }
 };

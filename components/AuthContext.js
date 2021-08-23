@@ -2,110 +2,143 @@ import React, {createContext, useContext, useState} from "react";
 import * as Google from "expo-google-app-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID} from "@env";
+import {getJwtTokenBySocialToken, loginByJwtToken, register} from "./Api/AuthApi";
 
-const guestToken = "GUEST";
+const ROLE_ADMIN = "ADMIN";
+const ROLE_USER = "USER";
+
+export const USER_EXIST = "LOGIN_USER_EXIST";
+export const USER_NOT_EXIST = "LOGIN_USER_NOT_EXIST";
+export const USER_CANCEL = "LOGIN_CANCEL";
+export const USER_FAILED = "LOGIN_FAILED";
+
+const GUEST_TOKEN = "GUEST";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
+    const [isAdminMode, setIsAdminMode] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(initIsLoggedIn);
     const [profile, setProfile] = useState({
         email: "",
         name: "",
-        picture: undefined,
+        picture: "",
+        role: ""
     });
 
-    const googleLogin = async () => {
+    const setAdminRegistrationMode = () => {
+        setIsAdminMode(true);
+    }
+
+    const loginByGoogle = async () => {
         try {
             const result = await Google.logInAsync({
                 iosClientId: IOS_INEXPO_GOOGLE_CLIENT_ID,
                 // iosStandaloneAppClientId: IOS_GOOGLE_CLIENT_ID,
                 androidClientId: ANDROID_INEXPO_GOOGLE_CLIENT_ID,
                 // androidStandaloneAppClientId: ANDROID_GOOGLE_CLIENT_ID,
-                scopes: ["profile", "email"],
+                scopes: ["email", "profile"],
             });
+            if (result.type === "cancel") {
+                return { state : USER_CANCEL };
+            }
 
             if (result.type === "success") {
-                await AsyncStorage.setItem("@savedToken", result.accessToken);
-                setProfile({
-                    email: result.email,
-                    name: result.name,
-                    picture: result.picture,
-                });
-                setIsLoggedIn(true);
-            } else {
-                console.log("[Event] Google login canceled");
+                const jwtToken = await getJwtTokenBySocialToken(result.accessToken);
+                if (!jwtToken) {
+                    return {
+                        state: USER_NOT_EXIST,
+                        data: {
+                            email: result.user.email,
+                            name: result.user.name,
+                            picture: result.user.photoUrl,
+                            socialToken: result.accessToken
+                        }
+                    };
+                }
+
+                await AsyncStorage.setItem("@jwtToken", jwtToken);
+                return {state: USER_EXIST};
             }
         } catch (e) {
-            console.log("[Catch] Google login failed :  " + e);
+            console.error("[Catch] Google login failed : " + e);
+            return {state: USER_FAILED};
         }
     };
 
-    const guestLogin = async () => {
-        try {
-            await AsyncStorage.setItem("@savedToken", guestToken);
-            setProfile({
-                email: undefined,
-                name: "guest" + Math.floor(Math.random() * 10000000),
-                picture: undefined,
-            });
-            setIsLoggedIn(true);
-        } catch (e) {
-            console.log("[Catch] Guest login failed :  " + e);
-        }
+    const loginByGuest = async () => {
+        // try {
+        //     await AsyncStorage.setItem("@savedToken", GUEST_TOKEN);
+        //     setProfile({
+        //         email: undefined,
+        //         name: "guest" + Math.floor(Math.random() * 10000000),
+        //         picture: undefined,
+        //     });
+        //     setIsLoggedIn(true);
+        // } catch (e) {
+        //     console.error("[Catch] Guest login failed : " + e);
+        // }
     };
+
+    const registerUser = async ({email, name, picture, socialToken}) => {
+        try {
+            const role = isAdminMode ? ROLE_ADMIN : ROLE_USER;
+            const response = await register({email, name, picture, role});
+            if (!response) {
+                throw 'register process failed';
+            }
+
+            const jwtToken = await getJwtTokenBySocialToken(socialToken);
+            if (!jwtToken) {
+                throw 'getting jwt token failed';
+            }
+
+            await AsyncStorage.setItem("@jwtToken", jwtToken);
+            return jwtToken;
+        } catch (e) {
+            console.error("[Catch] Register failed : " + e);
+            return undefined;
+        }
+    }
 
     const loadProfileData = async () => {
-        // This is temp functions with google api data
-        // This must be changed as Spring server data
         try {
-            const accessToken = await AsyncStorage.getItem("@savedToken");
+            const jwtToken = await AsyncStorage.getItem("@jwtToken");
 
-            if (accessToken === guestToken) {
+            if (jwtToken === GUEST_TOKEN) {
                 loadGuestProfile();
             } else {
-                await loadGoogleProfile(accessToken);
+                const profile = await loginByJwtToken(jwtToken);
+                if (!profile) {
+                    throw 'Failed during requesting to server';
+                }
+
+                setProfile(profile);
             }
+
+            setIsLoggedIn(true);
         } catch (e) {
-            console.log(e);
+            console.error("[Catch] Profile date load failed : " + e);
             setIsLoggedIn(false);
+            return undefined;
         }
     };
 
     const loadGuestProfile = () => {
-        setProfile({
-            email: undefined,
-            name: "guest" + Math.floor(Math.random() * 10000000),
-            picture: undefined,
-        });
-    };
-
-    const loadGoogleProfile = async (accessToken) => {
-        const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-            headers: {Authorization: `Bearer ${accessToken}`},
-        });
-        const {email, name, picture} = await user.json();
-        setProfile({email, name, picture});
+        // setProfile({
+        //     email: undefined,
+        //     name: "guest" + Math.floor(Math.random() * 10000000),
+        //     picture: undefined,
+        // });
     };
 
     const logOut = async () => {
         try {
-            const accessToken = await AsyncStorage.getItem("@savedToken");
+            await AsyncStorage.setItem("@jwtToken", "");
 
-            if (accessToken !== guestToken) {
-                await Google.logOutAsync({
-                    accessToken,
-                    iosClientId: IOS_INEXPO_GOOGLE_CLIENT_ID,
-                    // iosStandaloneAppClientId: IOS_GOOGLE_CLIENT_ID,
-                    androidClientId: ANDROID_INEXPO_GOOGLE_CLIENT_ID,
-                    // androidStandaloneAppClientId: ANDROID_GOOGLE_CLIENT_ID,
-                });
-            }
-        } catch (e) {
-            console.log("[Catch] logout failed :  " + e);
-        } finally {
-            await AsyncStorage.setItem("@savedToken", "");
             setIsLoggedIn(false);
+        } catch (e) {
+            console.error("[Catch] logout failed :  " + e);
         }
     };
 
@@ -114,35 +147,18 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             value={{
                 isLoggedIn,
                 profile,
+                isAdminMode,
+                setAdminRegistrationMode,
+                loginByGoogle,
+                loginByGuest,
+                registerUser,
                 loadProfileData,
-                googleLogin,
-                guestLogin,
                 logOut,
             }}
         >
             {children}
         </AuthContext.Provider>
     );
-};
-
-export const isAvailableToken = async (accessToken) => {
-    // Guest Login
-    if (accessToken === guestToken) {
-        return true;
-    }
-
-    // Access Token?JWT? 이 일치하는 유저가 있는지 DB에 확인
-    // Google 코드 제거
-
-    const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-        headers: {Authorization: `Bearer ${accessToken}`},
-    });
-    const {id} = await user.json();
-    if (id !== undefined) {
-        return true;
-    }
-
-    return false;
 };
 
 export const useIsLoggedIn = () => {
@@ -160,15 +176,30 @@ export const useLoadProfileData = () => {
     return loadProfileData;
 };
 
-export const useGoogleLogIn = () => {
-    const {googleLogin} = useContext(AuthContext);
-    return googleLogin;
+export const useIsAdminMode = () => {
+    const {isAdminMode} = useContext(AuthContext);
+    return isAdminMode;
+}
+
+export const useSetAdminRegistrationMode = () => {
+    const {setAdminRegistrationMode} = useContext(AuthContext);
+    return setAdminRegistrationMode;
+}
+
+export const useLogInByGoogle = () => {
+    const {loginByGoogle} = useContext(AuthContext);
+    return loginByGoogle;
 };
 
-export const useGuestLogIn = () => {
-    const {guestLogin} = useContext(AuthContext);
-    return guestLogin;
+export const useLogInByGuest = () => {
+    const {loginByGuest} = useContext(AuthContext);
+    return loginByGuest;
 };
+
+export const useRegisterUser = () => {
+    const {registerUser} = useContext(AuthContext);
+    return registerUser;
+}
 
 export const useLogOut = () => {
     const {logOut} = useContext(AuthContext);
