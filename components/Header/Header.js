@@ -15,7 +15,12 @@ const Header = ({ route, navigation, title }) => {
     if (routeName === "Home") {
       setMenu(<HomeHeaderMenu navigation={navigation} routeName={routeName} />);
     } else if (routeName === "RestaurantList") {
-      setMenu(<RestaurantListHeaderMenu navigation={navigation} />);
+      setMenu(
+        <RestaurantListHeaderMenu
+          navigation={navigation}
+          routeName={routeName}
+        />
+      );
     } else if (routeName === "Map") {
       setMenu(<MapHeaderMenu navigation={navigation} />);
     } else if (routeName === "Restaurant") {
