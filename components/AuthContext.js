@@ -83,7 +83,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
         }
     }
 
-    const loadProfileData = async () => {
+    const loadProfileDataByJwtToken = async () => {
         try {
             const jwtToken = await AsyncStorage.getItem("@jwtToken");
 
@@ -93,8 +93,8 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             }
 
             setProfile(profile);
-
             setIsLoggedIn(true);
+            return profile.email;
         } catch (e) {
             console.error("[Catch] Profile date load failed : " + e);
             setIsLoggedIn(false);
@@ -121,7 +121,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 setIsAdminMode,
                 loginByGoogle,
                 registerUser,
-                loadProfileData,
+                loadProfileDataByJwtToken,
                 logOut,
             }}
         >
@@ -138,11 +138,6 @@ export const useIsLoggedIn = () => {
 export const useProfile = () => {
     const {profile} = useContext(AuthContext);
     return profile;
-};
-
-export const useLoadProfileData = () => {
-    const {loadProfileData} = useContext(AuthContext);
-    return loadProfileData;
 };
 
 export const useIsAdminMode = () => {
@@ -164,6 +159,11 @@ export const useRegisterUser = () => {
     const {registerUser} = useContext(AuthContext);
     return registerUser;
 }
+
+export const useLoadProfileDataByJwtToken = () => {
+    const {loadProfileDataByJwtToken} = useContext(AuthContext);
+    return loadProfileDataByJwtToken;
+};
 
 export const useLogOut = () => {
     const {logOut} = useContext(AuthContext);

@@ -7,7 +7,7 @@ import {
     useIsAdminMode,
     useSetIsAdminMode,
     useLogInByGoogle,
-    useLoadProfileData,
+    useLoadProfileDataByJwtToken,
     useRegisterUser,
     USER_EXIST,
     USER_NOT_EXIST, ADMIN_MODE_PASSWORD
@@ -18,7 +18,7 @@ import Theme from "../style/Theme";
 const Intro = () => {
     const loginByGoogle = useLogInByGoogle();
     const registerUser = useRegisterUser();
-    const loadProfileData = useLoadProfileData();
+    const loadProfileDataByJwtToken = useLoadProfileDataByJwtToken();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
     // For auth error dialog
@@ -32,7 +32,7 @@ const Intro = () => {
 
     // For admin mode
     const isAdminMode = useIsAdminMode();
-    const setAdminRegistrationMode = useSetIsAdminMode();
+    const setIsAdminMode = useSetIsAdminMode();
     const [countForAdminRegistrationMode, setCountForAdminRegistrationMode] = useState(0);
     const triggerAdminRegistrationMode = () => {
         setCountForAdminRegistrationMode((prev) => prev + 1);
@@ -40,7 +40,7 @@ const Intro = () => {
     const [adminModePasswordInput, setAdminPasswordInput] = useState("");
     const checkAdminDialog = () => {
         if (adminModePasswordInput === ADMIN_MODE_PASSWORD) {
-            useSetIsAdminMode(true);
+            setIsAdminMode(true);
         }
         setAdminPasswordInput("");
         setCountForAdminRegistrationMode(0);
@@ -53,14 +53,18 @@ const Intro = () => {
             const response = await login();
             const state = response.state;
             if (state === USER_EXIST) {
-                await loadProfileData();
+                const loadResult = await loadProfileDataByJwtToken();
+                if (!loadResult) {
+                    throw '회원 정보를 불러오는 과정에서 문제가 발생했습니다.';
+                }
+
             } else if (state === USER_NOT_EXIST) {
                 const registerResult = await registerUser(response.data);
                 if (!registerResult) {
                     throw '회원 가입하는 과정에서 문제가 발생했습니다.'
                 }
 
-                const loadResult = await loadProfileData();
+                const loadResult = await loadProfileDataByJwtToken();
                 if (!loadResult) {
                     throw '프로필 정보를 로드하는 과정에서 문제가 발생했습니다.'
                 }
@@ -68,7 +72,7 @@ const Intro = () => {
                 throw '알 수 없는 문제가 발생했습니다.';
             }
 
-            useSetIsAdminMode(false);
+            setIsAdminMode(false);
             setIsLoggingIn(false);
         } catch (e) {
             showErrorDialog(e);
