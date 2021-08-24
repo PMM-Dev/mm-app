@@ -6,10 +6,9 @@ export const getJwtTokenBySocialToken = async (socialToken) => {
         const response = await axios.get(
             API_URL + "/api/auth/" + socialToken
         );
-        console.log(response);
         return response.data;
     } catch (e) {
-        console.error("[AuthApi][Exception] failed getJwtTokenBySocialToken() " + e);
+        console.log("[AuthApi][Exception] failed getJwtTokenBySocialToken() " + e);
         return undefined;
     }
 }
@@ -32,7 +31,6 @@ export const register = async (userSaveDto) => {
             API_URL + "/api/register",
             userSaveDto
         );
-        console.log(response);
         return response.data;
     } catch (e) {
         console.error("[AuthApi][Exception] failed register() " + e);

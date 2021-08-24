@@ -5,13 +5,13 @@ import {LinearGradient} from "expo-linear-gradient";
 import {ActivityIndicator, Button, Paragraph, Dialog, Portal, Provider, TextInput} from "react-native-paper";
 import {
     useIsAdminMode,
-    useSetAdminRegistrationMode,
+    useSetIsAdminMode,
     useLogInByGoogle,
     useLogInByGuest,
     useLoadProfileData,
     useRegisterUser,
     USER_EXIST,
-    USER_NOT_EXIST, USER_FAILED, ADMIN_MODE_PASSWORD
+    USER_NOT_EXIST, ADMIN_MODE_PASSWORD
 } from "../components/AuthContext";
 import {INTRO_GOOGLE_BTN, INTRO_BIG_LOGO_TEXT, INTRO_TRIANGLE, INTRO_BIG_LOGO,} from "../image";
 import Theme from "../style/Theme";
@@ -34,7 +34,7 @@ const Intro = () => {
 
     // For admin mode
     const isAdminMode = useIsAdminMode();
-    const setAdminRegistrationMode = useSetAdminRegistrationMode();
+    const setAdminRegistrationMode = useSetIsAdminMode();
     const [countForAdminRegistrationMode, setCountForAdminRegistrationMode] = useState(0);
     const triggerAdminRegistrationMode = () => {
         setCountForAdminRegistrationMode((prev) => prev + 1);
@@ -42,7 +42,7 @@ const Intro = () => {
     const [adminModePasswordInput, setAdminPasswordInput] = useState("");
     const checkAdminDialog = () => {
         if (adminModePasswordInput === ADMIN_MODE_PASSWORD) {
-            setAdminRegistrationMode();
+            useSetIsAdminMode(true);
         }
         setAdminPasswordInput("");
         setCountForAdminRegistrationMode(0);
@@ -70,7 +70,7 @@ const Intro = () => {
                 throw '알 수 없는 문제가 발생했습니다.';
             }
 
-            setAdminRegistrationMode(false);
+            useSetIsAdminMode(false);
             setIsLoggingIn(false);
         } catch (e) {
             showErrorDialog(e);

@@ -27,9 +27,6 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
         role: ""
     });
 
-    const setAdminRegistrationMode = () => {
-        setIsAdminMode(true);
-    }
 
     const loginByGoogle = async () => {
         try {
@@ -45,9 +42,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             }
 
             if (result.type === "success") {
-                console.log(result.accessToken);
                 const jwtToken = await getJwtTokenBySocialToken(result.accessToken);
-                console.log(jwtToken);
                 if (!jwtToken) {
                     return {
                         state: USER_NOT_EXIST,
@@ -151,7 +146,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 isLoggedIn,
                 profile,
                 isAdminMode,
-                setAdminRegistrationMode,
+                setIsAdminMode,
                 loginByGoogle,
                 loginByGuest,
                 registerUser,
@@ -184,9 +179,9 @@ export const useIsAdminMode = () => {
     return isAdminMode;
 }
 
-export const useSetAdminRegistrationMode = () => {
-    const {setAdminRegistrationMode} = useContext(AuthContext);
-    return setAdminRegistrationMode;
+export const useSetIsAdminMode = () => {
+    const {setIsAdminMode} = useContext(AuthContext);
+    return setIsAdminMode;
 }
 
 export const useLogInByGoogle = () => {
