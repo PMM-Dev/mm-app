@@ -13,8 +13,6 @@ export const USER_NOT_EXIST = "LOGIN_USER_NOT_EXIST";
 export const USER_CANCEL = "LOGIN_CANCEL";
 export const USER_FAILED = "LOGIN_FAILED";
 
-const GUEST_TOKEN = "GUEST";
-
 export const AuthContext = createContext();
 
 export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
@@ -38,7 +36,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 scopes: ["email", "profile"],
             });
             if (result.type === "cancel") {
-                return { state : USER_CANCEL };
+                return {state: USER_CANCEL};
             }
 
             if (result.type === "success") {
@@ -62,20 +60,6 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             console.error("[Catch] Google login failed : " + e);
             return {state: USER_FAILED};
         }
-    };
-
-    const loginByGuest = async () => {
-        // try {
-        //     await AsyncStorage.setItem("@savedToken", GUEST_TOKEN);
-        //     setProfile({
-        //         email: undefined,
-        //         name: "guest" + Math.floor(Math.random() * 10000000),
-        //         picture: undefined,
-        //     });
-        //     setIsLoggedIn(true);
-        // } catch (e) {
-        //     console.error("[Catch] Guest login failed : " + e);
-        // }
     };
 
     const registerUser = async ({email, name, picture, socialToken}) => {
@@ -103,16 +87,12 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
         try {
             const jwtToken = await AsyncStorage.getItem("@jwtToken");
 
-            if (jwtToken === GUEST_TOKEN) {
-                loadGuestProfile();
-            } else {
-                const profile = await loginByJwtToken(jwtToken);
-                if (!profile) {
-                    throw 'Failed during requesting to server';
-                }
-
-                setProfile(profile);
+            const profile = await loginByJwtToken(jwtToken);
+            if (!profile) {
+                throw 'Failed during requesting to server';
             }
+
+            setProfile(profile);
 
             setIsLoggedIn(true);
         } catch (e) {
@@ -120,14 +100,6 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             setIsLoggedIn(false);
             return undefined;
         }
-    };
-
-    const loadGuestProfile = () => {
-        // setProfile({
-        //     email: undefined,
-        //     name: "guest" + Math.floor(Math.random() * 10000000),
-        //     picture: undefined,
-        // });
     };
 
     const logOut = async () => {
@@ -148,7 +120,6 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 isAdminMode,
                 setIsAdminMode,
                 loginByGoogle,
-                loginByGuest,
                 registerUser,
                 loadProfileData,
                 logOut,
@@ -187,11 +158,6 @@ export const useSetIsAdminMode = () => {
 export const useLogInByGoogle = () => {
     const {loginByGoogle} = useContext(AuthContext);
     return loginByGoogle;
-};
-
-export const useLogInByGuest = () => {
-    const {loginByGuest} = useContext(AuthContext);
-    return loginByGuest;
 };
 
 export const useRegisterUser = () => {

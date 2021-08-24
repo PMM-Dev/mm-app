@@ -7,7 +7,6 @@ import {
     useIsAdminMode,
     useSetIsAdminMode,
     useLogInByGoogle,
-    useLogInByGuest,
     useLoadProfileData,
     useRegisterUser,
     USER_EXIST,
@@ -18,7 +17,6 @@ import Theme from "../style/Theme";
 
 const Intro = () => {
     const loginByGoogle = useLogInByGoogle();
-    const loginByGuest = useLogInByGuest();
     const registerUser = useRegisterUser();
     const loadProfileData = useLoadProfileData();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -120,12 +118,6 @@ const Intro = () => {
                         <GoogleLoginButton onPress={() => requestLogin(loginByGoogle)}>
                             <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN}/>
                         </GoogleLoginButton>
-                        <GuestModeView>
-                            <GuestModeButton onPress={() => triggerAdminRegistrationMode()}>
-                                <GuestModeButtonText>Guest mode</GuestModeButtonText>
-                                <GuestModeTriangle source={INTRO_TRIANGLE}/>
-                            </GuestModeButton>
-                        </GuestModeView>
                     </LinearGradient>
                 </AuthView>
                 {isLoggingIn ? (
@@ -201,33 +193,6 @@ const GoogleLoginButton = styled.TouchableOpacity`
 const GoogleLoginButtonImage = styled.Image`
   width: 100%;
   height: 100%;
-`;
-
-const GuestModeView = styled.View`
-  width: 50%;
-  height: 13px;
-  align-items: flex-end;
-  margin-top: 10px;
-`;
-
-const GuestModeButton = styled.TouchableOpacity`
-  width: 50%;
-  height: 100%;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-const GuestModeButtonText = styled.Text`
-  font-family: 'NanumSquare';
-  font-size: 13px;
-  color: ${(props) => props.theme.backgroundWhite};
-  padding-right: 5px;
-`;
-
-const GuestModeTriangle = styled.Image`
-  width: 13px;
-  aspect-ratio: 1;
 `;
 
 export default Intro;
