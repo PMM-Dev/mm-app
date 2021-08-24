@@ -73,7 +73,7 @@ export default function App() {
                 <View
                     style={{flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center"}}
                 >
-                    {setIsPreLoadProblem ? <Text style={{marginTop: 20}}>앱 초기 로딩 중에 문제가 발생했습니다.</Text> :
+                    {isPreLoadProblem ? <Text style={{marginTop: 20}}>앱 초기 로딩 중에 문제가 발생했습니다.</Text> :
                         <>
                             <ActivityIndicator
                                 animating={true}
