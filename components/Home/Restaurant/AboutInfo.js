@@ -19,8 +19,9 @@ const ResAboutInfo = ({ data, korLocation }) => {
 };
 
 const ResAboutInfoView = styled.View`
+  top: 3px;
   width: 100%;
-  height: 13%;
+  height: 10%;
   justify-content: center;
   align-items: center;
 `;

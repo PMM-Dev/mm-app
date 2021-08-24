@@ -213,7 +213,7 @@ const View = styled.View`
 
 const ExplanationView = styled.View`
   width: 100%;
-  height: 46%;
+  height: 49%;
 `;
 
 const LocationTitleText = styled.Text`
