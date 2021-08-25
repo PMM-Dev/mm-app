@@ -7,10 +7,10 @@ import ResAboutInfo from "../../components/Home/Restaurant/AboutInfo";
 import Review from "../../components/Home/Restaurant/Review";
 import * as Location from "expo-location";
 import { useProfile } from "../../components/AuthContext";
-import { korLocationAPI } from "../../components/GoogleAppApi";
+import { korLocationAPI } from "../../components/Api/GoogleAppApi";
 import {
   getRestaurantComments,
-  postRestaurantComment,
+  postRestaurantComment
 } from "../../components/AppApi";
 import Header from "../../components/Header/Header";
 

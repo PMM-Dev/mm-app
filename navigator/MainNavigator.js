@@ -10,14 +10,14 @@ import SettingNavigator from "./SettingNavigator";
 import {NAVIGATOR_GACHA, NAVIGATOR_HOME_UNSELECTED, NAVIGATOR_MAP_UNSELECTED, NAVIGATOR_SETTING_UNSELECTED, NAVIGATOR_THEME_UNSELECTED,} from "../image";
 import constants from "../constants";
 import MapNavigator from "./MapNavigator";
-import {useLoadProfileData} from "../components/AuthContext";
+import {useLoadProfileDataByJwtToken} from "../components/AuthContext";
 
 const BottomTab = createBottomTabNavigator();
 
 const MainNavigator = () => {
-    const loadProfileData = useLoadProfileData();
+    const loadProfileDataByJwtToken = useLoadProfileDataByJwtToken();
     useEffect( () => {
-        loadProfileData();
+        loadProfileDataByJwtToken();
     }, [])
 
     const navigatorHeight = constants.vh(8);
