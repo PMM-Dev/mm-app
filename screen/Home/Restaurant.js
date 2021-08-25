@@ -11,7 +11,7 @@ import { korLocationAPI } from "../../components/Api/GoogleAppApi";
 import {
   getRestaurantComments,
   postRestaurantComment
-} from "../../components/AppApi";
+} from "../../components/Api/AppApi";
 import Header from "../../components/Header/Header";
 
 const Restaurant = ({ route, navigation }) => {
