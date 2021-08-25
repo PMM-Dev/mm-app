@@ -10,9 +10,10 @@ import {
     useLoadProfileDataByJwtToken,
     useRegisterUser,
     USER_EXIST,
-    USER_NOT_EXIST, ADMIN_MODE_PASSWORD
+    USER_NOT_EXIST
 } from "../components/AuthContext";
 import {INTRO_GOOGLE_BTN, INTRO_BIG_LOGO_TEXT, INTRO_TRIANGLE, INTRO_BIG_LOGO,} from "../image";
+import { API_ADMIN_PASSWORD } from "@env";
 import Theme from "../style/Theme";
 
 const Intro = () => {
@@ -39,7 +40,7 @@ const Intro = () => {
     }
     const [adminModePasswordInput, setAdminPasswordInput] = useState("");
     const checkAdminDialog = () => {
-        if (adminModePasswordInput === ADMIN_MODE_PASSWORD) {
+        if (adminModePasswordInput === API_ADMIN_PASSWORD) {
             setIsAdminMode(true);
         }
         setAdminPasswordInput("");
