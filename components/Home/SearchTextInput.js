@@ -1,30 +1,56 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {MAGNIFY_ICON} from "../../image";
+import { MAGNIFY_ICON } from "../../image";
 import Theme from "../../style/Theme";
 import constants from "../../constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SearchTextInput = () => {
-    const [text, onChangeText] = useState();
+const SearchTextInput = ({
+  changePressed,
+  curType,
+  recentFindData,
+  setRecentFindData,
+}) => {
+  const [text, onChangeText] = useState();
 
-    useEffect(() => {
-        return () => onChangeText("");
-    }, []);
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("@" + curType, jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    return () => onChangeText("");
+  }, []);
 
-    return (
-        <Holder>
-            <IconHolder>
-                <Icon source={MAGNIFY_ICON} style={{tintColor: Theme.fontBlackGray}}/>
-            </IconHolder>
-            <Input
-                onChangeText={onChangeText}
-                value={text}
-                placeholder="위치 / 음식 키워드로 검색해주세요"
-                placeholderTextColor={Theme.fontBlackGray}
-                underlineColorAndroid="rgba(0,0,0,0)"
-            />
-        </Holder>
-    );
+  return (
+    <Holder>
+      <IconHolder>
+        <Icon
+          source={MAGNIFY_ICON}
+          style={{ tintColor: Theme.fontBlackGray }}
+        />
+      </IconHolder>
+      <Input
+        onChangeText={onChangeText}
+        value={text}
+        placeholder="위치 / 음식 키워드로 검색해주세요"
+        placeholderTextColor={Theme.fontBlackGray}
+        underlineColorAndroid="rgba(0,0,0,0)"
+        onFocus={() => {
+          changePressed(true);
+        }}
+        onSubmitEditing={() => {
+          changePressed(false);
+          onChangeText("");
+          setRecentFindData((prev) => ({ ...prev, content: text }));
+          storeData(recentFindData);
+        }}
+      />
+    </Holder>
+  );
 };
 
 const Holder = styled.View`
@@ -54,7 +80,7 @@ const IconHolder = styled.View`
   border-bottom-left-radius: ${constants.vh(1.5)}px;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Icon = styled.Image`
   height: 50%;
