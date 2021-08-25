@@ -3,10 +3,24 @@ import styled from "styled-components";
 import { MAGNIFY_ICON } from "../../image";
 import Theme from "../../style/Theme";
 import constants from "../../constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SearchTextInput = ({ changePressed }) => {
+const SearchTextInput = ({
+  changePressed,
+  curType,
+  recentFindData,
+  setRecentFindData,
+}) => {
   const [text, onChangeText] = useState();
 
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("@" + curType, jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
     return () => onChangeText("");
   }, []);
@@ -31,6 +45,8 @@ const SearchTextInput = ({ changePressed }) => {
         onSubmitEditing={() => {
           changePressed(false);
           onChangeText("");
+          setRecentFindData((prev) => ({ ...prev, content: text }));
+          storeData(recentFindData);
         }}
       />
     </Holder>

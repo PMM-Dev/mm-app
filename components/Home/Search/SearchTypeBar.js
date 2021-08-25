@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Keyboard } from "react-native";
 import styled from "styled-components";
 import constants from "../../../constants";
 
-const SearchTypeBar = ({ searchType, changeType }) => {
+const SearchTypeBar = ({ searchType, changeType, changePressed }) => {
   const [types, setTypes] = useState([]);
   const [selectedType, setSelectedType] = useState("");
   useEffect(() => {
@@ -25,6 +26,8 @@ const SearchTypeBar = ({ searchType, changeType }) => {
           onPress={() => {
             setSelectedType(type);
             changeType(type);
+            changePressed(false);
+            Keyboard.dismiss();
           }}
         >
           <Title>{type}</Title>

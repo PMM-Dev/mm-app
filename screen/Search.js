@@ -5,37 +5,62 @@ import SearchTypeBar from "../components/Home/Search/SearchTypeBar";
 import SearchCard from "../components/Home/Search/SearchCard";
 import SearchTextInput from "../components/Home/SearchTextInput";
 import BackButton from "../components/Header/BackButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Dummy = ["김치찌개 마요네즈 김밥김치찌개 황금나침판", "엽떡", "x"];
 
 const Search = ({ route, navigation }) => {
   const [curType, setcurType] = useState("식당");
   const [pressed, setPressed] = useState(false);
+  const [recentFindData, setRecentFindData] = useState(null);
+  AsyncStorage.clear();
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@" + curType);
+      console.log(JSON.parse(jsonValue));
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  console.log(pressed);
+  useEffect(() => {
+    setRecentFindData(getData());
+    console.log(recentFindData);
+  }, []);
 
   return (
     <Screen>
       <InputBar>
         <BackButton goBack={() => navigation.goBack()} />
-        <SearchTextInput changePressed={setPressed} />
+        <SearchTextInput
+          changePressed={setPressed}
+          curType={curType}
+          recentFindData={recentFindData}
+          setRecentFindData={setRecentFindData}
+        />
       </InputBar>
       <SearchTypeBar
         searchType={route.params.param.searchType}
         changeType={setcurType}
+        changePressed={setPressed}
       />
-      <ContentRecent>
-        <Title>
-          <TitleText>최근 검색어</TitleText>
-        </Title>
-        <ScrollSize>
-          <Scroll>
-            {Dummy.map((element, key) => (
-              <SearchCard key={key} data={element}></SearchCard>
-            ))}
-          </Scroll>
-        </ScrollSize>
-      </ContentRecent>
+      {pressed ? (
+        <></>
+      ) : (
+        <ContentRecent>
+          <Title>
+            <TitleText>최근 검색어</TitleText>
+          </Title>
+          <ScrollSize>
+            <Scroll>
+              {Dummy.map((element, key) => (
+                <SearchCard key={key} data={element}></SearchCard>
+              ))}
+            </Scroll>
+          </ScrollSize>
+        </ContentRecent>
+      )}
     </Screen>
   );
 };
