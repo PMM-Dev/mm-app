@@ -40,6 +40,11 @@ const Explanation = ({ data, picture, Infofunc }) => {
           <DownRate>
             <StarMaker rate={data.averageGrade} />
           </DownRate>
+          <DetailTagView>
+            {data.themes.map((list, index) => (
+              <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
+            ))}
+          </DetailTagView>
         </DownDetailInfo>
         <HeartButtonPos>
           {data.bookmarked ? (
@@ -53,6 +58,20 @@ const Explanation = ({ data, picture, Infofunc }) => {
   );
 };
 
+const ExplanationTagText = styled.Text`
+  ${(props) => props.theme.NanumSquareFont}
+  color: ${(props) => props.theme.hlRed};
+  font-size: ${constants.vw(2.2)}px;
+`;
+
+const DetailTagView = styled.View`
+  top: 2px;
+  width: 100%;
+  height: 20%;
+  flex-direction: row;
+  justify-content: center;
+`;
+
 const ResExplanationView = styled.View`
   width: 100%;
   height: 100%;
@@ -60,7 +79,7 @@ const ResExplanationView = styled.View`
 
 const DownRate = styled.View`
   height: 30%;
-  width: 60%;
+  width: 50%;
 `;
 
 const HeartImg = styled.Image`
@@ -122,6 +141,7 @@ const DownDetailInfo = styled.View`
 `;
 
 const DownView = styled.View`
+  top: ${constants.vh(1)}px;
   width: 100%;
   height: 35%;
 `;
@@ -130,7 +150,7 @@ const UpImage = styled.Image`
   height: 100%;
   width: 100%;
   border-radius: 20px;
-  resize-mode: cover;
+  resize-mode: contain;
 `;
 
 const UpImageView = styled.View`

@@ -2,25 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import constants from "../../../constants";
 
-const ResAboutInfo = ({data, korLocation}) => {
-    return (
-        <ResAboutInfoView>
-            <AboutTitle>
-                <AboutTitleText>ABOUT</AboutTitleText>
-            </AboutTitle>
-            <AboutAddress>
-                <AboutAddressText>주소 : {korLocation}</AboutAddressText>
-            </AboutAddress>
-            <AboutDescription>
-                <AboutDescriptionText>설명 : {data.description}</AboutDescriptionText>
-            </AboutDescription>
-        </ResAboutInfoView>
-    );
+const ResAboutInfo = ({ data, korLocation }) => {
+  return (
+    <ResAboutInfoView>
+      <AboutTitle>
+        <AboutTitleText>ABOUT</AboutTitleText>
+      </AboutTitle>
+      <AboutAddress>
+        <AboutAddressText>주소 : {korLocation}</AboutAddressText>
+      </AboutAddress>
+      <AboutDescription>
+        <AboutDescriptionText>설명 : {data.description}</AboutDescriptionText>
+      </AboutDescription>
+    </ResAboutInfoView>
+  );
 };
 
 const ResAboutInfoView = styled.View`
+  top: 3px;
   width: 100%;
-  height: 13%;
+  height: 10%;
   justify-content: center;
   align-items: center;
 `;

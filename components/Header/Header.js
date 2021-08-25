@@ -4,6 +4,7 @@ import constants from "../../constants";
 import HomeHeaderMenu from "./HomeHeaderMenu";
 import RestaurantListHeaderMenu from "./RestaurantListHeaderMenu";
 import MapHeaderMenu from "./MapHeaderMenu";
+import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
 
 const Header = ({ route, navigation, title }) => {
   const [menu, setMenu] = useState();
@@ -17,6 +18,8 @@ const Header = ({ route, navigation, title }) => {
       setMenu(<RestaurantListHeaderMenu navigation={navigation} />);
     } else if (routeName === "Map") {
       setMenu(<MapHeaderMenu navigation={navigation} />);
+    } else if (routeName === "Restaurant") {
+      setMenu(<RestaurantHeaderMenu navigation={navigation} />);
     }
   }, []);
 
