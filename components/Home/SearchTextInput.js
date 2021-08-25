@@ -5,8 +5,12 @@ import Theme from "../../style/Theme";
 import constants from "../../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SearchTextInput = ({ changePressed, setRecentFindData }) => {
+const SearchTextInput = ({ changePressed, storeData }) => {
   const [text, onChangeText] = useState("");
+
+  useEffect(() => {
+      console.log(text)
+  }, [text])
 
   return (
     <Holder>
@@ -28,7 +32,7 @@ const SearchTextInput = ({ changePressed, setRecentFindData }) => {
         onSubmitEditing={() => {
           changePressed(false);
           onChangeText("");
-          setRecentFindData((prev) => [...prev, text]);
+            storeData(text);
         }}
       />
     </Holder>

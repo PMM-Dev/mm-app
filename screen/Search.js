@@ -13,16 +13,6 @@ const Search = ({ route, navigation }) => {
   const [curType, setcurType] = useState("식당");
   const [pressed, setPressed] = useState(false);
   const [recentFindData, setRecentFindData] = useState([]);
-  //AsyncStorage.clear();
-
-  const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("@" + curType, jsonValue);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const getData = async () => {
     try {
@@ -31,22 +21,31 @@ const Search = ({ route, navigation }) => {
         return [];
       }
 
-      const parsedRecentFindData = JSON.parse(recentFindJson);
-      console.log(parsedRecentFindData);
-      return parsedRecentFindData;
+      const parsedSearchHistory = JSON.parse(recentFindJson);
+      setRecentFindData(parsedSearchHistory);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const storeData = async (newValue) => {
+    try {
+      const newSearchHistory = [...recentFindData, newValue];
+      setRecentFindData(newSearchHistory);
+      const searchHistoryJson = JSON.stringify(newSearchHistory);
+      await AsyncStorage.setItem("@" + curType, searchHistoryJson);
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    const data = getData();
-    setRecentFindData(data);
+    getData();
   }, []);
 
   useEffect(() => {
+    console.log("save");
     console.log(recentFindData);
-    storeData(recentFindData);
   }, [recentFindData]);
 
   return (
@@ -55,7 +54,7 @@ const Search = ({ route, navigation }) => {
         <BackButton goBack={() => navigation.goBack()} />
         <SearchTextInput
           changePressed={setPressed}
-          setRecentFindData={setRecentFindData}
+          storeData={storeData}
         />
       </InputBar>
       <SearchTypeBar
@@ -72,8 +71,8 @@ const Search = ({ route, navigation }) => {
           </Title>
           <ScrollSize>
             <Scroll>
-              {Dummy.map((element, key) => (
-                <SearchCard key={key} data={element}></SearchCard>
+              {recentFindData && recentFindData.map((element, key) => (
+                <SearchCard key={key} data={element} />
               ))}
             </Scroll>
           </ScrollSize>
