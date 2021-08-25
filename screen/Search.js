@@ -12,22 +12,42 @@ const Dummy = ["김치찌개 마요네즈 김밥김치찌개 황금나침판", "
 const Search = ({ route, navigation }) => {
   const [curType, setcurType] = useState("식당");
   const [pressed, setPressed] = useState(false);
-  const [recentFindData, setRecentFindData] = useState(null);
-  AsyncStorage.clear();
+  const [recentFindData, setRecentFindData] = useState([]);
+  //AsyncStorage.clear();
+
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("@" + curType, jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const getData = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem("@" + curType);
-      console.log(JSON.parse(jsonValue));
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
+      const recentFindJson = await AsyncStorage.getItem("@" + curType);
+      if (recentFindJson === null) {
+        return [];
+      }
+
+      const parsedRecentFindData = JSON.parse(recentFindJson);
+      console.log(parsedRecentFindData);
+      return parsedRecentFindData;
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    setRecentFindData(getData());
-    console.log(recentFindData);
+    const data = getData();
+    setRecentFindData(data);
   }, []);
+
+  useEffect(() => {
+    console.log(recentFindData);
+    storeData(recentFindData);
+  }, [recentFindData]);
 
   return (
     <Screen>
@@ -35,8 +55,6 @@ const Search = ({ route, navigation }) => {
         <BackButton goBack={() => navigation.goBack()} />
         <SearchTextInput
           changePressed={setPressed}
-          curType={curType}
-          recentFindData={recentFindData}
           setRecentFindData={setRecentFindData}
         />
       </InputBar>
