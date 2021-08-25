@@ -4,7 +4,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID} from "@env";
 import {getJwtTokenBySocialToken, loginByJwtToken, register} from "./Api/AuthApi";
 
-export const ADMIN_MODE_PASSWORD = "mmadmin";
 const ROLE_ADMIN = "ADMIN";
 const ROLE_USER = "USER";
 
