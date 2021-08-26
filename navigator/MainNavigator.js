@@ -7,7 +7,18 @@ import HomeNavigator from "./HomeNavigator";
 import Gacha from "../screen/Gacha/Gacha";
 import Theme from "../style/Theme";
 import SettingNavigator from "./SettingNavigator";
-import {NAVIGATOR_GACHA, NAVIGATOR_HOME_UNSELECTED, NAVIGATOR_MAP_UNSELECTED, NAVIGATOR_SETTING_UNSELECTED, NAVIGATOR_THEME_UNSELECTED,} from "../image";
+import {
+    NAVIGATOR_GACHA_UNSELECTED,
+    NAVIGATOR_HOME_UNSELECTED,
+    NAVIGATOR_THEME_UNSELECTED,
+    NAVIGATOR_MAP_UNSELECTED,
+    NAVIGATOR_SETTING_UNSELECTED,
+    NAVIGATOR_HOME_SELECTED,
+    NAVIGATOR_MAP_SELECTED,
+    NAVIGATOR_THEME_SELECTED,
+    NAVIGATOR_GACHA_SELECTED,
+    NAVIGATOR_SETTING_SELECTED,
+} from "../image";
 import constants from "../constants";
 import MapNavigator from "./MapNavigator";
 import {useLoadProfileDataByJwtToken} from "../components/AuthContext";
@@ -16,12 +27,13 @@ const BottomTab = createBottomTabNavigator();
 
 const MainNavigator = () => {
     const loadProfileDataByJwtToken = useLoadProfileDataByJwtToken();
-    useEffect( () => {
+    useEffect(() => {
         loadProfileDataByJwtToken();
     }, [])
 
     const navigatorHeight = constants.vh(8);
-    const navigatorIconSize = constants.vh(6);
+    const navigatorIconSize = constants.vh(3.5);
+    const navigatorSmallIconSize = constants.vh(4);
     const navigatorLabalSize = constants.vh(1.5);
 
     return (
@@ -40,10 +52,14 @@ const MainNavigator = () => {
                         title: "홈",
                         tabBarIcon: ({focused}) => {
                             return (
-                                <Image
-                                    source={NAVIGATOR_HOME_UNSELECTED}
-                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
-                                />
+                                focused ? <Image
+                                        source={NAVIGATOR_HOME_SELECTED}
+                                        style={{width: navigatorIconSize, height: navigatorIconSize}}
+                                    /> :
+                                    <Image
+                                        source={NAVIGATOR_HOME_UNSELECTED}
+                                        style={{width: navigatorIconSize, height: navigatorIconSize}}
+                                    />
                             );
                         },
                     }}
@@ -55,7 +71,10 @@ const MainNavigator = () => {
                         title: "위치",
                         tabBarIcon: ({focused}) => {
                             return (
-                                <Image
+                                focused ? <Image
+                                    source={NAVIGATOR_MAP_SELECTED}
+                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
+                                /> : <Image
                                     source={NAVIGATOR_MAP_UNSELECTED}
                                     style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
@@ -70,7 +89,10 @@ const MainNavigator = () => {
                         title: "테마",
                         tabBarIcon: ({focused}) => {
                             return (
-                                <Image
+                                focused ? <Image
+                                    source={NAVIGATOR_THEME_SELECTED}
+                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
+                                /> : <Image
                                     source={NAVIGATOR_THEME_UNSELECTED}
                                     style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
@@ -85,9 +107,12 @@ const MainNavigator = () => {
                         title: "뽑기",
                         tabBarIcon: ({focused}) => {
                             return (
-                                <Image
-                                    source={NAVIGATOR_GACHA}
-                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
+                                focused ? <Image
+                                    source={NAVIGATOR_GACHA_SELECTED}
+                                    style={{width: navigatorSmallIconSize, height: navigatorSmallIconSize}}
+                                /> : <Image
+                                    source={NAVIGATOR_GACHA_UNSELECTED}
+                                    style={{width: navigatorSmallIconSize, height: navigatorSmallIconSize}}
                                 />
                             );
                         },
@@ -100,7 +125,10 @@ const MainNavigator = () => {
                         title: "설정",
                         tabBarIcon: ({focused}) => {
                             return (
-                                <Image
+                                focused ? <Image
+                                    source={NAVIGATOR_SETTING_SELECTED}
+                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
+                                /> : <Image
                                     source={NAVIGATOR_SETTING_UNSELECTED}
                                     style={{width: navigatorIconSize, height: navigatorIconSize}}
                                 />
