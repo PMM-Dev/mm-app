@@ -36,8 +36,9 @@ export const SEARCHBAR = require("./assets/CommonIcons/search_1.png");
 export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
 export const EMPTYHEART = require("./assets/CommonIcons/heart_1.png");
 
-export const FILTER = require("./assets/CommonIcons/filter.png");
-export const POSITION = require("./assets/CommonIcons/position.png");
+export const MAP_WHITE_BAR_ICON = require("./assets/MapIcon/white_bar.png");
+export const MAP_FILTER_ICON = require("./assets/MapIcon/filter.png");
+export const MAP_POSITION_ICON = require("./assets/MapIcon/position.png");
 
 
 export const NAVIGATOR_HOME_UNSELECTED = require("./assets/NavigatorIcon/home_unselected.png");

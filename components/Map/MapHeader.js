@@ -1,22 +1,25 @@
 import React from "react";
 import styled from "styled-components";
-import {FILTER} from "../../image";
+import {MAP_WHITE_BAR_ICON, MAP_FILTER_ICON} from "../../image";
 import constants from "../../constants";
 
 const MapHeader = ({routeName, navigation}) => {
     return (
         <Header>
-            <SearchBarButton onPress={() =>
+            <SearchBar onPress={() =>
                 navigation.navigate("Search", {
                     param: {searchType: routeName},
-                })
-            }>
-                <SearchBarText>
-                    위치 / 음식 키워드로 검색해주세요
-                </SearchBarText>
-            </SearchBarButton>
+                })}
+                       activeOpacity={1}
+            >
+                <SearchBarImage source={MAP_WHITE_BAR_ICON}>
+                    <SearchBarText>
+                        위치 / 음식 키워드로 검색해주세요
+                    </SearchBarText>
+                </SearchBarImage>
+            </SearchBar>
             <FilterButton onPress={() => console.log("pressed")}>
-                <Icon source={FILTER}/>
+                <Icon source={MAP_FILTER_ICON}/>
             </FilterButton>
         </Header>
     );
@@ -32,15 +35,18 @@ const Header = styled.View`
 `;
 
 
-const SearchBarButton = styled.TouchableOpacity`
+const SearchBar = styled.TouchableOpacity`
   width: 80%;
   height: 100%;
-  background-color: ${(props) => props.theme.backgroundWhite};
-  border-radius: ${constants.vw(1.5)}px;
+  
+  margin-right: ${constants.vw(1)}px;
+`
+
+const SearchBarImage = styled.ImageBackground`
+  width: 100%;
+  height: 100%;
   padding-left: ${constants.vw(5)}px;
   justify-content: center;
-  
-  margin-right: ${constants.vw(2)}px;
 `
 
 const SearchBarText = styled.Text`
@@ -50,7 +56,7 @@ const SearchBarText = styled.Text`
 `
 
 const FilterButton = styled.TouchableOpacity`
-  width: 11%;
+  width: 13%;
   height: 100%;
 `;
 

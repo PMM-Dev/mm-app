@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from "react-native-maps";
-import {POSITION} from "../image";
+import {MAP_POSITION_ICON} from "../image";
 import {ActivityIndicator} from "react-native-paper";
 import constants from "../constants";
 import * as Location from "expo-location";
@@ -154,7 +154,7 @@ const Map = ({route, navigation}) => {
                                         });
                                     }}
                                 >
-                                    <Img source={POSITION}/>
+                                    <Img source={MAP_POSITION_ICON}/>
                                 </PosButton>
                             )}
                         </Container>
