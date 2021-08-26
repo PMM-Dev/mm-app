@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 import * as Google from "expo-google-app-auth";
+import * as Apple from 'expo-apple-authentication';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID} from "@env";
 import {getJwtTokenBySocialToken, loginByJwtToken, register} from "./Api/AuthApi";
@@ -61,6 +62,22 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
         }
     };
 
+    const loginByApple = async () => {
+        try {
+            const result = await Apple.signInAsync({
+                requestedScopes: [
+                    Apple.AppleAuthenticationScope.FULL_NAME,
+                    Apple.AppleAuthenticationScope.EMAIL
+                ]
+            });
+            console.log(result);
+        } catch (e) {
+            if (e.code !== 'ERR_CANCELED') {
+                console.error("[Catch] Apple login failed : " + e);
+            }
+        }
+    }
+
     const registerUser = async ({email, name, picture, socialToken}) => {
         try {
             const role = isAdminMode ? ROLE_ADMIN : ROLE_USER;
@@ -119,6 +136,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 isAdminMode,
                 setIsAdminMode,
                 loginByGoogle,
+                loginByApple,
                 registerUser,
                 loadProfileDataByJwtToken,
                 logOut,
@@ -153,6 +171,11 @@ export const useLogInByGoogle = () => {
     const {loginByGoogle} = useContext(AuthContext);
     return loginByGoogle;
 };
+
+export const useLoginInByApple = () => {
+    const {loginByApple} = useContext(AuthContext);
+    return loginByApple;
+}
 
 export const useRegisterUser = () => {
     const {registerUser} = useContext(AuthContext);

@@ -1,5 +1,6 @@
 import { Dimensions } from "react-native";
 import Constants from "expo-constants";
+import * as Device from 'expo-device'
 
 const { width, height } = Dimensions.get("screen");
 
@@ -15,4 +16,6 @@ const statusBarHeight = Constants.statusBarHeight;
 
 const pureheight = vh(92);
 
-export default { width, height, vw, vh, statusBarHeight, pureheight };
+const platform = Device.osName;
+
+export default { width, height, vw, vh, statusBarHeight, pureheight, platform };

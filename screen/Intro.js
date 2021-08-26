@@ -1,26 +1,35 @@
-import React, {useState} from "react";
-import styled from "styled-components";
+import React, {useState, useEffect} from "react";
 import {StyleSheet} from "react-native";
+import styled from "styled-components";
 import {LinearGradient} from "expo-linear-gradient";
 import {ActivityIndicator, Button, Paragraph, Dialog, Portal, Provider, TextInput} from "react-native-paper";
 import {
     useIsAdminMode,
     useSetIsAdminMode,
     useLogInByGoogle,
+    useLoginInByApple,
     useLoadProfileDataByJwtToken,
     useRegisterUser,
     USER_EXIST,
-    USER_NOT_EXIST
+    USER_NOT_EXIST, USER_CANCEL
 } from "../components/AuthContext";
-import {INTRO_GOOGLE_BTN, INTRO_BIG_LOGO_TEXT, INTRO_TRIANGLE, INTRO_BIG_LOGO,} from "../image";
-import { API_ADMIN_PASSWORD } from "@env";
+import * as AppleAuthentication from 'expo-apple-authentication';
+import constants from '../constants'
+
+import {INTRO_GOOGLE_BTN, INTRO_BIG_LOGO_TEXT, INTRO_BIG_LOGO,} from "../image";
+import {API_ADMIN_PASSWORD} from "@env";
 import Theme from "../style/Theme";
+import * as Device from "expo-device";
 
 const Intro = () => {
     const loginByGoogle = useLogInByGoogle();
+    const loginByApple = useLoginInByApple();
     const registerUser = useRegisterUser();
     const loadProfileDataByJwtToken = useLoadProfileDataByJwtToken();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
+    //
+    const [apple, setApple] = useState("");
+    //
 
     // For auth error dialog
     const [errorDialogVisible, setErrorDialogVisible] = useState(false);
@@ -69,7 +78,7 @@ const Intro = () => {
                 if (!loadResult) {
                     throw '프로필 정보를 로드하는 과정에서 문제가 발생했습니다.'
                 }
-            } else {
+            } else if (state !== USER_CANCEL) {
                 throw '알 수 없는 문제가 발생했습니다.';
             }
 
@@ -123,6 +132,15 @@ const Intro = () => {
                         <GoogleLoginButton onPress={() => requestLogin(loginByGoogle)}>
                             <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN}/>
                         </GoogleLoginButton>
+                        {constants.platform === "iOS" ?
+                            <AppleAuthentication.AppleAuthenticationButton
+                                buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
+                                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+                                cornerRadius={3}
+                                style={styles.appleLoginButton}
+                                onPress={loginByApple}
+                            /> : null
+                        }
                     </LinearGradient>
                 </AuthView>
                 {isLoggingIn ? (
@@ -142,6 +160,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    appleLoginButton: {
+        width: "50%",
+        aspectRatio: 4.1,
+        marginTop: constants.vh(1)
+    }
 });
 
 const Page = styled.View`
