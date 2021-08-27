@@ -17,7 +17,6 @@ export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSystemLoading, setIsSystemLoading] = useState(true);
     const [isAuthLoading, setIsAuthLoading] = useState(true);
-    const [isPreLoadProblem, setIsPreLoadProblem] = useState(false);
 
     const preLoadSystem = async () => {
         try {
@@ -55,16 +54,9 @@ export default function App() {
         }
     }
 
-    const findPreLoadProblem = () => {
-        if (isSystemLoading || isAuthLoading) {
-            setIsPreLoadProblem(true);
-        }
-    }
-
     useEffect(() => {
         preLoadSystem();
         preLoadAuth();
-        findPreLoadProblem();
     }, []);
 
     return (
@@ -73,16 +65,12 @@ export default function App() {
                 <View
                     style={{flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center"}}
                 >
-                    {isPreLoadProblem ? <Text style={{marginTop: 20}}>앱 초기 로딩 중에 문제가 발생했습니다.</Text> :
-                        <>
-                            <ActivityIndicator
-                                animating={true}
-                                size="large"
-                                color={Theme.hlOrange}
-                            />
-                            <Text style={{marginTop: 20}}>앱 초기 로딩 중</Text>
-                        </>
-                    }
+                    <ActivityIndicator
+                        animating={true}
+                        size="large"
+                        color={Theme.hlOrange}
+                    />
+                    <Text style={{marginTop: 20}}>앱 초기 로딩 중</Text>
                 </View>
             ) : (
                 <ThemeProvider theme={Theme}>
