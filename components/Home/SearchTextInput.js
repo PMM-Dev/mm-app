@@ -7,10 +7,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SearchTextInput = ({ changePressed, storeData }) => {
   const [text, onChangeText] = useState("");
-
   useEffect(() => {
-      console.log(text)
-  }, [text])
+    console.log(text);
+  }, [text]);
 
   return (
     <Holder>
@@ -32,7 +31,7 @@ const SearchTextInput = ({ changePressed, storeData }) => {
         onSubmitEditing={() => {
           changePressed(false);
           onChangeText("");
-            storeData(text);
+          if (text !== "") storeData(text);
         }}
       />
     </Holder>

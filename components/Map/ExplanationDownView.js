@@ -12,7 +12,7 @@ const ExplanationDownView = ({ data }) => {
       </ExplanationImage>
       <ExplanationRateButton>
         <ExplanationRate>
-          <StarMaker rate={data.rating} />
+          <StarMaker rate={data.averageGrade} />
         </ExplanationRate>
         <ExplanationTag></ExplanationTag>
         <ExplanationMoreButton>

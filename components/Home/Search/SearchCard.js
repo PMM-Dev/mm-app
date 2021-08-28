@@ -3,19 +3,35 @@ import styled from "styled-components";
 import constants from "../../../constants";
 import { MAGNIFY_ICON } from "../../../image";
 
-const SearchCard = ({ data }) => {
+const SearchCard = ({ data, storedData, storeData }) => {
+  const deleteData = () => {
+    for (var i = 0; i < storedData.length; i++) {
+      if (storedData[i] === data) {
+        console.log("deleted!");
+        storedData.splice(i, 1);
+        storeData(null);
+        break;
+      }
+    }
+  };
   return (
     <View>
-      <SearchIconPosView>
-        <SearchIconView>
-          <SearchImage source={MAGNIFY_ICON} style={{ tintColor: "#000000" }} />
-        </SearchIconView>
-      </SearchIconPosView>
-      <RecentWordView>
-        <RecentWordText numberOfLines={1}>{data}</RecentWordText>
-      </RecentWordView>
+      <TapButton onPress={() => {}}>
+        <SearchIconPosView>
+          <SearchIconView>
+            <SearchImage
+              source={MAGNIFY_ICON}
+              style={{ tintColor: "#000000" }}
+            />
+          </SearchIconView>
+        </SearchIconPosView>
+        <RecentWordView>
+          <RecentWordText numberOfLines={1}>{data}</RecentWordText>
+        </RecentWordView>
+      </TapButton>
+
       <XIconView>
-        <XIcon>
+        <XIcon onPress={() => deleteData()}>
           <X>X</X>
         </XIcon>
       </XIconView>
@@ -54,15 +70,23 @@ const SearchIconView = styled.View`
   align-items: center;
 `;
 
+const TapButton = styled.TouchableOpacity`
+  width: 90%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SearchIconPosView = styled.View`
-  width: 15%;
+  width: 17%;
   height: 60%;
   justify-content: center;
   align-items: center;
 `;
 
 const RecentWordView = styled.View`
-  width: 75%;
+  width: 83%;
   height: 100%;
   justify-content: center;
 `;

@@ -1,80 +1,110 @@
 import React from "react";
 import styled from "styled-components";
 import {
-    HOME_FOOD_ICON_ASIAN,
-    HOME_FOOD_ICON_DELIEVERY,
-    HOME_FOOD_ICON_DESSERT,
-    HOME_FOOD_ICON_FASTFOOD,
-    HOME_FOOD_ICON_FLOUR,
-    HOME_FOOD_ICON_JAPANESE,
-    HOME_FOOD_ICON_KOREAN,
-    HOME_FOOD_ICON_NIGHTFOOD,
-    HOME_FOOD_ICON_RANKING,
-    HOME_FOOD_ICON_WESTERN,
+  HOME_FOOD_ICON_ASIAN,
+  HOME_FOOD_ICON_DELIEVERY,
+  HOME_FOOD_ICON_DESSERT,
+  HOME_FOOD_ICON_FASTFOOD,
+  HOME_FOOD_ICON_FLOUR,
+  HOME_FOOD_ICON_JAPANESE,
+  HOME_FOOD_ICON_KOREAN,
+  HOME_FOOD_ICON_NIGHTFOOD,
+  HOME_FOOD_ICON_RANKING,
+  HOME_FOOD_ICON_WESTERN,
 } from "../../image";
 import constants from "../../constants";
 
 const StringScreen = [
-    {genre: "KOREAN"},
-    {genre: "FLOUR"},
-    {genre: "WESTERN"},
-    {genre: "ASIAN"},
-    {genre: "JAPANESE"},
-    {genre: "DESSERT"},
-    {genre: "FASTFOOD"},
+  { genre: "KOREAN" },
+  { genre: "FLOUR" },
+  { genre: "WESTERN" },
+  { genre: "ASIAN" },
+  { genre: "JAPANESE" },
+  { genre: "DESSERT" },
+  { genre: "FASTFOOD" },
 ];
 
-const RestaurantTypeButtonsTable = ({navigation}) => {
-    return (
-        <ButtonsTable>
-            <ButtonsRow>
-                <Button
-                    onPress={() =>
-                        navigation.navigate("RestaurantList", {
-                            param: StringScreen[0],
-                        })
-                    }
-                >
-                    <Img source={HOME_FOOD_ICON_KOREAN}/>
-                </Button>
-                <Button
-                    onPress={() =>
-                        navigation.navigate("RestaurantList", {
-                            param: StringScreen[1],
-                        })
-                    }
-                >
-                    <Img source={HOME_FOOD_ICON_FLOUR}/>
-                </Button>
-                <Button>
-                    <Img source={HOME_FOOD_ICON_WESTERN}/>
-                </Button>
-                <Button>
-                    <Img source={HOME_FOOD_ICON_ASIAN}/>
-                </Button>
-                <Button>
-                    <Img source={HOME_FOOD_ICON_JAPANESE}/>
-                </Button>
-            </ButtonsRow>
-            <ButtonsRow>
-                <Button>
-                    <Img source={HOME_FOOD_ICON_DESSERT}/>
-                </Button>
-                <Button>
-                    <Img source={HOME_FOOD_ICON_NIGHTFOOD}/>
-                </Button>
-                <Button>
-                    <Img source={HOME_FOOD_ICON_FASTFOOD}/>
-                </Button>
-                <Button>
-                    <Img source={HOME_FOOD_ICON_DELIEVERY}/>
-                </Button>
-                <Button>
-                    <Img source={HOME_FOOD_ICON_RANKING}/>
-                </Button>
-            </ButtonsRow>
-        </ButtonsTable>
-    );
+const RestaurantTypeButtonsTable = ({ navigation }) => {
+  return (
+    <ButtonsTable>
+      <ButtonsRow>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[0],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_KOREAN} />
+        </Button>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[1],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_FLOUR} />
+        </Button>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[2],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_WESTERN} />
+        </Button>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[3],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_ASIAN} />
+        </Button>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[4],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_JAPANESE} />
+        </Button>
+      </ButtonsRow>
+      <ButtonsRow>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[5],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_DESSERT} />
+        </Button>
+        <Button>
+          <Img source={HOME_FOOD_ICON_NIGHTFOOD} />
+        </Button>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[6],
+            })
+          }
+        >
+          <Img source={HOME_FOOD_ICON_FASTFOOD} />
+        </Button>
+        <Button>
+          <Img source={HOME_FOOD_ICON_DELIEVERY} />
+        </Button>
+        <Button>
+          <Img source={HOME_FOOD_ICON_RANKING} />
+        </Button>
+      </ButtonsRow>
+    </ButtonsTable>
+  );
 };
 
 const ButtonsTable = styled.View`
@@ -94,9 +124,9 @@ const ButtonsRow = styled.View`
 
 const Button = styled.TouchableOpacity`
   width: ${constants.vw(17)}px;
-  height: ${constants.vw(17)}px;;
-  margin-right: ${constants.vw(1.5)}px;;;
-  margin-bottom: ${constants.vw(1.5)}px;;;
+  height: ${constants.vw(17)}px;
+  margin-right: ${constants.vw(1.5)}px;
+  margin-bottom: ${constants.vw(1.5)}px; ;;
 `;
 
 const Img = styled.Image`
@@ -104,6 +134,5 @@ const Img = styled.Image`
   height: 100%;
   border-radius: 10px;
 `;
-
 
 export default RestaurantTypeButtonsTable;
