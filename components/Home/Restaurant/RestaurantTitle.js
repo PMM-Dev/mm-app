@@ -6,46 +6,22 @@ import KoreanEnum from "../../../KoreanEnum";
 import { Converter } from "../../Converter";
 import constants from "../../../constants";
 
-const Explanation = ({ data, picture, Infofunc }) => {
+const RestaurantTitle = ({ data, picture }) => {
   return (
-    <ResExplanationView>
-      <UpView>
-        <UpImageView>
-          <UpImage source={picture} />
-        </UpImageView>
-        <FilterView>
-          <FilterInfo onPress={() => Infofunc(true)}>
-            <FilterText>정보[Infomation]</FilterText>
-          </FilterInfo>
-          <FilterReview onPress={() => Infofunc(false)}>
-            <FilterText last={true}>리뷰[Review]</FilterText>
-          </FilterReview>
-        </FilterView>
-      </UpView>
-      <DownView>
-        <DownDetailInfo>
-          <DetailTitle>
-            <DetailTitleText>{data.name}</DetailTitleText>
-          </DetailTitle>
-          <DetailInfo>
-            <DetailTitleContact>
+    <TitleView>
+            <Title>{data.name}</Title>
+          <GradeStars>
+            <StarMaker grade={3.5} size={35} starRatio={85}/>
+          </GradeStars>
               <DetailInfoText>
                 음식 종류 : {Converter(data.type)}
               </DetailInfoText>
-            </DetailTitleContact>
-            <DetailTitleAddress>
               <DetailInfoText>가격대 : {Converter(data.price)}</DetailInfoText>
-            </DetailTitleAddress>
-          </DetailInfo>
-          <DownRate>
-            <StarMaker rate={data.averageGrade} />
-          </DownRate>
           <DetailTagView>
             {data.themes.map((list, index) => (
               <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
             ))}
           </DetailTagView>
-        </DownDetailInfo>
         <HeartButtonPos>
           {data.bookmarked ? (
             <HeartImg source={FULLHEART} />
@@ -53,10 +29,23 @@ const Explanation = ({ data, picture, Infofunc }) => {
             <HeartImg source={EMPTYHEART} />
           )}
         </HeartButtonPos>
-      </DownView>
-    </ResExplanationView>
+    </TitleView>
   );
 };
+
+const TitleView = styled.View`
+  width: 100%;
+  height: 35%;
+  background-color: ${(props) => props.theme.backgroundWhite};
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.fontGray};
+`;
+
+const DownView = styled.View`
+  top: ${constants.vh(1)}px;
+  width: 100%;
+  height: 35%;
+`;
 
 const ExplanationTagText = styled.Text`
   ${(props) => props.theme.NanumSquareFont}
@@ -72,14 +61,15 @@ const DetailTagView = styled.View`
   justify-content: center;
 `;
 
-const ResExplanationView = styled.View`
-  width: 100%;
-  height: 100%;
+const Title = styled.Text`
+  ${(props) => props.theme.NanumSquareFont}
+  text-align: center;
+  font-size: ${constants.vw(7.2)}px;
 `;
 
-const DownRate = styled.View`
-  height: 30%;
+const GradeStars = styled.View`
   width: 50%;
+  height: 30%;
 `;
 
 const HeartImg = styled.Image`
@@ -122,28 +112,10 @@ const DetailInfo = styled.View`
   justify-content: center;
 `;
 
-const DetailTitleText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
-  text-align: center;
-  font-size: ${constants.vw(7.2)}px;
-`;
-
-const DetailTitle = styled.View`
-  height: 25%;
-  width: 100%;
-  justify-content: center;
-`;
-
 const DownDetailInfo = styled.View`
   width: 100%;
   height: 100%;
   align-items: center;
-`;
-
-const DownView = styled.View`
-  top: ${constants.vh(1)}px;
-  width: 100%;
-  height: 35%;
 `;
 
 const UpImage = styled.Image`
@@ -191,4 +163,4 @@ const UpView = styled.View`
   background-color: ${(props) => props.theme.backgroundGray};
 `;
 
-export default Explanation;
+export default RestaurantTitle;

@@ -26,6 +26,10 @@ const Header = ({ route, navigation, title }) => {
     } else if (routeName === "Restaurant") {
       setMenu(<RestaurantHeaderMenu navigation={navigation} />);
     }
+
+    if (route === "Restaurant") {
+      setTitle()
+    }
   }, []);
 
   return (

@@ -36,7 +36,7 @@ const RestaurantCard = ({ data, navigation }) => {
               </ExplanationTag>
             )}
             <ExplanationRate>
-              <StarMaker rate={data.averageGrade} />
+              <StarMaker grade={data.averageGrade} />
             </ExplanationRate>
             <ExplanationMoreButton>
               <ExplanationMoreButtonText>

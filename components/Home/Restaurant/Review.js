@@ -42,7 +42,7 @@ const Review = ({ data, reviewCount }) => {
                 </ReviewContentTopNameView>
                 <ReviewContentTopStarView>
                   <ReviewContentTopStarStarMakerView>
-                    <StarMaker rate={data.grade}></StarMaker>
+                    <StarMaker grade={data.grade}></StarMaker>
                   </ReviewContentTopStarStarMakerView>
                 </ReviewContentTopStarView>
               </ReviewContentTopNameStarView>
