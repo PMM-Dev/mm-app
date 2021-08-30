@@ -25,7 +25,7 @@ const Holder = styled.View`
 `;
 
 const Text = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
+  ${(props) => props.theme.NanumSquareRFont}
   font-size: 16px;
   color: ${(props) => props.theme.fontBlack};
 `;

@@ -80,7 +80,7 @@ const Title = styled.Text`
 `;
 
 const MoreButton = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
+  ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vw(3.3)}px;
   color: ${(props) => props.theme.hlOrange};
 `;

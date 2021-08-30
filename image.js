@@ -1,5 +1,19 @@
+export const LOGO = require("./assets/CommonIcons/logo.png");
+export const LOGO_TEXT = require("./assets/CommonIcons/logo_text.png");
+
+export const SEARCHBAR = require("./assets/CommonIcons/search_1.png");
 export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png");
 export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png");
+
+export const REVIEW_ICON = require("./assets/CommonIcons/review.png");
+export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
+export const EMPTYHEART = require("./assets/CommonIcons/heart_1.png");
+export const FULLSTAR = require("./assets/CommonIcons/star_3.png");
+export const HALFSTAR = require("./assets/CommonIcons/star_2.png");
+export const EMPTYSTAR = require("./assets/CommonIcons/star_1.png");
+
+export const COMMENT_PROFILE = require("./assets/CommonIcons/profile.png");
+export const RESTAURANT_IMAGE = require("./assets/CommonIcons/img_box.png");
 
 export const INTRO_BIG_LOGO = require("./assets/IntroIcon/big_logo.png");
 export const INTRO_BIG_LOGO_TEXT = require("./assets/IntroIcon/big_logo_text.png");
@@ -28,14 +42,6 @@ export const HOME_FOOD_ICON_FASTFOOD = require("./assets/HomeFoodIcon/icon_8.png
 export const HOME_FOOD_ICON_DELIEVERY = require("./assets/HomeFoodIcon/icon_9.png");
 export const HOME_FOOD_ICON_RANKING = require("./assets/HomeFoodIcon/icon_10.png");
 
-export const LOGO = require("./assets/CommonIcons/logo.png");
-export const LOGO_TEXT = require("./assets/CommonIcons/logo_text.png");
-
-export const SEARCHBAR = require("./assets/CommonIcons/search_1.png");
-
-export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
-export const EMPTYHEART = require("./assets/CommonIcons/heart_1.png");
-
 export const MAP_WHITE_BAR_ICON = require("./assets/MapIcon/white_bar.png");
 export const MAP_FILTER_ICON = require("./assets/MapIcon/filter.png");
 export const MAP_POSITION_ICON = require("./assets/MapIcon/position.png");
@@ -52,10 +58,3 @@ export const NAVIGATOR_MAP_SELECTED = require("./assets/NavigatorIcon/map_select
 export const NAVIGATOR_THEME_SELECTED = require("./assets/NavigatorIcon/theme_selected.png");
 export const NAVIGATOR_GACHA_SELECTED = require("./assets/NavigatorIcon/gacha_selected.png");
 export const NAVIGATOR_SETTING_SELECTED = require("./assets/NavigatorIcon/setting_selected.png");
-
-export const FULLSTAR = require("./assets/CommonIcons/star_3.png");
-export const HALFSTAR = require("./assets/CommonIcons/star_2.png");
-export const EMPTYSTAR = require("./assets/CommonIcons/star_1.png");
-
-export const COMMENT_PROFILE = require("./assets/CommonIcons/profile.png");
-export const RESTAURANT_IMAGE = require("./assets/CommonIcons/img_box.png");

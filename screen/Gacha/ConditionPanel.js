@@ -197,7 +197,7 @@ const Button = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
+  ${(props) => props.theme.NanumSquareRFont}
   font-size: 18px;
   color: ${(props) => props.color};
 `;

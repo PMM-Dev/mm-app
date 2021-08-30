@@ -22,7 +22,10 @@ export default function App() {
         try {
             await Font.loadAsync({
                 DoHyeon: require("./assets/fonts/DoHyeon.ttf"),
-                NanumSquare: require("./assets/fonts/NanumSquare.ttf"),
+                NanumSquareR: require("./assets/fonts/NanumSquareR.ttf"),
+                NanumSquareL: require("./assets/fonts/NanumSquareL.ttf"),
+                NanumSquareB: require("./assets/fonts/NanumSquareB.ttf"),
+                NanumSquareEB: require("./assets/fonts/NanumSquareEB.ttf"),
                 NanumBarunGothic: require("./assets/fonts/NanumBarunGothic.ttf"),
                 NanumBarunGothicBold: require("./assets/fonts/NanumBarunGothicBold.ttf"),
             });

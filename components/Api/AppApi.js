@@ -20,7 +20,7 @@ export const getRestaurantsByGenre = async (genre) => {
     }
 };
 
-export const getRestaurantComments = async (id) => {
+export const getRestaurantReviews = async (id) => {
     try {
         const token = await AsyncStorage.getItem("@jwtToken");
         const response = await axios.get(

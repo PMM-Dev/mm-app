@@ -38,7 +38,7 @@ const Title = styled.View`
 `;
 
 const Title_Text = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
+  ${(props) => props.theme.NanumSquareRFont}
   margin-left: ${constants.vw(8)}px;
   font-size: ${constants.vw(3)}px;
   font-weight: 700;
@@ -54,7 +54,7 @@ const Date = styled.View`
 `;
 
 const Date_Text = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
+  ${(props) => props.theme.NanumSquareRFont}
   width: 100%;
   font-size: ${constants.vw(2.65)}px;
   font-weight: 100;

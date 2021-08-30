@@ -5,8 +5,9 @@ const palette = {
     fontBlack: "#333333",
     fontBlackGray: "#9098B6",
     fontGray: "#b9c4e1",
+    fontBlue: "#48dbfb",
     backgroundWhite: "#ffffff",
-    backgroundGray: "#eff0f4",
+    backgroundGray: "#F3F4F8",
     backgroundDarkerGray: "#dadae0",
     borderGray: "#EFEFEF",
     borderGray2: "#efefef",
@@ -40,8 +41,17 @@ const Font = {
     DoHyeonFont: `
     font-family: 'DoHyeon';
     `,
-    NanumSquareFont: `
-    font-family: 'NanumSquare';
+    NanumSquareRFont: `
+    font-family: 'NanumSquareR';
+    `,
+    NanumSquareLFont: `
+    font-family: 'NanumSquareL';
+    `,
+    NanumSquareBFont: `
+    font-family: 'NanumSquareB';
+    `,
+    NanumSquareEBFont: `
+    font-family: 'NanumSquareEB';
     `,
     NanumGothicFont: `
     font-family: 'NanumBarunGothic';

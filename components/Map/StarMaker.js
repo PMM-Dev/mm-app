@@ -29,7 +29,7 @@ const StarMaker = ({grade, size, starRatio}) => {
     return (
         <Stars>
             {starComponents && starComponents.map((starComponent, key) =>
-                <StarWrapper size={size}>
+                <StarWrapper size={size} key={key}>
                     {starComponent}
                 </StarWrapper>)}
         </Stars>
@@ -37,8 +37,6 @@ const StarMaker = ({grade, size, starRatio}) => {
 };
 
 const Stars = styled.View`
-  width: 100%;
-  height: 100%;
   flex-direction: row;
 `;
 

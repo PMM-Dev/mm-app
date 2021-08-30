@@ -50,7 +50,7 @@ const SearchBarImage = styled.ImageBackground`
 `
 
 const SearchBarText = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
+  ${(props) => props.theme.NanumSquareRFont}
   color: ${(props) => props.theme.fontGray};
   font-size: ${constants.vw(3.5)}px;
 `

@@ -65,7 +65,7 @@ const TitleHolder = styled.View`
 `;
 
 const Title = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
+  ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vh(2)}px;
 `;
 

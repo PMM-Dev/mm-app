@@ -93,7 +93,7 @@ const UtilButton = styled.TouchableOpacity`
 `;
 
 const Title = styled.Text`
-  ${(props) => props.theme.NanumSquareFont}
+  ${(props) => props.theme.NanumSquareRFont}
   margin-left: ${(props) => props.info ? 0 : `${constants.vw(4)}`}px;
   font-size: ${constants.vw(4.2)}px;
 
