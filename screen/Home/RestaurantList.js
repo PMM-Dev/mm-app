@@ -6,7 +6,7 @@ import Header from "../../components/Header/Header";
 import constants from "../../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
-import { getRestaurantsByGenre } from "../../components/Api/AppApi";
+import { getRestaurantsByGenre } from "../../components/Api/AppRestaurantApi";
 import KoreanEnum from "../../KoreanEnum";
 
 const RestaurantList = ({ route, navigation }) => {

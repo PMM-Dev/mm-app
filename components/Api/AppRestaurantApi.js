@@ -38,7 +38,6 @@ export const getRestaurantsById = async (id) => {
     }
 }
 
-
 export const getRestaurantReviews = async (id) => {
     try {
         const token = await AsyncStorage.getItem("@jwtToken");

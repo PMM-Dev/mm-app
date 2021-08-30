@@ -6,39 +6,37 @@ import RestaurantListHeaderMenu from "./RestaurantListHeaderMenu";
 import MapHeaderMenu from "./MapHeaderMenu";
 import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
 
-const Header = ({ route, navigation, title }) => {
-  const [menu, setMenu] = useState();
+const Header = ({ route : {name : routeName}, navigation, title, isTitleShown, email, restaurantId}) => {
+  const [menuComponent, setMenuComponent] = useState();
 
-  useEffect(() => {
-    const routeName = route.name;
-
+  const getMenuComponent = () => {
     if (routeName === "Home") {
-      setMenu(<HomeHeaderMenu navigation={navigation} routeName={routeName} />);
+      setMenuComponent(<HomeHeaderMenu navigation={navigation} routeName={routeName} />);
     } else if (routeName === "RestaurantList") {
-      setMenu(
-        <RestaurantListHeaderMenu
-          navigation={navigation}
-          routeName={routeName}
-        />
+      setMenuComponent(
+          <RestaurantListHeaderMenu
+              navigation={navigation}
+              routeName={routeName}
+          />
       );
     } else if (routeName === "Map") {
-      setMenu(<MapHeaderMenu navigation={navigation} />);
+      setMenuComponent(<MapHeaderMenu navigation={navigation} />);
     } else if (routeName === "Restaurant") {
-      setMenu(<RestaurantHeaderMenu navigation={navigation} />);
+      setMenuComponent(<RestaurantHeaderMenu navigation={navigation} email={email} restaurantId={restaurantId} />);
     }
+  }
 
-    if (route === "Restaurant") {
-      setTitle()
-    }
+  useEffect(() => {
+    getMenuComponent();
   }, []);
 
   return (
-    <Bar>
-      <TitleHolder>
-        <Title>{title}</Title>
-      </TitleHolder>
-      {menu && menu}
-    </Bar>
+      <Bar>
+        <TitleHolder>
+          <Title show={isTitleShown !== undefined ? isTitleShown : true}>{title}</Title>
+        </TitleHolder>
+        {menuComponent && menuComponent}
+      </Bar>
   );
 };
 
@@ -67,6 +65,8 @@ const TitleHolder = styled.View`
 const Title = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vh(2)}px;
+  color: ${(props) => props.theme.fontBlack};
+  opacity: ${(props) => props.show === true ? 1 : 0};
 `;
 
 export default Header;

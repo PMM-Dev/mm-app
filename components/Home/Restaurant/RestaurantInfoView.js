@@ -7,12 +7,10 @@ import StarMaker from "../../Map/StarMaker";
 import {
     REVIEW_ICON,
     FULLHEART,
-    EMPTYHEART,
     RESTAURANT_ICON_TYPE,
     RESTAURANT_ICON_PRICE,
     RESTAURANT_ICON_LOCATION
 } from "../../../image";
-import KoreanEnum from "../../../KoreanEnum";
 import {Converter} from "../../Converter";
 import constants from "../../../constants";
 import * as Location from "expo-location";
@@ -118,13 +116,6 @@ const RestaurantInfoView = ({data, picture}) => {
                             </MapViewHolder>
                         </MapViewHolderView>
                     </LocationView>
-                    {/*<HeartButtonPos>*/}
-                    {/*    {data.bookmarked ? (*/}
-                    {/*        <HeartImg source={FULLHEART}/>*/}
-                    {/*    ) : (*/}
-                    {/*        <HeartImg source={EMPTYHEART}/>*/}
-                    {/*    )}*/}
-                    {/*</HeartButtonPos>*/}
         </InfoView>
     );
 }
@@ -204,20 +195,6 @@ const DescriptionText = styled.Text`
   color: ${(props) => props.theme.fontBlackGray};
   margin-top: ${(props) => props.isEmpty ? 0 : constants.vh(2)}px;
   margin-bottom: ${(props) => props.isEmpty ? constants.vh(2) : constants.vh(5)}px;
-`;
-
-const HeartImg = styled.Image`
-  height: 100%;
-  width: 100%;
-  resize-mode: cover;
-`;
-
-const HeartButtonPos = styled.TouchableOpacity`
-  position: absolute;
-  width: 13%;
-  height: 30%;
-  top: 4%;
-  right: 4%;
 `;
 
 const InfoTitleText = styled.Text`

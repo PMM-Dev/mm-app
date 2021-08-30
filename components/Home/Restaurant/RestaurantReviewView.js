@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {
     getRestaurantReviews,
     postRestaurantComment
-} from "../../Api/AppApi";
+} from "../../Api/AppRestaurantApi";
 import {useProfile} from "../../AuthContext";
 import {View} from "react-native";
 import {ActivityIndicator} from "react-native-paper";
