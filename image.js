@@ -42,6 +42,10 @@ export const HOME_FOOD_ICON_FASTFOOD = require("./assets/HomeFoodIcon/icon_8.png
 export const HOME_FOOD_ICON_DELIEVERY = require("./assets/HomeFoodIcon/icon_9.png");
 export const HOME_FOOD_ICON_RANKING = require("./assets/HomeFoodIcon/icon_10.png");
 
+export const RESTAURANT_ICON_TYPE = require("./assets/RestaurantIcon/silverware.png");
+export const RESTAURANT_ICON_PRICE = require("./assets/RestaurantIcon/currency-usd.png")
+export const RESTAURANT_ICON_LOCATION = require("./assets/RestaurantIcon/office-building-marker.png")
+
 export const MAP_WHITE_BAR_ICON = require("./assets/MapIcon/white_bar.png");
 export const MAP_FILTER_ICON = require("./assets/MapIcon/filter.png");
 export const MAP_POSITION_ICON = require("./assets/MapIcon/position.png");

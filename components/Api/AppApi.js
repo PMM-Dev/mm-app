@@ -20,6 +20,25 @@ export const getRestaurantsByGenre = async (genre) => {
     }
 };
 
+export const getRestaurantsById = async (id) => {
+    try {
+        const token = await AsyncStorage.getItem("@jwtToken");
+        const response = await axios.get(
+            API_URL + "/api/restaurant/" + id,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] " + e);
+        return [];
+    }
+}
+
+
 export const getRestaurantReviews = async (id) => {
     try {
         const token = await AsyncStorage.getItem("@jwtToken");

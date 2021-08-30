@@ -4,7 +4,14 @@ import MapView, {PROVIDER_GOOGLE, Marker, Callout} from "react-native-maps";
 
 import {korLocationAPI} from "../../Api/GoogleAppApi"
 import StarMaker from "../../Map/StarMaker";
-import {REVIEW_ICON, FULLHEART, EMPTYHEART} from "../../../image";
+import {
+    REVIEW_ICON,
+    FULLHEART,
+    EMPTYHEART,
+    RESTAURANT_ICON_TYPE,
+    RESTAURANT_ICON_PRICE,
+    RESTAURANT_ICON_LOCATION
+} from "../../../image";
 import KoreanEnum from "../../../KoreanEnum";
 import {Converter} from "../../Converter";
 import constants from "../../../constants";
@@ -14,7 +21,6 @@ import Theme from "../../../style/Theme";
 const RestaurantInfoView = ({data, picture}) => {
     const mapRef = React.createRef();
 
-    const [isInfoLoading, setIsInfoLoading] = useState(true);
     const [marker, setMarker] = useState({});
     const [koreanAddress, setKoreanAddress] = useState([]);
 
@@ -39,7 +45,6 @@ const RestaurantInfoView = ({data, picture}) => {
         async function initKoreanAddress() {
             const RestaurantKoreanAddress = await korLocationAPI(data);
             setKoreanAddress(RestaurantKoreanAddress);
-            setIsInfoLoading(false);
         }
 
         initLocation()
@@ -48,12 +53,10 @@ const RestaurantInfoView = ({data, picture}) => {
     }, []);
 
     return (
-        <InfoView isInfoLoading={isInfoLoading}>
-            {isInfoLoading === true ? <></> : (
-                <>
+        <InfoView>
                     <TitleView>
                         <Title>{data.name}</Title>
-                        <StarMaker grade={3.5} size={30} starRatio={90}/>
+                        <StarMaker grade={data.averageGrade} size={30} starRatio={90}/>
                     </TitleView>
                     <NumberInfosView>
                         <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}}/>
@@ -61,21 +64,30 @@ const RestaurantInfoView = ({data, picture}) => {
                         <SmallIcon source={FULLHEART}/>
                         <IconText color={Theme.hlRed}>{data.likeCount}</IconText>
                     </NumberInfosView>
-                    <InfoText>음식 종류 : {Converter(data.type)}</InfoText>
-                    <InfoText>가격대 : {Converter(data.price)}</InfoText>
-                    <InfoText>위치 : {Converter(data.location)}</InfoText>
                     <TagView>
                         {data.themes.map((list, index) => (
                             <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
                         ))}
                     </TagView>
-                    <DescriptionText>{data.description}</DescriptionText>
-                    <DownMap>
-                        <DescriptionTitleText>LOCATION</DescriptionTitleText>
-                        <DescriptionText>주소 : {koreanAddress}</DescriptionText>
-                        <LocationMap>
-                            <View>
-                                <Scroll contentContainerStyle={{flex: 1}}>
+                    <TextInfoView>
+                        <BigIcon source={RESTAURANT_ICON_TYPE} style={{tintColor: Theme.fontBlackGray}}/>
+                        <InfoText>{Converter(data.type)}</InfoText>
+                    </TextInfoView>
+                    <TextInfoView>
+                        <BigIcon source={RESTAURANT_ICON_PRICE} style={{tintColor: Theme.fontBlackGray}}/>
+                        <InfoText>{Converter(data.price)}</InfoText>
+                    </TextInfoView>
+                    <TextInfoView>
+                        <BigIcon source={RESTAURANT_ICON_LOCATION} style={{tintColor: Theme.fontBlackGray}}/>
+                        <InfoText>{Converter(data.location)}</InfoText>
+                    </TextInfoView>
+                    <DescriptionText isEmpty={data.description === ""}>{data.description}</DescriptionText>
+                    <LocationView>
+                        <InfoTitleText>위치</InfoTitleText>
+                        <LocationText>{koreanAddress}</LocationText>
+                        <MapViewHolderView>
+                            <MapViewHolder>
+                                <MapScroll contentContainerStyle={{flex: 1}}>
                                     <Container>
                                         <MapView
                                             style={{flex: 1}}
@@ -102,10 +114,10 @@ const RestaurantInfoView = ({data, picture}) => {
                                             </Marker>
                                         </MapView>
                                     </Container>
-                                </Scroll>
-                            </View>
-                        </LocationMap>
-                    </DownMap>
+                                </MapScroll>
+                            </MapViewHolder>
+                        </MapViewHolderView>
+                    </LocationView>
                     {/*<HeartButtonPos>*/}
                     {/*    {data.bookmarked ? (*/}
                     {/*        <HeartImg source={FULLHEART}/>*/}
@@ -113,19 +125,17 @@ const RestaurantInfoView = ({data, picture}) => {
                     {/*        <HeartImg source={EMPTYHEART}/>*/}
                     {/*    )}*/}
                     {/*</HeartButtonPos>*/}
-                </>)
-            }
         </InfoView>
     );
 }
 
 const InfoView = styled.View`
   width: 100%;
-  height: ${(props) => props.isInfoLoading ? 0 : constants.vh(70)}px;
   padding: 0px ${constants.vw(8)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.fontGray};
+  margin-bottom: ${constants.vh(4)}px;
 `;
 
 const TitleView = styled.View`
@@ -148,13 +158,19 @@ const NumberInfosView = styled.View`
 const SmallIcon = styled.Image`
   width: ${constants.vw(5)}px;
   height: ${constants.vw(5)}px;
-  margin-right: ${constants.vw(3)}px;
+  margin-right: ${constants.vw(2)}px;
 `
 
 const IconText = styled.Text`
   color: ${(props) => props.color ? props.color : props.theme.fontBlackGray};
   font-size: ${constants.vh(1.5)}px;
   margin-right: ${constants.vw(3.5)}px;
+`
+
+const TextInfoView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: ${constants.vh(1)}px;
 `
 
 const InfoText = styled.Text`
@@ -173,14 +189,21 @@ const TagView = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: center;
-  
-  margin-bottom: ${constants.vh(4)}px;
+
 `;
+
+const BigIcon = styled.Image`
+  width: ${constants.vw(5)}px;
+  height: ${constants.vw(5)}px;
+  margin-right: ${constants.vw(4)}px;
+`
 
 const DescriptionText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
-  font-size: ${constants.vh(1.9)}px;
-  margin-bottom: ${constants.vh(10)}px;
+  font-size: ${constants.vh(1.5)}px;
+  color: ${(props) => props.theme.fontBlackGray};
+  margin-top: ${(props) => props.isEmpty ? 0 : constants.vh(2)}px;
+  margin-bottom: ${(props) => props.isEmpty ? constants.vh(2) : constants.vh(5)}px;
 `;
 
 const HeartImg = styled.Image`
@@ -197,52 +220,44 @@ const HeartButtonPos = styled.TouchableOpacity`
   right: 4%;
 `;
 
-const DetailInfoText = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  text-align: center;
-  font-size: ${constants.vw(3)}px;
+const InfoTitleText = styled.Text`
+  ${(props) => props.theme.NanumSquareBFont}
+  font-size: ${constants.vw(5.7)}px;
+  margin-bottom: ${constants.vh(1)}px;
 `;
 
+const LocationView = styled.View`
+  width: 100%;
+  height: ${constants.vh(25)}px;
+  margin-bottom: ${constants.vh(7)}px;
+`;
+
+const LocationText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vh(1.5)}px;
+`;
+
+const MapViewHolderView = styled.View`
+  height: 85%;
+  width: 100%;
+  align-items: center;
+  margin: ${constants.vh(2)}px 0px;
+`;
+
+const MapViewHolder = styled.View`
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`
+
+const MapScroll = styled.ScrollView`
+  width: 100%;
+`;
 
 const Container = styled.View`
   width: 100%;
   height: 100%;
-`;
-
-const View = styled.View`
-  background-color: white;
-  height: 100%;
-  width: 80%;
-  justify-content: center;
-  align-items: center;
-`;
-
-const DescriptionTitleText = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  text-align: center;
-  font-size: ${constants.vw(4.6)}px;
-`;
-
-const LocationTitle = styled.View`
-  height: 15%;
-  width: 100%;
-`;
-
-const LocationMap = styled.View`
-  height: 85%;
-  width: 100%;
-  align-items: center;
-`;
-
-const DownMap = styled.View`
-  width: 100%;
-  height: 23%;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Scroll = styled.ScrollView`
-  width: 100%;
 `;
 
 const mapStyle = [

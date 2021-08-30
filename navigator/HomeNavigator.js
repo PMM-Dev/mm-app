@@ -4,6 +4,7 @@ import Home from "../screen/Home/Home";
 import RestaurantList from "../screen/Home/RestaurantList";
 import Restaurant from "../screen/Home/Restaurant";
 import Search from "../screen/Search";
+import Theme from "../style/Theme";
 
 const Stack = createStackNavigator();
 

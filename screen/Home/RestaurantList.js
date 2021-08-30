@@ -144,7 +144,7 @@ const WhiteSpace = styled.View`
 `;
 
 const Wrapper = styled.View`
-  height: ${constants.pureheight};
+  height: ${constants.pureheight}px;
 `;
 
 const Scroll = styled.ScrollView`

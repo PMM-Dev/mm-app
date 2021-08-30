@@ -11,7 +11,7 @@ const RestaurantCard = ({ data, navigation }) => {
         <ExplanationRestaurantNavigate
           onPress={() =>
             navigation.navigate("Restaurant", {
-              param: data,
+                restaurantId: data.id,
               picture: RESTAURANT_IMAGE,
             })
           }

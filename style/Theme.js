@@ -55,7 +55,7 @@ const Font = {
     `,
     NanumGothicFont: `
     font-family: 'NanumBarunGothic';
-    `,
+    `,git
     NanumGothicBoldFont: `
     font-family: 'NanumBarunGothicBold';
     `,

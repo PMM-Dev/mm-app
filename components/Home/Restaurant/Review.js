@@ -1,192 +1,64 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import axios from "axios";
+import React from 'react'
+import {COMMENT_PROFILE} from "../../../image";
 import StarMaker from "../../Map/StarMaker";
-import { postRestaurantComment } from "../../Api/AppApi";
+import styled from "styled-components";
 import constants from "../../../constants";
-import { COMMENT_PROFILE } from "../../../image";
 
-const Review = ({ data, reviewCount }) => {
-  return (
-    <ResReviewView>
-      <ReviewTitle>
-        <ReviewTitleNum>
-          <ReviewTitleNumText>최근리뷰 {reviewCount}개</ReviewTitleNumText>
-        </ReviewTitleNum>
-        <ReviewTitleFilter>
-          <ReviewTitleFilterRecent>
-            <ReviewTitleFilterText>최신순</ReviewTitleFilterText>
-          </ReviewTitleFilterRecent>
-          <ReviewTitleFilterStarHigh>
-            <ReviewTitleFilterText>별점높은순</ReviewTitleFilterText>
-          </ReviewTitleFilterStarHigh>
-          <ReviewTitleFilterStarLow>
-            <ReviewTitleFilterText last={true}>
-              별점낮은순
-            </ReviewTitleFilterText>
-          </ReviewTitleFilterStarLow>
-        </ReviewTitleFilter>
-      </ReviewTitle>
-      <ReviewContentList>
-        {data.map((data, index) => (
-          <ReviewContent key={index}>
-            <ReviewContentTop>
-              <ReviewContentTopImageView>
-                <ReviewContentTopImage source={COMMENT_PROFILE} />
-              </ReviewContentTopImageView>
-              <ReviewContentTopNameStarView>
-                <ReviewContentTopNameView>
-                  <ReviewContentTopNameText>
-                    {data.authorEmail} {"  >  "}
-                  </ReviewContentTopNameText>
-                </ReviewContentTopNameView>
-                <ReviewContentTopStarView>
-                  <ReviewContentTopStarStarMakerView>
-                    <StarMaker grade={data.grade}></StarMaker>
-                  </ReviewContentTopStarStarMakerView>
-                </ReviewContentTopStarView>
-              </ReviewContentTopNameStarView>
-            </ReviewContentTop>
-            <ReviewContentBottom>
-              <ReviewContentBottomText numberOfLines={1}>
-                {data.description}
-              </ReviewContentBottomText>
-            </ReviewContentBottom>
-          </ReviewContent>
-        ))}
-      </ReviewContentList>
-    </ResReviewView>
-  );
-};
+const Review = ({review}) => {
+    return (
+        <Content>
+            <ReviewInfo>
+                <ProfileImage source={COMMENT_PROFILE}/>
+                <NameAndGradeView>
+                    <AuthorNameButton onPress={() => {
+                    }}>
+                        <AuthorNameText>
+                            {review.authorEmail} >
+                        </AuthorNameText>
+                    </AuthorNameButton>
+                    <StarMaker grade={review.grade} size={constants.vw(5)}/>
+                </NameAndGradeView>
+            </ReviewInfo>
+            <ReviewText>
+                {review.description}
+            </ReviewText>
+        </Content>
+    );
+}
 
-const ReviewContentTopStarStarMakerView = styled.View`
-  height: 60%;
-  width: 50%;
-`;
-
-const ReviewContentTopNameStarView = styled.View`
-  height: 100%;
-  width: 82%;
-  margin-left: ${constants.vw(2)}px;
-`;
-
-const ReviewContentTopNameText = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  color: ${(props) => props.theme.fontBlack};
-  font-size: ${constants.vw(3)}px;
-`;
-
-const ReviewContentTopNameView = styled.View`
-  height: 40%;
-  width: 82%;
-  justify-content: center;
-`;
-
-const ReviewContentTopStarView = styled.View`
-  height: 50%;
-  width: 82%;
-`;
-
-const ReviewContentTopImage = styled.Image`
+const Content = styled.View`
   width: 100%;
-  height: 100%;
-  border-radius: 8px;
+  margin-bottom: ${constants.vw(7)}px;
 `;
 
-const ReviewContentTopImageView = styled.View`
-  height: 80%;
-  width: 18%;
-`;
-
-const ReviewContentTop = styled.View`
-  height: 80%;
+const ReviewInfo = styled.View`
   width: 100%;
   flex-direction: row;
+  margin-bottom: ${constants.vw(3)}px;
 `;
 
-const ReviewContentBottomText = styled.Text`
+const NameAndGradeView = styled.View`
+  justify-content: center;
+  margin-left: ${constants.vw(3.5)}px;
+`;
+
+const AuthorNameButton = styled.TouchableOpacity``
+
+const AuthorNameText = styled.Text`
+  ${(props) => props.theme.NanumSquareBFont}
+  color: ${(props) => props.theme.fontBlack};
+  font-size: ${constants.vw(3.5)}px;
+`;
+
+const ProfileImage = styled.Image`
+  height: ${constants.vw(12)}px;
+  width: ${constants.vw(12)}px;
+`;
+
+const ReviewText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   color: ${(props) => props.theme.fontBlack};
-  font-size: ${constants.vw(3)}px;
-`;
-
-const ReviewContentBottom = styled.View`
-  height: 20%;
-  width: 100%;
-  overflow: hidden;
-`;
-
-const ReviewContent = styled.View`
-  height: ${constants.vw(25)}px;
-  width: 100%;
-  align-items: center;
-  margin-left: 7px;
-  margin-top: 4px;
-`;
-
-const ReviewTitleFilterStarLow = styled.TouchableOpacity`
-  width: 35%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const ReviewTitleFilterStarHigh = styled.TouchableOpacity`
-  width: 35%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const ReviewTitleFilterRecent = styled.TouchableOpacity`
-  width: 30%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const ReviewTitleFilterText = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  color: ${(props) => props.theme.fontBlack};
-  text-align: center;
-  font-size: ${constants.vw(3)}px;
-  ${(props) => (props.last ? "" : "border-right-width: 1.5px;")};
-  border-right-color: ${(props) => props.theme.fontBlack};
-`;
-
-const ReviewTitleNumText = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  font-size: ${constants.vw(4.6)}px;
-`;
-
-const ReviewTitleFilter = styled.View`
-  width: 50%;
-  height: 100%;
-  flex-direction: row;
-`;
-
-const ReviewTitleNum = styled.View`
-  width: 50%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const ReviewTitle = styled.View`
-  width: 90%;
-  height: 18%;
-  border-top-width: 1px;
-  border-top-color: ${(props) => props.theme.borderGray2};
-  flex-direction: row;
-`;
-
-const ReviewContentList = styled.ScrollView`
-  width: 90%;
-  height: 50%;
-  border: 1px black;
-`;
-
-const ResReviewView = styled.View`
-  width: 100%;
-  height: 60%;
-  justify-content: center;
-  align-items: center;
+  font-size: ${constants.vw(4)}px;
 `;
 
 export default Review;
