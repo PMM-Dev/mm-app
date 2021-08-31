@@ -5,6 +5,7 @@ import HomeHeaderMenu from "./HomeHeaderMenu";
 import RestaurantListHeaderMenu from "./RestaurantListHeaderMenu";
 import MapHeaderMenu from "./MapHeaderMenu";
 import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
+import WriteReviewHeader from "./WriteReviewHeader";
 
 const Header = ({ route : {name : routeName}, navigation, title, isTitleShown, email, restaurantId}) => {
   const [menuComponent, setMenuComponent] = useState();
@@ -23,6 +24,8 @@ const Header = ({ route : {name : routeName}, navigation, title, isTitleShown, e
       setMenuComponent(<MapHeaderMenu navigation={navigation} />);
     } else if (routeName === "Restaurant") {
       setMenuComponent(<RestaurantHeaderMenu navigation={navigation} email={email} restaurantId={restaurantId} />);
+    } else if (routeName === "WriteReview") {
+      setMenuComponent(<WriteReviewHeader navigation={navigation} email={email} restaurantId={restaurantId} />);
     }
   }
 
@@ -52,7 +55,7 @@ const Bar = styled.View`
 `;
 
 const TitleHolder = styled.View`
-  width: 100%;
+  width: ${constants.vw(100)}px;
   height: ${constants.vh(5.5) + constants.statusBarHeight}px;
   padding-bottom: ${constants.vh(1.5)}px;
   position: absolute;

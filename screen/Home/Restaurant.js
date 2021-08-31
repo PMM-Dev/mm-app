@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from "react";
+import {View} from "react-native";
 import styled from "styled-components";
+import {ActivityIndicator} from "react-native-paper";
+
 import constants from "../../constants";
+import Theme from "../../style/Theme";
+import {RESTAURANT_IMAGE, REVIEW_ICON} from '../../image';
+import {useProfile} from "../../components/AuthContext";
+import {getRestaurantsById} from "../../components/Api/AppRestaurantApi";
+
 import RestaurantInfoView from "../../components/Home/Restaurant/RestaurantInfoView";
 import RestaurantReviewView from "../../components/Home/Restaurant/RestaurantReviewView";
 import Header from "../../components/Header/Header";
-import {getRestaurantsById} from "../../components/Api/AppRestaurantApi";
-import {View} from "react-native";
-import {ActivityIndicator} from "react-native-paper";
-import Theme from "../../style/Theme";
-import {useProfile} from "../../components/AuthContext";
 
 const Restaurant = ({route, navigation}) => {
     const {email} = useProfile();
@@ -41,7 +44,8 @@ const Restaurant = ({route, navigation}) => {
             {
                 data ? (
                     <>
-                        <Header route={route} navigation={navigation} title={data.name} isTitleShown={isStartScroll} email={email} restaurantId={restaurantId}/>
+                        <Header route={route} navigation={navigation} title={data.name} isTitleShown={isStartScroll}
+                                email={email} restaurantId={restaurantId}/>
                         <Scroll alwaysBounceVertical={false} onScroll={handleScrollState} scrollEventThrottle={16}>
                             <Wrapper>
                                 <RestaurantInfoView
@@ -54,6 +58,13 @@ const Restaurant = ({route, navigation}) => {
                                 />
                             </Wrapper>
                         </Scroll>
+                        <WriteReviewButton onPress={() => navigation.navigate("WriteReview", {
+                            email: email,
+                            restaurantId: restaurantId,
+                            restaurantName: data.name
+                        })}>
+                            <WriteReviewIcon source={REVIEW_ICON}/>
+                        </WriteReviewButton>
                     </>
                 ) : (
                     <View
@@ -83,6 +94,24 @@ const Scroll = styled.ScrollView`
 
 const Wrapper = styled.View`
   background-color: ${(props) => props.theme.backgroundGray};
+`
+
+const WriteReviewButton = styled.TouchableOpacity`
+  position: absolute;
+  bottom: ${constants.vw(5)}px;
+  right: ${constants.vw(5)}px;
+  width: ${constants.vw(18)}px;
+  height: ${constants.vw(18)}px;
+  border-radius: ${constants.vw(18)}px;
+  background-color: ${(props) => props.theme.fontBlue};
+
+  justify-content: center;
+  align-items: center;
+`
+
+const WriteReviewIcon = styled.Image`
+  width: ${constants.vw(9)}px;
+  height: ${constants.vw(9)}px;
 `
 
 export default Restaurant;

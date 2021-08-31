@@ -19,7 +19,7 @@ import Theme from "../../../style/Theme";
 const RestaurantInfoView = ({data, picture}) => {
     const mapRef = React.createRef();
 
-    const [marker, setMarker] = useState({});
+    const [marker, setMarker] = useState();
     const [koreanAddress, setKoreanAddress] = useState([]);
 
     useEffect(() => {
@@ -52,70 +52,71 @@ const RestaurantInfoView = ({data, picture}) => {
 
     return (
         <InfoView>
-                    <TitleView>
-                        <Title>{data.name}</Title>
-                        <StarMaker grade={data.averageGrade} size={30} starRatio={90}/>
-                    </TitleView>
-                    <NumberInfosView>
-                        <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}}/>
-                        <IconText color={Theme.fontBlue}>{data.reviewCount}</IconText>
-                        <SmallIcon source={FULLHEART}/>
-                        <IconText color={Theme.hlRed}>{data.likeCount}</IconText>
-                    </NumberInfosView>
-                    <TagView>
-                        {data.themes.map((list, index) => (
-                            <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
-                        ))}
-                    </TagView>
-                    <TextInfoView>
-                        <BigIcon source={RESTAURANT_ICON_TYPE} style={{tintColor: Theme.fontBlackGray}}/>
-                        <InfoText>{Converter(data.type)}</InfoText>
-                    </TextInfoView>
-                    <TextInfoView>
-                        <BigIcon source={RESTAURANT_ICON_PRICE} style={{tintColor: Theme.fontBlackGray}}/>
-                        <InfoText>{Converter(data.price)}</InfoText>
-                    </TextInfoView>
-                    <TextInfoView>
-                        <BigIcon source={RESTAURANT_ICON_LOCATION} style={{tintColor: Theme.fontBlackGray}}/>
-                        <InfoText>{Converter(data.location)}</InfoText>
-                    </TextInfoView>
-                    <DescriptionText isEmpty={data.description === ""}>{data.description}</DescriptionText>
-                    <LocationView>
-                        <InfoTitleText>위치</InfoTitleText>
-                        <LocationText>{koreanAddress}</LocationText>
-                        <MapViewHolderView>
-                            <MapViewHolder>
-                                <MapScroll contentContainerStyle={{flex: 1}}>
-                                    <Container>
-                                        <MapView
-                                            style={{flex: 1}}
-                                            initialRegion={{
-                                                latitude: data.latitude,
-                                                longitude: data.longitude,
-                                                latitudeDelta: 0.0008,
-                                                longitudeDelta: 0.0008,
-                                            }}
-                                            showsUserLocation={true}
-                                            provider={PROVIDER_GOOGLE}
-                                            customMapStyle={mapStyle}
-                                            zoomEnabled={true}
-                                            followUserLocation={true}
-                                            showsMyLocationButton={true}
-                                            ref={mapRef}
-                                        >
-                                            <Marker
-                                                coordinate={marker.latlng}
-                                                title={marker.title}
-                                                description={marker.description}
-                                            >
-                                                <Callout tooltip={true}></Callout>
-                                            </Marker>
-                                        </MapView>
-                                    </Container>
-                                </MapScroll>
-                            </MapViewHolder>
-                        </MapViewHolderView>
-                    </LocationView>
+            <TitleView>
+                <Title>{data.name}</Title>
+                <StarMaker grade={data.averageGrade} size={30} starRatio={90}/>
+            </TitleView>
+            <NumberInfosView>
+                <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}}/>
+                <IconText color={Theme.fontBlue}>{data.reviewCount}</IconText>
+                <SmallIcon source={FULLHEART}/>
+                <IconText color={Theme.hlRed}>{data.likeCount}</IconText>
+            </NumberInfosView>
+            <TagView>
+                {data.themes.map((list, index) => (
+                    <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
+                ))}
+            </TagView>
+            <TextInfoView>
+                <BigIcon source={RESTAURANT_ICON_TYPE} style={{tintColor: Theme.fontBlackGray}}/>
+                <InfoText>{Converter(data.type)}</InfoText>
+            </TextInfoView>
+            <TextInfoView>
+                <BigIcon source={RESTAURANT_ICON_PRICE} style={{tintColor: Theme.fontBlackGray}}/>
+                <InfoText>{Converter(data.price)}</InfoText>
+            </TextInfoView>
+            <TextInfoView>
+                <BigIcon source={RESTAURANT_ICON_LOCATION} style={{tintColor: Theme.fontBlackGray}}/>
+                <InfoText>{Converter(data.location)}</InfoText>
+            </TextInfoView>
+            <DescriptionText isEmpty={data.description === ""}>{data.description}</DescriptionText>
+            <LocationView>
+                <InfoTitleText>위치</InfoTitleText>
+                <LocationText>{koreanAddress}</LocationText>
+                <MapViewHolderView>
+                    <MapViewHolder>
+                        <MapScroll contentContainerStyle={{flex: 1}}>
+                            <Container>
+                                {marker && (
+                                    <MapView
+                                        style={{flex: 1}}
+                                        initialRegion={{
+                                            latitude: data.latitude,
+                                            longitude: data.longitude,
+                                            latitudeDelta: 0.0008,
+                                            longitudeDelta: 0.0008,
+                                        }}
+                                        showsUserLocation={true}
+                                        provider={PROVIDER_GOOGLE}
+                                        customMapStyle={mapStyle}
+                                        zoomEnabled={true}
+                                        followUserLocation={true}
+                                        showsMyLocationButton={true}
+                                        ref={mapRef}
+                                    >
+                                        <Marker
+                                            coordinate={marker.latlng}
+                                            title={marker.title}
+                                            description={marker.description}>
+                                            <Callout tooltip={true}></Callout>
+                                        </Marker>
+                                    </MapView>
+                                )}
+                            </Container>
+                        </MapScroll>
+                    </MapViewHolder>
+                </MapViewHolderView>
+            </LocationView>
         </InfoView>
     );
 }
