@@ -1,31 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import {EMPTYHEART, FULLHEART} from "../../image";
+import { EMPTYHEART, FULLHEART } from "../../image";
 import constants from "../../constants";
+import { korLocationAPI } from "../Api/GoogleAppApi";
+import { Converter } from "../Converter";
 
-const ExplanationUpView = ({data}) => {
-    return (
-        <ExplanationUp>
-            <ExplanationTitle>
-                <ExplanationTitleText>{data.title}</ExplanationTitleText>
-            </ExplanationTitle>
-            <ExplanationAddressContact>
-                <ExplanationAddress>
-                    <ExplanationAddressText>주소: {data.address}</ExplanationAddressText>
-                </ExplanationAddress>
-                <ExplanationContact>
-                    <ExplanationContactText>연락처: {data.number}</ExplanationContactText>
-                </ExplanationContact>
-            </ExplanationAddressContact>
-            <HeartButtonPos>
-                {data.bookmarked ? (
-                    <HeartImg source={FULLHEART}/>
-                ) : (
-                    <HeartImg source={EMPTYHEART}/>
-                )}
-            </HeartButtonPos>
-        </ExplanationUp>
-    );
+const ExplanationUpView = ({ data }) => {
+  const [korLocation, setkorLocation] = useState([]);
+  useEffect(() => {
+    async function initLocation() {
+      let gotkorLocation = await korLocationAPI(data);
+      setkorLocation(gotkorLocation);
+    }
+    initLocation();
+  }, [data]);
+  return (
+    <ExplanationUp>
+      <ExplanationTitle>
+        <ExplanationTitleText>{data.name}</ExplanationTitleText>
+      </ExplanationTitle>
+      <ExplanationAddressContact>
+        <ExplanationAddress>
+          <ExplanationAddressText>주소: {korLocation}</ExplanationAddressText>
+        </ExplanationAddress>
+        <ExplanationContact>
+          <ExplanationContactText>
+            가격대: {Converter(data.price)}
+          </ExplanationContactText>
+        </ExplanationContact>
+      </ExplanationAddressContact>
+      <HeartButtonPos>
+        {data.bookmarked ? (
+          <HeartImg source={FULLHEART} />
+        ) : (
+          <HeartImg source={EMPTYHEART} />
+        )}
+      </HeartButtonPos>
+    </ExplanationUp>
+  );
 };
 
 const HeartImg = styled.Image`

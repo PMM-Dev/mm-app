@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { MAGNIFY_ICON } from "../../image";
 import Theme from "../../style/Theme";
 import constants from "../../constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SearchTextInput = ({ changePressed, storeData }) => {
   const [text, onChangeText] = useState("");
-
   useEffect(() => {
-      console.log(text)
-  }, [text])
+    console.log(text);
+  }, [text]);
 
   return (
     <Holder>
@@ -32,7 +30,9 @@ const SearchTextInput = ({ changePressed, storeData }) => {
         onSubmitEditing={() => {
           changePressed(false);
           onChangeText("");
+          if (text !== "") {
             storeData(text);
+          }
         }}
       />
     </Holder>

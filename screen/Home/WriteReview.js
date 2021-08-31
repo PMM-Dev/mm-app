@@ -51,8 +51,6 @@ const WriteReview = ({route, navigation}) => {
     };
 
     const post = async () => {
-        console.log(content);
-        console.log(grade);
         const response = await postReview(email, content, grade, restaurantId);
         if (response === undefined) {
             alert("리뷰 작성에 실패했습니다.")

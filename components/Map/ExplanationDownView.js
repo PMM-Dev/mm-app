@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import { Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import {Image, StyleSheet, TouchableOpacity, TextInput} from "react-native";
 import StarMaker from "./StarMaker";
-import { RESTAURANT_IMAGE } from "../../image";
+import {RESTAURANT_IMAGE} from "../../image";
 
-const ExplanationDownView = ({ data }) => {
-  return (
-    <ExplanationDown>
-      <ExplanationImage>
-        <ExplanationImageImg source={RESTAURANT_IMAGE} />
-      </ExplanationImage>
-      <ExplanationRateButton>
-        <ExplanationRate>
-          <StarMaker grade={data.rating} />
-        </ExplanationRate>
-        <ExplanationTag></ExplanationTag>
-        <ExplanationMoreButton>
-          <ExplanationMoreButtonText>
-            후기 더 보러가기 +
-          </ExplanationMoreButtonText>
-        </ExplanationMoreButton>
-      </ExplanationRateButton>
-    </ExplanationDown>
-  );
+const ExplanationDownView = ({data}) => {
+    return (
+        <ExplanationDown>
+            <ExplanationImage>
+                <ExplanationImageImg source={RESTAURANT_IMAGE}/>
+            </ExplanationImage>
+            <ExplanationRateButton>
+                <ExplanationRate>
+                    <StarMaker rate={data.averageGrade}/>
+                </ExplanationRate>
+                <ExplanationTag></ExplanationTag>
+                <ExplanationMoreButton>
+                    <ExplanationMoreButtonText>
+                        후기 더 보러가기 +
+                    </ExplanationMoreButtonText>
+                </ExplanationMoreButton>
+            </ExplanationRateButton>
+        </ExplanationDown>
+    );
 };
 
 const ExplanationMoreButtonText = styled.Text``;

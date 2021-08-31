@@ -7,12 +7,10 @@ import SearchTextInput from "../components/Home/SearchTextInput";
 import BackButton from "../components/Header/BackButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Dummy = ["김치찌개 마요네즈 김밥김치찌개 황금나침판", "엽떡", "x"];
-
 const Search = ({ route, navigation }) => {
   const [curType, setcurType] = useState("식당");
   const [pressed, setPressed] = useState(false);
-  const [recentFindData, setRecentFindData] = useState([]);
+  const [searchHistory, setSearchHistory] = useState([]);
 
   const getData = async () => {
     try {
@@ -22,16 +20,29 @@ const Search = ({ route, navigation }) => {
       }
 
       const parsedSearchHistory = JSON.parse(recentFindJson);
-      setRecentFindData(parsedSearchHistory);
+      setSearchHistory(parsedSearchHistory);
     } catch (e) {
       console.log(e);
     }
   };
 
+  const refreshData = () => {
+    const newSearchHistory = [...searchHistory];
+    setSearchHistory(newSearchHistory);
+    return newSearchHistory;
+  };
+
+  const addData = (newValue) => {
+    const newSearchHistory = [...searchHistory, newValue];
+    if (newSearchHistory.length >= 15) newSearchHistory.shift();
+    setSearchHistory(newSearchHistory);
+    return newSearchHistory;
+  };
+
   const storeData = async (newValue) => {
     try {
-      const newSearchHistory = [...recentFindData, newValue];
-      setRecentFindData(newSearchHistory);
+      const newSearchHistory =
+        newValue === "" ? refreshData() : addData(newValue);
       const searchHistoryJson = JSON.stringify(newSearchHistory);
       await AsyncStorage.setItem("@" + curType, searchHistoryJson);
     } catch (e) {
@@ -41,21 +52,17 @@ const Search = ({ route, navigation }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [curType]);
 
   useEffect(() => {
     console.log("save");
-    console.log(recentFindData);
-  }, [recentFindData]);
-
+    console.log(searchHistory);
+  }, [searchHistory]);
   return (
     <Screen>
       <InputBar>
         <BackButton goBack={() => navigation.goBack()} />
-        <SearchTextInput
-          changePressed={setPressed}
-          storeData={storeData}
-        />
+        <SearchTextInput changePressed={setPressed} storeData={storeData} />
       </InputBar>
       <SearchTypeBar
         searchType={route.params.param.searchType}
@@ -71,9 +78,19 @@ const Search = ({ route, navigation }) => {
           </Title>
           <ScrollSize>
             <Scroll>
-              {recentFindData && recentFindData.map((element, key) => (
-                <SearchCard key={key} data={element} />
-              ))}
+              {searchHistory &&
+                searchHistory
+                  .slice(0)
+                  .reverse()
+                  .map((element, key) => (
+                    <SearchCard
+                      key={key}
+                      data={element}
+                      storedData={searchHistory}
+                      storeData={storeData}
+                      setPressed={setPressed}
+                    />
+                  ))}
             </Scroll>
           </ScrollSize>
         </ContentRecent>
