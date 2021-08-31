@@ -40,7 +40,6 @@ export const MAP_WHITE_BAR_ICON = require("./assets/MapIcon/white_bar.png");
 export const MAP_FILTER_ICON = require("./assets/MapIcon/filter.png");
 export const MAP_POSITION_ICON = require("./assets/MapIcon/position.png");
 
-
 export const NAVIGATOR_HOME_UNSELECTED = require("./assets/NavigatorIcon/home_unselected.png");
 export const NAVIGATOR_MAP_UNSELECTED = require("./assets/NavigatorIcon/map_unselected.png");
 export const NAVIGATOR_THEME_UNSELECTED = require("./assets/NavigatorIcon/theme_unselected.png");

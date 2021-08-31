@@ -28,7 +28,7 @@ const Search = ({ route, navigation }) => {
 
   const storeData = async (newValue) => {
     try {
-      if (newValue == null) {
+      if (newValue === null) {
         const newSearchHistory = [...searchHistory];
         setSearchHistory(newSearchHistory);
         const searchHistoryJson = JSON.stringify(newSearchHistory);
