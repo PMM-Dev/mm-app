@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import { MAP_POSITION_ICON } from "../image";
 import { ActivityIndicator } from "react-native-paper";
 import constants from "../constants";
@@ -9,23 +9,7 @@ import MapHeader from "../components/Map/MapHeader";
 import ExplanationView from "../components/Map/Explanation";
 import Theme from "../style/Theme";
 import { getRestaurants } from "../components/Api/AppApi";
-
-const dummy = [
-  {
-    title: "용봉동 길성유부",
-    address: "광주광역시 북구 용봉동 151-77번지 1층",
-    number: "062-266-1202",
-    rating: 4.5,
-    bookmarked: true,
-  },
-  {
-    title: "용봉동 rlsdfkljsaklv",
-    address: "광주광역sdfasg77번지 1층",
-    number: "062-266adgjnsghf-1202",
-    rating: 5,
-    bookmarked: false,
-  },
-];
+import MapView from "react-native-map-clustering";
 
 const Map = ({ route, navigation }) => {
   const mapRef = React.createRef();
@@ -134,6 +118,7 @@ const Map = ({ route, navigation }) => {
                   setBookMarkPressed(false);
                   setWhichBookmark(-1);
                 }}
+                preserveClusterPressBehavior={true}
               >
                 {marker.map((makrer, index) => (
                   <Marker
