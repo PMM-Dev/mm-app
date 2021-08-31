@@ -1,22 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import constants from "../../../constants";
 import { MAGNIFY_ICON } from "../../../image";
 
-const SearchCard = ({ data, storedData, storeData }) => {
+const SearchCard = ({ data, storedData, storeData, setPressed }) => {
   const deleteData = () => {
     for (var i = 0; i < storedData.length; i++) {
       if (storedData[i] === data) {
         console.log("deleted!");
         storedData.splice(i, 1);
-        storeData(null);
+        storeData("");
         break;
       }
     }
   };
   return (
     <View>
-      <TapButton onPress={() => {}}>
+      <TapButton
+        onPress={() => {
+          setPressed(true);
+        }}
+      >
         <SearchIconPosView>
           <SearchIconView>
             <SearchImage

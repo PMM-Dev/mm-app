@@ -128,7 +128,7 @@ const Map = ({ route, navigation }) => {
                 customMapStyle={mapStyle}
                 zoomEnabled={true}
                 followUserLocation={true}
-                showsMyLocationButton={true}
+                showsMyLocationButton={false}
                 ref={mapRef}
                 onPress={() => {
                   setBookMarkPressed(false);

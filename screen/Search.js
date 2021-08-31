@@ -26,20 +26,25 @@ const Search = ({ route, navigation }) => {
     }
   };
 
+  const refreshData = () => {
+    const newSearchHistory = [...searchHistory];
+    setSearchHistory(newSearchHistory);
+    return newSearchHistory;
+  };
+
+  const addData = (newValue) => {
+    const newSearchHistory = [...searchHistory, newValue];
+    if (newSearchHistory.length >= 15) newSearchHistory.shift();
+    setSearchHistory(newSearchHistory);
+    return newSearchHistory;
+  };
+
   const storeData = async (newValue) => {
     try {
-      if (newValue === null) {
-        const newSearchHistory = [...searchHistory];
-        setSearchHistory(newSearchHistory);
-        const searchHistoryJson = JSON.stringify(newSearchHistory);
-        await AsyncStorage.setItem("@" + curType, searchHistoryJson);
-      } else {
-        const newSearchHistory = [...searchHistory, newValue];
-        if (newSearchHistory.length >= 15) newSearchHistory.shift();
-        setSearchHistory(newSearchHistory);
-        const searchHistoryJson = JSON.stringify(newSearchHistory);
-        await AsyncStorage.setItem("@" + curType, searchHistoryJson);
-      }
+      const newSearchHistory =
+        newValue === "" ? refreshData() : addData(newValue);
+      const searchHistoryJson = JSON.stringify(newSearchHistory);
+      await AsyncStorage.setItem("@" + curType, searchHistoryJson);
     } catch (e) {
       console.log(e);
     }
@@ -83,6 +88,7 @@ const Search = ({ route, navigation }) => {
                       data={element}
                       storedData={searchHistory}
                       storeData={storeData}
+                      setPressed={setPressed}
                     />
                   ))}
             </Scroll>
