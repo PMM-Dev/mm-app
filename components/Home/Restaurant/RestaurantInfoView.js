@@ -26,7 +26,7 @@ const RestaurantInfoView = ({data, picture}) => {
         async function initLocation() {
             const {status} = await Location.requestForegroundPermissionsAsync();
             if (status !== "granted") {
-                console.log("Permission to access location was denied");
+                alert("Permission to access location was denied");
                 return;
             }
 

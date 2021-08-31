@@ -3,8 +3,10 @@ import styled from "styled-components";
 import {EMPTYHEART, FULLHEART} from "../../image";
 import constants from "../../constants";
 import {appendLikeRestaurant, subtractLikeRestaurant} from "../Api/AppUserApi";
+import {useProfile} from "../AuthContext";
 
-const LikeButton = ({email, restaurantId, size}) => {
+const LikeButton = ({restaurantId, size}) => {
+    const {email} = useProfile();
     const [isLike, setIsLike] = useState(false);
 
     const pressLike = async () => {

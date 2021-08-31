@@ -35,7 +35,6 @@ const Restaurant = ({route, navigation}) => {
             const restaurantData = await getRestaurantsById(restaurantId);
             setData(restaurantData);
         }
-
         getRestaurantData();
     }, [])
 
@@ -45,7 +44,7 @@ const Restaurant = ({route, navigation}) => {
                 data ? (
                     <>
                         <Header route={route} navigation={navigation} title={data.name} isTitleShown={isStartScroll}
-                                email={email} restaurantId={restaurantId}/>
+                                restaurantId={restaurantId}/>
                         <Scroll alwaysBounceVertical={false} onScroll={handleScrollState} scrollEventThrottle={16}>
                             <Wrapper>
                                 <RestaurantInfoView

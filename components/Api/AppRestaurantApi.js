@@ -56,15 +56,15 @@ export const getRestaurantReviews = async (id) => {
     }
 };
 
-export const postRestaurantComment = async (review, userEmail, id) => {
+export const postReview = async (userEmail, content, grade, restaurantId) => {
     try {
         const token = await AsyncStorage.getItem("@jwtToken");
         const response = await axios.post(
-            API_URL + "/api/restaurant/" + id + "/review",
+            API_URL + "/api/restaurant/" + restaurantId + "/review",
             {
                 authorEmail: userEmail,
-                description: review,
-                grade: 4,
+                description: content,
+                grade: grade,
             },
             {
                 headers: {
@@ -75,6 +75,6 @@ export const postRestaurantComment = async (review, userEmail, id) => {
         return response.data;
     } catch (e) {
         console.error("[AppApi][Exception] " + e);
-        return [];
+        return undefined;
     }
 };

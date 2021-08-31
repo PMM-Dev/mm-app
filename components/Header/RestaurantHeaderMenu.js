@@ -2,11 +2,11 @@ import React from "react";
 import BackButton from "./BackButton";
 import LikeButton from "../Home/LikeButton";
 
-const RestaurantHeaderMenu = ({navigation, email, restaurantId}) => {
+const RestaurantHeaderMenu = ({navigation, restaurantId}) => {
     return (
         <>
             <BackButton goBack={() => navigation.goBack()}/>
-            <LikeButton email={email} restaurantId={restaurantId}/>
+            <LikeButton restaurantId={restaurantId}/>
         </>
     );
 };

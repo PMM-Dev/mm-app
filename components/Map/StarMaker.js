@@ -3,35 +3,35 @@ import styled from "styled-components";
 import {EMPTYSTAR, FULLSTAR, HALFSTAR} from "../../image";
 
 const StarMaker = ({grade, size, starRatio}) => {
-    const [starComponents, setStarComponents] = useState([]);
-    useEffect(() => {
-        const starStep = grade / 0.5;
-        const fullStarCount = Math.floor(starStep / 2);
-        let halfStarCount = 0;
-        if (starStep % 2 === 1) {
-            halfStarCount = 1;
-        }
-        const emptyStarCount = 5 - fullStarCount - halfStarCount;
 
-        let stars = [];
-        for (let i = 0; i < fullStarCount; i++) {
-            stars.push(<Star source={FULLSTAR} starRatio={starRatio}/>)
+    const handleStarSource = (standard) => {
+        const gap = grade - standard;
+        if (gap >= 1) {
+            return FULLSTAR;
+        } else if (gap === 0.5) {
+            return HALFSTAR;
+        } else {
+            return EMPTYSTAR;
         }
-        for (let i = 0; i < halfStarCount; i++) {
-            stars.push(<Star source={HALFSTAR} starRatio={starRatio}/>)
-        }
-        for (let i = 0; i < emptyStarCount; i++) {
-            stars.push(<Star source={EMPTYSTAR} starRatio={starRatio}/>)
-        }
-        setStarComponents(stars);
-    }, [])
+    }
 
     return (
         <Stars>
-            {starComponents && starComponents.map((starComponent, key) =>
-                <StarWrapper size={size} key={key}>
-                    {starComponent}
-                </StarWrapper>)}
+            <StarWrapper size={size}>
+                <Star source={handleStarSource(0)} starRatio={starRatio}/>
+            </StarWrapper>
+            <StarWrapper size={size}>
+                <Star source={handleStarSource(1)} starRatio={starRatio}/>
+            </StarWrapper>
+            <StarWrapper size={size}>
+                <Star source={handleStarSource(2)} starRatio={starRatio}/>
+            </StarWrapper>
+            <StarWrapper size={size}>
+                <Star source={handleStarSource(3)} starRatio={starRatio}/>
+            </StarWrapper>
+            <StarWrapper size={size}>
+                <Star source={handleStarSource(4)} starRatio={starRatio}/>
+            </StarWrapper>
         </Stars>
     )
 };

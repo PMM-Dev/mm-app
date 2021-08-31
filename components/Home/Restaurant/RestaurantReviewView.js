@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import {
     getRestaurantReviews,
-    postRestaurantComment
+    postReview
 } from "../../Api/AppRestaurantApi";
 import {useProfile} from "../../AuthContext";
 import {View} from "react-native";

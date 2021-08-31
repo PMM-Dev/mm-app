@@ -3,18 +3,22 @@ import styled from "styled-components";
 import constants from '../../constants'
 import BackButton from "./BackButton";
 
-const WriteReviewHeader = ({ navigation, email, restaurantId }) => {
+const WriteReviewHeader = ({ navigation, onPressRightButton }) => {
+
     return (
         <>
             <BackButton goBack={() => navigation.goBack()} />
-            <WriteButton onPress={() => {}}>
+            <PostButton onPress={() => {
+                onPressRightButton();
+                navigation.goBack();
+            }}>
                 <WriteText>완료</WriteText>
-            </WriteButton>
+            </PostButton>
         </>
     );
 };
 
-const WriteButton = styled.TouchableOpacity`
+const PostButton = styled.TouchableOpacity`
   width: ${constants.vw(9)}px;
   height: ${constants.vw(9)}px;
   justify-content: center;
