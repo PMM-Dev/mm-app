@@ -24,10 +24,12 @@ const Map = ({ route, navigation }) => {
     latitudeDelta: 0.009,
     longitudeDelta: 0.009,
   });
+  const [isClusterPressed, setisClusterPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState();
   const [bookMarkPressed, setBookMarkPressed] = useState(false);
   const [whichBookmark, setWhichBookmark] = useState(-1);
+  const [clusteredMarkers, setClusteredMarkers] = useState([]);
 
   const makeMarker = () => {
     let markerArray = [];
@@ -51,7 +53,6 @@ const Map = ({ route, navigation }) => {
     }
     initRestaurants();
   }, []);
-
   useEffect(() => {
     if (restaurants) makeMarker();
   }, [restaurants]);
@@ -117,8 +118,20 @@ const Map = ({ route, navigation }) => {
                 onPress={() => {
                   setBookMarkPressed(false);
                   setWhichBookmark(-1);
+                  setisClusterPressed(false);
                 }}
                 preserveClusterPressBehavior={true}
+                maxZoom={16}
+                maxZoomLevel={19}
+                radius={35}
+                onClusterPress={(cluster, markers) => {
+                  setisClusterPressed(false);
+                  if (markers.length <= 5) {
+                    setisClusterPressed(true);
+                    setClusteredMarkers(markers);
+                    setBookMarkPressed(false);
+                  }
+                }}
               >
                 {marker.map((makrer, index) => (
                   <Marker
@@ -129,14 +142,12 @@ const Map = ({ route, navigation }) => {
                     onPress={() => {
                       setBookMarkPressed(true);
                       setWhichBookmark(index);
+                      setisClusterPressed(false);
                     }}
                   >
                     <Callout tooltip={true}></Callout>
                   </Marker>
                 ))}
-                {/* <Marker coordinate={location.coords}>
-                <MarkerCircle />
-              </Marker> */}
               </MapView>
               <MapHeader routeName={route.name} navigation={navigation} />
               {bookMarkPressed ? (
@@ -156,6 +167,25 @@ const Map = ({ route, navigation }) => {
                   <Img source={MAP_POSITION_ICON} />
                 </PosButton>
               )}
+              {isClusterPressed ? (
+                <ClusterList num={clusteredMarkers.length}>
+                  {clusteredMarkers.map((data, index) => (
+                    <ClusterCard
+                      key={index}
+                      onPress={() => {
+                        setBookMarkPressed(true);
+                        setWhichBookmark(data.properties.index);
+                      }}
+                    >
+                      <ClusterCardText>
+                        {restaurants[data.properties.index].name}
+                      </ClusterCardText>
+                    </ClusterCard>
+                  ))}
+                </ClusterList>
+              ) : (
+                <NotYet />
+              )}
             </Container>
             {bookMarkPressed ? (
               <ExplanationView data={restaurants[whichBookmark]} />
@@ -168,6 +198,32 @@ const Map = ({ route, navigation }) => {
     </Page>
   );
 };
+
+const ClusterCardText = styled.Text`
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: ${constants.vh(4)}px;
+  ${(props) => props.theme.NanumSquareRFont}
+`;
+
+const ClusterCard = styled.TouchableOpacity`
+  width: 100%;
+  height: ${constants.vh(4)}px;
+  border-bottom-width: 1.5px;
+  border-bottom-color: ${(props) => props.theme.fontBlack};
+  justify-content: center;
+  align-items: center;
+`;
+
+const ClusterList = styled.View`
+  width: 40%;
+  height: ${(props) => constants.vh(4) * props.num}px;
+  background-color: white;
+  position: absolute;
+  top: 20%;
+  left: 30%;
+`;
 
 const Page = styled.View`
   width: 100%;
