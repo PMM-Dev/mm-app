@@ -150,7 +150,7 @@ const Map = ({ route, navigation }) => {
                 ))}
               </MapView>
               <MapHeader routeName={route.name} navigation={navigation} />
-              {bookMarkPressed ? (
+              {bookMarkPressed || isClusterPressed ? (
                 <NotYet />
               ) : (
                 <PosButton
@@ -175,6 +175,7 @@ const Map = ({ route, navigation }) => {
                       onPress={() => {
                         setBookMarkPressed(true);
                         setWhichBookmark(data.properties.index);
+                        setisClusterPressed(false);
                       }}
                     >
                       <ClusterCardText>
@@ -217,12 +218,11 @@ const ClusterCard = styled.TouchableOpacity`
 `;
 
 const ClusterList = styled.View`
-  width: 40%;
+  width: 100%;
   height: ${(props) => constants.vh(4) * props.num}px;
   background-color: white;
+  bottom: 10%;
   position: absolute;
-  top: 20%;
-  left: 30%;
 `;
 
 const Page = styled.View`

@@ -1,30 +1,25 @@
-import React from 'react'
-import {COMMENT_PROFILE} from "../../../image";
+import React from "react";
+import { COMMENT_PROFILE } from "../../../image";
 import StarMaker from "../../Map/StarMaker";
 import styled from "styled-components";
 import constants from "../../../constants";
 
-const Review = ({review}) => {
-    return (
-        <Content>
-            <ReviewInfo>
-                <ProfileImage source={COMMENT_PROFILE}/>
-                <NameAndGradeView>
-                    <AuthorNameButton onPress={() => {
-                    }}>
-                        <AuthorNameText>
-                            {review.authorEmail} >
-                        </AuthorNameText>
-                    </AuthorNameButton>
-                    <StarMaker grade={review.grade} size={constants.vw(5)}/>
-                </NameAndGradeView>
-            </ReviewInfo>
-            <ReviewText>
-                {review.description}
-            </ReviewText>
-        </Content>
-    );
-}
+const Review = ({ review }) => {
+  return (
+    <Content>
+      <ReviewInfo>
+        <ProfileImage source={COMMENT_PROFILE} />
+        <NameAndGradeView>
+          <AuthorNameButton onPress={() => {}}>
+            <AuthorNameText>{review.authorEmail}</AuthorNameText>
+          </AuthorNameButton>
+          <StarMaker grade={review.grade} size={constants.vw(5)} />
+        </NameAndGradeView>
+      </ReviewInfo>
+      <ReviewText>{review.description}</ReviewText>
+    </Content>
+  );
+};
 
 const Content = styled.View`
   width: 100%;
@@ -42,7 +37,7 @@ const NameAndGradeView = styled.View`
   margin-left: ${constants.vw(3.5)}px;
 `;
 
-const AuthorNameButton = styled.TouchableOpacity``
+const AuthorNameButton = styled.TouchableOpacity``;
 
 const AuthorNameText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}

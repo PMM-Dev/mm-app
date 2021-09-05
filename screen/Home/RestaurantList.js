@@ -54,17 +54,17 @@ const RestaurantList = ({ route, navigation }) => {
                 </FilterView5>
               </FilterView>
             </LinearGradient>
-            <ResScroll>
+            <RestaurantScroll>
               {restaurants ? (
                 restaurants.map((data, index) => (
-                  <ResView key={index}>
+                  <RestaurantView key={index}>
                     <RestaurantCard data={data} navigation={navigation} />
-                  </ResView>
+                  </RestaurantView>
                 ))
               ) : (
                 <ActivityIndicator color={Theme.fontBlack} size={"large"} />
               )}
-            </ResScroll>
+            </RestaurantScroll>
           </WhiteSpace>
         </Wrapper>
       </Scroll>
@@ -76,7 +76,7 @@ export default RestaurantList;
 
 const NOTYET = styled.View``;
 
-const ResView = styled.View`
+const RestaurantView = styled.View`
   height: ${constants.vh(13)}px;
   width: 100%;
   align-items: center;
@@ -127,7 +127,7 @@ const FilterView5 = styled.TouchableOpacity`
   align-content: center;
 `;
 
-const ResScroll = styled.ScrollView`
+const RestaurantScroll = styled.ScrollView`
   width: 100%;
   height: 100%;
 `;
