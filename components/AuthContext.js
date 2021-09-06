@@ -6,8 +6,8 @@ import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID} from "@env
 import {getAppTokenBySocialToken, loginByJwtToken, register} from "./Api/AuthApi";
 import {getMyMemberInfo} from "./Api/AppMemberApi";
 
-const ROLE_ADMIN = "ADMIN";
-const ROLE_USER = "USER";
+export const ROLE_ADMIN = "ROLE_ADMIN";
+export const ROLE_USER = "ROLE_USER";
 
 export const USER_EXIST = "LOGIN_USER_EXIST";
 export const USER_NOT_EXIST = "LOGIN_USER_NOT_EXIST";

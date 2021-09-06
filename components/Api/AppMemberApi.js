@@ -12,7 +12,7 @@ export const getMyMemberInfo = async (savedAccesstoken) => {
         }
 
         const response = await axios.get(
-            "http://localhost:8080" + "/member/me",
+            API_URL + "/member/me",
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`

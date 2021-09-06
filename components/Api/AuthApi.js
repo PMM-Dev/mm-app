@@ -4,7 +4,7 @@ import {API_URL} from "@env";
 
 export const register = async (memberRequestDto) => {
     try {
-        const response = await axios.post("http://localhost:8080" + "/auth/register", {...memberRequestDto});
+        const response = await axios.post(API_URL + "/auth/register", {...memberRequestDto});
         return response.data;
     } catch (e) {
         console.error("[AuthApi][Exception] failed register() " + e);
@@ -14,7 +14,7 @@ export const register = async (memberRequestDto) => {
 
 export const getAppTokenBySocialToken = async (memberRequestDto) => {
     try {
-        const response = await axios.post("http://localhost:8080" + "/auth/login",
+        const response = await axios.post(API_URL + "/auth/login",
             {
                 ...memberRequestDto
             })
@@ -30,7 +30,7 @@ export const reissueJwtAccessToken = async () => {
         const jwtAccessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const jwtRefreshToken = await AsyncStorage.getItem("@jwtRefreshToken");
 
-        const response = await axios.post("http://localhost:8080" + "/auth/reissue",
+        const response = await axios.post(API_URL + "/auth/reissue",
             {
                 accessToken: jwtAccessToken,
                 refreshToken: jwtRefreshToken
