@@ -3,7 +3,7 @@ import * as Google from "expo-google-app-auth";
 import * as Apple from 'expo-apple-authentication';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID} from "@env";
-import {getAppTokenBySocialToken, loginByJwtToken, register} from "./Api/AuthApi";
+import {getJwtTokenBySocialToken, loginByJwtToken, register} from "./Api/AuthApi";
 import {getMyMemberInfo} from "./Api/AppMemberApi";
 
 export const ROLE_ADMIN = "ROLE_ADMIN";
@@ -50,7 +50,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                     socialToken: result.accessToken,
                     socialTokenType: "GOOGLE"
                 }
-                const response = await saveAppToken(memberRequestDto);
+                const response = await saveJwtToken(memberRequestDto);
                 if (response === undefined) {
                     throw 'Saving App token failed';
                 } else if (response.state === USER_NOT_EXIST) {
@@ -94,30 +94,32 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 throw 'register process failed';
             }
 
-            const appToken = await getAppTokenBySocialToken(memberRequestDto);
-            if (!appToken) {
+            const jwtToken = await getJwtTokenBySocialToken(memberRequestDto);
+            if (!jwtToken) {
                 throw 'getting jwt token failed';
             }
 
-            await AsyncStorage.setItem("@jwtAccessToken", appToken.accessToken);
-            await AsyncStorage.setItem("@jwtRefreshToken", appToken.refreshToken);
-            return appToken;
+            await AsyncStorage.setItem("@jwtAccessToken", jwtToken.accessToken);
+            await AsyncStorage.setItem("@jwtRefreshToken", jwtToken.refreshToken);
+            await AsyncStorage.setItem("@jwtTokenExpiresIn", JSON.stringify(jwtToken.accessTokenExpiresIn));
+
+            return jwtToken.accessToken;
         } catch (e) {
             console.error("[Catch] Register failed : " + e);
             return undefined;
         }
     }
 
-    const saveAppToken = async (memberRequestDto) => {
+    const saveJwtToken = async (memberRequestDto) => {
         try {
-            const appToken = await getAppTokenBySocialToken(memberRequestDto);
-            if (!appToken) {
+            const jwtToken = await getJwtTokenBySocialToken(memberRequestDto);
+            if (!jwtToken) {
                 return {state: USER_NOT_EXIST};
             }
 
-            await AsyncStorage.setItem("@jwtAccessToken", appToken.accessToken);
-            await AsyncStorage.setItem("@jwtRefreshToken", appToken.refreshToken);
-            await AsyncStorage.setItem("@jwtTokenExpiresIn", appToken.accessTokenExpiresIn.toString());
+            await AsyncStorage.setItem("@jwtAccessToken", jwtToken.accessToken);
+            await AsyncStorage.setItem("@jwtRefreshToken", jwtToken.refreshToken);
+            await AsyncStorage.setItem("@jwtTokenExpiresIn", jwtToken.accessTokenExpiresIn.toString());
             return { state : USER_EXIST}
         } catch (e) {
             console.error("[Catch] Saving app token failed : " + e);
@@ -166,7 +168,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 loginByGoogle,
                 loginByApple,
                 registerUser,
-                saveAppToken,
+                saveJwtToken,
                 saveProfileData,
                 logOut,
             }}
@@ -211,9 +213,9 @@ export const useRegisterUser = () => {
     return registerUser;
 }
 
-export const useSaveAppToken = () => {
-    const {saveAppToken} = useContext(AuthContext);
-    return saveAppToken;
+export const useSaveJwtToken = () => {
+    const {saveJwtToken} = useContext(AuthContext);
+    return saveJwtToken;
 };
 
 export const useSaveProfileData = () => {

@@ -21,7 +21,7 @@ import {
 } from "../image";
 import constants from "../constants";
 import MapNavigator from "./MapNavigator";
-import {useSaveAppToken, useSaveProfileData} from "../components/AuthContext";
+import {useSaveJwtToken, useSaveProfileData} from "../components/AuthContext";
 import {getMyMemberInfo} from "../components/Api/AppMemberApi";
 
 const BottomTab = createBottomTabNavigator();

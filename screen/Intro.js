@@ -8,7 +8,7 @@ import {
     useSetIsAdminMode,
     useLogInByGoogle,
     useLoginInByApple,
-    useSaveAppToken,
+    useSaveJwtToken,
     useSaveProfileData,
     useRegisterUser,
     USER_EXIST,
@@ -25,7 +25,7 @@ const Intro = () => {
     const loginByGoogle = useLogInByGoogle();
     const loginByApple = useLoginInByApple();
     const registerUser = useRegisterUser();
-    const saveAppToken = useSaveAppToken();
+    const saveJwtToken = useSaveJwtToken();
     const saveProfileData = useSaveProfileData();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -62,8 +62,8 @@ const Intro = () => {
                 alert('회원 가입하는 과정에서 문제가 발생했습니다.');
             }
 
-            const saveAppTokenResult = await saveAppToken(response.memberRequestDto);
-            if (!saveAppTokenResult) {
+            const saveJwtTokenResult = await saveJwtToken(response.memberRequestDto);
+            if (!saveJwtTokenResult) {
                 alert('유저 토큰을 저장하는 과정에서 문제가 발생했습니다.');
             }
 

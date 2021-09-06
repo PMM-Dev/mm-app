@@ -11,6 +11,7 @@ import {AuthProvider} from "./components/AuthContext";
 import NavController from "./components/NavController";
 import Theme from "./style/Theme";
 import {getMyMemberInfo} from "./components/Api/AppMemberApi";
+import {reissueJwtAccessToken} from "./components/Api/AuthApi";
 
 enableScreens();
 export default function App() {
@@ -44,15 +45,23 @@ export default function App() {
             }
 
             // 토큰 초과 확인?
+            const tokenExpiresIn = await AsyncStorage.getItem("@jwtTokenExpiresIn");
+            if (new Date().getTime() > parseInt(tokenExpiresIn)) {
+                const response = await reissueJwtAccessToken();
+                if (!response) {
+                    throw 'Failed to reissue jwt token';
+                }
+            }
 
             setIsLoggedIn(true);
-            setIsAuthLoading(false);
         } catch (e) {
             console.log("[Error] Failed to preload the auth data : " + e);
             await AsyncStorage.setItem("@jwtAccessToken", "");
             await AsyncStorage.setItem("@jwtRefreshToken", "");
             await AsyncStorage.setItem("@jwtTokenExpiresIn", "");
             setIsLoggedIn(false);
+        } finally {
+            setIsAuthLoading(false);
         }
     }
 
