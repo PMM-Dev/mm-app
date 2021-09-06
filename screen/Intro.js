@@ -29,15 +29,6 @@ const Intro = () => {
     const saveProfileData = useSaveProfileData();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-    // For auth error dialog
-    const [errorDialogVisible, setErrorDialogVisible] = useState(false);
-    const [errorContent, setErrorContent] = useState("");
-    const showErrorDialog = (content) => {
-        setErrorDialogVisible(true);
-        setErrorContent(content);
-    }
-    const hideErrorDialog = () => setErrorDialogVisible(false);
-
     // For admin mode
     const isAdminMode = useIsAdminMode();
     const setIsAdminMode = useSetIsAdminMode();
@@ -55,42 +46,37 @@ const Intro = () => {
     }
 
     const requestLogin = async (login) => {
-        try {
-            setIsLoggingIn(true);
+        setIsLoggingIn(true);
 
-            const response = await login();
-            const state = response.state;
-            if (state === USER_EXIST) {
-                const loadResult = await saveProfileData();
-                if (!loadResult) {
-                    throw '회원 정보를 불러오는 과정에서 문제가 발생했습니다.';
-                }
-
-            } else if (state === USER_NOT_EXIST) {
-                const registerResult = await registerUser(response.memberRequestDto);
-                if (!registerResult) {
-                    throw '회원 가입하는 과정에서 문제가 발생했습니다.'
-                }
-
-                const saveAppTokenResult = await saveAppToken(response.memberRequestDto);
-                if (!saveAppTokenResult) {
-                    throw '유저 토큰을 저장하는 과정에서 문제가 발생했습니다.'
-                }
-
-                const saveProfileDataResult = await saveProfileData();
-                if (!saveProfileDataResult) {
-                    throw '유저 정보를 저장하는 과정에서 문제가 발생했습니다.'
-                }
-            } else if (state !== USER_CANCEL) {
-                throw '알 수 없는 문제가 발생했습니다.';
+        const response = await login();
+        const state = response.state;
+        if (state === USER_EXIST) {
+            const loadResult = await saveProfileData();
+            if (!loadResult) {
+                alert('회원 정보를 불러오는 과정에서 문제가 발생했습니다.');
             }
 
-            setIsAdminMode(false);
-        } catch (e) {
-            showErrorDialog(e);
-        } finally {
-            setIsLoggingIn(false);
+        } else if (state === USER_NOT_EXIST) {
+            const registerResult = await registerUser(response.memberRequestDto);
+            if (!registerResult) {
+                alert('회원 가입하는 과정에서 문제가 발생했습니다.');
+            }
+
+            const saveAppTokenResult = await saveAppToken(response.memberRequestDto);
+            if (!saveAppTokenResult) {
+                alert('유저 토큰을 저장하는 과정에서 문제가 발생했습니다.');
+            }
+
+            const saveProfileDataResult = await saveProfileData();
+            if (!saveProfileDataResult) {
+                alert('유저 정보를 저장하는 과정에서 문제가 발생했습니다.');
+            }
+        } else if (state !== USER_CANCEL) {
+            alert('알 수 없는 문제가 발생했습니다.');
         }
+
+        setIsAdminMode(false);
+        setIsLoggingIn(false);
     };
 
     return (
@@ -107,15 +93,6 @@ const Intro = () => {
                         </Dialog.Content>
                         <Dialog.Actions>
                             <Button onPress={() => checkAdminDialog()}>Done</Button>
-                        </Dialog.Actions>
-                    </Dialog>
-                    <Dialog visible={errorDialogVisible} onDismiss={hideErrorDialog}>
-                        <Dialog.Title>알림</Dialog.Title>
-                        <Dialog.Content>
-                            <Paragraph>{errorContent}</Paragraph>
-                        </Dialog.Content>
-                        <Dialog.Actions>
-                            <Button onPress={() => hideErrorDialog()}>확인</Button>
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
