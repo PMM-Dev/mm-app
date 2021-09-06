@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
-import {useLogOut,} from "../../components/AuthContext";
+import {useLogOut, ROLE_ADMIN} from "../../components/AuthContext";
 import {SETTING_ALARM_ICON, SETTING_ASKING_ICON, SETTING_LOGOUT_ICON, SETTING_SERVICE_ICON} from "../../image";
 import constants from "../../constants";
+import {Button, Dialog, Portal, Provider, TextInput} from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const MenuView = ({navigate}) => {
+const MenuView = ({navigate, role}) => {
     const logout = useLogOut();
 
+    const [isTokenDialogVisible, setIsTokenDialogVisible] = useState(false);
+    const [tokenDialogText, setTokenDialogText] = useState("");
 
     return (
         <MenuViews>
@@ -41,6 +45,26 @@ const MenuView = ({navigate}) => {
                     <Icon source={SETTING_LOGOUT_ICON} style={{tintColor: "#FF3D52"}}/>
                     <Title style={{color: "#FF3D52"}}>로그아웃</Title>
                 </UtilButton>
+                {role === ROLE_ADMIN && <UtilButton onPress={async () => {
+                    setTokenDialogText(await AsyncStorage.getItem("@jwtAccessToken"));
+                    setIsTokenDialogVisible(true)
+                }}>
+                    <Icon source={SETTING_LOGOUT_ICON} style={{tintColor: "#FF3D52"}}/>
+                    <Title style={{color: "#FF3D52"}}>접근 토큰 발급</Title>
+                </UtilButton>}
+                <Provider>
+                    <Portal>
+                        <Dialog visible={isTokenDialogVisible}>
+                            <Dialog.Title>admin?</Dialog.Title>
+                            <Dialog.Content>
+                                <TextInput value={tokenDialogText}/>
+                            </Dialog.Content>
+                            <Dialog.Actions>
+                                <Button onPress={() => setIsTokenDialogVisible(false)}>Done</Button>
+                            </Dialog.Actions>
+                        </Dialog>
+                    </Portal>
+                </Provider>
             </UtilMenuView>
         </MenuViews>
     )

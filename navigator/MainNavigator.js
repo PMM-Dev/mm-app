@@ -21,14 +21,24 @@ import {
 } from "../image";
 import constants from "../constants";
 import MapNavigator from "./MapNavigator";
-import {useLoadProfileDataByJwtToken} from "../components/AuthContext";
+import {useSaveJwtToken, useSaveProfileData} from "../components/AuthContext";
+import {getMyMemberInfo} from "../components/Api/AppMemberApi";
 
 const BottomTab = createBottomTabNavigator();
 
 const MainNavigator = () => {
-    const loadProfileDataByJwtToken = useLoadProfileDataByJwtToken();
+
+    const saveProfileData = useSaveProfileData();
+
     useEffect(() => {
-        loadProfileDataByJwtToken();
+        async function initProfile() {
+            const response = await saveProfileData();
+            if (!response) {
+                alert("프로필 정보를 불러오는 과정에서 문제가 생겼습니다.")
+            }
+        }
+
+        initProfile();
     }, [])
 
     const navigatorHeight = constants.vh(8);

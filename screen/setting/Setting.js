@@ -7,7 +7,7 @@ import MenuViews from '../../components/Setting/MenuView'
 
 
 const Setting = ({navigation: {navigate}}) => {
-        const {email, name, picture} = useProfile();
+        const {email, name, picture, role} = useProfile();
 
         return (
             <Page>
@@ -35,7 +35,7 @@ const Setting = ({navigation: {navigate}}) => {
                                 <EmailTitle>{email}</EmailTitle>
                             </Information>
                         </ProfileView>
-                        <MenuViews navigate={navigate}/>
+                        <MenuViews navigate={navigate} role={role}/>
                     </SrollViewWrapper>
                 </ScrollView>
             </Page>
