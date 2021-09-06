@@ -2,7 +2,6 @@ import "react-native-gesture-handler";
 import React, {useEffect, useState} from "react";
 import {View} from "react-native";
 import {enableScreens} from "react-native-screens";
-import {loginByJwtToken} from "./components/Api/AuthApi";
 import {ThemeProvider} from "styled-components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Font from "expo-font";
@@ -11,6 +10,7 @@ import {ActivityIndicator, Text} from "react-native-paper";
 import {AuthProvider} from "./components/AuthContext";
 import NavController from "./components/NavController";
 import Theme from "./style/Theme";
+import {getMyMemberInfo} from "./components/Api/AppMemberApi";
 
 enableScreens();
 export default function App() {
@@ -37,22 +37,21 @@ export default function App() {
 
     const preLoadAuth = async () => {
         try {
-            const jwtToken = await AsyncStorage.getItem("@jwtToken");
-            if (jwtToken === undefined || jwtToken === null || jwtToken === "") {
+            const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+            if (accessToken === null) {
                 setIsAuthLoading(false);
                 return;
             }
 
-            const response = await loginByJwtToken(jwtToken);
-            if (!response) {
-                throw 'Fail to load profile data';
-            }
+            // 토큰 초과 확인?
 
             setIsLoggedIn(true);
             setIsAuthLoading(false);
         } catch (e) {
             console.log("[Error] Failed to preload the auth data : " + e);
-            await AsyncStorage.setItem("@jwtToken", "");
+            await AsyncStorage.setItem("@jwtAccessToken", "");
+            await AsyncStorage.setItem("@jwtRefreshToken", "");
+            await AsyncStorage.setItem("@jwtTokenExpiresIn", "");
             setIsLoggedIn(false);
         }
     }

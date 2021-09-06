@@ -4,10 +4,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getRestaurants = async () => {
   try {
-    const token = await AsyncStorage.getItem("@jwtToken");
-    const response = await axios.get(API_URL + "/api/restaurant", {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    const response = await axios.get(API_URL + "/restaurant", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return response.data;
@@ -19,12 +19,12 @@ export const getRestaurants = async () => {
 
 export const getRestaurantsByGenre = async (genre) => {
   try {
-    const token = await AsyncStorage.getItem("@jwtToken");
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
     const response = await axios.get(
-      API_URL + "/api/restaurant/condition" + "?type=" + genre,
+      API_URL + "/restaurant/condition" + "?type=" + genre,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );
@@ -37,12 +37,12 @@ export const getRestaurantsByGenre = async (genre) => {
 
 export const getRestaurantsById = async (id) => {
     try {
-        const token = await AsyncStorage.getItem("@jwtToken");
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.get(
-            API_URL + "/api/restaurant/" + id,
+            API_URL + "/restaurant/" + id,
             {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${accessToken}`
                 }
             }
         );
@@ -55,12 +55,12 @@ export const getRestaurantsById = async (id) => {
 
 export const getRestaurantReviews = async (id) => {
     try {
-        const token = await AsyncStorage.getItem("@jwtToken");
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.get(
-            API_URL + "/api/restaurant/" + id + "/review",
+            API_URL + "/restaurant/" + id + "/review",
             {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${accessToken}`
                 }
             }
         );
@@ -73,9 +73,9 @@ export const getRestaurantReviews = async (id) => {
 
 export const postReview = async (userEmail, content, grade, restaurantId) => {
     try {
-        const token = await AsyncStorage.getItem("@jwtToken");
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.post(
-            API_URL + "/api/restaurant/" + restaurantId + "/review",
+            API_URL + "/restaurant/" + restaurantId + "/review",
             {
                 authorEmail: userEmail,
                 description: content,
@@ -83,7 +83,7 @@ export const postReview = async (userEmail, content, grade, restaurantId) => {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${accessToken}`
                 }
             }
         );

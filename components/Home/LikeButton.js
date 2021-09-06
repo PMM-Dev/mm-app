@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {EMPTYHEART, FULLHEART} from "../../image";
 import constants from "../../constants";
-import {appendLikeRestaurant, subtractLikeRestaurant} from "../Api/AppUserApi";
+import {appendLikeRestaurant, subtractLikeRestaurant} from "../Api/AppMemberApi";
 import {useProfile} from "../AuthContext";
 
 const LikeButton = ({restaurantId, size}) => {
