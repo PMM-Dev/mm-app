@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import StarMaker from "../../Map/StarMaker";
 import { FULLHEART, EMPTYHEART, RESTAURANT_IMAGE } from "../../../image";
 import constants from "../../../constants";
+import {
+  appendLikeRestaurant,
+  subtractLikeRestaurant,
+} from "../../Api/AppMemberApi";
 
 const RestaurantCard = ({ data, navigation }) => {
+  const [didLike, setDidLike] = useState(data.didLike);
+  useEffect(() => {}, [didLike]);
   return (
     <View>
       <ExplanationPart>
         <ExplanationRestaurantNavigate
           onPress={() =>
             navigation.navigate("Restaurant", {
-                restaurantId: data.id,
+              restaurantId: data.id,
               picture: RESTAURANT_IMAGE,
             })
           }
@@ -46,8 +52,16 @@ const RestaurantCard = ({ data, navigation }) => {
           </ExplanationView>
         </ExplanationRestaurantNavigate>
       </ExplanationPart>
-      <HeartButtonPos>
-        {true ? ( //data.bookmarked
+      <HeartButtonPos
+        onPress={() => {
+          console.log(data);
+          didLike
+            ? subtractLikeRestaurant(data.id)
+            : appendLikeRestaurant(data.id);
+          didLike ? setDidLike(false) : setDidLike(true);
+        }}
+      >
+        {!didLike ? (
           <HeartImg source={EMPTYHEART} />
         ) : (
           <HeartImg source={FULLHEART} />

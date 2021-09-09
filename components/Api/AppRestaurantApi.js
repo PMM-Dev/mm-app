@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const getRestaurants = async () => {
   try {
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    const response = await axios.get(API_URL + "/restaurant", {
+    const response = await axios.get(API_URL + "/restaurant/list", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -36,60 +36,57 @@ export const getRestaurantsByGenre = async (genre) => {
 };
 
 export const getRestaurantsById = async (id) => {
-    try {
-        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const response = await axios.get(
-            API_URL + "/restaurant/" + id,
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            }
-        );
-        return response.data;
-    } catch (e) {
-        console.error("[AppApi][Exception] " + e);
-        return [];
-    }
-}
+  try {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    const response = await axios.get(API_URL + "/restaurant/" + id, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (e) {
+    console.error("[AppApi][Exception] " + e);
+    return [];
+  }
+};
 
 export const getRestaurantReviews = async (id) => {
-    try {
-        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const response = await axios.get(
-            API_URL + "/restaurant/" + id + "/review",
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            }
-        );
-        return response.data;
-    } catch (e) {
-        console.error("[AppApi][Exception] " + e);
-        return [];
-    }
+  try {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    const response = await axios.get(
+      API_URL + "/restaurant/" + id + "/review",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (e) {
+    console.error("[AppApi][Exception] " + e);
+    return [];
+  }
 };
 
 export const postReview = async (userEmail, content, grade, restaurantId) => {
-    try {
-        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const response = await axios.post(
-            API_URL + "/restaurant/" + restaurantId + "/review",
-            {
-                authorEmail: userEmail,
-                description: content,
-                grade: grade,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            }
-        );
-        return response.data;
-    } catch (e) {
-        console.error("[AppApi][Exception] " + e);
-        return undefined;
-    }
+  try {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    const response = await axios.post(
+      API_URL + "/restaurant/" + restaurantId + "/review",
+      {
+        authorEmail: userEmail,
+        description: content,
+        grade: grade,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (e) {
+    console.error("[AppApi][Exception] " + e);
+    return undefined;
+  }
 };
