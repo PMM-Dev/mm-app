@@ -7,6 +7,7 @@ import {
   appendLikeRestaurant,
   subtractLikeRestaurant,
 } from "../../Api/AppMemberApi";
+import LikeButton from "../LikeButton";
 
 const RestaurantCard = ({ data, navigation }) => {
   const [didLike, setDidLike] = useState(data.didLike);
@@ -54,7 +55,6 @@ const RestaurantCard = ({ data, navigation }) => {
       </ExplanationPart>
       <HeartButtonPos
         onPress={() => {
-          console.log(data);
           didLike
             ? subtractLikeRestaurant(data.id)
             : appendLikeRestaurant(data.id);

@@ -21,7 +21,10 @@ const StringScreen = [
   { genre: "ASIAN" },
   { genre: "JAPANESE" },
   { genre: "DESSERT" },
+  { genre: "NIGHTFOOD" },
   { genre: "FASTFOOD" },
+  { genre: "DELIEVERY" },
+  { genre: "RANKING" },
 ];
 
 const RestaurantTypeButtonsTable = ({ navigation }) => {
@@ -84,9 +87,6 @@ const RestaurantTypeButtonsTable = ({ navigation }) => {
         >
           <Img source={HOME_FOOD_ICON_DESSERT} />
         </Button>
-        <Button>
-          <Img source={HOME_FOOD_ICON_NIGHTFOOD} />
-        </Button>
         <Button
           onPress={() =>
             navigation.navigate("RestaurantList", {
@@ -94,12 +94,33 @@ const RestaurantTypeButtonsTable = ({ navigation }) => {
             })
           }
         >
+          <Img source={HOME_FOOD_ICON_NIGHTFOOD} />
+        </Button>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[7],
+            })
+          }
+        >
           <Img source={HOME_FOOD_ICON_FASTFOOD} />
         </Button>
-        <Button>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[8],
+            })
+          }
+        >
           <Img source={HOME_FOOD_ICON_DELIEVERY} />
         </Button>
-        <Button>
+        <Button
+          onPress={() =>
+            navigation.navigate("RestaurantList", {
+              param: StringScreen[9],
+            })
+          }
+        >
           <Img source={HOME_FOOD_ICON_RANKING} />
         </Button>
       </ButtonsRow>

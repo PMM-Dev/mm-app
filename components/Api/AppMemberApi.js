@@ -26,11 +26,15 @@ export const getMyMemberInfo = async (savedAccesstoken) => {
 export const appendLikeRestaurant = async (restaurantId) => {
   try {
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    await axios.put(API_URL + "/member/like/" + restaurantId, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    await axios.put(
+      API_URL + "/member/like/" + restaurantId,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
   } catch (e) {
     console.error("[AppApi][Exception] " + e);
   }

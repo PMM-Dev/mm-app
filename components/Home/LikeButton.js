@@ -8,9 +8,9 @@ import {
 } from "../Api/AppMemberApi";
 import { useProfile } from "../AuthContext";
 
-const LikeButton = ({ restaurantId, size }) => {
+const LikeButton = ({ restaurantId, size, isLikeButtonPressed }) => {
   const { email } = useProfile();
-  const [isLike, setIsLike] = useState(false);
+  const [isLike, setIsLike] = useState(isLikeButtonPressed);
 
   const pressLike = async () => {
     if (isLike) {

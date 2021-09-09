@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import constants from "../../constants";
 import HomeHeaderMenu from "./HomeHeaderMenu";
@@ -7,41 +7,66 @@ import MapHeaderMenu from "./MapHeaderMenu";
 import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
 import WriteReviewHeader from "./WriteReviewHeader";
 
-const Header = ({route: {name: routeName}, navigation, title, isTitleShown, restaurantId, onPressRightButton}) => {
-    const [menuComponent, setMenuComponent] = useState();
+const Header = ({
+  route: { name: routeName },
+  navigation,
+  title,
+  isTitleShown,
+  restaurantId,
+  onPressRightButton,
+  isLikeButtonPressed,
+}) => {
+  const [menuComponent, setMenuComponent] = useState();
 
-    const getMenuComponent = () => {
-        if (routeName === "Home") {
-            setMenuComponent(<HomeHeaderMenu navigation={navigation} routeName={routeName}/>);
-        } else if (routeName === "RestaurantList") {
-            setMenuComponent(
-                <RestaurantListHeaderMenu
-                    navigation={navigation}
-                    routeName={routeName}
-                />
-            );
-        } else if (routeName === "Map") {
-            setMenuComponent(<MapHeaderMenu navigation={navigation}/>);
-        } else if (routeName === "Restaurant") {
-            setMenuComponent(<RestaurantHeaderMenu navigation={navigation} restaurantId={restaurantId}/>);
-        } else if (routeName === "WriteReview") {
-            setMenuComponent(<></>);
-        }
+  const getMenuComponent = () => {
+    if (routeName === "Home") {
+      setMenuComponent(
+        <HomeHeaderMenu navigation={navigation} routeName={routeName} />
+      );
+    } else if (routeName === "RestaurantList") {
+      setMenuComponent(
+        <RestaurantListHeaderMenu
+          navigation={navigation}
+          routeName={routeName}
+        />
+      );
+    } else if (routeName === "Map") {
+      setMenuComponent(<MapHeaderMenu navigation={navigation} />);
+    } else if (routeName === "Restaurant") {
+      setMenuComponent(
+        <RestaurantHeaderMenu
+          navigation={navigation}
+          restaurantId={restaurantId}
+          isLikeButtonPressed={isLikeButtonPressed}
+        />
+      );
+    } else if (routeName === "WriteReview") {
+      setMenuComponent(<></>);
     }
+  };
 
-    useEffect(() => {
-        getMenuComponent();
-    }, []);
+  useEffect(() => {
+    getMenuComponent();
+  }, []);
 
-    return (
-        <Bar>
-            <TitleHolder>
-                <Title show={isTitleShown !== undefined ? isTitleShown : true}>{title}</Title>
-            </TitleHolder>
-            {menuComponent && (routeName === "WriteReview" ?
-                <WriteReviewHeader navigation={navigation} onPressRightButton={onPressRightButton}/> : menuComponent)}
-        </Bar>
-    );
+  return (
+    <Bar>
+      <TitleHolder>
+        <Title show={isTitleShown !== undefined ? isTitleShown : true}>
+          {title}
+        </Title>
+      </TitleHolder>
+      {menuComponent &&
+        (routeName === "WriteReview" ? (
+          <WriteReviewHeader
+            navigation={navigation}
+            onPressRightButton={onPressRightButton}
+          />
+        ) : (
+          menuComponent
+        ))}
+    </Bar>
+  );
 };
 
 const Bar = styled.View`
@@ -70,7 +95,7 @@ const Title = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vh(2)}px;
   color: ${(props) => props.theme.fontBlack};
-  opacity: ${(props) => props.show === true ? 1 : 0};
+  opacity: ${(props) => (props.show === true ? 1 : 0)};
 `;
 
 export default Header;

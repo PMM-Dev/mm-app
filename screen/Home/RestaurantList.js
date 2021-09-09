@@ -12,14 +12,13 @@ import KoreanEnum from "../../KoreanEnum";
 const RestaurantList = ({ route, navigation }) => {
   const genre = route.params.param.genre;
   const [restaurants, setRestaurants] = useState();
-
   useEffect(() => {
     async function initRestaurants() {
       const loadedRestaurants = await getRestaurantsByGenre(genre);
       setRestaurants(loadedRestaurants);
     }
 
-    initRestaurants();
+    if (genre !== "DELIEVERY" && genre !== "RANKING") initRestaurants();
   }, []);
 
   return (
