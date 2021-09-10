@@ -92,8 +92,8 @@ const ExplanationTagText = styled.Text`
 `;
 
 const HeartImg = styled.Image`
-  height: 100%;
-  width: 100%;
+  height: 90%;
+  width: 90%;
   resize-mode: contain;
 `;
 

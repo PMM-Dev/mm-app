@@ -30,14 +30,15 @@ const LikeButton = ({ restaurantId, size, isLikeButtonPressed }) => {
 };
 
 const Button = styled.TouchableOpacity`
-  width: ${(props) => (props.size ? constants.vw(size) : constants.vw(9))}px;
-  height: ${(props) => (props.size ? constants.vw(size) : constants.vw(9))}px;
+  width: ${constants.vw(9)}px;
+  height: ${constants.vw(9)}px;
   justify-content: center;
   align-items: center;
 `;
 
 const Icon = styled.Image`
-  width: 100%;
+  width: ${(props) => (props.size ? constants.vw(size) : constants.vw(6))}px;
+  height: ${(props) => (props.size ? constants.vw(size) : constants.vw(6))}px;
   resize-mode: contain;
 `;
 
