@@ -62,34 +62,6 @@ const RestaurantReviewView = ({restaurantId, reviewCount}) => {
                         </FiltersView>
                     </ReviewMenus>
                     {reviews.map((review, index) => <Review review={review} key={index}/>)}
-                    {/*<ReviewWrite>*/}
-                    {/*    <TmpTextInput*/}
-                    {/*        value={review}*/}
-                    {/*        onChangeText={(text) => setReview(text)}*/}
-                    {/*    />*/}
-                    {/*    <TmpButtonPos>*/}
-                    {/*        <TmpButton*/}
-                    {/*            onPress={() => {*/}
-                    {/*                let response = postRestaurantComment(*/}
-                    {/*                    review,*/}
-                    {/*                    email,*/}
-                    {/*                    restaurantId*/}
-                    {/*                );*/}
-                    {/*                setReviews((prev) => [*/}
-                    {/*                    {*/}
-                    {/*                        authorEmail: email,*/}
-                    {/*                        description: review,*/}
-                    {/*                        grade: 3,*/}
-                    {/*                        id: response.data,*/}
-                    {/*                        likeCount: 0,*/}
-                    {/*                    },*/}
-                    {/*                    ...prev*/}
-                    {/*                ]);*/}
-                    {/*                setReview("");*/}
-                    {/*            }}*/}
-                    {/*        />*/}
-                    {/*    </TmpButtonPos>*/}
-                    {/*</ReviewWrite>*/}
                 </>
             }
         </ReviewView>

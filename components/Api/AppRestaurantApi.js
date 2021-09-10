@@ -12,7 +12,7 @@ export const getRestaurants = async () => {
     });
     return response.data;
   } catch (e) {
-    console.error("[AppApi][Exception] " + e);
+    console.error("[AppApi][Exception] failed getRestaurants() " + e);
     return [];
   }
 };

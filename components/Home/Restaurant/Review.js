@@ -11,7 +11,7 @@ const Review = ({ review }) => {
         <ProfileImage source={COMMENT_PROFILE} />
         <NameAndGradeView>
           <AuthorNameButton onPress={() => {}}>
-            <AuthorNameText>{review.authorEmail}</AuthorNameText>
+            <AuthorNameText>{review.authorName}</AuthorNameText>
           </AuthorNameButton>
           <StarMaker grade={review.grade} size={constants.vw(5)} />
         </NameAndGradeView>
