@@ -1,7 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import styled from "styled-components";
 import LottieView from 'lottie-react-native';
-import {GACHA_MACHINE_IMG} from "../../image";
 import ConditionPanel from "./ConditionPanel";
 import {TouchableOpacity} from "react-native";
 
@@ -25,10 +24,6 @@ const Gacha = () => {
     const [backgate, setBackgate] = React.useState(false);
 
     const cardPackLottieView = useRef(null);
-
-    // useEffect(() => {
-    //     play();
-    // }, []);
 
     const play = () => {
         cardPackLottieView.current.reset();
@@ -71,13 +66,13 @@ const Gacha = () => {
             ) : (
                 <GachaView>
                     <TouchableOpacity onPress={() => play()}>
-                        <LottieView ref={cardPackLottieView} source={require("../../assets/animation/test.json")}
+                        <LottieView ref={cardPackLottieView} source={require("../../assets/animation/gacha_test.json")}
+                                    loop={false}
                                     style={{
                                         width: 500,
-                                        backgroundColor: '#eee',
-                                    }} autoPlay loop />
+                                        backgroundColor: '#fff',
+                                    }} />
                     </TouchableOpacity>
-                    {/*<Machine source={GACHA_MACHINE_IMG}/>*/}
                     {/* <ResultPanel /> */}
                 </GachaView>
             )}

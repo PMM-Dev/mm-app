@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Checkbox from "../../components/Checkbox";
+import CheckButton from "../../components/CheckButton";
 import KoreanEnum from "../../KoreanEnum";
 import Theme from "../../style/Theme";
+import constants from "../../constants";
+import {RESTAURANT_ICON_LOCATION, RESTAURANT_ICON_PRICE, RESTAURANT_ICON_TYPE} from "../../image";
 
 const ConditionPanel = ({
   setIsConditionSet,
@@ -53,77 +55,86 @@ const ConditionPanel = ({
     <PanelMask>
       <Panel>
         <Title>오늘 땡기는 건?</Title>
-        <RowTitle first>👨‍🍳 종류</RowTitle>
+        <RowTitle first>
+          <RowTitleImage source={RESTAURANT_ICON_TYPE} style={{tintColor: Theme.fontBlack}} />
+          <RowTitleText>종류</RowTitleText>
+        </RowTitle>
         <CheckboxTable>
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.KOREAN}
             checked={korean}
             setChecked={setKorean}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.FLOUR}
             checked={flour}
             setChecked={setFlour}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.DESSERT}
             checked={dessert}
             setChecked={setDessert}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.JAPANESE}
             checked={japanese}
             setChecked={setJapanese}
           />
         </CheckboxTable>
         <CheckboxTable>
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.FASTFOOD}
             checked={fastfood}
             setChecked={setFastfood}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.WESTERN}
             checked={western}
             setChecked={setWestern}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.ASIAN}
             checked={asian}
             setChecked={setAsian}
           />
         </CheckboxTable>
-        <RowTitle>💸 가격대</RowTitle>
+        <RowTitle>
+          <RowTitleImage money source={RESTAURANT_ICON_PRICE} style={{tintColor: Theme.fontBlack}} />
+          <RowTitleText>가격대</RowTitleText>
+        </RowTitle>
         <CheckboxTable>
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.CHEAP}
             checked={cheap}
             setChecked={setCheap}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.REASONABLE}
             checked={reasonable}
             setChecked={setReasonable}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.EXPENSIVE}
             checked={expensive}
             setChecked={setExpensive}
           />
         </CheckboxTable>
-        <RowTitle>🗺 위치</RowTitle>
+        <RowTitle>
+          <RowTitleImage source={RESTAURANT_ICON_LOCATION} style={{tintColor: Theme.fontBlack}} />
+          <RowTitleText>위치</RowTitleText>
+        </RowTitle>
         <CheckboxTable>
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.FRONTGATE}
             checked={frontgate}
             setChecked={setFrontgate}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.SIDEGATE}
             checked={sidegate}
             setChecked={setSidegate}
           />
-          <Checkbox
+          <CheckButton
             text={KoreanEnum.BACKGATE}
             checked={backgate}
             setChecked={setBackgate}
@@ -136,7 +147,7 @@ const ConditionPanel = ({
           >
             <ButtonText color={Theme.fontBlack}>초기화</ButtonText>
           </Button>
-          <Button color={Theme.hlRed} onPress={() => setIsConditionSet(true)}>
+          <Button color={Theme.hlOrange} onPress={() => setIsConditionSet(true)}>
             <ButtonText color={Theme.backgroundWhite}>뽑기</ButtonText>
           </Button>
         </ButtonView>
@@ -146,30 +157,45 @@ const ConditionPanel = ({
 };
 
 const PanelMask = styled.View`
-  ${(props) => props.theme.opacityMask10};
+  ${(props) => props.theme.opacityMask15};
 `;
 
 const Panel = styled.View`
-  width: 350px;
-  height: 500px;
+  width: ${constants.vw(78)}px;
+  height: ${constants.vh(56)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
-  border-radius: 10px;
+  border-radius: ${constants.vw(8)}px;;
+  border-width: ${constants.vw(1.4)}px;;
+  border-color: ${(props) => props.theme.hlOrange};
+  
   align-items: center;
-  padding-top: 20px;
+  padding-top: ${constants.vh(4)}px;
 `;
 
 const Title = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
-  font-size: 30px;
+  ${(props) => props.theme.NanumSquareEBFont}
+  font-size: ${constants.vw(7)}px;
   color: ${(props) => props.theme.fontBlack};
 `;
 
-const RowTitle = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
-  font-size: 20px;
+const RowTitle = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: ${(props) => (props.first ? constants.vh(5) : constants.vh(1.9))}px;
+  margin-bottom: ${constants.vh(0.5)}px;
+`
+
+const RowTitleImage = styled.Image`
+  width: ${constants.vw(5)}px;
+  height: ${constants.vw(5)}px;
+  margin-right: ${(props) => props.money ? constants.vw(1) : constants.vw(2)}px;
+`
+
+const RowTitleText = styled.Text`
+  ${(props) => props.theme.NanumSquareBFont}
+  font-size: ${constants.vw(5)}px;
   color: ${(props) => props.theme.fontBlack};
-  margin-top: ${(props) => (props.first ? "5%" : "10%")};
-  margin-bottom: 1%;
 `;
 
 const CheckboxTable = styled.View`
@@ -197,8 +223,8 @@ const Button = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  font-size: 18px;
+  ${(props) => props.theme.NanumSquareEBFont}
+  font-size: ${constants.vw(4.6)}px;
   color: ${(props) => props.color};
 `;
 
