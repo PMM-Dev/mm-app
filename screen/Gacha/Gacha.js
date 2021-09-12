@@ -1,41 +1,43 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import LottieView from 'lottie-react-native';
-import ConditionPanel from "./ConditionPanel";
+import ConditionPanel from "../../components/Gacha/ConditionPanel";
+import ResultCard from "../../components/Gacha/ResultCard";
 import {TouchableOpacity} from "react-native";
 
 const Gacha = () => {
-    const [isConditionSet, setIsConditionSet] = React.useState(false);
+    const [korean, setKorean] = useState(false);
+    const [flour, setFlour] = useState(false);
+    const [dessert, setDessert] = useState(false);
+    const [japanese, setJapanese] = useState(false);
+    const [fastfood, setFastfood] = useState(false);
+    const [western, setWestern] = useState(false);
+    const [asian, setAsian] = useState(false);
 
-    const [korean, setKorean] = React.useState(false);
-    const [flour, setFlour] = React.useState(false);
-    const [dessert, setDessert] = React.useState(false);
-    const [japanese, setJapanese] = React.useState(false);
-    const [fastfood, setFastfood] = React.useState(false);
-    const [western, setWestern] = React.useState(false);
-    const [asian, setAsian] = React.useState(false);
+    const [cheap, setCheap] = useState(false);
+    const [reasonable, setReasonable] = useState(false);
+    const [expensive, setExpensive] = useState(false);
 
-    const [cheap, setCheap] = React.useState(false);
-    const [reasonable, setReasonable] = React.useState(false);
-    const [expensive, setExpensive] = React.useState(false);
-
-    const [frontgate, setFrontgate] = React.useState(false);
-    const [sidegate, setSidegate] = React.useState(false);
-    const [backgate, setBackgate] = React.useState(false);
+    const [frontgate, setFrontgate] = useState(false);
+    const [sidegate, setSidegate] = useState(false);
+    const [backgate, setBackgate] = useState(false);
 
     const cardPackLottieView = useRef(null);
+
+    const [isConditionStep, setIsConditionStep] = useState(false);
+    const [isAnimationStep, setIsAnimationStep] = useState(false);
+
 
     const play = () => {
         cardPackLottieView.current.reset();
         cardPackLottieView.current.play();
-
     }
 
     return (
         <Page>
-            {!isConditionSet ? (
+            {isConditionStep ? (
                 <ConditionPanel
-                    setIsConditionSet={setIsConditionSet}
+                    setIsConditionStep={setIsConditionStep}
                     korean={korean}
                     flour={flour}
                     dessert={dessert}
@@ -63,19 +65,21 @@ const Gacha = () => {
                     setSidegate={setSidegate}
                     setBackgate={setBackgate}
                 />
-            ) : (
-                <GachaView>
-                    <TouchableOpacity onPress={() => play()}>
-                        <LottieView ref={cardPackLottieView} source={require("../../assets/animation/gacha_test.json")}
-                                    loop={false}
-                                    style={{
-                                        width: 500,
-                                        backgroundColor: '#fff',
-                                    }} />
-                    </TouchableOpacity>
-                    {/* <ResultPanel /> */}
-                </GachaView>
-            )}
+            ) : (<>
+                {isAnimationStep ? (
+                    <GachaView>
+                        <TouchableOpacity onPress={() => play()}>
+                            <LottieView ref={cardPackLottieView}
+                                        source={require("../../assets/animation/gacha_test.json")}
+                                        loop={false}
+                                        style={{
+                                            width: 500,
+                                            backgroundColor: '#fff',
+                                        }}/>
+                        </TouchableOpacity>
+                    </GachaView>
+                ) : (<ResultCard/>)}
+            </>)}
         </Page>
     );
 };

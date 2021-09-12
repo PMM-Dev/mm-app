@@ -4,10 +4,10 @@ import CheckButton from "../../components/CheckButton";
 import KoreanEnum from "../../KoreanEnum";
 import Theme from "../../style/Theme";
 import constants from "../../constants";
-import {RESTAURANT_ICON_LOCATION, RESTAURANT_ICON_PRICE, RESTAURANT_ICON_TYPE} from "../../image";
+import {ICON_LOCATION, ICON_PRICE, ICON_TYPE} from "../../image";
 
 const ConditionPanel = ({
-  setIsConditionSet,
+  setIsConditionStep,
   korean,
   flour,
   dessert,
@@ -56,7 +56,7 @@ const ConditionPanel = ({
       <Panel>
         <Title>오늘 땡기는 건?</Title>
         <RowTitle first>
-          <RowTitleImage source={RESTAURANT_ICON_TYPE} style={{tintColor: Theme.fontBlack}} />
+          <RowTitleImage source={ICON_TYPE} style={{tintColor: Theme.fontBlack}} />
           <RowTitleText>종류</RowTitleText>
         </RowTitle>
         <CheckboxTable>
@@ -99,7 +99,7 @@ const ConditionPanel = ({
           />
         </CheckboxTable>
         <RowTitle>
-          <RowTitleImage money source={RESTAURANT_ICON_PRICE} style={{tintColor: Theme.fontBlack}} />
+          <RowTitleImage money source={ICON_PRICE} style={{tintColor: Theme.fontBlack}} />
           <RowTitleText>가격대</RowTitleText>
         </RowTitle>
         <CheckboxTable>
@@ -120,7 +120,7 @@ const ConditionPanel = ({
           />
         </CheckboxTable>
         <RowTitle>
-          <RowTitleImage source={RESTAURANT_ICON_LOCATION} style={{tintColor: Theme.fontBlack}} />
+          <RowTitleImage source={ICON_LOCATION} style={{tintColor: Theme.fontBlack}} />
           <RowTitleText>위치</RowTitleText>
         </RowTitle>
         <CheckboxTable>
@@ -147,7 +147,7 @@ const ConditionPanel = ({
           >
             <ButtonText color={Theme.fontBlack}>초기화</ButtonText>
           </Button>
-          <Button color={Theme.hlOrange} onPress={() => setIsConditionSet(true)}>
+          <Button color={Theme.hlOrange} onPress={() => setIsConditionStep(false)}>
             <ButtonText color={Theme.backgroundWhite}>뽑기</ButtonText>
           </Button>
         </ButtonView>
@@ -157,7 +157,7 @@ const ConditionPanel = ({
 };
 
 const PanelMask = styled.View`
-  ${(props) => props.theme.opacityMask15};
+  ${(props) => props.theme.opacityMask10};
 `;
 
 const Panel = styled.View`
@@ -165,7 +165,7 @@ const Panel = styled.View`
   height: ${constants.vh(56)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
   border-radius: ${constants.vw(8)}px;;
-  border-width: ${constants.vw(1.4)}px;;
+  border-width: ${constants.vw(1.2)}px;;
   border-color: ${(props) => props.theme.hlOrange};
   
   align-items: center;

@@ -4,6 +4,8 @@ export const LOGO_TEXT = require("./assets/CommonIcons/logo_text.png");
 export const SEARCHBAR = require("./assets/CommonIcons/search_1.png");
 export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png");
 export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png");
+export const COMMENT_PROFILE = require("./assets/CommonIcons/profile.png");
+export const RESTAURANT_IMAGE = require("./assets/CommonIcons/img_box.png");
 
 export const REVIEW_ICON = require("./assets/CommonIcons/review.png");
 export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
@@ -12,15 +14,15 @@ export const FULLSTAR = require("./assets/CommonIcons/star_3.png");
 export const HALFSTAR = require("./assets/CommonIcons/star_2.png");
 export const EMPTYSTAR = require("./assets/CommonIcons/star_1.png");
 
-export const COMMENT_PROFILE = require("./assets/CommonIcons/profile.png");
-export const RESTAURANT_IMAGE = require("./assets/CommonIcons/img_box.png");
+export const ICON_TYPE = require("./assets/CommonIcons/silverware.png");
+export const ICON_PRICE = require("./assets/CommonIcons/currency-usd.png")
+export const ICON_LOCATION = require("./assets/CommonIcons/office-building-marker.png")
 
 export const INTRO_BIG_LOGO = require("./assets/IntroIcon/big_logo.png");
 export const INTRO_BIG_LOGO_TEXT = require("./assets/IntroIcon/big_logo_text.png");
 export const INTRO_GOOGLE_BTN = require("./assets/IntroIcon/google_sign_btn.png");
 export const INTRO_TRIANGLE = require("./assets/IntroIcon/triangle.png");
 
-export const GACHA_MACHINE_IMG = require("./assets/gacha/gachaMachine.png");
 
 export const SETTING_GUEST_PORTRAIT = require("./assets/SettingIcon/guest_portrait.png");
 export const SETTING_PROFILE_ICON = require("./assets/SettingIcon/profile.png");
@@ -42,14 +44,19 @@ export const HOME_FOOD_ICON_FASTFOOD = require("./assets/HomeFoodIcon/icon_8.png
 export const HOME_FOOD_ICON_DELIEVERY = require("./assets/HomeFoodIcon/icon_9.png");
 export const HOME_FOOD_ICON_RANKING = require("./assets/HomeFoodIcon/icon_10.png");
 
-export const RESTAURANT_ICON_TYPE = require("./assets/RestaurantIcon/silverware.png");
-export const RESTAURANT_ICON_PRICE = require("./assets/RestaurantIcon/currency-usd.png")
-export const RESTAURANT_ICON_LOCATION = require("./assets/RestaurantIcon/office-building-marker.png")
 export const RESTAURANT_ICON_IMAGE = require("./assets/RestaurantIcon/image.png")
 
 export const MAP_WHITE_BAR_ICON = require("./assets/MapIcon/white_bar.png");
 export const MAP_FILTER_ICON = require("./assets/MapIcon/filter.png");
 export const MAP_POSITION_ICON = require("./assets/MapIcon/position.png");
+
+export const GACHA_CARD_FRONT_ASIAN = require("./assets/Gacha/CardFront_asian.png");
+export const GACHA_CARD_FRONT_DESSERT = require("./assets/Gacha/CardFront_dessert.png");
+export const GACHA_CARD_FRONT_FASTFOOD = require("./assets/Gacha/CardFront_fastfood.png");
+export const GACHA_CARD_FRONT_FLOUR = require("./assets/Gacha/CardFront_flour.png");
+export const GACHA_CARD_FRONT_JAPANESE = require("./assets/Gacha/CardFront_japanese.png");
+export const GACHA_CARD_FRONT_KOREAN = require("./assets/Gacha/CardFront_korean.png");
+export const GACHA_CARD_FRONT_WESTERN = require("./assets/Gacha/CardFront_western.png");
 
 export const NAVIGATOR_HOME_UNSELECTED = require("./assets/NavigatorIcon/home_unselected.png");
 export const NAVIGATOR_MAP_UNSELECTED = require("./assets/NavigatorIcon/map_unselected.png");

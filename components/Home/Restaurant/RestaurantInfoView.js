@@ -7,9 +7,9 @@ import StarMaker from "../../Map/StarMaker";
 import {
     REVIEW_ICON,
     FULLHEART,
-    RESTAURANT_ICON_TYPE,
-    RESTAURANT_ICON_PRICE,
-    RESTAURANT_ICON_LOCATION
+    ICON_TYPE,
+    ICON_PRICE,
+    ICON_LOCATION
 } from "../../../image";
 import {Converter} from "../../Converter";
 import constants from "../../../constants";
@@ -68,15 +68,15 @@ const RestaurantInfoView = ({data, picture}) => {
                 ))}
             </TagView>
             <TextInfoView>
-                <BigIcon source={RESTAURANT_ICON_TYPE} style={{tintColor: Theme.fontBlackGray}}/>
+                <BigIcon source={ICON_TYPE} style={{tintColor: Theme.fontBlackGray}}/>
                 <InfoText>{Converter(data.type)}</InfoText>
             </TextInfoView>
             <TextInfoView>
-                <BigIcon source={RESTAURANT_ICON_PRICE} style={{tintColor: Theme.fontBlackGray}}/>
+                <BigIcon source={ICON_PRICE} style={{tintColor: Theme.fontBlackGray}}/>
                 <InfoText>{Converter(data.price)}</InfoText>
             </TextInfoView>
             <TextInfoView>
-                <BigIcon source={RESTAURANT_ICON_LOCATION} style={{tintColor: Theme.fontBlackGray}}/>
+                <BigIcon source={ICON_LOCATION} style={{tintColor: Theme.fontBlackGray}}/>
                 <InfoText>{Converter(data.location)}</InfoText>
             </TextInfoView>
             <DescriptionText isEmpty={data.description === ""}>{data.description}</DescriptionText>
