@@ -5,12 +5,12 @@ import {
     GACHA_CARD_FRONT_ASIAN,
     GACHA_CARD_FRONT_DESSERT, GACHA_CARD_FRONT_FASTFOOD,
     GACHA_CARD_FRONT_FLOUR, GACHA_CARD_FRONT_JAPANESE,
-    GACHA_CARD_FRONT_KOREAN, GACHA_CARD_FRONT_WESTERN
+    GACHA_CARD_FRONT_KOREAN, GACHA_CARD_FRONT_WESTERN, RESTAURANT_IMAGE
 } from "../../image";
 import KoreanEnum from "../../KoreanEnum";
 import {Converter} from "../Converter";
 
-const ResultCard = ({tite, type, price, location}) => {
+const ResultCard = ({id, title, type, price, location, navigation}) => {
     const [cardImage, setCardImage] = useState(<CardImage source={GACHA_CARD_FRONT_KOREAN}/>);
     const [titleColor, setTitleColor] = useState("#000000");
     const [contentColor, setContentColor] = useState("#000000");
@@ -103,9 +103,15 @@ const ResultCard = ({tite, type, price, location}) => {
         <>
             <StatusBarSpace/>
             <CardHolder>
+                <CardButton onPress={() =>
+                    navigation.navigate("Restaurant", { restaurantId: id })
+                }>
                 {cardImage}
+                </CardButton>
+                <CardTouchAreaAdjustmentTopView />
+                <CardTouchAreaAdjustmentBottomView />
                 <TitleHolder>
-                    <Title color={titleColor}>{tite}</Title>
+                    <Title color={titleColor}>{title}</Title>
                 </TitleHolder>
                 <Content color={contentColor} top={60.5}>{Converter(type)}</Content>
                 <Content color={contentColor} top={65.3}>{Converter(price)}</Content>
@@ -126,10 +132,30 @@ const CardHolder = styled.View`
   justify-content: center;
 `
 
+const CardButton = styled.TouchableOpacity`
+  
+`
+
 const CardImage = styled.Image`
   width: ${constants.vw(78)}px;
   resize-mode: contain;
 `;
+
+const CardTouchAreaAdjustmentTopView = styled.View`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: ${constants.vw(100)}px;
+  height: ${constants.vh(22)}px;
+`
+
+const CardTouchAreaAdjustmentBottomView = styled.View`
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: ${constants.vw(100)}px;
+  height: ${constants.vh(22)}px;
+`
 
 const TitleHolder = styled.View`
   position: absolute;

@@ -7,7 +7,7 @@ import constants from "../../constants";
 import {ICON_LOCATION, ICON_PRICE, ICON_TYPE} from "../../image";
 
 const ConditionPanel = ({
-  setIsConditionStep,
+                          doGacha,
   korean,
   flour,
   dessert,
@@ -147,7 +147,7 @@ const ConditionPanel = ({
           >
             <ButtonText color={Theme.fontBlack}>초기화</ButtonText>
           </Button>
-          <Button color={Theme.hlOrange} onPress={() => setIsConditionStep(false)}>
+          <Button color={Theme.hlOrange} onPress={() => doGacha()}>
             <ButtonText color={Theme.backgroundWhite}>뽑기</ButtonText>
           </Button>
         </ButtonView>
