@@ -27,8 +27,8 @@ const Gacha = ({navigation}) => {
 
     const gachaLottieRef = useRef(null);
 
-    const [isConditionStep, setIsConditionStep] = useState(false);
-    const [isAnimationStep, setIsAnimationStep] = useState(false);
+    const [isConditionStep, setIsConditionStep] = useState(true);
+    const [isAnimationStep, setIsAnimationStep] = useState(true);
 
     const [isServerRequestLoading, setIsServerRequestLoading] = useState(false);
     const [gachaResult, setGachaResult] = useState({type: undefined, price: undefined, location: undefined});
