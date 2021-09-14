@@ -4,7 +4,7 @@ import FrontOfCard from "./FrontOfCard";
 import {TouchableOpacity} from "react-native";
 import constants from "../../constants";
 
-const GachaResultView = ({navigation, gachaResult, doGachaAgain, resetGacha}) => {
+const GachaResultView = ({navigation, gachaResult, doGacha, resetGacha}) => {
 
     const scrollViewRef = useRef();
     const [scrollStartPosition, setScrollStartPosition] = useState(0);
@@ -20,7 +20,7 @@ const GachaResultView = ({navigation, gachaResult, doGachaAgain, resetGacha}) =>
             scrollViewRef.current.scrollTo({y: constants.vh(105)});
         } else if (dragDistance > constants.vh(11)) {
             scrollViewRef.current.scrollToEnd();
-            setTimeout(() => doGachaAgain(), 500);
+            setTimeout(() => doGacha(), 500);
         } else if (-constants.vh(10) > dragDistance) {
             scrollViewRef.current.scrollTo({y: 0});
             setTimeout(() => resetGacha(), 500);

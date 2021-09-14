@@ -162,7 +162,7 @@ const PanelMask = styled.View`
 
 const Panel = styled.View`
   width: ${constants.vw(78)}px;
-  height: ${constants.vh(56)}px;
+  height: ${constants.vh(57.5)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
   border-radius: ${constants.vw(8)}px;;
   border-width: ${constants.vw(1.2)}px;;

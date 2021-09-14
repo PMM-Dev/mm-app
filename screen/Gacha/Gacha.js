@@ -8,6 +8,7 @@ import {getRestaurantByGacha} from "../../components/Api/AppRestaurantApi";
 import RestaurantEnum from "../../RestaurantEnum";
 import Theme from "../../style/Theme";
 import GachaResultView from "../../components/Gacha/GachaResultView";
+import GachaAnimationView from "../../components/Gacha/GachaAnimationView";
 
 const Gacha = ({navigation}) => {
     const [korean, setKorean] = useState(false);
@@ -24,12 +25,12 @@ const Gacha = ({navigation}) => {
     const [sidegate, setSidegate] = useState(false);
     const [backgate, setBackgate] = useState(false);
 
-    const cardPackLottieView = useRef(null);
+    const gachaLottieRef = useRef(null);
 
-    const [isConditionStep, setIsConditionStep] = useState(true);
+    const [isConditionStep, setIsConditionStep] = useState(false);
     const [isAnimationStep, setIsAnimationStep] = useState(false);
 
-    const [isServerRequstLoading, setIsServerRequestLoading] = useState(false);
+    const [isServerRequestLoading, setIsServerRequestLoading] = useState(false);
     const [gachaResult, setGachaResult] = useState({type: undefined, price: undefined, location: undefined});
 
     const doGacha = async () => {
@@ -45,20 +46,12 @@ const Gacha = ({navigation}) => {
         setGachaResult(result);
         setIsServerRequestLoading(false);
         setIsConditionStep(false);
-    }
-
-    const doGachaAgain = () => {
-        setIsConditionStep(true);
-        doGacha()
+        setIsAnimationStep(true);
     }
 
     const resetGacha = () => {
         setIsConditionStep(true)
-    }
-
-    const play = () => {
-        cardPackLottieView.current.reset();
-        cardPackLottieView.current.play();
+        setIsAnimationStep(true);
     }
 
     return (
@@ -95,7 +88,7 @@ const Gacha = ({navigation}) => {
                         setBackgate={setBackgate}
                     />
                     {
-                        isServerRequstLoading &&
+                        isServerRequestLoading &&
                         <LoadingMask>
                             <ActivityIndicator color={Theme.hlRed} size={"large"}/>
                         </LoadingMask>
@@ -103,19 +96,9 @@ const Gacha = ({navigation}) => {
                 </>
             ) : (<>
                 {isAnimationStep ? (
-                    <GachaView>
-                        <TouchableOpacity onPress={() => play()}>
-                            <LottieView ref={cardPackLottieView}
-                                        source={require("../../assets/animation/gacha_test.json")}
-                                        loop={false}
-                                        style={{
-                                            width: 500,
-                                            backgroundColor: '#fff',
-                                        }}/>
-                        </TouchableOpacity>
-                    </GachaView>
+                    <GachaAnimationView gachaLottieRef={gachaLottieRef} setIsAnimationStep={setIsAnimationStep}/>
                 ) : (
-                    <GachaResultView navigation={navigation} gachaResult={gachaResult} doGachaAgain={doGachaAgain} resetGacha={resetGacha} />
+                    <GachaResultView navigation={navigation} gachaResult={gachaResult} doGacha={doGacha} resetGacha={resetGacha} />
                 )}
             </>)}
         </Page>
@@ -138,11 +121,6 @@ const LoadingMask = styled.View`
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-`;
-
-const GachaView = styled.View`
-  width: 100%;
-  height: 100%;
 `;
 
 export default Gacha;
