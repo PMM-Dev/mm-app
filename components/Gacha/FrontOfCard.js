@@ -10,7 +10,7 @@ import {
 import KoreanEnum from "../../KoreanEnum";
 import {Converter} from "../Converter";
 
-const ResultCard = ({id, title, type, price, location, navigation}) => {
+const FrontOfCard = ({id, title, type, price, location, navigation}) => {
     const [cardImage, setCardImage] = useState(<CardImage source={GACHA_CARD_FRONT_KOREAN}/>);
     const [titleColor, setTitleColor] = useState("#000000");
     const [contentColor, setContentColor] = useState("#000000");
@@ -100,31 +100,23 @@ const ResultCard = ({id, title, type, price, location, navigation}) => {
     }, [])
 
     return (
-        <>
-            <StatusBarSpace/>
-            <CardHolder>
-                <CardButton onPress={() =>
-                    navigation.navigate("Restaurant", { restaurantId: id })
-                }>
+        <CardHolder>
+            <CardButton onPress={() =>
+                navigation.navigate("Restaurant", {restaurantId: id})
+            }>
                 {cardImage}
-                </CardButton>
-                <CardTouchAreaAdjustmentTopView />
-                <CardTouchAreaAdjustmentBottomView />
-                <TitleHolder>
-                    <Title color={titleColor}>{title}</Title>
-                </TitleHolder>
-                <Content color={contentColor} top={60.5}>{Converter(type)}</Content>
-                <Content color={contentColor} top={65.3}>{Converter(price)}</Content>
-                <Content color={contentColor} top={70.2}>{Converter(location)}</Content>
-            </CardHolder>
-        </>
+            </CardButton>
+            <CardTouchAreaAdjustmentTopView/>
+            <CardTouchAreaAdjustmentBottomView/>
+            <TitleHolder>
+                <Title color={titleColor}>{title}</Title>
+            </TitleHolder>
+            <Content color={contentColor} top={60.5}>{Converter(type)}</Content>
+            <Content color={contentColor} top={65.3}>{Converter(price)}</Content>
+            <Content color={contentColor} top={70.2}>{Converter(location)}</Content>
+        </CardHolder>
     );
 };
-
-const StatusBarSpace = styled.View`
-  width: ${constants.vw(78)}px;
-  height: ${constants.statusBarHeight}px;
-`
 
 const CardHolder = styled.View`
   width: ${constants.vw(78)}px;
@@ -133,7 +125,7 @@ const CardHolder = styled.View`
 `
 
 const CardButton = styled.TouchableOpacity`
-  
+
 `
 
 const CardImage = styled.Image`
@@ -183,4 +175,4 @@ const Content = styled.Text`
   color: ${(props) => props.color};
 `
 
-export default ResultCard;
+export default FrontOfCard;

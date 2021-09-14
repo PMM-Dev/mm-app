@@ -2,14 +2,12 @@ import React, {useRef, useState} from "react";
 import styled from "styled-components";
 import LottieView from 'lottie-react-native';
 import ConditionPanel from "../../components/Gacha/ConditionPanel";
-import ResultCard from "../../components/Gacha/ResultCard";
 import {ActivityIndicator} from 'react-native-paper'
 import {TouchableOpacity} from "react-native";
 import {getRestaurantByGacha} from "../../components/Api/AppRestaurantApi";
 import RestaurantEnum from "../../RestaurantEnum";
 import Theme from "../../style/Theme";
-import constants from "../../constants";
-import {red} from "react-native-reanimated/src/reanimated2/Colors";
+import GachaResultView from "../../components/Gacha/GachaResultView";
 
 const Gacha = ({navigation}) => {
     const [korean, setKorean] = useState(false);
@@ -47,6 +45,15 @@ const Gacha = ({navigation}) => {
         setGachaResult(result);
         setIsServerRequestLoading(false);
         setIsConditionStep(false);
+    }
+
+    const doGachaAgain = () => {
+        setIsConditionStep(true);
+        doGacha()
+    }
+
+    const resetGacha = () => {
+        setIsConditionStep(true)
     }
 
     const play = () => {
@@ -108,26 +115,7 @@ const Gacha = ({navigation}) => {
                         </TouchableOpacity>
                     </GachaView>
                 ) : (
-                    <ResultView>
-                        <ResultCard id={gachaResult.id} title={gachaResult.name} type={gachaResult.type}
-                                    price={gachaResult.price} location={gachaResult.location} navigation={navigation}/>
-                        <TouchableOpacity
-                            onPress={() => {
-                                setIsConditionStep(true);
-                                doGacha()
-                            }}
-                            style={{position: "absolute", top: constants.vh(13), width: constants.vw(70)}}>
-                            {/*<AnnounceText top={13}>상단으로 드래그해서 다시 뽑기</AnnounceText>*/}
-                            <AnnounceText>상단으로 드래그해서 다시 뽑기</AnnounceText>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={()=> setIsConditionStep(true)}
-                            style={{position: "absolute", top: constants.vh(16), width: constants.vw(70)}}>
-                            {/*<AnnounceText top={16}>하단으로 드래그해서 조건 초기화</AnnounceText>*/}
-                            <AnnounceText>하단으로 드래그해서 조건 초기화</AnnounceText>
-                        </TouchableOpacity>
-                        <AnnounceText bottom={10}>자세히 볼려면 카드를 클릭하세요</AnnounceText>
-                    </ResultView>
+                    <GachaResultView navigation={navigation} gachaResult={gachaResult} doGachaAgain={doGachaAgain} resetGacha={resetGacha} />
                 )}
             </>)}
         </Page>
@@ -155,25 +143,6 @@ const LoadingMask = styled.View`
 const GachaView = styled.View`
   width: 100%;
   height: 100%;
-  justify-content: center;
-  align-items: center;
 `;
-
-const ResultView = styled.View`
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-`;
-
-const AnnounceText = styled.Text`
-  position: absolute;
-  ${(props) => props.top ? `top: ${constants.vh(props.top)}px` : ""};
-  ${(props) => props.bottom ? `bottom: ${constants.vh(props.bottom)}px` : ""};
-
-  ${(props) => props.theme.NanumSquareRFont}
-  font-size: ${constants.vw(5)}px;
-  color: ${(props) => props.theme.fontGray};
-`
 
 export default Gacha;
