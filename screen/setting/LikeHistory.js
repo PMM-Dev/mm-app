@@ -4,18 +4,18 @@ import constants from "../../constants";
 import { ActivityIndicator } from "react-native-paper";
 import Theme from "../../style/Theme";
 import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
+import { getLikeRestaurant } from "../../components/Api/AppMemberApi";
 
-const LikeHistory = () => {
+const LikeHistory = ({ navigation }) => {
   const [restaurants, setRestaurants] = useState();
 
-  // useEffect(() => {
-  //   async function initRestaurants() {
-  //     const loadedRestaurants = await getRestaurantsByGenre(genre);
-  //     setRestaurants(loadedRestaurants);
-  //   }
-
-  //   initRestaurants();
-  // }, []);
+  useEffect(() => {
+    async function initRestaurants() {
+      const loadedRestaurants = await getLikeRestaurant();
+      setRestaurants(loadedRestaurants);
+    }
+    initRestaurants();
+  }, []);
 
   return (
     <Page>
