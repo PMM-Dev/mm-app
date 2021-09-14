@@ -157,7 +157,7 @@ const ConditionPanel = ({
 };
 
 const PanelMask = styled.View`
-  ${(props) => props.theme.opacityMask10};
+  ${(props) => props.theme.opacityMask5};
 `;
 
 const Panel = styled.View`
