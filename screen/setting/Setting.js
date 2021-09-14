@@ -1,48 +1,48 @@
 import React from "react";
 import styled from "styled-components";
-import {useProfile} from "../../components/AuthContext";
-import {SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON} from "../../image";
+import { useProfile } from "../../components/AuthContext";
+import { SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON } from "../../image";
 import constants from "../../constants";
-import MenuViews from '../../components/Setting/MenuView'
+import MenuViews from "../../components/Setting/MenuView";
 
+const Setting = ({ navigation: { navigate } }) => {
+  const { email, name, picture, role } = useProfile();
 
-const Setting = ({navigation: {navigate}}) => {
-        const {email, name, picture, role} = useProfile();
-
-        return (
-            <Page>
-                <ScrollView alwaysBounceVertical={false}>
-                    <SrollViewWrapper>
-                        <StatusBarSpace/>
-                        <HeaderView>
-                            <Icon source={SETTING_PENCIL_ICON} style={{tintColor: "#000000"}}/>
-                        </HeaderView>
-                        <ProfileView>
-                            <Portrait>
-                                <PortraitImage
-                                    source={
-                                        picture === undefined
-                                            ? SETTING_GUEST_PORTRAIT
-                                            : {
-                                                uri: picture,
-                                            }
-                                    }
-                                    resizeMode={"cover"}
-                                />
-                            </Portrait>
-                            <Information>
-                                <NameTitle>{name}</NameTitle>
-                                <EmailTitle>{email}</EmailTitle>
-                            </Information>
-                        </ProfileView>
-                        <MenuViews navigate={navigate} role={role}/>
-                    </SrollViewWrapper>
-                </ScrollView>
-            </Page>
-        );
-    }
-;
-
+  return (
+    <Page>
+      <ScrollView alwaysBounceVertical={false}>
+        <SrollViewWrapper>
+          <StatusBarSpace />
+          <HeaderView>
+            <Icon
+              source={SETTING_PENCIL_ICON}
+              style={{ tintColor: "#000000" }}
+            />
+          </HeaderView>
+          <ProfileView>
+            <Portrait>
+              <PortraitImage
+                source={
+                  picture === undefined
+                    ? SETTING_GUEST_PORTRAIT
+                    : {
+                        uri: picture,
+                      }
+                }
+                resizeMode={"cover"}
+              />
+            </Portrait>
+            <Information>
+              <NameTitle>{name}</NameTitle>
+              <EmailTitle>{email}</EmailTitle>
+            </Information>
+          </ProfileView>
+          <MenuViews navigate={navigate} role={role} />
+        </SrollViewWrapper>
+      </ScrollView>
+    </Page>
+  );
+};
 const Page = styled.View`
   width: ${constants.width}px;
   height: ${constants.height - constants.statusBarHeight}px;
@@ -66,12 +66,12 @@ const HeaderView = styled.View`
   justify-content: flex-end;
   align-items: flex-end;
   padding-right: ${constants.vw(4)}px;
-`
+`;
 
 const Icon = styled.Image`
   height: ${constants.vw(5.6)}px;
   width: ${constants.vw(5.6)}px;
-`
+`;
 
 const ProfileView = styled.View`
   flex: 1;

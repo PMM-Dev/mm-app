@@ -12,7 +12,6 @@ const ReviewHistory = () => {
   //     async function initComment() {
   //         const restaurantReviews = await getRestaurantReviews(restaurantId);
   //         setReviews(restaurantReviews);
-  //         setIsReviewLoading(false);
   //     }
 
   //     initComment();
