@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useLogOut, ROLE_ADMIN } from "../../components/AuthContext";
 import {
@@ -16,14 +16,25 @@ import {
   TextInput,
 } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getMyMemberInfo } from "../Api/AppMemberApi";
 
 const MenuView = ({ navigate, role }) => {
   const logout = useLogOut();
 
   const [isTokenDialogVisible, setIsTokenDialogVisible] = useState(false);
   const [tokenDialogText, setTokenDialogText] = useState("");
+  const [userData, setUserData] = useState();
+  useEffect(() => {
+    async function bringUserData() {
+      const broughtUserData = await getMyMemberInfo();
+      setUserData(broughtUserData);
+    }
+    bringUserData();
+  }, [userData]);
 
-  return (
+  return userData === undefined ? (
+    <></>
+  ) : (
     <MenuViews>
       {/*<UtilButton>*/}
       {/*    <Icon source={SETTING_PROFILE_ICON} style={{tintColor: "#000000"}}/>*/}
@@ -31,11 +42,11 @@ const MenuView = ({ navigate, role }) => {
       {/*</UtilButton>*/}
       <InfoMenuView>
         <InfoButton left onPress={() => navigate("LikeHistory")}>
-          <BigTitle>20</BigTitle>
+          <BigTitle>{userData.likeCount}</BigTitle>
           <Title info>좋아요</Title>
         </InfoButton>
         <InfoButton info onPress={() => navigate("ReviewHistory")}>
-          <BigTitle info>10</BigTitle>
+          <BigTitle info>{userData.reviewCount}</BigTitle>
           <Title info>리뷰</Title>
         </InfoButton>
       </InfoMenuView>

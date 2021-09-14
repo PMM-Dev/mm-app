@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const getRestaurants = async () => {
   try {
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    const response = await axios.get(API_URL + "/restaurant/list", {
+    const response = await axios.get(API_URL + "/restaurant/location/list", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -67,7 +67,10 @@ export const getRestaurantReviews = async (id) => {
 
 export const postReview = async (content, grade, restaurantId) => {
   try {
+    console.log(content);
+    console.log(grade);
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    console.log(API_URL + "/restaurant/" + restaurantId + "/review");
     const response = await axios.post(
       API_URL + "/restaurant/" + restaurantId + "/review",
       {
