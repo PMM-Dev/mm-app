@@ -1,86 +1,106 @@
-import React, {useEffect, useRef} from "react";
+import React, {useRef, useState} from "react";
 import styled from "styled-components";
 import LottieView from 'lottie-react-native';
-import {GACHA_MACHINE_IMG} from "../../image";
-import ConditionPanel from "./ConditionPanel";
+import ConditionPanel from "../../components/Gacha/ConditionPanel";
+import {ActivityIndicator} from 'react-native-paper'
 import {TouchableOpacity} from "react-native";
+import {getRestaurantByGacha} from "../../components/Api/AppRestaurantApi";
+import RestaurantEnum from "../../RestaurantEnum";
+import Theme from "../../style/Theme";
+import GachaResultView from "../../components/Gacha/GachaResultView";
+import GachaAnimationView from "../../components/Gacha/GachaAnimationView";
 
-const Gacha = () => {
-    const [isConditionSet, setIsConditionSet] = React.useState(false);
+const Gacha = ({navigation}) => {
+    const [korean, setKorean] = useState(false);
+    const [flour, setFlour] = useState(false);
+    const [dessert, setDessert] = useState(false);
+    const [japanese, setJapanese] = useState(false);
+    const [fastfood, setFastfood] = useState(false);
+    const [western, setWestern] = useState(false);
+    const [asian, setAsian] = useState(false);
+    const [cheap, setCheap] = useState(false);
+    const [reasonable, setReasonable] = useState(false);
+    const [expensive, setExpensive] = useState(false);
+    const [frontgate, setFrontgate] = useState(false);
+    const [sidegate, setSidegate] = useState(false);
+    const [backgate, setBackgate] = useState(false);
 
-    const [korean, setKorean] = React.useState(false);
-    const [flour, setFlour] = React.useState(false);
-    const [dessert, setDessert] = React.useState(false);
-    const [japanese, setJapanese] = React.useState(false);
-    const [fastfood, setFastfood] = React.useState(false);
-    const [western, setWestern] = React.useState(false);
-    const [asian, setAsian] = React.useState(false);
+    const gachaLottieRef = useRef(null);
 
-    const [cheap, setCheap] = React.useState(false);
-    const [reasonable, setReasonable] = React.useState(false);
-    const [expensive, setExpensive] = React.useState(false);
+    const [isConditionStep, setIsConditionStep] = useState(true);
+    const [isAnimationStep, setIsAnimationStep] = useState(true);
 
-    const [frontgate, setFrontgate] = React.useState(false);
-    const [sidegate, setSidegate] = React.useState(false);
-    const [backgate, setBackgate] = React.useState(false);
+    const [isServerRequestLoading, setIsServerRequestLoading] = useState(false);
+    const [gachaResult, setGachaResult] = useState({type: undefined, price: undefined, location: undefined});
 
-    const cardPackLottieView = useRef(null);
+    const doGacha = async () => {
+        setIsServerRequestLoading(true);
 
-    // useEffect(() => {
-    //     play();
-    // }, []);
+        const result = await getRestaurantByGacha(RestaurantEnum.KOREAN, RestaurantEnum.CHEAP);
+        if (result === undefined) {
+            setIsServerRequestLoading(false);
+            alert("뽑기에 실패하였습니다. 다시 시도해주세요.")
+            return;
+        }
 
-    const play = () => {
-        cardPackLottieView.current.reset();
-        cardPackLottieView.current.play();
+        setGachaResult(result);
+        setIsServerRequestLoading(false);
+        setIsConditionStep(false);
+        setIsAnimationStep(true);
+    }
 
+    const resetGacha = () => {
+        setIsConditionStep(true)
+        setIsAnimationStep(true);
     }
 
     return (
         <Page>
-            {!isConditionSet ? (
-                <ConditionPanel
-                    setIsConditionSet={setIsConditionSet}
-                    korean={korean}
-                    flour={flour}
-                    dessert={dessert}
-                    japanese={japanese}
-                    fastfood={fastfood}
-                    western={western}
-                    asian={asian}
-                    setKorean={setKorean}
-                    setFlour={setFlour}
-                    setDessert={setDessert}
-                    setJapanese={setJapanese}
-                    setFastfood={setFastfood}
-                    setWestern={setWestern}
-                    setAsian={setAsian}
-                    cheap={cheap}
-                    reasonable={reasonable}
-                    expensive={expensive}
-                    setCheap={setCheap}
-                    setReasonable={setReasonable}
-                    setExpensive={setExpensive}
-                    frontgate={frontgate}
-                    sidegate={sidegate}
-                    backgate={backgate}
-                    setFrontgate={setFrontgate}
-                    setSidegate={setSidegate}
-                    setBackgate={setBackgate}
-                />
-            ) : (
-                <GachaView>
-                    <TouchableOpacity onPress={() => play()}>
-                        <LottieView ref={cardPackLottieView} source={require("../../assets/animation/test.json")}
-                                    style={{
-                                        width: 500,
-                                        backgroundColor: '#eee',
-                                    }} autoPlay loop />
-                    </TouchableOpacity>
-                    {/*<Machine source={GACHA_MACHINE_IMG}/>*/}
-                    {/* <ResultPanel /> */}
-                </GachaView>
-            )}
+            {isConditionStep ? (
+                <>
+                    <ConditionPanel
+                        doGacha={doGacha}
+                        korean={korean}
+                        flour={flour}
+                        dessert={dessert}
+                        japanese={japanese}
+                        fastfood={fastfood}
+                        western={western}
+                        asian={asian}
+                        setKorean={setKorean}
+                        setFlour={setFlour}
+                        setDessert={setDessert}
+                        setJapanese={setJapanese}
+                        setFastfood={setFastfood}
+                        setWestern={setWestern}
+                        setAsian={setAsian}
+                        cheap={cheap}
+                        reasonable={reasonable}
+                        expensive={expensive}
+                        setCheap={setCheap}
+                        setReasonable={setReasonable}
+                        setExpensive={setExpensive}
+                        frontgate={frontgate}
+                        sidegate={sidegate}
+                        backgate={backgate}
+                        setFrontgate={setFrontgate}
+                        setSidegate={setSidegate}
+                        setBackgate={setBackgate}
+                    />
+                    {
+                        isServerRequestLoading &&
+                        <LoadingMask>
+                            <ActivityIndicator color={Theme.hlRed} size={"large"}/>
+                        </LoadingMask>
+                    }
+                </>
+            ) : (<>
+                {isAnimationStep ? (
+                    <GachaAnimationView gachaLottieRef={gachaLottieRef} setIsAnimationStep={setIsAnimationStep}/>
+                ) : (
+                    <GachaResultView navigation={navigation} gachaResult={gachaResult} doGacha={doGacha} resetGacha={resetGacha} />
+                )}
+            </>)}
         </Page>
     );
 };
@@ -92,16 +112,15 @@ const Page = styled.View`
   align-items: center;
 `;
 
-const GachaView = styled.View`
+const LoadingMask = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-`;
-
-const Machine = styled.Image`
-  height: 70%;
-  aspect-ratio: 0.57;
 `;
 
 export default Gacha;

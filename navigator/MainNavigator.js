@@ -23,6 +23,7 @@ import constants from "../constants";
 import MapNavigator from "./MapNavigator";
 import {useSaveJwtToken, useSaveProfileData} from "../components/AuthContext";
 import {getMyMemberInfo} from "../components/Api/AppMemberApi";
+import GachaNavigator from "./GachaNavigator";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -112,7 +113,7 @@ const MainNavigator = () => {
                 />
                 <BottomTab.Screen
                     name="Gacha"
-                    component={Gacha}
+                    component={GachaNavigator}
                     options={{
                         title: "뽑기",
                         tabBarIcon: ({focused}) => {

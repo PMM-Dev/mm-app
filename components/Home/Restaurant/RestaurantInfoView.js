@@ -7,9 +7,9 @@ import StarMaker from "../../Map/StarMaker";
 import {
   REVIEW_ICON,
   FULLHEART,
-  RESTAURANT_ICON_TYPE,
-  RESTAURANT_ICON_PRICE,
-  RESTAURANT_ICON_LOCATION,
+  ICON_TYPE,
+  ICON_PRICE,
+  ICON_LOCATION,
 } from "../../../image";
 import { Converter } from "../../Converter";
 import constants from "../../../constants";
