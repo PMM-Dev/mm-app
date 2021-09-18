@@ -3,17 +3,15 @@ import { COMMENT_PROFILE } from "../../../image";
 import StarMaker from "../../Map/StarMaker";
 import styled from "styled-components";
 import constants from "../../../constants";
-import { useProfile } from "../../AuthContext";
 
 const Review = ({ review }) => {
-  const { name } = useProfile();
   return (
     <Content>
       <ReviewInfo>
         <ProfileImage source={COMMENT_PROFILE} />
         <NameAndGradeView>
           <AuthorNameButton onPress={() => {}}>
-            <AuthorNameText>{name}</AuthorNameText>
+            <AuthorNameText>{review.authorName}</AuthorNameText>
           </AuthorNameButton>
           <StarMaker grade={review.grade} size={constants.vw(5)} />
         </NameAndGradeView>

@@ -13,6 +13,10 @@ import RestaurantInfoView from "../../components/Home/Restaurant/RestaurantInfoV
 import RestaurantReviewView from "../../components/Home/Restaurant/RestaurantReviewView";
 import Header from "../../components/Header/Header";
 
+export const setReviewNumExport = (num) => {
+  setReviewNum(num);
+};
+
 const Restaurant = ({ route, navigation }) => {
   const { email } = useProfile();
   const restaurantId = route.params.restaurantId;
@@ -20,6 +24,8 @@ const Restaurant = ({ route, navigation }) => {
 
   const [data, setData] = useState();
   const [isStartScroll, setIsStartScroll] = useState(false);
+  const [likeNum, setLikeNum] = useState();
+  const [reviewNum, setReviewNum] = useState();
 
   const handleScrollState = (event) => {
     if (event.nativeEvent.contentOffset.y > 1) {
@@ -38,6 +44,13 @@ const Restaurant = ({ route, navigation }) => {
     getRestaurantData();
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      setLikeNum(data.likeCount);
+      setReviewNum(data.reviewCount);
+    }
+  }, [data]);
+
   return (
     <Screen>
       {data ? (
@@ -49,6 +62,7 @@ const Restaurant = ({ route, navigation }) => {
             isTitleShown={isStartScroll}
             restaurantId={restaurantId}
             isLikeButtonPressed={data.didLike}
+            setLikeNum={setLikeNum}
           />
           <Scroll
             alwaysBounceVertical={false}
@@ -56,10 +70,14 @@ const Restaurant = ({ route, navigation }) => {
             scrollEventThrottle={16}
           >
             <Wrapper>
-              <RestaurantInfoView data={data} picture={resPicture} />
+              <RestaurantInfoView
+                data={data}
+                picture={resPicture}
+                likeNum={likeNum}
+              />
               <RestaurantReviewView
                 restaurantId={restaurantId}
-                reviewCount={data.reviewCount}
+                reviewCount={reviewNum}
               />
             </Wrapper>
           </Scroll>

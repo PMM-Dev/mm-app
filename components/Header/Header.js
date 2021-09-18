@@ -15,6 +15,7 @@ const Header = ({
   restaurantId,
   onPressRightButton,
   isLikeButtonPressed,
+  setLikeNum,
 }) => {
   const [menuComponent, setMenuComponent] = useState();
 
@@ -38,6 +39,7 @@ const Header = ({
           navigation={navigation}
           restaurantId={restaurantId}
           isLikeButtonPressed={isLikeButtonPressed}
+          setLikeNum={setLikeNum}
         />
       );
     } else if (routeName === "WriteReview") {
