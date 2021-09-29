@@ -6,6 +6,7 @@ export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png");
 export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png");
 export const COMMENT_PROFILE = require("./assets/CommonIcons/profile.png");
 export const RESTAURANT_IMAGE = require("./assets/CommonIcons/img_box.png");
+export const NO_RESULT = require("./assets/CommonIcons/noResult.png");
 
 export const REVIEW_ICON = require("./assets/CommonIcons/review.png");
 export const FULLHEART = require("./assets/CommonIcons/heart_2.png");

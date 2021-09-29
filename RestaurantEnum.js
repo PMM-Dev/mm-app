@@ -7,6 +7,8 @@ const Type = {
   WESTERN: "WESTERN",
   ASIAN: "ASIAN",
   NIGHTFOOD: "NIGHTFOOD",
+  DELIVERABLE: "DELIVERABLE",
+  RANKING: "RANKING"
 };
 
 const Price = {

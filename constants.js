@@ -16,6 +16,8 @@ const statusBarHeight = Constants.statusBarHeight;
 
 const pureheight = vh(92);
 
+const contentHeight = pureheight - (vh(6.3) + statusBarHeight);
+
 const platform = Device.osName;
 
-export default { width, height, vw, vh, statusBarHeight, pureheight, platform };
+export default { width, height, vw, vh, statusBarHeight, pureheight, contentHeight, platform };

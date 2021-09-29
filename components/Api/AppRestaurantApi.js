@@ -27,7 +27,7 @@ export const getRestaurantsByGenre = async (genre) => {
     });
     return response.data;
   } catch (e) {
-    console.error("[AppApi][Exception] " + e);
+    console.error("[AppApi][Exception] failed getRestaurantsByGenre()" + e);
     return [];
   }
 };
