@@ -9,6 +9,7 @@ import RestaurantEnum from "../../RestaurantEnum";
 import Theme from "../../style/Theme";
 import GachaResultView from "../../components/Gacha/GachaResultView";
 import GachaAnimationView from "../../components/Gacha/GachaAnimationView";
+import KoreanEnum from "../../KoreanEnum";
 
 const Gacha = ({navigation}) => {
     const [korean, setKorean] = useState(false);
@@ -18,12 +19,15 @@ const Gacha = ({navigation}) => {
     const [fastfood, setFastfood] = useState(false);
     const [western, setWestern] = useState(false);
     const [asian, setAsian] = useState(false);
+
     const [cheap, setCheap] = useState(false);
     const [reasonable, setReasonable] = useState(false);
     const [expensive, setExpensive] = useState(false);
-    const [frontgate, setFrontgate] = useState(false);
-    const [sidegate, setSidegate] = useState(false);
-    const [backgate, setBackgate] = useState(false);
+
+    const [frontGate, setFrontGate] = useState(false);
+    const [sideGate, setSideGate] = useState(false);
+    const [backGate, setBackGate] = useState(false);
+    const [artGate, setArtGate] = useState(false);
 
     const gachaLottieRef = useRef(null);
 
@@ -33,10 +37,39 @@ const Gacha = ({navigation}) => {
     const [isServerRequestLoading, setIsServerRequestLoading] = useState(false);
     const [gachaResult, setGachaResult] = useState({type: undefined, price: undefined, location: undefined});
 
+    const getSelectedTypeList = () => {
+        let list = [];
+        if (korean) list.push(RestaurantEnum.KOREAN);
+        if (flour) list.push(RestaurantEnum.FLOUR);
+        if (dessert) list.push(RestaurantEnum.DESSERT);
+        if (japanese) list.push(RestaurantEnum.JAPANESE);
+        if (fastfood) list.push(RestaurantEnum.FASTFOOD);
+        if (western) list.push(RestaurantEnum.WESTERN);
+        if (asian) list.push(RestaurantEnum.ASIAN);
+        return list;
+    }
+
+    const getSelectedPriceList = () => {
+        let list = [];
+        if (cheap) list.push(RestaurantEnum.CHEAP);
+        if (reasonable) list.push(RestaurantEnum.REASONABLE);
+        if (expensive) list.push(RestaurantEnum.EXPENSIVE);
+        return list;
+    }
+
+    const getSelectedLocationList = () => {
+        let list = [];
+        if (frontGate) list.push(RestaurantEnum.FRONTGATE);
+        if (sideGate) list.push(RestaurantEnum.SIDEGATE);
+        if (backGate) list.push(RestaurantEnum.BACKGATE);
+        if (artGate) list.push(RestaurantEnum.ARTGATE);
+        return list;
+    }
+
     const doGacha = async () => {
         setIsServerRequestLoading(true);
 
-        const result = await getRestaurantByGacha(RestaurantEnum.KOREAN, RestaurantEnum.CHEAP);
+        const result = await getRestaurantByGacha(getSelectedTypeList(), getSelectedPriceList(), getSelectedLocationList());
         if (result === undefined) {
             setIsServerRequestLoading(false);
             alert("뽑기에 실패하였습니다. 다시 시도해주세요.")
@@ -80,12 +113,14 @@ const Gacha = ({navigation}) => {
                         setCheap={setCheap}
                         setReasonable={setReasonable}
                         setExpensive={setExpensive}
-                        frontgate={frontgate}
-                        sidegate={sidegate}
-                        backgate={backgate}
-                        setFrontgate={setFrontgate}
-                        setSidegate={setSidegate}
-                        setBackgate={setBackgate}
+                        frontGate={frontGate}
+                        sideGate={sideGate}
+                        backGate={backGate}
+                        artGate={artGate}
+                        setFrontGate={setFrontGate}
+                        setSideGate={setSideGate}
+                        setBackGate={setBackGate}
+                        setArtGate={setArtGate}
                     />
                     {
                         isServerRequestLoading &&

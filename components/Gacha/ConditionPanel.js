@@ -7,153 +7,161 @@ import constants from "../../constants";
 import {ICON_LOCATION, ICON_PRICE, ICON_TYPE} from "../../image";
 
 const ConditionPanel = ({
-                          doGacha,
-  korean,
-  flour,
-  dessert,
-  japanese,
-  fastfood,
-  western,
-  asian,
-  setKorean,
-  setFlour,
-  setDessert,
-  setJapanese,
-  setFastfood,
-  setWestern,
-  setAsian,
-  cheap,
-  reasonable,
-  expensive,
-  setCheap,
-  setReasonable,
-  setExpensive,
-  frontgate,
-  sidegate,
-  backgate,
-  setFrontgate,
-  setSidegate,
-  setBackgate,
-}) => {
-  const resetAllCondition = () => {
-    setKorean(false);
-    setFlour(false);
-    setDessert(false);
-    setJapanese(false);
-    setFastfood(false);
-    setWestern(false);
-    setAsian(false);
-    setCheap(false);
-    setReasonable(false);
-    setExpensive(false);
-    setFrontgate(false);
-    setSidegate(false);
-    setBackgate(false);
-  };
+                            doGacha,
+                            korean,
+                            flour,
+                            dessert,
+                            japanese,
+                            fastfood,
+                            western,
+                            asian,
+                            setKorean,
+                            setFlour,
+                            setDessert,
+                            setJapanese,
+                            setFastfood,
+                            setWestern,
+                            setAsian,
+                            cheap,
+                            reasonable,
+                            expensive,
+                            setCheap,
+                            setReasonable,
+                            setExpensive,
+                            frontGate,
+                            sideGate,
+                            backGate,
+                            artGate,
+                            setFrontGate,
+                            setSideGate,
+                            setBackGate,
+                            setArtGate
+                        }) => {
+    const resetAllCondition = () => {
+        setKorean(false);
+        setFlour(false);
+        setDessert(false);
+        setJapanese(false);
+        setFastfood(false);
+        setWestern(false);
+        setAsian(false);
+        setCheap(false);
+        setReasonable(false);
+        setExpensive(false);
+        setFrontGate(false);
+        setSideGate(false);
+        setBackGate(false);
+        setArtGate(false);
+    };
 
-  return (
-    <PanelMask>
-      <Panel>
-        <Title>오늘 땡기는 건?</Title>
-        <RowTitle first>
-          <RowTitleImage source={ICON_TYPE} style={{tintColor: Theme.fontBlack}} />
-          <RowTitleText>종류</RowTitleText>
-        </RowTitle>
-        <CheckboxTable>
-          <CheckButton
-            text={KoreanEnum.KOREAN}
-            checked={korean}
-            setChecked={setKorean}
-          />
-          <CheckButton
-            text={KoreanEnum.FLOUR}
-            checked={flour}
-            setChecked={setFlour}
-          />
-          <CheckButton
-            text={KoreanEnum.DESSERT}
-            checked={dessert}
-            setChecked={setDessert}
-          />
-          <CheckButton
-            text={KoreanEnum.JAPANESE}
-            checked={japanese}
-            setChecked={setJapanese}
-          />
-        </CheckboxTable>
-        <CheckboxTable>
-          <CheckButton
-            text={KoreanEnum.FASTFOOD}
-            checked={fastfood}
-            setChecked={setFastfood}
-          />
-          <CheckButton
-            text={KoreanEnum.WESTERN}
-            checked={western}
-            setChecked={setWestern}
-          />
-          <CheckButton
-            text={KoreanEnum.ASIAN}
-            checked={asian}
-            setChecked={setAsian}
-          />
-        </CheckboxTable>
-        <RowTitle>
-          <RowTitleImage money source={ICON_PRICE} style={{tintColor: Theme.fontBlack}} />
-          <RowTitleText>가격대</RowTitleText>
-        </RowTitle>
-        <CheckboxTable>
-          <CheckButton
-            text={KoreanEnum.CHEAP}
-            checked={cheap}
-            setChecked={setCheap}
-          />
-          <CheckButton
-            text={KoreanEnum.REASONABLE}
-            checked={reasonable}
-            setChecked={setReasonable}
-          />
-          <CheckButton
-            text={KoreanEnum.EXPENSIVE}
-            checked={expensive}
-            setChecked={setExpensive}
-          />
-        </CheckboxTable>
-        <RowTitle>
-          <RowTitleImage source={ICON_LOCATION} style={{tintColor: Theme.fontBlack}} />
-          <RowTitleText>위치</RowTitleText>
-        </RowTitle>
-        <CheckboxTable>
-          <CheckButton
-            text={KoreanEnum.FRONTGATE}
-            checked={frontgate}
-            setChecked={setFrontgate}
-          />
-          <CheckButton
-            text={KoreanEnum.SIDEGATE}
-            checked={sidegate}
-            setChecked={setSidegate}
-          />
-          <CheckButton
-            text={KoreanEnum.BACKGATE}
-            checked={backgate}
-            setChecked={setBackgate}
-          />
-        </CheckboxTable>
-        <ButtonView>
-          <Button
-            color={Theme.backgroundGray}
-            onPress={() => resetAllCondition()}
-          >
-            <ButtonText color={Theme.fontBlack}>초기화</ButtonText>
-          </Button>
-          <Button color={Theme.hlOrange} onPress={() => doGacha()}>
-            <ButtonText color={Theme.backgroundWhite}>뽑기</ButtonText>
-          </Button>
-        </ButtonView>
-      </Panel>
-    </PanelMask>
-  );
+    return (
+        <PanelMask>
+            <Panel>
+                <Title>오늘 땡기는 건?</Title>
+                <RowTitle first>
+                    <RowTitleImage source={ICON_TYPE} style={{tintColor: Theme.fontBlack}}/>
+                    <RowTitleText>종류</RowTitleText>
+                </RowTitle>
+                <CheckboxTable>
+                    <CheckButton
+                        text={KoreanEnum.KOREAN}
+                        checked={korean}
+                        setChecked={setKorean}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.FLOUR}
+                        checked={flour}
+                        setChecked={setFlour}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.DESSERT}
+                        checked={dessert}
+                        setChecked={setDessert}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.JAPANESE}
+                        checked={japanese}
+                        setChecked={setJapanese}
+                    />
+                </CheckboxTable>
+                <CheckboxTable>
+                    <CheckButton
+                        text={KoreanEnum.FASTFOOD}
+                        checked={fastfood}
+                        setChecked={setFastfood}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.WESTERN}
+                        checked={western}
+                        setChecked={setWestern}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.ASIAN}
+                        checked={asian}
+                        setChecked={setAsian}
+                    />
+                </CheckboxTable>
+                <RowTitle>
+                    <RowTitleImage money source={ICON_PRICE} style={{tintColor: Theme.fontBlack}}/>
+                    <RowTitleText>가격대</RowTitleText>
+                </RowTitle>
+                <CheckboxTable>
+                    <CheckButton
+                        text={KoreanEnum.CHEAP}
+                        checked={cheap}
+                        setChecked={setCheap}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.REASONABLE}
+                        checked={reasonable}
+                        setChecked={setReasonable}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.EXPENSIVE}
+                        checked={expensive}
+                        setChecked={setExpensive}
+                    />
+                </CheckboxTable>
+                <RowTitle>
+                    <RowTitleImage source={ICON_LOCATION} style={{tintColor: Theme.fontBlack}}/>
+                    <RowTitleText>위치</RowTitleText>
+                </RowTitle>
+                <CheckboxTable>
+                    <CheckButton
+                        text={KoreanEnum.FRONTGATE}
+                        checked={frontGate}
+                        setChecked={setFrontGate}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.SIDEGATE}
+                        checked={sideGate}
+                        setChecked={setSideGate}
+                    />
+                    <CheckButton
+                        text={KoreanEnum.BACKGATE}
+                        checked={backGate}
+                        setChecked={setBackGate}
+                    />
+                  <CheckButton
+                      text={KoreanEnum.ARTGATE}
+                      checked={artGate}
+                      setChecked={setArtGate}
+                  />
+                </CheckboxTable>
+                <ButtonView>
+                    <Button
+                        color={Theme.backgroundGray}
+                        onPress={() => resetAllCondition()}
+                    >
+                        <ButtonText color={Theme.fontBlack}>초기화</ButtonText>
+                    </Button>
+                    <Button color={Theme.hlOrange} onPress={() => doGacha()}>
+                        <ButtonText color={Theme.backgroundWhite}>뽑기</ButtonText>
+                    </Button>
+                </ButtonView>
+            </Panel>
+        </PanelMask>
+    );
 };
 
 const PanelMask = styled.View`
@@ -167,7 +175,7 @@ const Panel = styled.View`
   border-radius: ${constants.vw(8)}px;;
   border-width: ${constants.vw(1.2)}px;;
   border-color: ${(props) => props.theme.hlOrange};
-  
+
   align-items: center;
   padding-top: ${constants.vh(4)}px;
 `;

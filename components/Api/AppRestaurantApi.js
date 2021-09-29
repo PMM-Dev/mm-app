@@ -32,17 +32,19 @@ export const getRestaurantsByGenre = async (genre) => {
   }
 };
 
-export const getRestaurantByGacha = async (type, price, location) => {
+export const getRestaurantByGacha = async (typeList, priceList, locationList) => {
     let conditionUrl = "?";
-    if (type !== undefined) {
-        conditionUrl += "type=" + type + "&";
+    if (typeList.length !== 0) {
+        conditionUrl += "type=" + typeList.join() + "&";
     }
-    if (price !== undefined) {
-        conditionUrl += "price=" + price + "&";
+    if (priceList.length !== 0) {
+        conditionUrl += "price=" + priceList.join() + "&";
     }
-    if (location !== undefined) {
-        conditionUrl += "location=" + location + "&";
+    if (locationList.length !== 0) {
+        conditionUrl += "location=" + locationList.join();
     }
+
+    console.log(conditionUrl);
 
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
