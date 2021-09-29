@@ -44,8 +44,6 @@ export const getRestaurantByGacha = async (typeList, priceList, locationList) =>
         conditionUrl += "location=" + locationList.join();
     }
 
-    console.log(conditionUrl);
-
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.get(API_URL + "/restaurant/condition" + conditionUrl,
