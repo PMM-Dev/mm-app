@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import constants from "../../constants";
+import NotPreparedAnnouncement from "../NotPreparedAnnouncement";
 
 const Dummy = [
   {
@@ -44,6 +45,7 @@ const Dummy = [
 const NoticePart = () => {
   return (
     <HomePart>
+      <NotPreparedAnnouncement />
       <Header>
         <Title>공지사항</Title>
         <MoreButton>더보기 +</MoreButton>

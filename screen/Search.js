@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import constants from "../constants";
 import SearchTypeBar from "../components/Home/Search/SearchTypeBar";
@@ -6,97 +6,99 @@ import SearchCard from "../components/Home/Search/SearchCard";
 import SearchTextInput from "../components/Home/SearchTextInput";
 import BackButton from "../components/Header/BackButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import NotPreparedAnnouncement from "../components/NotPreparedAnnouncement";
 
-const Search = ({ route, navigation }) => {
-  const [curType, setcurType] = useState("식당");
-  const [pressed, setPressed] = useState(false);
-  const [searchHistory, setSearchHistory] = useState([]);
+const Search = ({route, navigation}) => {
+    const [curType, setcurType] = useState("식당");
+    const [pressed, setPressed] = useState(false);
+    const [searchHistory, setSearchHistory] = useState([]);
 
-  const getData = async () => {
-    try {
-      const recentFindJson = await AsyncStorage.getItem("@" + curType);
-      if (recentFindJson === null) {
-        return [];
-      }
+    const getData = async () => {
+        try {
+            const recentFindJson = await AsyncStorage.getItem("@" + curType);
+            if (recentFindJson === null) {
+                return [];
+            }
 
-      const parsedSearchHistory = JSON.parse(recentFindJson);
-      setSearchHistory(parsedSearchHistory);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+            const parsedSearchHistory = JSON.parse(recentFindJson);
+            setSearchHistory(parsedSearchHistory);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
-  const refreshData = () => {
-    const newSearchHistory = [...searchHistory];
-    setSearchHistory(newSearchHistory);
-    return newSearchHistory;
-  };
+    const refreshData = () => {
+        const newSearchHistory = [...searchHistory];
+        setSearchHistory(newSearchHistory);
+        return newSearchHistory;
+    };
 
-  const addData = (newValue) => {
-    const newSearchHistory = [...searchHistory, newValue];
-    if (newSearchHistory.length >= 15) newSearchHistory.shift();
-    setSearchHistory(newSearchHistory);
-    return newSearchHistory;
-  };
+    const addData = (newValue) => {
+        const newSearchHistory = [...searchHistory, newValue];
+        if (newSearchHistory.length >= 15) newSearchHistory.shift();
+        setSearchHistory(newSearchHistory);
+        return newSearchHistory;
+    };
 
-  const storeData = async (newValue) => {
-    try {
-      const newSearchHistory =
-        newValue === "" ? refreshData() : addData(newValue);
-      const searchHistoryJson = JSON.stringify(newSearchHistory);
-      await AsyncStorage.setItem("@" + curType, searchHistoryJson);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+    const storeData = async (newValue) => {
+        try {
+            const newSearchHistory =
+                newValue === "" ? refreshData() : addData(newValue);
+            const searchHistoryJson = JSON.stringify(newSearchHistory);
+            await AsyncStorage.setItem("@" + curType, searchHistoryJson);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
-  useEffect(() => {
-    getData();
-  }, [curType]);
+    useEffect(() => {
+        getData();
+    }, [curType]);
 
-  useEffect(() => {
-    console.log("save");
-    console.log(searchHistory);
-  }, [searchHistory]);
-  return (
-    <Screen>
-      <InputBar>
-        <BackButton goBack={() => navigation.goBack()} />
-        <SearchTextInput changePressed={setPressed} storeData={storeData} />
-      </InputBar>
-      <SearchTypeBar
-        searchType={route.params.param.searchType}
-        changeType={setcurType}
-        changePressed={setPressed}
-      />
-      {pressed ? (
-        <></>
-      ) : (
-        <ContentRecent>
-          <Title>
-            <TitleText>최근 검색어</TitleText>
-          </Title>
-          <ScrollSize>
-            <Scroll>
-              {searchHistory &&
-                searchHistory
-                  .slice(0)
-                  .reverse()
-                  .map((element, key) => (
-                    <SearchCard
-                      key={key}
-                      data={element}
-                      storedData={searchHistory}
-                      storeData={storeData}
-                      setPressed={setPressed}
-                    />
-                  ))}
-            </Scroll>
-          </ScrollSize>
-        </ContentRecent>
-      )}
-    </Screen>
-  );
+    useEffect(() => {
+        console.log("save");
+        console.log(searchHistory);
+    }, [searchHistory]);
+    return (
+        <Screen>
+            <InputBar>
+                <BackButton goBack={() => navigation.goBack()}/>
+                <SearchTextInput changePressed={setPressed} storeData={storeData}/>
+            </InputBar>
+            <SearchTypeBar
+                searchType={route.params.param.searchType}
+                changeType={setcurType}
+                changePressed={setPressed}
+            />
+            {pressed ? (
+                <></>
+            ) : (
+                <ContentRecent>
+                    <NotPreparedAnnouncement/>
+                    <Title>
+                        <TitleText>최근 검색어</TitleText>
+                    </Title>
+                    <ScrollSize>
+                        <Scroll>
+                            {searchHistory &&
+                            searchHistory
+                                .slice(0)
+                                .reverse()
+                                .map((element, key) => (
+                                    <SearchCard
+                                        key={key}
+                                        data={element}
+                                        storedData={searchHistory}
+                                        storeData={storeData}
+                                        setPressed={setPressed}
+                                    />
+                                ))}
+                        </Scroll>
+                    </ScrollSize>
+                </ContentRecent>
+            )}
+        </Screen>
+    );
 };
 
 const Screen = styled.View`

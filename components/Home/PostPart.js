@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PostNoticeMini from "./PostNoticeMini";
 import constants from "../../constants";
+import NotPreparedAnnouncement from "../NotPreparedAnnouncement";
 
 const Dummy = [
   {
@@ -45,6 +46,7 @@ const Dummy = [
 const PostPart = () => {
   return (
     <HomePart>
+      <NotPreparedAnnouncement />
       <Header>
           <Title>게시글</Title>
           <MoreButton>더보기 +</MoreButton>

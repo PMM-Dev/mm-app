@@ -94,24 +94,6 @@ const MainNavigator = () => {
                     }}
                 />
                 <BottomTab.Screen
-                    name="Theme"
-                    component={Gacha}
-                    options={{
-                        title: "테마",
-                        tabBarIcon: ({focused}) => {
-                            return (
-                                focused ? <Image
-                                    source={NAVIGATOR_THEME_SELECTED}
-                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
-                                /> : <Image
-                                    source={NAVIGATOR_THEME_UNSELECTED}
-                                    style={{width: navigatorIconSize, height: navigatorIconSize}}
-                                />
-                            );
-                        },
-                    }}
-                />
-                <BottomTab.Screen
                     name="Gacha"
                     component={GachaNavigator}
                     options={{
