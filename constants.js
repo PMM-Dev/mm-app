@@ -20,4 +20,9 @@ const contentHeight = pureheight - (vh(6.3) + statusBarHeight);
 
 const platform = Device.osName;
 
-export default { width, height, vw, vh, statusBarHeight, pureheight, contentHeight, platform };
+const isIos = () => {
+  if (Device.osName === "iOS") return true;
+  else return false;
+}
+
+export default { width, height, vw, vh, statusBarHeight, pureheight, contentHeight, platform, isIos};

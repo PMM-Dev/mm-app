@@ -68,21 +68,21 @@ const RestaurantInfoView = ({ data, picture, likeNum }) => {
       </TagView>
       <TextInfoView>
         <BigIcon
-          source={RESTAURANT_ICON_TYPE}
+          source={ICON_TYPE}
           style={{ tintColor: Theme.fontBlackGray }}
         />
         <InfoText>{Converter(data.type)}</InfoText>
       </TextInfoView>
       <TextInfoView>
         <BigIcon
-          source={RESTAURANT_ICON_PRICE}
+          source={ICON_PRICE}
           style={{ tintColor: Theme.fontBlackGray }}
         />
         <InfoText>{Converter(data.price)}</InfoText>
       </TextInfoView>
       <TextInfoView>
         <BigIcon
-          source={RESTAURANT_ICON_LOCATION}
+          source={ICON_LOCATION}
           style={{ tintColor: Theme.fontBlackGray }}
         />
         <InfoText>{Converter(data.location)}</InfoText>

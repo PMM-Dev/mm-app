@@ -48,7 +48,7 @@ const PostPart = () => {
     <HomePart>
       <NotPreparedAnnouncement />
       <Header>
-          <Title>게시글</Title>
+          <Title>자유게시판</Title>
           <MoreButton>더보기 +</MoreButton>
       </Header>
       <Content>
@@ -68,7 +68,7 @@ const PostPart = () => {
 
 const HomePart = styled.View`
   width: 100%;
-  height: 30%;
+  height: ${constants.vh(25)}px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -77,7 +77,7 @@ const HomePart = styled.View`
   background-color: ${(props) => props.theme.backgroundWhite};
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.fontGray};
-  margin-bottom: ${constants.vh(1)}px;
+  margin-bottom: ${constants.vh(2)}px;
 `;
 
 const Header = styled.View`
@@ -86,7 +86,7 @@ const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 10px;
+  margin-bottom: 2.5%;
 `;
 
 const Title = styled.Text`

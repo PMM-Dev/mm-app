@@ -24,13 +24,13 @@ const Mask = styled.View`
 `
 
 const Icon = styled.Image`
-  height: ${constants.vh(15)}px;
+  height: 65%;
   resize-mode: contain;
 `
 
 const Title = styled.Text`
   ${(props) => props.theme.NanumSquareBFont};
-  font-size: ${constants.vw(3.5)}px;
+  font-size: ${constants.vh(1.5)}px;
   color: ${(props) => props.theme.fontDeepBlack};
   margin-top: ${constants.vh(0.5)}px;
 `

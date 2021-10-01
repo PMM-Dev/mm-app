@@ -3,23 +3,22 @@ import styled from "styled-components";
 import constants from "../../constants";
 import NotPreparedAnnouncement from "../NotPreparedAnnouncement";
 
-const NoticePart = () => {
-  return (
-    <HomePart>
-      <NotPreparedAnnouncement />
-      <Header>
-        <Title>공지사항</Title>
-        <MoreButton>더보기 +</MoreButton>
-      </Header>
-      <Content>
-      </Content>
-    </HomePart>
-  );
+const ThemePart = ({title}) => {
+    return (
+        <Holder>
+            <Header>
+                <Title>{title}</Title>
+            </Header>
+            <Content>
+            </Content>
+            <NotPreparedAnnouncement />
+        </Holder>
+    );
 };
 
-const HomePart = styled.View`
+const Holder = styled.View`
   width: 100%;
-  height: ${constants.vh(8.5)}px;
+  height: ${constants.vh(16)}px;;
   justify-content: center;
   align-items: center;
 
@@ -43,18 +42,12 @@ const Title = styled.Text`
   font-size: ${constants.vw(5)}px;;
 `;
 
-const MoreButton = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  font-size: ${constants.vw(3.3)}px;
-  color: ${(props) => props.theme.hlOrange};
-`;
-
 const Content = styled.View`
   width: 90%;
-  height: 30%;
+  height: 55%;
   border: 0.5px;
   border-radius: ${constants.vw(1)}px;
 `;
 
 
-export default NoticePart;
+export default ThemePart;
