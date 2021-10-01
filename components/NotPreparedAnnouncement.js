@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import constants from "../constants";
-import {NOT_PREPARED} from '../image';
+import {NOT_PREPARED_ANNOUNCEMENT} from '../image';
 
 const NotPreparedAnnouncement = () => {
     return (
         <Mask>
-            <Icon source={NOT_PREPARED}/>
+            <Icon source={NOT_PREPARED_ANNOUNCEMENT}/>
             <Title>아직 공사중이에요</Title>
         </Mask>
     )

@@ -15,6 +15,7 @@ import KoreanEnum from "../../KoreanEnum";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import RestaurantEnum from "../../RestaurantEnum";
 import {View} from "react-native";
+import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 
 const RestaurantList = ({route, navigation}) => {
     const genre = route.params.param.genre;
@@ -70,41 +71,42 @@ const RestaurantList = ({route, navigation}) => {
 
     return (
         <Screen>
-                <Wrapper>
-                    <Header
-                        route={route}
-                        navigation={navigation}
-                        title={KoreanEnum[genre]}
-                    />
-                    <WhiteSpace>
-                        <LinearGradient
-                            colors={[Theme.hlRed, Theme.hlOrange]}
-                            style={{width: "100%", height: "6%"}}
-                        >
-                            <FilterView>
-                                <FilterView1>
-                                    <Wtext>영업중</Wtext>
-                                </FilterView1>
-                                <FilterView2>
-                                    <Wtext>심야</Wtext>
-                                </FilterView2>
-                                <FilterView3>
-                                    <Wtext>가격낮은순</Wtext>
-                                </FilterView3>
-                                <FilterView4>
-                                    <Wtext>후기많은순</Wtext>
-                                </FilterView4>
-                                <FilterView5>
-                                    <Wtext last={true}>관심많은순</Wtext>
-                                </FilterView5>
-                            </FilterView>
-                        </LinearGradient>
-                        <RestaurantListScroll>
-                            {isLoading ? (
-                                <View styled={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                                    <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
-                                </View>
-                            ) : (
+            <Wrapper>
+                <Header
+                    route={route}
+                    navigation={navigation}
+                    title={KoreanEnum[genre]}
+                />
+                <WhiteSpace>
+                    <LinearGradient
+                        colors={[Theme.hlRed, Theme.hlOrange]}
+                        style={{width: "100%", height: "6%"}}
+                    >
+                        <FilterView>
+                            <FilterView1>
+                                <Wtext>영업중</Wtext>
+                            </FilterView1>
+                            <FilterView2>
+                                <Wtext>심야</Wtext>
+                            </FilterView2>
+                            <FilterView3>
+                                <Wtext>가격낮은순</Wtext>
+                            </FilterView3>
+                            <FilterView4>
+                                <Wtext>후기많은순</Wtext>
+                            </FilterView4>
+                            <FilterView5>
+                                <Wtext last={true}>관심많은순</Wtext>
+                            </FilterView5>
+                        </FilterView>
+                    </LinearGradient>
+                    <RestaurantListScroll>
+                        {isLoading ? (
+                            <View styled={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                                <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
+                            </View>
+                        ) : (
+                            restaurants ? (
                                 restaurants.length === 0 ? (
                                     <NoContentAnnouncement/>
                                 ) : (
@@ -112,11 +114,15 @@ const RestaurantList = ({route, navigation}) => {
                                         <RestaurantView key={index}>
                                             <RestaurantCard data={data} navigation={navigation}/>
                                         </RestaurantView>
-                                    )))
-                            )}
-                        </RestaurantListScroll>
-                    </WhiteSpace>
-                </Wrapper>
+                                    ))
+                                )
+                            ) : (
+                                <RequestFailedAnnouncement/>
+                            )
+                        )}
+                    </RestaurantListScroll>
+                </WhiteSpace>
+            </Wrapper>
         </Screen>
     );
 };

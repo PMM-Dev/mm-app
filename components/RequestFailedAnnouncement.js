@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import constants from "../constants";
-import {NO_RESULT_ANNOUNCEMENT} from '../image';
+import {REQUEST_FAILED_ANNOUNCEMENT} from '../image';
 
-const NoContentAnnouncement = () => {
+const RequestFailedAnnouncement = () => {
     return (
         <Holder>
-            <Icon source={NO_RESULT_ANNOUNCEMENT}/>
-            <Title>아직 데이터가 부족해서 쓸쓸해요</Title>
+            <Icon source={REQUEST_FAILED_ANNOUNCEMENT}/>
+            <Title>아이고! 문제가 생긴 것 같아요</Title>
         </Holder>
     )
 }
@@ -31,4 +31,4 @@ const Title = styled.Text`
   margin-top: ${constants.vh(2.5)}px;
 `
 
-export default NoContentAnnouncement;
+export default RequestFailedAnnouncement;
