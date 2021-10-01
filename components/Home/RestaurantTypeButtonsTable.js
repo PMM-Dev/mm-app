@@ -105,7 +105,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.RANKING},
+                            param: {genre: RestaurantEnum.RANK},
                         })
                     }
                 >

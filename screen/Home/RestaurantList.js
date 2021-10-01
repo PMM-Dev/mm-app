@@ -6,7 +6,11 @@ import Header from "../../components/Header/Header";
 import constants from "../../constants";
 import {LinearGradient} from "expo-linear-gradient";
 import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
-import {getRestaurantsByGenre} from "../../components/Api/AppRestaurantApi";
+import {
+    getRestaurantsByDeliverable,
+    getRestaurantsByGenre,
+    getRestaurantsByRank
+} from "../../components/Api/AppRestaurantApi";
 import KoreanEnum from "../../KoreanEnum";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import RestaurantEnum from "../../RestaurantEnum";
@@ -19,22 +23,49 @@ const RestaurantList = ({route, navigation}) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        async function initRestaurants() {
+        async function requestRestaurantsByType() {
             try {
-                if (genre === RestaurantEnum.DELIVERABLE || genre === RestaurantEnum.RANKING) {
-                    setIsLoading(false);
-                    return;
-                }
-
                 const loadedRestaurants = await getRestaurantsByGenre(genre);
                 setRestaurants(loadedRestaurants);
-                setIsLoading(false);
             } catch (e) {
                 alert("서버 요청에 실패했습니다.");
+                setRestaurants(undefined);
+            } finally {
+                setIsLoading(false);
             }
         }
 
-        initRestaurants();
+        async function requestRestaurantsByDeliverable() {
+            try {
+                const loadedRestaurants = await getRestaurantsByDeliverable();
+                setRestaurants(loadedRestaurants);
+            } catch (e) {
+                alert("서버 요청에 실패했습니다.");
+                setRestaurants(undefined);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        async function requestRestaurantsByRank() {
+            try {
+                const loadedRestaurants = await getRestaurantsByRank();
+                setRestaurants(loadedRestaurants);
+            } catch (e) {
+                alert("서버 요청에 실패했습니다.");
+                setRestaurants(undefined);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        if (genre === RestaurantEnum.DELIVERABLE) {
+            requestRestaurantsByDeliverable()
+        } else if (genre === RestaurantEnum.RANK) {
+            requestRestaurantsByRank()
+        } else {
+            requestRestaurantsByType();
+        }
     }, []);
 
     return (

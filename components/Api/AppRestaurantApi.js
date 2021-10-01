@@ -3,33 +3,63 @@ import {API_URL} from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getRestaurants = async () => {
-  try {
-    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    const response = await axios.get(API_URL + "/restaurant/location/list", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (e) {
-    console.error("[AppApi][Exception] failed getRestaurants() " + e);
-    return [];
-  }
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/location/list", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurants() " + e);
+        return [];
+    }
 };
 
 export const getRestaurantsByGenre = async (genre) => {
-  try {
-    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    const response = await axios.get(API_URL + "/restaurant/type/" + genre, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (e) {
-    console.error("[AppApi][Exception] failed getRestaurantsByGenre()" + e);
-    return [];
-  }
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/type/" + genre, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByGenre()" + e);
+        return [];
+    }
+};
+
+export const getRestaurantsByDeliverable = async (genre) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/deliverable", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByDeliverable()" + e);
+        return [];
+    }
+};
+
+export const getRestaurantsByRank = async (genre) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/rank", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByRank()" + e);
+        return [];
+    }
 };
 
 export const getRestaurantByGacha = async (typeList, priceList, locationList) => {
@@ -94,23 +124,23 @@ export const getRestaurantReviews = async (id) => {
 };
 
 export const postReview = async (content, grade, restaurantId) => {
-  try {
-    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    const response = await axios.post(
-      API_URL + "/restaurant/" + restaurantId + "/review",
-      {
-        description: content,
-        grade: grade,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    console.error("[AppApi][Exception] " + e);
-    return undefined;
-  }
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.post(
+            API_URL + "/restaurant/" + restaurantId + "/review",
+            {
+                description: content,
+                grade: grade,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] " + e);
+        return undefined;
+    }
 };
