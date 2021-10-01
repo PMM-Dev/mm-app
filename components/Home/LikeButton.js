@@ -8,17 +8,24 @@ import {
 } from "../Api/AppMemberApi";
 import { useProfile } from "../AuthContext";
 
-const LikeButton = ({ restaurantId, size, isLikeButtonPressed }) => {
+const LikeButton = ({
+  restaurantId,
+  size,
+  isLikeButtonPressed,
+  setLikeNum,
+}) => {
   const { email } = useProfile();
   const [isLike, setIsLike] = useState(isLikeButtonPressed);
 
   const pressLike = async () => {
     if (isLike) {
       setIsLike(false);
+      setLikeNum((prev) => prev - 1);
       await subtractLikeRestaurant(restaurantId);
     } else {
       setIsLike(true);
       await appendLikeRestaurant(restaurantId);
+      setLikeNum((prev) => prev + 1);
     }
   };
 

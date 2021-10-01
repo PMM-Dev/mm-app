@@ -1,125 +1,136 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import MapView, {PROVIDER_GOOGLE, Marker, Callout} from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 
-import {korLocationAPI} from "../../Api/GoogleAppApi"
+import { korLocationAPI } from "../../Api/GoogleAppApi";
 import StarMaker from "../../Map/StarMaker";
 import {
-    REVIEW_ICON,
-    FULLHEART,
-    ICON_TYPE,
-    ICON_PRICE,
-    ICON_LOCATION
+  REVIEW_ICON,
+  FULLHEART,
+  ICON_TYPE,
+  ICON_PRICE,
+  ICON_LOCATION,
 } from "../../../image";
-import {Converter} from "../../Converter";
+import { Converter } from "../../Converter";
 import constants from "../../../constants";
 import * as Location from "expo-location";
 import Theme from "../../../style/Theme";
 
-const RestaurantInfoView = ({data, picture}) => {
-    const mapRef = React.createRef();
+const RestaurantInfoView = ({ data, picture, likeNum }) => {
+  const mapRef = React.createRef();
 
-    const [marker, setMarker] = useState();
-    const [koreanAddress, setKoreanAddress] = useState([]);
+  const [marker, setMarker] = useState();
+  const [koreanAddress, setKoreanAddress] = useState([]);
 
-    useEffect(() => {
-        async function initLocation() {
-            const {status} = await Location.requestForegroundPermissionsAsync();
-            if (status !== "granted") {
-                alert("Permission to access location was denied");
-                return;
-            }
+  useEffect(() => {
+    async function initLocation() {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        alert("Permission to access location was denied");
+        return;
+      }
 
-            setMarker({
-                title: data.title,
-                description: data.description,
-                latlng: {
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                },
-            });
-        }
+      setMarker({
+        title: data.title,
+        description: data.description,
+        latlng: {
+          latitude: data.latitude,
+          longitude: data.longitude,
+        },
+      });
+    }
 
-        async function initKoreanAddress() {
-            const RestaurantKoreanAddress = await korLocationAPI(data);
-            setKoreanAddress(RestaurantKoreanAddress);
-        }
+    async function initKoreanAddress() {
+      const RestaurantKoreanAddress = await korLocationAPI(data);
+      setKoreanAddress(RestaurantKoreanAddress);
+    }
 
-        initLocation()
-        initKoreanAddress();
+    initLocation();
+    initKoreanAddress();
+  }, []);
 
-    }, []);
-
-    return (
-        <InfoView>
-            <TitleView>
-                <Title>{data.name}</Title>
-                <StarMaker grade={data.averageGrade} size={30} starRatio={90}/>
-            </TitleView>
-            <NumberInfosView>
-                <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}}/>
-                <IconText color={Theme.fontBlue}>{data.reviewCount}</IconText>
-                <SmallIcon source={FULLHEART}/>
-                <IconText color={Theme.hlRed}>{data.likeCount}</IconText>
-            </NumberInfosView>
-            <TagView>
-                {data.themes.map((list, index) => (
-                    <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
-                ))}
-            </TagView>
-            <TextInfoView>
-                <BigIcon source={ICON_TYPE} style={{tintColor: Theme.fontBlackGray}}/>
-                <InfoText>{Converter(data.type)}</InfoText>
-            </TextInfoView>
-            <TextInfoView>
-                <BigIcon source={ICON_PRICE} style={{tintColor: Theme.fontBlackGray}}/>
-                <InfoText>{Converter(data.price)}</InfoText>
-            </TextInfoView>
-            <TextInfoView>
-                <BigIcon source={ICON_LOCATION} style={{tintColor: Theme.fontBlackGray}}/>
-                <InfoText>{Converter(data.location)}</InfoText>
-            </TextInfoView>
-            <DescriptionText isEmpty={data.description === ""}>{data.description}</DescriptionText>
-            <LocationView>
-                <InfoTitleText>위치</InfoTitleText>
-                <LocationText>{koreanAddress}</LocationText>
-                <MapViewHolderView>
-                    <MapViewHolder>
-                        <MapScroll contentContainerStyle={{flex: 1}}>
-                            <Container>
-                                {marker && (
-                                    <MapView
-                                        style={{flex: 1}}
-                                        initialRegion={{
-                                            latitude: data.latitude,
-                                            longitude: data.longitude,
-                                            latitudeDelta: 0.0008,
-                                            longitudeDelta: 0.0008,
-                                        }}
-                                        showsUserLocation={true}
-                                        provider={PROVIDER_GOOGLE}
-                                        customMapStyle={mapStyle}
-                                        zoomEnabled={true}
-                                        followUserLocation={true}
-                                        showsMyLocationButton={true}
-                                        ref={mapRef}
-                                    >
-                                        <Marker
-                                            coordinate={marker.latlng}
-                                            title={marker.title}
-                                            description={marker.description}>
-                                            <Callout tooltip={true}></Callout>
-                                        </Marker>
-                                    </MapView>
-                                )}
-                            </Container>
-                        </MapScroll>
-                    </MapViewHolder>
-                </MapViewHolderView>
-            </LocationView>
-        </InfoView>
-    );
-}
+  return (
+    <InfoView>
+      <TitleView>
+        <Title>{data.name}</Title>
+        <StarMaker grade={data.averageGrade} size={30} starRatio={90} />
+      </TitleView>
+      <NumberInfosView>
+        <SmallIcon source={REVIEW_ICON} style={{ tintColor: Theme.fontBlue }} />
+        <IconText color={Theme.fontBlue}>{data.reviewCount}</IconText>
+        <SmallIcon source={FULLHEART} />
+        <IconText color={Theme.hlRed}>{likeNum}</IconText>
+      </NumberInfosView>
+      <TagView>
+        {data.themes.map((list, index) => (
+          <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
+        ))}
+      </TagView>
+      <TextInfoView>
+        <BigIcon
+          source={RESTAURANT_ICON_TYPE}
+          style={{ tintColor: Theme.fontBlackGray }}
+        />
+        <InfoText>{Converter(data.type)}</InfoText>
+      </TextInfoView>
+      <TextInfoView>
+        <BigIcon
+          source={RESTAURANT_ICON_PRICE}
+          style={{ tintColor: Theme.fontBlackGray }}
+        />
+        <InfoText>{Converter(data.price)}</InfoText>
+      </TextInfoView>
+      <TextInfoView>
+        <BigIcon
+          source={RESTAURANT_ICON_LOCATION}
+          style={{ tintColor: Theme.fontBlackGray }}
+        />
+        <InfoText>{Converter(data.location)}</InfoText>
+      </TextInfoView>
+      <DescriptionText isEmpty={data.description === ""}>
+        {data.description}
+      </DescriptionText>
+      <LocationView>
+        <InfoTitleText>위치</InfoTitleText>
+        <LocationText>{koreanAddress}</LocationText>
+        <MapViewHolderView>
+          <MapViewHolder>
+            <MapScroll contentContainerStyle={{ flex: 1 }}>
+              <Container>
+                {marker && (
+                  <MapView
+                    style={{ flex: 1 }}
+                    initialRegion={{
+                      latitude: data.latitude,
+                      longitude: data.longitude,
+                      latitudeDelta: 0.0008,
+                      longitudeDelta: 0.0008,
+                    }}
+                    showsUserLocation={true}
+                    provider={PROVIDER_GOOGLE}
+                    customMapStyle={mapStyle}
+                    zoomEnabled={true}
+                    followUserLocation={true}
+                    showsMyLocationButton={true}
+                    ref={mapRef}
+                  >
+                    <Marker
+                      coordinate={marker.latlng}
+                      title={marker.title}
+                      description={marker.description}
+                    >
+                      <Callout tooltip={true}></Callout>
+                    </Marker>
+                  </MapView>
+                )}
+              </Container>
+            </MapScroll>
+          </MapViewHolder>
+        </MapViewHolderView>
+      </LocationView>
+    </InfoView>
+  );
+};
 
 const InfoView = styled.View`
   width: 100%;
@@ -134,7 +145,7 @@ const TitleView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const Title = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
@@ -145,31 +156,31 @@ const NumberInfosView = styled.View`
   flex-direction: row;
   margin-top: ${constants.vh(0.5)}px;
   margin-bottom: ${constants.vh(4)}px;
-`
+`;
 
 const SmallIcon = styled.Image`
   width: ${constants.vw(5)}px;
   height: ${constants.vw(5)}px;
   margin-right: ${constants.vw(2)}px;
-`
+`;
 
 const IconText = styled.Text`
-  color: ${(props) => props.color ? props.color : props.theme.fontBlackGray};
+  color: ${(props) => (props.color ? props.color : props.theme.fontBlackGray)};
   font-size: ${constants.vh(1.5)}px;
   margin-right: ${constants.vw(3.5)}px;
-`
+`;
 
 const TextInfoView = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: ${constants.vh(1)}px;
-`
+`;
 
 const InfoText = styled.Text`
   color: ${(props) => props.theme.fontBlackGray};
   font-size: ${constants.vh(1.9)}px;
   margin-top: ${constants.vh(0.2)}px;
-`
+`;
 
 const ExplanationTagText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
@@ -181,21 +192,21 @@ const TagView = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: center;
-
 `;
 
 const BigIcon = styled.Image`
   width: ${constants.vw(5)}px;
   height: ${constants.vw(5)}px;
   margin-right: ${constants.vw(4)}px;
-`
+`;
 
 const DescriptionText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vh(1.5)}px;
   color: ${(props) => props.theme.fontBlackGray};
-  margin-top: ${(props) => props.isEmpty ? 0 : constants.vh(2)}px;
-  margin-bottom: ${(props) => props.isEmpty ? constants.vh(2) : constants.vh(5)}px;
+  margin-top: ${(props) => (props.isEmpty ? 0 : constants.vh(2))}px;
+  margin-bottom: ${(props) =>
+    props.isEmpty ? constants.vh(2) : constants.vh(5)}px;
 `;
 
 const InfoTitleText = styled.Text`
@@ -227,7 +238,7 @@ const MapViewHolder = styled.View`
   width: 100%;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const MapScroll = styled.ScrollView`
   width: 100%;
@@ -239,32 +250,32 @@ const Container = styled.View`
 `;
 
 const mapStyle = [
-    {
-        featureType: "road.arterial",
-        elementType: "labels",
-        stylers: [
-            {
-                visibility: "off",
-            },
-        ],
-    },
-    {
-        featureType: "road.highway",
-        elementType: "labels",
-        stylers: [
-            {
-                visibility: "off",
-            },
-        ],
-    },
-    {
-        featureType: "road.local",
-        stylers: [
-            {
-                visibility: "off",
-            },
-        ],
-    },
-]
+  {
+    featureType: "road.arterial",
+    elementType: "labels",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "labels",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "road.local",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+];
 
 export default RestaurantInfoView;

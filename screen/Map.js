@@ -116,9 +116,11 @@ const Map = ({ route, navigation }) => {
                 showsMyLocationButton={false}
                 ref={mapRef}
                 onPress={() => {
-                  setBookMarkPressed(false);
-                  setWhichBookmark(-1);
-                  setisClusterPressed(false);
+                  if (bookMarkPressed === true || isClusterPressed === true) {
+                    setBookMarkPressed(false);
+                    setWhichBookmark(-1);
+                    setisClusterPressed(false);
+                  }
                 }}
                 preserveClusterPressBehavior={true}
                 maxZoom={16}

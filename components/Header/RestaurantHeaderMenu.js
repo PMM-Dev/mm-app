@@ -6,6 +6,7 @@ const RestaurantHeaderMenu = ({
   navigation,
   restaurantId,
   isLikeButtonPressed,
+  setLikeNum,
 }) => {
   return (
     <>
@@ -13,6 +14,7 @@ const RestaurantHeaderMenu = ({
       <LikeButton
         restaurantId={restaurantId}
         isLikeButtonPressed={isLikeButtonPressed}
+        setLikeNum={setLikeNum}
       />
     </>
   );
