@@ -23,7 +23,6 @@ const RestaurantList = ({route, navigation}) => {
             try {
                 if (genre === RestaurantEnum.DELIVERABLE || genre === RestaurantEnum.RANKING) {
                     setIsLoading(false);
-                    console.log("NO");
                     return;
                 }
 
@@ -40,7 +39,6 @@ const RestaurantList = ({route, navigation}) => {
 
     return (
         <Screen>
-            <Scroll contentContainerStyle={{flex: 1}}>
                 <Wrapper>
                     <Header
                         route={route}
@@ -70,7 +68,7 @@ const RestaurantList = ({route, navigation}) => {
                                 </FilterView5>
                             </FilterView>
                         </LinearGradient>
-                        <RestaurantScroll>
+                        <RestaurantListScroll>
                             {isLoading ? (
                                 <View styled={{flex: 1, justifyContent: "center", alignItems: "center"}}>
                                     <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
@@ -85,17 +83,12 @@ const RestaurantList = ({route, navigation}) => {
                                         </RestaurantView>
                                     )))
                             )}
-                        </RestaurantScroll>
+                        </RestaurantListScroll>
                     </WhiteSpace>
                 </Wrapper>
-            </Scroll>
         </Screen>
     );
 };
-
-export default RestaurantList;
-
-const NOTYET = styled.View``;
 
 const RestaurantView = styled.View`
   height: ${constants.vh(13)}px;
@@ -148,7 +141,7 @@ const FilterView5 = styled.TouchableOpacity`
   align-content: center;
 `;
 
-const RestaurantScroll = styled.ScrollView`
+const RestaurantListScroll = styled.ScrollView`
   width: 100%;
   height: 100%;
 `;
@@ -168,10 +161,6 @@ const Wrapper = styled.View`
   height: ${constants.pureheight}px;
 `;
 
-const Scroll = styled.ScrollView`
-  width: 100%;
-`;
-
 const Screen = styled.View`
   width: 100%;
   height: 100%;
@@ -183,3 +172,5 @@ const Foodlist = styled.View`
   height: 28%;
   background-color: ${(props) => props.theme.backgroundGray};
 `;
+
+export default RestaurantList;
