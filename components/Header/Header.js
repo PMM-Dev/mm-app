@@ -6,6 +6,8 @@ import RestaurantListHeaderMenu from "./RestaurantListHeaderMenu";
 import MapHeaderMenu from "./MapHeaderMenu";
 import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
 import WriteReviewHeader from "./WriteReviewHeader";
+import SettingLikeRestaurantHeaderMenu from "./SettingLikeRestaurantHeaderMenu";
+import SettingMyCommentHeaderMenu from "./SettingMyCommentHeaderMenu";
 
 const Header = ({
   route: { name: routeName },
@@ -44,6 +46,18 @@ const Header = ({
       );
     } else if (routeName === "WriteReview") {
       setMenuComponent(<></>);
+    } else if (routeName === "LikeHistory") {
+      setMenuComponent(
+        <SettingLikeRestaurantHeaderMenu
+          navigation={navigation}
+        ></SettingLikeRestaurantHeaderMenu>
+      );
+    } else if (routeName === "ReviewHistory") {
+      setMenuComponent(
+        <SettingMyCommentHeaderMenu
+          navigation={navigation}
+        ></SettingMyCommentHeaderMenu>
+      );
     }
   };
 

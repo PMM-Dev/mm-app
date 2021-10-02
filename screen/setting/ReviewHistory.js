@@ -4,21 +4,24 @@ import constants from "../../constants";
 import { ActivityIndicator } from "react-native-paper";
 import Theme from "../../style/Theme";
 import Review from "../../components/Home/Restaurant/Review";
+import { getMeReview } from "../../components/Api/AppMemberApi";
+import Header from "../../components/Header/Header";
 
-const ReviewHistory = () => {
+const ReviewHistory = ({ route, navigation }) => {
   const [reviews, setReviews] = useState();
-
-  //   useEffect(() => {
-  //     async function initComment() {
-  //         const restaurantReviews = await getRestaurantReviews(restaurantId);
-  //         setReviews(restaurantReviews);
-  //     }
-
-  //     initComment();
-  // }, []);
+  const headerTitle = "내가 작성한 리뷰";
+  console.log(route);
+  useEffect(() => {
+    async function requestMeReview() {
+      const restaurantReviews = await getMeReview();
+      setReviews(restaurantReviews);
+    }
+    requestMeReview();
+  }, []);
 
   return (
     <Page>
+      <Header route={route} navigation={navigation} title={headerTitle} />
       <Scroll contentContainerStyle={{ flex: 1 }}>
         {reviews ? (
           reviews.map((review, index) => <Review review={review} key={index} />)
