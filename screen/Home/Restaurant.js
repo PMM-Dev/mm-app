@@ -26,6 +26,7 @@ const Restaurant = ({ route, navigation }) => {
   const [isStartScroll, setIsStartScroll] = useState(false);
   const [likeNum, setLikeNum] = useState();
   const [reviewNum, setReviewNum] = useState();
+  const [writeReviewButtonOff, setWriteReviewButtonOff] = useState(true);
 
   const handleScrollState = (event) => {
     if (event.nativeEvent.contentOffset.y > 1) {
@@ -34,7 +35,7 @@ const Restaurant = ({ route, navigation }) => {
       setIsStartScroll(false);
     }
   };
-
+  //console.log(writeReviewButtonOff);
   // 들어가면 요청하기 // => 리스트 전용 요청 만들기
   useEffect(() => {
     async function getRestaurantData() {
@@ -78,20 +79,25 @@ const Restaurant = ({ route, navigation }) => {
               <RestaurantReviewView
                 restaurantId={restaurantId}
                 reviewCount={reviewNum}
+                setWriteReviewButtonOff={setWriteReviewButtonOff}
               />
             </Wrapper>
           </Scroll>
-          <WriteReviewButton
-            onPress={() =>
-              navigation.navigate("WriteReview", {
-                email: email,
-                restaurantId: restaurantId,
-                restaurantName: data.name,
-              })
-            }
-          >
-            <WriteReviewIcon source={REVIEW_ICON} />
-          </WriteReviewButton>
+          {writeReviewButtonOff ? (
+            <></>
+          ) : (
+            <WriteReviewButton
+              onPress={() =>
+                navigation.navigate("WriteReview", {
+                  email: email,
+                  restaurantId: restaurantId,
+                  restaurantName: data.name,
+                })
+              }
+            >
+              <WriteReviewIcon source={REVIEW_ICON} />
+            </WriteReviewButton>
+          )}
         </>
       ) : (
         <View

@@ -116,6 +116,7 @@ const Map = ({ route, navigation }) => {
                 showsMyLocationButton={false}
                 ref={mapRef}
                 onPress={() => {
+                  console.log("OnPress");
                   if (bookMarkPressed === true || isClusterPressed === true) {
                     setBookMarkPressed(false);
                     setWhichBookmark(-1);
@@ -127,6 +128,7 @@ const Map = ({ route, navigation }) => {
                 maxZoomLevel={19}
                 radius={35}
                 onClusterPress={(cluster, markers) => {
+                  console.log("cluster");
                   setisClusterPressed(false);
                   if (markers.length <= 5) {
                     setisClusterPressed(true);
@@ -142,6 +144,7 @@ const Map = ({ route, navigation }) => {
                     title={marker.title}
                     description={marker.description}
                     onPress={() => {
+                      console.log("marker");
                       setBookMarkPressed(true);
                       setWhichBookmark(index);
                       setisClusterPressed(false);
