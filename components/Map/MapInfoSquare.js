@@ -8,9 +8,11 @@ import {Converter} from "../Converter";
 import LikeButton from "../Home/LikeButton";
 import {getRestaurantsById} from "../Api/AppRestaurantApi";
 import RequestFailedAnnouncement from "../RequestFailedAnnouncement";
+import {useNavigation} from "@react-navigation/native";
 
 const MapInfoSquare = ({data}) => {
 
+    const navigation = useNavigation();
     const [korLocation, setKorLocation] = useState([]);
     const [restaurant, setRestaurant] = useState();
     const [isError, setIsError] = useState(false);
@@ -57,7 +59,7 @@ const MapInfoSquare = ({data}) => {
                             <PropertyList>
                                 <StarMaker rate={restaurant.averageGrade} size={52} starRatio={85}/>
                                 <ExplanationTag></ExplanationTag>
-                                <DetailButton>
+                                <DetailButton onPress={() => navigation.navigate("Restaurant", {restaurantId: restaurant.id})}>
                                     <DetailButtonText>
                                         더 자세히 보러가기 +
                                     </DetailButtonText>
@@ -106,7 +108,7 @@ const DetailButtonText = styled.Text`
 `;
 
 const DetailButton = styled.TouchableOpacity`
-  
+
   margin-top: ${constants.vh(1)}px;
 `;
 
