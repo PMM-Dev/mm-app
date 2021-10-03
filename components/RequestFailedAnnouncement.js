@@ -14,7 +14,7 @@ const RequestFailedAnnouncement = () => {
 
 const Holder = styled.View`
   width: 100%;
-  height: ${constants.contentHeight}px;
+  height: 100%;
   justify-content: center;
   align-items: center;
 `

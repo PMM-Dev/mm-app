@@ -177,13 +177,15 @@ const RestaurantList = ({route, navigation}) => {
                 )}
                 <RestaurantListScroll>
                     {isLoading ? (
-                        <View styled={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                        <EmptyListView>
                             <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
-                        </View>
+                        </EmptyListView>
                     ) : (
                         restaurants ? (
                             restaurants.length === 0 ? (
-                                <NoContentAnnouncement/>
+                                <EmptyListView>
+                                    <NoContentAnnouncement/>
+                                </EmptyListView>
                             ) : (
                                 restaurants.map((data, index) => (
                                     <RestaurantView key={index}>
@@ -192,7 +194,9 @@ const RestaurantList = ({route, navigation}) => {
                                 ))
                             )
                         ) : (
-                            <RequestFailedAnnouncement/>
+                            <EmptyListView>
+                                <RequestFailedAnnouncement/>
+                            </EmptyListView>
                         )
                     )}
                 </RestaurantListScroll>
@@ -200,6 +204,13 @@ const RestaurantList = ({route, navigation}) => {
         </Screen>
     );
 };
+
+const EmptyListView = styled.View`
+  width: 100%;
+  height: ${constants.contentHeight}px;
+  justify-content: center;
+  align-items: center;
+`
 
 const RestaurantView = styled.View`
   height: ${constants.vh(13)}px;
