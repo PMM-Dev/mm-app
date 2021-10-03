@@ -9,7 +9,12 @@ import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard"
 import {
     getRestaurantsByDeliverable,
     getRestaurantsByType,
-    getRestaurantsByRank
+    getRestaurantsByRank,
+    getRestaurantsByTypeOrderByPriceDesc,
+    getRestaurantsByTypeOrderByPriceAsc,
+    getRestaurantsByTypeOrderByAverageGradeDesc,
+    getRestaurantsByTypeOrderByReviewCountDesc,
+    getRestaurantsByTypeOrderByLikeCountDesc
 } from "../../components/Api/AppRestaurantApi";
 import KoreanEnum from "../../KoreanEnum";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
@@ -18,15 +23,16 @@ import {View} from "react-native";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 
 const RestaurantList = ({route, navigation}) => {
-    const type = route.params.param.type;
+    const genre = route.params.param.genre;
 
-    const [restaurants, setRestaurants] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [restaurants, setRestaurants] = useState([]);
+    const [isType, setIsType] = useState(false);
 
     useEffect(() => {
         async function requestRestaurantsByType() {
             try {
-                const loadedRestaurants = await getRestaurantsByType(type);
+                const loadedRestaurants = await getRestaurantsByType(genre);
                 setRestaurants(loadedRestaurants);
             } catch (e) {
                 alert("서버 요청에 실패했습니다.");
@@ -60,14 +66,82 @@ const RestaurantList = ({route, navigation}) => {
             }
         }
 
-        if (type === RestaurantEnum.DELIVERABLE) {
+        if (genre === RestaurantEnum.DELIVERABLE) {
             requestRestaurantsByDeliverable()
-        } else if (type === RestaurantEnum.RANK) {
+            setIsType(false);
+        } else if (genre === RestaurantEnum.RANK) {
             requestRestaurantsByRank()
+            setIsType(false);
         } else {
             requestRestaurantsByType();
+            setIsType(true);
         }
     }, []);
+
+    const requestRestaurantsByTypeOrderByPriceDesc = async () => {
+        try {
+            setIsLoading(true);
+            const loadedRestaurants = await getRestaurantsByTypeOrderByPriceDesc(genre);
+            setRestaurants(loadedRestaurants);
+        } catch (e) {
+            alert("서버 요청에 실패했습니다.");
+            setRestaurants(undefined);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const requestRestaurantsByTypeOrderByPriceAsc = async () => {
+        try {
+            setIsLoading(true);
+            const loadedRestaurants = await getRestaurantsByTypeOrderByPriceAsc(genre);
+            setRestaurants(loadedRestaurants);
+        } catch (e) {
+            alert("서버 요청에 실패했습니다.");
+            setRestaurants(undefined);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const requestRestaurantsByTypeOrderByAverageGradeDesc = async () => {
+        try {
+            setIsLoading(true);
+            const loadedRestaurants = await getRestaurantsByTypeOrderByAverageGradeDesc(genre);
+            setRestaurants(loadedRestaurants);
+        } catch (e) {
+            alert("서버 요청에 실패했습니다.");
+            setRestaurants(undefined);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const requestRestaurantsByTypeOrderByReviewCountDesc = async () => {
+        try {
+            setIsLoading(true);
+            const loadedRestaurants = await getRestaurantsByTypeOrderByReviewCountDesc(genre);
+            setRestaurants(loadedRestaurants);
+        } catch (e) {
+            alert("서버 요청에 실패했습니다.");
+            setRestaurants(undefined);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const requestRestaurantsByTypeOrderByLikeCountDesc = async () => {
+        try {
+            setIsLoading(true);
+            const loadedRestaurants = await getRestaurantsByTypeOrderByLikeCountDesc(genre);
+            setRestaurants(loadedRestaurants);
+        } catch (e) {
+            alert("서버 요청에 실패했습니다.");
+            setRestaurants(undefined);
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <Screen>
@@ -75,53 +149,53 @@ const RestaurantList = ({route, navigation}) => {
                 <Header
                     route={route}
                     navigation={navigation}
-                    title={KoreanEnum[type]}
+                    title={KoreanEnum[genre]}
                 />
-                <WhiteSpace>
+                {isType && (
                     <LinearGradient
                         colors={[Theme.hlRed, Theme.hlOrange]}
-                        style={{width: "100%", height: "6%"}}
+                        style={{width: constants.vw(100), height: constants.vh(4.5)}}
                     >
                         <FilterView>
-                            <FilterView1>
-                                <Wtext>영업중</Wtext>
-                            </FilterView1>
-                            <FilterView2>
-                                <Wtext>심야</Wtext>
-                            </FilterView2>
-                            <FilterView3>
-                                <Wtext>가격낮은순</Wtext>
-                            </FilterView3>
-                            <FilterView4>
-                                <Wtext>후기많은순</Wtext>
-                            </FilterView4>
-                            <FilterView5>
-                                <Wtext last={true}>관심많은순</Wtext>
-                            </FilterView5>
+                            <FilterButton onPress={() => requestRestaurantsByTypeOrderByPriceDesc()}>
+                                <ButtonText>가격높은순</ButtonText>
+                            </FilterButton>
+                            <FilterButton onPress={() => requestRestaurantsByTypeOrderByPriceAsc()}>
+                                <ButtonText>가격낮은순</ButtonText>
+                            </FilterButton>
+                            <FilterButton onPress={() => requestRestaurantsByTypeOrderByAverageGradeDesc()}>
+                                <ButtonText>평점높은순</ButtonText>
+                            </FilterButton>
+                            <FilterButton onPress={() => requestRestaurantsByTypeOrderByReviewCountDesc()}>
+                                <ButtonText>후기많은순</ButtonText>
+                            </FilterButton>
+                            <FilterButton onPress={() => requestRestaurantsByTypeOrderByLikeCountDesc()}>
+                                <ButtonText>좋아요많은순</ButtonText>
+                            </FilterButton>
                         </FilterView>
                     </LinearGradient>
-                    <RestaurantListScroll>
-                        {isLoading ? (
-                            <View styled={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                                <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
-                            </View>
-                        ) : (
-                            restaurants ? (
-                                restaurants.length === 0 ? (
-                                    <NoContentAnnouncement/>
-                                ) : (
-                                    restaurants.map((data, index) => (
-                                        <RestaurantView key={index}>
-                                            <RestaurantCard data={data} navigation={navigation}/>
-                                        </RestaurantView>
-                                    ))
-                                )
+                )}
+                <RestaurantListScroll>
+                    {isLoading ? (
+                        <View styled={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                            <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
+                        </View>
+                    ) : (
+                        restaurants ? (
+                            restaurants.length === 0 ? (
+                                <NoContentAnnouncement/>
                             ) : (
-                                <RequestFailedAnnouncement/>
+                                restaurants.map((data, index) => (
+                                    <RestaurantView key={index}>
+                                        <RestaurantCard data={data} navigation={navigation}/>
+                                    </RestaurantView>
+                                ))
                             )
-                        )}
-                    </RestaurantListScroll>
-                </WhiteSpace>
+                        ) : (
+                            <RequestFailedAnnouncement/>
+                        )
+                    )}
+                </RestaurantListScroll>
             </Wrapper>
         </Screen>
     );
@@ -133,63 +207,28 @@ const RestaurantView = styled.View`
   align-items: center;
 `;
 
-const Wtext = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  font-size: 11px;
-  color: #ffffff;
-  text-align: center;
-  font-weight: bold;
-  ${(props) => (props.last ? "" : "border-right-width: 1.5px;")};
-  border-right-color: ${(props) => props.theme.backgroundWhite};
-`;
-
-const FilterView1 = styled.TouchableOpacity`
-  height: 100%;
-  width: 15%;
-  justify-content: center;
-  align-content: center;
-`;
-
-const FilterView2 = styled.TouchableOpacity`
-  height: 100%;
-  width: 17%;
-  justify-content: center;
-  align-content: center;
-`;
-
-const FilterView3 = styled.TouchableOpacity`
-  height: 100%;
-  width: 22%;
-  justify-content: center;
-  align-content: center;
-`;
-
-const FilterView4 = styled.TouchableOpacity`
-  height: 100%;
-  width: 22%;
-  justify-content: center;
-  align-content: center;
-`;
-
-const FilterView5 = styled.TouchableOpacity`
-  height: 100%;
-  width: 22%;
-  justify-content: center;
-  align-content: center;
-`;
-
-const RestaurantListScroll = styled.ScrollView`
-  width: 100%;
-  height: 100%;
-`;
-
 const FilterView = styled.View`
   width: 100%;
   height: 100%;
   flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 `;
 
-const WhiteSpace = styled.View`
+const FilterButton = styled.TouchableOpacity`
+  height: 100%;
+  justify-content: center;
+  align-content: center;
+`;
+
+const ButtonText = styled.Text`
+  ${(props) => props.theme.NanumSquareBFont}
+  font-size: ${constants.vw(2.8)}px;
+  color: ${(props) => props.theme.backgroundWhite};
+  border-right-color: ${(props) => props.theme.backgroundWhite};
+`;
+
+const RestaurantListScroll = styled.ScrollView`
   width: 100%;
   height: 100%;
 `;
@@ -202,12 +241,6 @@ const Screen = styled.View`
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.theme.backgroundWhite};
-`;
-
-const Foodlist = styled.View`
-  width: 100%;
-  height: 28%;
-  background-color: ${(props) => props.theme.backgroundGray};
 `;
 
 export default RestaurantList;

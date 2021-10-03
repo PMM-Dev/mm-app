@@ -32,6 +32,81 @@ export const getRestaurantsByType = async (type) => {
     }
 };
 
+export const getRestaurantsByTypeOrderByPriceAsc = async (type) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/type/" + type + "/orderBy/priceAsc", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByTypeOrderByPriceAsc()" + e);
+        return [];
+    }
+}
+
+export const getRestaurantsByTypeOrderByPriceDesc = async (type) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/type/" + type + "/orderBy/priceDesc", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByTypeOrderByPriceDesc()" + e);
+        return [];
+    }
+}
+
+export const getRestaurantsByTypeOrderByAverageGradeDesc = async (type) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/type/" + type + "/orderBy/averageGradeDesc", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByTypeOrderByReviewCountDesc()" + e);
+        return [];
+    }
+}
+
+export const getRestaurantsByTypeOrderByReviewCountDesc = async (type) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/type/" + type + "/orderBy/reviewCountDesc", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByTypeOrderByReviewCountDesc()" + e);
+        return [];
+    }
+}
+
+export const getRestaurantsByTypeOrderByLikeCountDesc = async (type) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/type/" + type + "/orderBy/likeCountDesc", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByTypeOrderByLikeCountDesc()" + e);
+        return [];
+    }
+}
+
 export const getRestaurantsByDeliverable = async (type) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");

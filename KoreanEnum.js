@@ -8,6 +8,11 @@ const Type = {
   ASIAN: "아시안",
 };
 
+const Genre = {
+  DELIVERABLE: "배달",
+  RANK: "랭킹"
+}
+
 const Price = {
   CHEAP: "킹성비",
   REASONABLE: "평타",
@@ -21,4 +26,4 @@ const location = {
   ARTGATE: "예대"
 };
 
-export default { ...Type, ...Price, ...location };
+export default { ...Type, ...Genre, ...Price, ...location };
