@@ -22,7 +22,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.KOREAN},
+                            param: {type: RestaurantEnum.KOREAN},
                         })
                     }
                 >
@@ -31,7 +31,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.FLOUR},
+                            param: {type: RestaurantEnum.FLOUR},
                         })
                     }
                 >
@@ -40,7 +40,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.WESTERN},
+                            param: {type: RestaurantEnum.WESTERN},
                         })
                     }
                 >
@@ -49,7 +49,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.ASIAN},
+                            param: {type: RestaurantEnum.ASIAN},
                         })
                     }
                 >
@@ -58,7 +58,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.JAPANESE},
+                            param: {type: RestaurantEnum.JAPANESE},
                         })
                     }
                 >
@@ -69,7 +69,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.DESSERT},
+                            param: {type: RestaurantEnum.DESSERT},
                         })
                     }
                 >
@@ -78,7 +78,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.NIGHTFOOD},
+                            param: {type: RestaurantEnum.NIGHTFOOD},
                         })
                     }
                 >
@@ -87,7 +87,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.FASTFOOD},
+                            param: {type: RestaurantEnum.FASTFOOD},
                         })
                     }
                 >
@@ -96,7 +96,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.DELIVERABLE},
+                            param: {type: RestaurantEnum.DELIVERABLE},
                         })
                     }
                 >
@@ -105,7 +105,7 @@ const RestaurantTypeButtonsTable = ({navigation}) => {
                 <Button
                     onPress={() =>
                         navigation.navigate("RestaurantList", {
-                            param: {genre: RestaurantEnum.RANK},
+                            param: {type: RestaurantEnum.RANK},
                         })
                     }
                 >

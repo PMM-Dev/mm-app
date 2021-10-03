@@ -8,7 +8,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
 import {
     getRestaurantsByDeliverable,
-    getRestaurantsByGenre,
+    getRestaurantsByType,
     getRestaurantsByRank
 } from "../../components/Api/AppRestaurantApi";
 import KoreanEnum from "../../KoreanEnum";
@@ -18,7 +18,7 @@ import {View} from "react-native";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 
 const RestaurantList = ({route, navigation}) => {
-    const genre = route.params.param.genre;
+    const type = route.params.param.type;
 
     const [restaurants, setRestaurants] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +26,7 @@ const RestaurantList = ({route, navigation}) => {
     useEffect(() => {
         async function requestRestaurantsByType() {
             try {
-                const loadedRestaurants = await getRestaurantsByGenre(genre);
+                const loadedRestaurants = await getRestaurantsByType(type);
                 setRestaurants(loadedRestaurants);
             } catch (e) {
                 alert("서버 요청에 실패했습니다.");
@@ -60,9 +60,9 @@ const RestaurantList = ({route, navigation}) => {
             }
         }
 
-        if (genre === RestaurantEnum.DELIVERABLE) {
+        if (type === RestaurantEnum.DELIVERABLE) {
             requestRestaurantsByDeliverable()
-        } else if (genre === RestaurantEnum.RANK) {
+        } else if (type === RestaurantEnum.RANK) {
             requestRestaurantsByRank()
         } else {
             requestRestaurantsByType();
@@ -75,7 +75,7 @@ const RestaurantList = ({route, navigation}) => {
                 <Header
                     route={route}
                     navigation={navigation}
-                    title={KoreanEnum[genre]}
+                    title={KoreanEnum[type]}
                 />
                 <WhiteSpace>
                     <LinearGradient
