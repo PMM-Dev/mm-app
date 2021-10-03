@@ -10,7 +10,6 @@ import Header from "../../components/Header/Header";
 const ReviewHistory = ({ route, navigation }) => {
   const [reviews, setReviews] = useState();
   const headerTitle = "내가 작성한 리뷰";
-  console.log(route);
   useEffect(() => {
     async function requestMeReview() {
       const restaurantReviews = await getMeReview();
@@ -18,13 +17,21 @@ const ReviewHistory = ({ route, navigation }) => {
     }
     requestMeReview();
   }, []);
-
   return (
     <Page>
       <Header route={route} navigation={navigation} title={headerTitle} />
       <Scroll contentContainerStyle={{ flex: 1 }}>
         {reviews ? (
-          reviews.map((review, index) => <Review review={review} key={index} />)
+          reviews.map((review, index) => {
+            return (
+              <>
+                <ReviewRestaurantName>
+                  {review.restaurantName}
+                </ReviewRestaurantName>
+                <Review review={review} key={index} />
+              </>
+            );
+          })
         ) : (
           <ActivityIndicator color={Theme.fontBlack} size={"large"} />
         )}
@@ -32,6 +39,8 @@ const ReviewHistory = ({ route, navigation }) => {
     </Page>
   );
 };
+
+const ReviewRestaurantName = styled.Text``;
 
 const Page = styled.View`
   width: 100%;
