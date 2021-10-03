@@ -17,17 +17,32 @@ export const getRestaurants = async () => {
   }
 };
 
-export const getRestaurantsByGenre = async (genre) => {
+export const getRestaurantsByID = async (id) => {
   try {
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    const response = await axios.get(API_URL + "/restaurant/type/" + genre, {
+    const response = await axios.get(API_URL + "/restaurant/" + id, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
     return response.data;
   } catch (e) {
-    console.error("[AppApi][Exception] failed getRestaurantsByGenre()" + e);
+    console.error("[AppApi][Exception] failed getRestaurantsByType()" + e);
+    return [];
+  }
+};
+
+export const getRestaurantsByType = async (type) => {
+  try {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    const response = await axios.get(API_URL + "/restaurant/type/" + type, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (e) {
+    console.error("[AppApi][Exception] failed getRestaurantsByType()" + e);
     return [];
   }
 };

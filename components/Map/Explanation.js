@@ -45,7 +45,7 @@ const Explanation = ({ data }) => {
         </ExplanationImage>
         <ExplanationRateButton>
           <ExplanationRate>
-            <StarMaker rate={data.averageGrade} />
+            <StarMaker grade={data.averageGrade} />
           </ExplanationRate>
           <ExplanationTag></ExplanationTag>
           <ExplanationMoreButton>

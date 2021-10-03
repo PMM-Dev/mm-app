@@ -46,8 +46,6 @@ const RestaurantReviewView = ({
     if (myReview == [] && !isReviewLoading) setWriteReviewButtonOff(false);
   }, [myReviewLoad]);
 
-  console.log(myReview);
-
   return (
     <ReviewView>
       {!isReviewLoading && !myReviewLoad ? (

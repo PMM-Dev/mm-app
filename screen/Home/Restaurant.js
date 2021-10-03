@@ -20,7 +20,6 @@ export const setReviewNumExport = (num) => {
 const Restaurant = ({ route, navigation }) => {
   const { email } = useProfile();
   const restaurantId = route.params.restaurantId;
-  const resPicture = route.params.picture;
 
   const [data, setData] = useState();
   const [isStartScroll, setIsStartScroll] = useState(false);
@@ -73,7 +72,7 @@ const Restaurant = ({ route, navigation }) => {
             <Wrapper>
               <RestaurantInfoView
                 data={data}
-                picture={resPicture}
+                picture={undefined}
                 likeNum={likeNum}
               />
               <RestaurantReviewView
