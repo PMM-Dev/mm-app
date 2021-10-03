@@ -6,7 +6,7 @@ import { ActivityIndicator } from "react-native-paper";
 import constants from "../constants";
 import * as Location from "expo-location";
 import MapHeader from "../components/Map/MapHeader";
-import ExplanationView from "../components/Map/Explanation";
+import ExplanationView from "../components/Map/MapInfoSquare";
 import Theme from "../style/Theme";
 import { getRestaurants } from "../components/Api/AppRestaurantApi";
 import MapView from "react-native-map-clustering";

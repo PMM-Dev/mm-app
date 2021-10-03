@@ -14,7 +14,6 @@ const LikeButton = ({
   isLikeButtonPressed,
   setLikeNum,
 }) => {
-  const { email } = useProfile();
   const [isLike, setIsLike] = useState(isLikeButtonPressed);
 
   const pressLike = async () => {
@@ -37,15 +36,15 @@ const LikeButton = ({
 };
 
 const Button = styled.TouchableOpacity`
-  width: ${constants.vw(9)}px;
-  height: ${constants.vw(9)}px;
+  width: ${(props) => (props.size ? constants.vw(props.size) : constants.vw(7))}px;
+  height: ${(props) => (props.size ? constants.vw(props.size) : constants.vw(7))}px;
   justify-content: center;
   align-items: center;
 `;
 
 const Icon = styled.Image`
-  width: ${(props) => (props.size ? constants.vw(size) : constants.vw(6))}px;
-  height: ${(props) => (props.size ? constants.vw(size) : constants.vw(6))}px;
+  width: 100%;
+  height: 100%;
   resize-mode: contain;
 `;
 
