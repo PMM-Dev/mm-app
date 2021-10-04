@@ -19,7 +19,6 @@ const RestaurantCard = ({ data, navigation }) => {
           onPress={() =>
             navigation.navigate("Restaurant", {
               restaurantId: data.id,
-              picture: RESTAURANT_IMAGE,
             })
           }
           activeOpacity={1}

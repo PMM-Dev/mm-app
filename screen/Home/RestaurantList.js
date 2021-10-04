@@ -1,130 +1,133 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {ActivityIndicator} from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import Theme from "../../style/Theme";
 import Header from "../../components/Header/Header";
 import constants from "../../constants";
-import {LinearGradient} from "expo-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
 import {
-    getRestaurantsByDeliverable,
-    getRestaurantsByType,
-    getRestaurantsByRank
+  getRestaurantsByDeliverable,
+  getRestaurantsByType,
+  getRestaurantsByRank,
 } from "../../components/Api/AppRestaurantApi";
 import KoreanEnum from "../../KoreanEnum";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import RestaurantEnum from "../../RestaurantEnum";
-import {View} from "react-native";
+import { View } from "react-native";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 
-const RestaurantList = ({route, navigation}) => {
-    const type = route.params.param.type;
+const RestaurantList = ({ route, navigation }) => {
+  const type = route.params.param.type;
+  const [restaurants, setRestaurants] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [restaurants, setRestaurants] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    async function requestRestaurantsByType() {
+      try {
+        const loadedRestaurants = await getRestaurantsByType(type);
+        setRestaurants(loadedRestaurants);
+      } catch (e) {
+        alert("서버 요청에 실패했습니다.");
+        setRestaurants(undefined);
+      } finally {
+        setIsLoading(false);
+      }
+    }
 
-    useEffect(() => {
-        async function requestRestaurantsByType() {
-            try {
-                const loadedRestaurants = await getRestaurantsByType(type);
-                setRestaurants(loadedRestaurants);
-            } catch (e) {
-                alert("서버 요청에 실패했습니다.");
-                setRestaurants(undefined);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+    async function requestRestaurantsByDeliverable() {
+      try {
+        const loadedRestaurants = await getRestaurantsByDeliverable();
+        setRestaurants(loadedRestaurants);
+      } catch (e) {
+        alert("서버 요청에 실패했습니다.");
+        setRestaurants(undefined);
+      } finally {
+        setIsLoading(false);
+      }
+    }
 
-        async function requestRestaurantsByDeliverable() {
-            try {
-                const loadedRestaurants = await getRestaurantsByDeliverable();
-                setRestaurants(loadedRestaurants);
-            } catch (e) {
-                alert("서버 요청에 실패했습니다.");
-                setRestaurants(undefined);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+    async function requestRestaurantsByRank() {
+      try {
+        const loadedRestaurants = await getRestaurantsByRank();
+        setRestaurants(loadedRestaurants);
+      } catch (e) {
+        alert("서버 요청에 실패했습니다.");
+        setRestaurants(undefined);
+      } finally {
+        setIsLoading(false);
+      }
+    }
 
-        async function requestRestaurantsByRank() {
-            try {
-                const loadedRestaurants = await getRestaurantsByRank();
-                setRestaurants(loadedRestaurants);
-            } catch (e) {
-                alert("서버 요청에 실패했습니다.");
-                setRestaurants(undefined);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+    if (type === RestaurantEnum.DELIVERABLE) {
+      requestRestaurantsByDeliverable();
+    } else if (type === RestaurantEnum.RANK) {
+      requestRestaurantsByRank();
+    } else {
+      requestRestaurantsByType();
+    }
+  }, []);
 
-        if (type === RestaurantEnum.DELIVERABLE) {
-            requestRestaurantsByDeliverable()
-        } else if (type === RestaurantEnum.RANK) {
-            requestRestaurantsByRank()
-        } else {
-            requestRestaurantsByType();
-        }
-    }, []);
-
-    return (
-        <Screen>
-            <Wrapper>
-                <Header
-                    route={route}
-                    navigation={navigation}
-                    title={KoreanEnum[type]}
-                />
-                <WhiteSpace>
-                    <LinearGradient
-                        colors={[Theme.hlRed, Theme.hlOrange]}
-                        style={{width: "100%", height: "6%"}}
-                    >
-                        <FilterView>
-                            <FilterView1>
-                                <Wtext>영업중</Wtext>
-                            </FilterView1>
-                            <FilterView2>
-                                <Wtext>심야</Wtext>
-                            </FilterView2>
-                            <FilterView3>
-                                <Wtext>가격낮은순</Wtext>
-                            </FilterView3>
-                            <FilterView4>
-                                <Wtext>후기많은순</Wtext>
-                            </FilterView4>
-                            <FilterView5>
-                                <Wtext last={true}>관심많은순</Wtext>
-                            </FilterView5>
-                        </FilterView>
-                    </LinearGradient>
-                    <RestaurantListScroll>
-                        {isLoading ? (
-                            <View styled={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                                <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
-                            </View>
-                        ) : (
-                            restaurants ? (
-                                restaurants.length === 0 ? (
-                                    <NoContentAnnouncement/>
-                                ) : (
-                                    restaurants.map((data, index) => (
-                                        <RestaurantView key={index}>
-                                            <RestaurantCard data={data} navigation={navigation}/>
-                                        </RestaurantView>
-                                    ))
-                                )
-                            ) : (
-                                <RequestFailedAnnouncement/>
-                            )
-                        )}
-                    </RestaurantListScroll>
-                </WhiteSpace>
-            </Wrapper>
-        </Screen>
-    );
+  return (
+    <Screen>
+      <Wrapper>
+        <Header
+          route={route}
+          navigation={navigation}
+          title={KoreanEnum[type]}
+        />
+        <WhiteSpace>
+          <LinearGradient
+            colors={[Theme.hlRed, Theme.hlOrange]}
+            style={{ width: "100%", height: "6%" }}
+          >
+            <FilterView>
+              <FilterView1>
+                <Wtext>영업중</Wtext>
+              </FilterView1>
+              <FilterView2>
+                <Wtext>심야</Wtext>
+              </FilterView2>
+              <FilterView3>
+                <Wtext>가격낮은순</Wtext>
+              </FilterView3>
+              <FilterView4>
+                <Wtext>후기많은순</Wtext>
+              </FilterView4>
+              <FilterView5>
+                <Wtext last={true}>관심많은순</Wtext>
+              </FilterView5>
+            </FilterView>
+          </LinearGradient>
+          <RestaurantListScroll>
+            {isLoading ? (
+              <View
+                styled={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ActivityIndicator color={Theme.fontBlack} size={"large"} />
+              </View>
+            ) : restaurants ? (
+              restaurants.length === 0 ? (
+                <NoContentAnnouncement />
+              ) : (
+                restaurants.map((data, index) => (
+                  <RestaurantView key={index}>
+                    <RestaurantCard data={data} navigation={navigation} />
+                  </RestaurantView>
+                ))
+              )
+            ) : (
+              <RequestFailedAnnouncement />
+            )}
+          </RestaurantListScroll>
+        </WhiteSpace>
+      </Wrapper>
+    </Screen>
+  );
 };
 
 const RestaurantView = styled.View`

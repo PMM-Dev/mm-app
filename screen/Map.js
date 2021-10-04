@@ -8,9 +8,11 @@ import * as Location from "expo-location";
 import MapHeader from "../components/Map/MapHeader";
 import ExplanationView from "../components/Map/Explanation";
 import Theme from "../style/Theme";
-import { getRestaurants } from "../components/Api/AppRestaurantApi";
+import {
+  getRestaurants,
+  getRestaurantsByID,
+} from "../components/Api/AppRestaurantApi";
 import MapView from "react-native-map-clustering";
-
 const Map = ({ route, navigation }) => {
   const mapRef = React.createRef();
   const [restaurants, setRestaurants] = useState();
@@ -28,13 +30,14 @@ const Map = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState();
   const [bookMarkPressed, setBookMarkPressed] = useState(false);
-  const [whichBookmark, setWhichBookmark] = useState(-1);
   const [clusteredMarkers, setClusteredMarkers] = useState([]);
+  const [curPressedRestaurant, setCurPressedRestaurant] = useState([]);
 
   const makeMarker = () => {
     let markerArray = [];
     restaurants.map((data) => {
       markerArray.push({
+        id: data.id,
         title: data.name,
         description: data.description,
         latlng: {
@@ -46,13 +49,19 @@ const Map = ({ route, navigation }) => {
     setMarker(markerArray);
   };
 
+  async function requestRestaurantById(id) {
+    const loadedRestaurant = await getRestaurantsByID(id);
+    setCurPressedRestaurant(loadedRestaurant);
+  }
+
   useEffect(() => {
-    async function initRestaurants() {
+    async function requestRestaurants() {
       const loadedRestaurants = await getRestaurants();
       setRestaurants(loadedRestaurants);
     }
-    initRestaurants();
+    requestRestaurants();
   }, []);
+
   useEffect(() => {
     if (restaurants) makeMarker();
   }, [restaurants]);
@@ -116,9 +125,9 @@ const Map = ({ route, navigation }) => {
                 showsMyLocationButton={false}
                 ref={mapRef}
                 onPress={() => {
+                  console.log("OnPress");
                   if (bookMarkPressed === true || isClusterPressed === true) {
                     setBookMarkPressed(false);
-                    setWhichBookmark(-1);
                     setisClusterPressed(false);
                   }
                 }}
@@ -127,6 +136,7 @@ const Map = ({ route, navigation }) => {
                 maxZoomLevel={19}
                 radius={35}
                 onClusterPress={(cluster, markers) => {
+                  console.log("cluster");
                   setisClusterPressed(false);
                   if (markers.length <= 5) {
                     setisClusterPressed(true);
@@ -135,16 +145,16 @@ const Map = ({ route, navigation }) => {
                   }
                 }}
               >
-                {marker.map((makrer, index) => (
+                {marker.map((marker, index) => (
                   <Marker
                     key={index}
-                    coordinate={makrer.latlng}
+                    coordinate={marker.latlng}
                     title={marker.title}
                     description={marker.description}
                     onPress={() => {
                       setBookMarkPressed(true);
-                      setWhichBookmark(index);
                       setisClusterPressed(false);
+                      requestRestaurantById(marker.id);
                     }}
                   >
                     <Callout tooltip={true}></Callout>
@@ -176,8 +186,8 @@ const Map = ({ route, navigation }) => {
                       key={index}
                       onPress={() => {
                         setBookMarkPressed(true);
-                        setWhichBookmark(data.properties.index);
                         setisClusterPressed(false);
+                        requestRestaurantById(marker[data.properties.index].id);
                       }}
                     >
                       <ClusterCardText>
@@ -191,7 +201,7 @@ const Map = ({ route, navigation }) => {
               )}
             </Container>
             {bookMarkPressed ? (
-              <ExplanationView data={restaurants[whichBookmark]} />
+              <ExplanationView data={curPressedRestaurant} />
             ) : (
               <NotYet />
             )}

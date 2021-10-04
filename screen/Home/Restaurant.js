@@ -20,12 +20,12 @@ export const setReviewNumExport = (num) => {
 const Restaurant = ({ route, navigation }) => {
   const { email } = useProfile();
   const restaurantId = route.params.restaurantId;
-  const resPicture = route.params.picture;
 
   const [data, setData] = useState();
   const [isStartScroll, setIsStartScroll] = useState(false);
   const [likeNum, setLikeNum] = useState();
   const [reviewNum, setReviewNum] = useState();
+  const [writeReviewButtonOff, setWriteReviewButtonOff] = useState(true);
 
   const handleScrollState = (event) => {
     if (event.nativeEvent.contentOffset.y > 1) {
@@ -34,7 +34,7 @@ const Restaurant = ({ route, navigation }) => {
       setIsStartScroll(false);
     }
   };
-
+  //console.log(writeReviewButtonOff);
   // 들어가면 요청하기 // => 리스트 전용 요청 만들기
   useEffect(() => {
     async function getRestaurantData() {
@@ -72,26 +72,31 @@ const Restaurant = ({ route, navigation }) => {
             <Wrapper>
               <RestaurantInfoView
                 data={data}
-                picture={resPicture}
+                picture={undefined}
                 likeNum={likeNum}
               />
               <RestaurantReviewView
                 restaurantId={restaurantId}
                 reviewCount={reviewNum}
+                setWriteReviewButtonOff={setWriteReviewButtonOff}
               />
             </Wrapper>
           </Scroll>
-          <WriteReviewButton
-            onPress={() =>
-              navigation.navigate("WriteReview", {
-                email: email,
-                restaurantId: restaurantId,
-                restaurantName: data.name,
-              })
-            }
-          >
-            <WriteReviewIcon source={REVIEW_ICON} />
-          </WriteReviewButton>
+          {writeReviewButtonOff ? (
+            <></>
+          ) : (
+            <WriteReviewButton
+              onPress={() =>
+                navigation.navigate("WriteReview", {
+                  email: email,
+                  restaurantId: restaurantId,
+                  restaurantName: data.name,
+                })
+              }
+            >
+              <WriteReviewIcon source={REVIEW_ICON} />
+            </WriteReviewButton>
+          )}
         </>
       ) : (
         <View

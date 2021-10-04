@@ -3,6 +3,7 @@ import { COMMENT_PROFILE } from "../../../image";
 import StarMaker from "../../Map/StarMaker";
 import styled from "styled-components";
 import constants from "../../../constants";
+import { useProfile } from "../../AuthContext";
 
 const Review = ({ review }) => {
   return (
