@@ -45,7 +45,7 @@ const Scroll = styled.ScrollView`
 `;
 
 const PreventingIosBounceView = styled.View`
-  height: ${PREVENTING_IOS_BOUNCE_VIEW_HEIGHT};
+  height: ${PREVENTING_IOS_BOUNCE_VIEW_HEIGHT}px;
 `
 
 const Wrapper = styled.View`
