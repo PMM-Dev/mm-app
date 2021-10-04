@@ -1,38 +1,39 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { EMPTYHEART, FULLHEART } from "../../image";
+import {EMPTYHEART, FULLHEART} from "../../image";
 import constants from "../../constants";
 import {
-  appendLikeRestaurant,
-  subtractLikeRestaurant,
+    appendLikeRestaurant,
+    subtractLikeRestaurant,
 } from "../Api/AppMemberApi";
-import { useProfile } from "../AuthContext";
 
 const LikeButton = ({
-  restaurantId,
-  size,
-  isLikeButtonPressed,
-  setLikeNum,
-}) => {
-  const [isLike, setIsLike] = useState(isLikeButtonPressed);
+                        restaurantId,
+                        isLikeButtonPressed,
+                        setLikeNum,
+                        size,
+                        iconSizeRatio
+                    }) => {
+    const [isLike, setIsLike] = useState(isLikeButtonPressed);
 
-  const pressLike = async () => {
-    if (isLike) {
-      setIsLike(false);
-      setLikeNum((prev) => prev - 1);
-      await subtractLikeRestaurant(restaurantId);
-    } else {
-      setIsLike(true);
-      await appendLikeRestaurant(restaurantId);
-      setLikeNum((prev) => prev + 1);
-    }
-  };
+    const pressLike = async () => {
+        if (isLike) {
+            setIsLike(false);
+            setLikeNum((prev) => prev - 1);
+            await subtractLikeRestaurant(restaurantId);
+        } else {
+            setIsLike(true);
+            await appendLikeRestaurant(restaurantId);
+            setLikeNum((prev) => prev + 1);
+        }
+    };
 
-  return (
-    <Button onPress={pressLike} size={size}>
-      {isLike ? <Icon source={FULLHEART} /> : <Icon source={EMPTYHEART} />}
-    </Button>
-  );
+    return (
+        <Button onPress={pressLike} size={size}>
+            {isLike ? <Icon source={FULLHEART} iconSizeRatio={iconSizeRatio}/> :
+                <Icon source={EMPTYHEART} iconSizeRatio={iconSizeRatio}/>}
+        </Button>
+    );
 };
 
 const Button = styled.TouchableOpacity`
@@ -43,8 +44,8 @@ const Button = styled.TouchableOpacity`
 `;
 
 const Icon = styled.Image`
-  width: 100%;
-  height: 100%;
+  height: ${(props) => props.iconSizeRatio ? props.iconSizeRatio : 100}%;
+  width: ${(props) => props.iconSizeRatio ? props.iconSizeRatio : 100}%;
   resize-mode: contain;
 `;
 

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import {EMPTYSTAR, FULLSTAR, HALFSTAR} from "../../image";
 
-const StarMaker = ({grade, size, starRatio}) => {
+const StarMaker = ({grade, size, iconSizeRatio}) => {
 
     const handleStarSource = (standard) => {
         const gap = grade - standard;
@@ -18,19 +18,19 @@ const StarMaker = ({grade, size, starRatio}) => {
     return (
         <Stars>
             <StarWrapper size={size}>
-                <Star source={handleStarSource(0)} starRatio={starRatio}/>
+                <Star source={handleStarSource(0)} iconSizeRatio={iconSizeRatio}/>
             </StarWrapper>
             <StarWrapper size={size}>
-                <Star source={handleStarSource(1)} starRatio={starRatio}/>
+                <Star source={handleStarSource(1)} iconSizeRatio={iconSizeRatio}/>
             </StarWrapper>
             <StarWrapper size={size}>
-                <Star source={handleStarSource(2)} starRatio={starRatio}/>
+                <Star source={handleStarSource(2)} iconSizeRatio={iconSizeRatio}/>
             </StarWrapper>
             <StarWrapper size={size}>
-                <Star source={handleStarSource(3)} starRatio={starRatio}/>
+                <Star source={handleStarSource(3)} iconSizeRatio={iconSizeRatio}/>
             </StarWrapper>
             <StarWrapper size={size}>
-                <Star source={handleStarSource(4)} starRatio={starRatio}/>
+                <Star source={handleStarSource(4)} iconSizeRatio={iconSizeRatio}/>
             </StarWrapper>
         </Stars>
     )
@@ -47,8 +47,8 @@ const StarWrapper = styled.View`
 `;
 
 const Star = styled.Image`
-  height: ${(props) => props.starRatio ? props.starRatio : 100}%;
-  width: ${(props) => props.starRatio ? props.starRatio : 100}%;
+  height: ${(props) => props.iconSizeRatio ? props.iconSizeRatio : 100}%;
+  width: ${(props) => props.iconSizeRatio ? props.iconSizeRatio : 100}%;
 `;
 
 export default StarMaker;

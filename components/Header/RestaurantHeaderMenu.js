@@ -15,6 +15,8 @@ const RestaurantHeaderMenu = ({
         restaurantId={restaurantId}
         isLikeButtonPressed={isLikeButtonPressed}
         setLikeNum={setLikeNum}
+        size={10}
+        iconSizeRatio={60}
       />
     </>
   );

@@ -57,7 +57,7 @@ const MapInfoSquare = ({data}) => {
                         <PropertyView>
                             <Picture source={RESTAURANT_IMAGE}/>
                             <PropertyList>
-                                <StarMaker rate={restaurant.averageGrade} size={52} starRatio={85}/>
+                                <StarMaker rate={restaurant.averageGrade} size={52} iconSizeRatio={85}/>
                                 <ExplanationTag></ExplanationTag>
                                 <DetailButton onPress={() => navigation.navigate("Restaurant", {restaurantId: restaurant.id})}>
                                     <DetailButtonText>

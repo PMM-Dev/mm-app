@@ -53,7 +53,7 @@ const RestaurantInfoView = ({ data, picture, likeNum }) => {
     <InfoView>
       <TitleView>
         <Title>{data.name}</Title>
-        <StarMaker grade={data.averageGrade} size={30} starRatio={90} />
+        <StarMaker grade={data.averageGrade} size={30} iconSizeRatio={90} />
       </TitleView>
       <NumberInfosView>
         <SmallIcon source={REVIEW_ICON} style={{ tintColor: Theme.fontBlue }} />
