@@ -188,9 +188,7 @@ const RestaurantList = ({route, navigation}) => {
                                 </EmptyListView>
                             ) : (
                                 restaurants.map((data, index) => (
-                                    <RestaurantView key={index}>
-                                        <RestaurantCard data={data} navigation={navigation}/>
-                                    </RestaurantView>
+                                    <RestaurantCard key={index} data={data} navigation={navigation}/>
                                 ))
                             )
                         ) : (
@@ -242,6 +240,7 @@ const ButtonText = styled.Text`
 const RestaurantListScroll = styled.ScrollView`
   width: 100%;
   height: 100%;
+  padding: 0px ${constants.vw(4.5)}px;
 `;
 
 const Wrapper = styled.View`

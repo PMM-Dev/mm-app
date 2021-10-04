@@ -1,168 +1,148 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import StarMaker from "../../Map/StarMaker";
-import { FULLHEART, EMPTYHEART, RESTAURANT_IMAGE } from "../../../image";
+import {FULLHEART, EMPTYHEART, RESTAURANT_IMAGE, FULLSTAR} from "../../../image";
 import constants from "../../../constants";
-import {
-  appendLikeRestaurant,
-  subtractLikeRestaurant,
-} from "../../Api/AppMemberApi";
-import LikeButton from "../LikeButton";
+import {Converter} from "../../Converter";
 
-const RestaurantCard = ({ data, navigation }) => {
-  const [didLike, setDidLike] = useState(data.didLike);
-  useEffect(() => {}, [didLike]);
-  return (
-    <View>
-      <ExplanationPart>
-        <ExplanationRestaurantNavigate
-          onPress={() =>
-            navigation.navigate("Restaurant", {
-              restaurantId: data.id,
-              picture: RESTAURANT_IMAGE,
-            })
-          }
-          activeOpacity={1}
-        >
-          <ImageView>
-            <ExplanationImageImg source={RESTAURANT_IMAGE} />
-          </ImageView>
-          <ExplanationView>
-            <ExplanationTitle>
-              <ExplanationTitleText>{data.name}</ExplanationTitleText>
-            </ExplanationTitle>
-            {data.themes == "" ? (
-              <></>
-            ) : (
-              <ExplanationTag>
-                {data.themes.map((list, index) => (
-                  <ExplanationTagText key={index}>
-                    #{list.theme}
-                  </ExplanationTagText>
-                ))}
-              </ExplanationTag>
-            )}
-            <ExplanationRate>
-              <StarMaker grade={data.averageGrade} />
-            </ExplanationRate>
-            <ExplanationMoreButton>
-              <ExplanationMoreButtonText>
-                후기 더 보러가기 +
-              </ExplanationMoreButtonText>
-            </ExplanationMoreButton>
-          </ExplanationView>
-        </ExplanationRestaurantNavigate>
-      </ExplanationPart>
-      <HeartButtonPos
-        onPress={() => {
-          didLike
-            ? subtractLikeRestaurant(data.id)
-            : appendLikeRestaurant(data.id);
-          didLike ? setDidLike(false) : setDidLike(true);
-        }}
-      >
-        {!didLike ? (
-          <HeartImg source={EMPTYHEART} />
-        ) : (
-          <HeartImg source={FULLHEART} />
-        )}
-      </HeartButtonPos>
-    </View>
-  );
+const RestaurantCard = ({data, navigation}) => {
+
+    return (
+        <Holder>
+            <RestaurantNavigateButton
+                onPress={() =>
+                    navigation.navigate("Restaurant", {
+                        restaurantId: data.id,
+                        picture: RESTAURANT_IMAGE,
+                    })
+                }
+                activeOpacity={1}
+            >
+                <PictureView>
+                    <Picture source={RESTAURANT_IMAGE}/>
+                </PictureView>
+                <InfoView>
+                    <Title>{data.name}</Title>
+                    {data.themes && (
+                        <TagList>
+                            {data.themes.map((list, index) => (
+                                <Tag key={index}>
+                                    #{list.theme}
+                                </Tag>
+                            ))}
+                        </TagList>
+                    )}
+                    <GradeList>
+                        <AverageGradeView>
+                            <GradeIcon source={FULLSTAR} bottom={1}/>
+                            <GradeText>{data.averageGrade}</GradeText>
+                        </AverageGradeView>
+                        <LikeView>
+                            <GradeIcon source={FULLHEART}/>
+                            <GradeText>{data.likeCount}</GradeText>
+                        </LikeView>
+                    </GradeList>
+                    <ContentList>
+                        <Content>{Converter(data.location)} · </Content>
+                        <Content>{Converter(data.type)} · </Content>
+                        <Content>{Converter(data.price)}</Content>
+                    </ContentList>
+                    <RestaurantNavigateText>
+                        더 자세히 보러가기 +
+                    </RestaurantNavigateText>
+                </InfoView>
+            </RestaurantNavigateButton>
+        </Holder>
+    );
 };
 
-const ExplanationPart = styled.View`
-  height: 100%;
+const Holder = styled.View`
   width: 100%;
-  border-bottom-width: 1.5px;
+  height: ${constants.vh(13)}px;
+  border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.borderGray2};
-  padding-bottom: ${constants.vw(2.6)}px;
 `;
 
-const ExplanationRestaurantNavigate = styled.TouchableOpacity`
+const RestaurantNavigateButton = styled.TouchableOpacity`
   height: 100%;
   width: 100%;
   flex-direction: row;
+  align-items: center;
 `;
 
-const ExplanationTagText = styled.Text`
+const Tag = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   color: ${(props) => props.theme.hlRed};
   font-size: ${constants.vw(2.2)}px;
 `;
 
-const HeartImg = styled.Image`
-  height: 90%;
-  width: 90%;
-  resize-mode: contain;
-`;
-
-const HeartButtonPos = styled.TouchableOpacity`
-  position: absolute;
-  width: 8%;
-  height: 24%;
-  top: 10%;
-  right: 3%;
-`;
-
-const ExplanationMoreButtonText = styled.Text`
+const RestaurantNavigateText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vw(2.6)}px;
   color: ${(props) => props.theme.fontBlackGray};
 `;
 
-const ExplanationMoreButton = styled.View`
-  height: 12%;
-  width: 100%;
-`;
-
-const ExplanationTag = styled.View`
+const TagList = styled.View`
   margin-top: 3px;
-  height: 9%;
-  width: 100%;
   flex-direction: row;
 `;
 
-const ExplanationRate = styled.View`
-  top: -1%;
-  height: 40%;
-  width: 80%;
-`;
-
-const ExplanationTitle = styled.View`
-  top: 5%;
-  height: 35%;
-  width: 100%;
-  justify-content: center;
-`;
-
-const ExplanationTitleText = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
+const Title = styled.Text`
+  ${(props) => props.theme.NanumSquareBFont}
   font-size: ${constants.vw(4.5)}px;
 `;
 
-const ExplanationImageImg = styled.Image`
-  height: 80%;
-  width: 80%;
+const Picture = styled.Image`
+  height: 100%;
+  width: 100%;
   border-radius: 15px;
   resize-mode: cover;
 `;
 
-const View = styled.View`
-  width: 90%;
-  height: 100%;
+const PictureView = styled.View`
+  height: ${constants.vw(24)}px;
+  width: ${constants.vw(24)}px;
+  margin-right: ${constants.vw(2.8)}px;
 `;
 
-const ImageView = styled.View`
-  height: 100%;
-  width: 30%;
-  justify-content: center;
-  align-content: center;
+const InfoView = styled.View``;
+
+const GradeList = styled.View`
+  flex-direction: row;
+  margin-bottom: ${constants.vh(0.5)}px;
 `;
 
-const ExplanationView = styled.View`
-  height: 100%;
-  width: 65%;
+const AverageGradeView = styled.View`
+  flex-direction: row;
+  margin-right: ${constants.vw(2)}px;
+`;
+
+const LikeView = styled.View`
+  flex-direction: row;
+`;
+
+const GradeIcon = styled.Image`
+  width: ${constants.vw(3.5)}px;
+  height: ${constants.vw(3.5)}px;
+  margin-right: ${constants.vw(0.3)}px;
+  padding-bottom: ${(props) => props.bottom ? props.bottom : 0}%;
+`;
+
+const GradeText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+`;
+
+const ContentList = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: ${constants.vh(0.5)}px;
+`
+
+const Content = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vw(3.3)}px;
+  color: ${(props) => props.theme.fontBlackGray};
+  margin-bottom: ${constants.vh(0.5)}px;
 `;
 
 export default RestaurantCard;
