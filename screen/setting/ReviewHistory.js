@@ -17,19 +17,27 @@ const ReviewHistory = ({ route, navigation }) => {
     }
     requestMeReview();
   }, []);
+
   return (
     <Page>
       <Header route={route} navigation={navigation} title={headerTitle} />
-      <Scroll contentContainerStyle={{ flex: 1 }}>
+      <Scroll>
         {reviews ? (
           reviews.map((review, index) => {
             return (
-              <>
+              <ReviewRestaurant
+                key={index}
+                onPress={() =>
+                  navigation.navigate("Restaurant", {
+                    restaurantId: review.restaurantId,
+                  })
+                }
+              >
                 <ReviewRestaurantName>
                   {review.restaurantName}
                 </ReviewRestaurantName>
-                <Review review={review} key={index} />
-              </>
+                <Review review={review} />
+              </ReviewRestaurant>
             );
           })
         ) : (
@@ -40,16 +48,23 @@ const ReviewHistory = ({ route, navigation }) => {
   );
 };
 
-const ReviewRestaurantName = styled.Text``;
+const ReviewRestaurant = styled.TouchableOpacity``;
+
+const ReviewRestaurantName = styled.Text`
+  ${(props) => props.theme.NanumSquareFont}
+  font-size: ${constants.vw(5)}px;
+  color: ${(props) => props.theme.fontBlack};
+`;
 
 const Page = styled.View`
   width: 100%;
-  height: ${constants.height - constants.statusBarHeight}px;
+  height: ${constants.vh(87)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
 const Scroll = styled.ScrollView`
   width: 100%;
+  padding: ${constants.vw(5)}px;
 `;
 
 export default ReviewHistory;

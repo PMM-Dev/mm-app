@@ -22,7 +22,7 @@ const LikeHistory = ({ route, navigation }) => {
   return (
     <Page>
       <Header route={route} navigation={navigation} title={headerTitle} />
-      <Scroll contentContainerStyle={{ flex: 1 }}>
+      <Scroll>
         {restaurants ? (
           restaurants.map((data, index) => (
             <RestaurantView key={index}>
@@ -45,12 +45,13 @@ const RestaurantView = styled.View`
 
 const Page = styled.View`
   width: 100%;
-  height: ${constants.height - constants.statusBarHeight}px;
+  height: ${constants.vh(87)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
 const Scroll = styled.ScrollView`
   width: 100%;
+  margin: ${constants.vw(0)}px;
 `;
 
 export default LikeHistory;
