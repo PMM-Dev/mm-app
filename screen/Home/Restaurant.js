@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {ActivityIndicator, TextInput} from "react-native-paper";
 import constants from "../../constants";
 import Theme from "../../style/Theme";
-import {useProfile} from "../../components/AuthContext";
 import {getRestaurantsById, postReview} from "../../components/Api/AppRestaurantApi";
 import RBSheet from "react-native-raw-bottom-sheet";
 import RestaurantInfoView from "../../components/Home/Restaurant/RestaurantInfoView";
@@ -14,7 +13,6 @@ import EmptyScreenCenterView from "../../components/EmptyScreenCenterView";
 import * as ImagePicker from "expo-image-picker";
 
 const Restaurant = ({route, navigation}) => {
-    const {email} = useProfile();
     const restaurantId = route.params.restaurantId;
     const resPicture = route.params.picture;
     const reviewWritingPanelRef = useRef();
