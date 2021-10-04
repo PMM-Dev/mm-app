@@ -5,6 +5,7 @@ import Theme from "../../style/Theme";
 import Header from "../../components/Header/Header";
 import constants from "../../constants";
 import {LinearGradient} from "expo-linear-gradient";
+import EmptyContentCenterView from "../../components/EmptyContentCenterView"
 import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
 import {
     getRestaurantsByDeliverable,
@@ -177,24 +178,24 @@ const RestaurantList = ({route, navigation}) => {
                 )}
                 <RestaurantListScroll>
                     {isLoading ? (
-                        <EmptyListView>
+                        <EmptyContentCenterView>
                             <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
-                        </EmptyListView>
+                        </EmptyContentCenterView>
                     ) : (
                         restaurants ? (
                             restaurants.length === 0 ? (
-                                <EmptyListView>
+                                <EmptyContentCenterView>
                                     <NoContentAnnouncement/>
-                                </EmptyListView>
+                                </EmptyContentCenterView>
                             ) : (
                                 restaurants.map((data, index) => (
                                     <RestaurantCard key={index} data={data} navigation={navigation}/>
                                 ))
                             )
                         ) : (
-                            <EmptyListView>
+                            <EmptyContentCenterView>
                                 <RequestFailedAnnouncement/>
-                            </EmptyListView>
+                            </EmptyContentCenterView>
                         )
                     )}
                 </RestaurantListScroll>
@@ -202,13 +203,6 @@ const RestaurantList = ({route, navigation}) => {
         </Screen>
     );
 };
-
-const EmptyListView = styled.View`
-  width: 100%;
-  height: ${constants.contentHeight}px;
-  justify-content: center;
-  align-items: center;
-`
 
 const RestaurantView = styled.View`
   height: ${constants.vh(13)}px;

@@ -1,6 +1,6 @@
 import React from "react";
 import { COMMENT_PROFILE } from "../../../image";
-import StarMaker from "../../Map/StarMaker";
+import StarMaker from "../../StarMaker";
 import styled from "styled-components";
 import constants from "../../../constants";
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 
 import { korLocationAPI } from "../../Api/GoogleAppApi";
-import StarMaker from "../../Map/StarMaker";
+import StarMaker from "../../StarMaker";
 import {
   REVIEW_ICON,
   FULLHEART,

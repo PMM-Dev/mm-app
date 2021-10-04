@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import StarMaker from "./StarMaker";
+import StarMaker from "../StarMaker";
 import {RESTAURANT_IMAGE, EMPTYHEART, FULLHEART} from "../../image";
 import constants from "../../constants";
 import {Converter} from "../Converter";

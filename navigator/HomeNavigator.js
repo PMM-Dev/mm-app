@@ -4,8 +4,6 @@ import Home from "../screen/Home/Home";
 import RestaurantList from "../screen/Home/RestaurantList";
 import Restaurant from "../screen/Home/Restaurant";
 import Search from "../screen/Search";
-import WriteReview from "../screen/Home/WriteReview";
-import Theme from "../style/Theme";
 
 const Stack = createStackNavigator();
 
@@ -31,11 +29,6 @@ const HomeNavigator = () => {
         name="Restaurant"
         component={Restaurant}
         options={{ title: "음식점" }}
-      />
-      <Stack.Screen
-        name="WriteReview"
-        component={WriteReview}
-        options={{ title: "리뷰 작성" }}
       />
     </Stack.Navigator>
   );

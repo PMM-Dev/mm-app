@@ -10,12 +10,10 @@ import {View} from "react-native";
 import {ActivityIndicator} from "react-native-paper";
 import Theme from "../../../style/Theme";
 import constants from "../../../constants";
-import {COMMENT_PROFILE} from "../../../image";
-import StarMaker from "../../Map/StarMaker";
+import {COMMENT_PROFILE} from "../../../image";;
 import Review from "./Review";
 
-const RestaurantReviewView = ({restaurantId, reviewCount}) => {
-    const {email} = useProfile();
+const RestaurantReviewView = ({restaurantId, reviewCount, isPresentMyReview, openReviewWritingRBSheet}) => {
 
     const [isReviewLoading, setIsReviewLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
@@ -61,6 +59,11 @@ const RestaurantReviewView = ({restaurantId, reviewCount}) => {
                             </FilterButton>
                         </FiltersView>
                     </ReviewMenus>
+                    {!isPresentMyReview && (
+                        <WriteReviewButton onPress={() => openReviewWritingRBSheet()}>
+                            <WriteReviewText>리뷰 작성하기</WriteReviewText>
+                        </WriteReviewButton>
+                    )}
                     {reviews.map((review, index) => <Review review={review} key={index}/>)}
                 </>
             }
@@ -72,29 +75,6 @@ const ReviewView = styled.View`
   width: 100%;
   padding: ${constants.vw(5)}px ${constants.vw(8)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
-`;
-
-const TmpButton = styled.TouchableOpacity`
-  width: 100%;
-  height: 100%;
-`;
-
-const ReviewWrite = styled.View`
-  width: 90%;
-  height: 15%;
-  border: 1px black;
-`;
-
-const TmpTextInput = styled.TextInput``;
-
-const TmpButtonPos = styled.View`
-  position: absolute;
-  width: 10%;
-  height: 90%;
-  top: 5%;
-  right: 3%;
-  border: 1px solid;
-  background-color: red;
 `;
 
 const TitleText = styled.Text`
@@ -132,6 +112,14 @@ const ReviewMenus = styled.View`
   margin-bottom: ${constants.vh(2)}px;
   border-bottom-width: 0.3px;
   border-bottom-color: ${(props) => props.theme.fontGray};
+`;
+
+const WriteReviewButton = styled.TouchableOpacity``;
+
+const WriteReviewText = styled.Text`
+  ${(props) => props.theme.NanumSquareBFont}
+  font-size: ${constants.vw(4)}px;
+  color: ${(props) => props.theme.fontBlue};
 `;
 
 export default RestaurantReviewView

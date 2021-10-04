@@ -5,7 +5,6 @@ import HomeHeaderMenu from "./HomeHeaderMenu";
 import RestaurantListHeaderMenu from "./RestaurantListHeaderMenu";
 import MapHeaderMenu from "./MapHeaderMenu";
 import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
-import WriteReviewHeader from "./WriteReviewHeader";
 
 const Header = ({
   route: { name: routeName },
@@ -42,8 +41,6 @@ const Header = ({
           setLikeNum={setLikeNum}
         />
       );
-    } else if (routeName === "WriteReview") {
-      setMenuComponent(<></>);
     }
   };
 
@@ -58,15 +55,7 @@ const Header = ({
           {title}
         </Title>
       </TitleHolder>
-      {menuComponent &&
-        (routeName === "WriteReview" ? (
-          <WriteReviewHeader
-            navigation={navigation}
-            onPressRightButton={onPressRightButton}
-          />
-        ) : (
-          menuComponent
-        ))}
+      {menuComponent && menuComponent}
     </Bar>
   );
 };
