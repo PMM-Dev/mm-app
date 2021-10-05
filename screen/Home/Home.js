@@ -10,30 +10,42 @@ import Theme from "../../style/Theme";
 
 const PREVENTING_IOS_BOUNCE_VIEW_HEIGHT = 3000;
 
-const Home = ({route, navigation}) => {
-    return (
-        <Screen>
-            <Scroll
-                style={{backgroundColor: constants.isIos() ? Theme.backgroundGray : Theme.backgroundWhite}}
-                contentContainerStyle={{backgroundColor: Theme.backgroundWhite}}
-                contentInset={{top: -PREVENTING_IOS_BOUNCE_VIEW_HEIGHT}}
-                contentOffset={{y: PREVENTING_IOS_BOUNCE_VIEW_HEIGHT}}
-            >
-                {constants.isIos() && <PreventingIosBounceView />}
-                <Wrapper>
-                    <Header route={route} navigation={navigation}/>
-                    <RestaurantTypeButtonsTable navigation={navigation}/>
-                    <ThemePart title={"🧑‍💻 카공하기 좋은 카페는?"}/>
-                    <ThemePart title={"🤦‍ 시험 기간에는 싸고 빠르게"}/>
-                    <PostPart/>
-                    <NoticePart/>
-                </Wrapper>
-            </Scroll>
-        </Screen>
-    );
+const Home = ({ route, navigation }) => {
+  return (
+    <Screen>
+      <Scroll
+        style={{
+          backgroundColor: constants.isIos()
+            ? Theme.backgroundGray
+            : Theme.backgroundWhite,
+        }}
+        contentContainerStyle={{ backgroundColor: Theme.backgroundWhite }}
+        contentInset={{ top: -PREVENTING_IOS_BOUNCE_VIEW_HEIGHT }}
+        contentOffset={{ y: PREVENTING_IOS_BOUNCE_VIEW_HEIGHT }}
+      >
+        {constants.isIos() && <PreventingIosBounceView />}
+        <Wrapper>
+          <Header route={route} navigation={navigation} />
+          <RestaurantTypeButtonsTable navigation={navigation} />
+          <ThemePart title={"🧑‍💻 카공하기 좋은 카페는?"} />
+          <ThemePart title={"🤦‍ 시험 기간에는 싸고 빠르게"} />
+          <PostPart />
+          <Temporary
+            onPress={() => {
+              navigation.navigate("AppFeedback");
+            }}
+          >
+            <NoticePart />
+          </Temporary>
+        </Wrapper>
+      </Scroll>
+    </Screen>
+  );
 };
 
 export default Home;
+
+const Temporary = styled.TouchableOpacity``;
 
 const Screen = styled.View`
   width: 100%;
@@ -46,7 +58,7 @@ const Scroll = styled.ScrollView`
 
 const PreventingIosBounceView = styled.View`
   height: ${PREVENTING_IOS_BOUNCE_VIEW_HEIGHT}px;
-`
+`;
 
 const Wrapper = styled.View`
   background-color: ${(props) => props.theme.backgroundGray};
