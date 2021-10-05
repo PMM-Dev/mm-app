@@ -4,6 +4,7 @@ import Setting from "../screen/Setting/Setting";
 import LikeHistory from "../screen/Setting/LikeHistory";
 import ReviewHistory from "../screen/Setting/ReviewHistory";
 import Credit from "../screen/Setting/Credit";
+import Restaurant from "../screen/Home/Restaurant";
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,11 @@ const SettingNavigator = () => {
         name="Credit"
         component={Credit}
         options={{ title: "서비스 정보" }}
+      />
+      <Stack.Screen
+        name="Restaurant"
+        component={Restaurant}
+        options={{ title: "음식점" }}
       />
     </Stack.Navigator>
   );

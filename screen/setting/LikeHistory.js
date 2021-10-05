@@ -45,7 +45,7 @@ const RestaurantView = styled.View`
 
 const Page = styled.View`
   width: 100%;
-  height: ${constants.vh(87)}px;
+  height: 100%;
   background-color: ${(props) => props.theme.backgroundWhite};
 `;
 

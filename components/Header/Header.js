@@ -7,6 +7,7 @@ import MapHeaderMenu from "./MapHeaderMenu";
 import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
 import SettingLikeRestaurantHeaderMenu from "./SettingLikeRestaurantHeaderMenu";
 import SettingMyCommentHeaderMenu from "./SettingMyCommentHeaderMenu";
+import FeedbackHeaderMenu from "./FeedbackHeaderMenu";
 
 const Header = ({
   route: { name: routeName },
@@ -44,9 +45,13 @@ const Header = ({
         />
       );
     } else if (routeName === "LikeHistory") {
-      setMenuComponent(<SettingLikeRestaurantHeaderMenu navigation={navigation} />);
+      setMenuComponent(
+        <SettingLikeRestaurantHeaderMenu navigation={navigation} />
+      );
     } else if (routeName === "ReviewHistory") {
-      setMenuComponent(<SettingMyCommentHeaderMenu navigation={navigation} /> );
+      setMenuComponent(<SettingMyCommentHeaderMenu navigation={navigation} />);
+    } else if (routeName === "AppFeedback") {
+      setMenuComponent(<FeedbackHeaderMenu navigation={navigation} />);
     }
   };
 
