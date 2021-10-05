@@ -5,6 +5,8 @@ import HomeHeaderMenu from "./HomeHeaderMenu";
 import RestaurantListHeaderMenu from "./RestaurantListHeaderMenu";
 import MapHeaderMenu from "./MapHeaderMenu";
 import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
+import SettingLikeRestaurantHeaderMenu from "./SettingLikeRestaurantHeaderMenu";
+import SettingMyCommentHeaderMenu from "./SettingMyCommentHeaderMenu";
 
 const Header = ({
   route: { name: routeName },
@@ -41,6 +43,10 @@ const Header = ({
           setLikeNum={setLikeNum}
         />
       );
+    } else if (routeName === "LikeHistory") {
+      setMenuComponent(<SettingLikeRestaurantHeaderMenu navigation={navigation} />);
+    } else if (routeName === "ReviewHistory") {
+      setMenuComponent(<SettingMyCommentHeaderMenu navigation={navigation} /> );
     }
   };
 

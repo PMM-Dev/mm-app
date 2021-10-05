@@ -67,3 +67,18 @@ export const getLikeRestaurant = async () => {
     return [];
   }
 };
+
+export const getMeReview = async () => {
+  try {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    const response = await axios.get(API_URL + "/member/me/review", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (e) {
+    console.error("[AppApi][Exception] " + e);
+    return [];
+  }
+};

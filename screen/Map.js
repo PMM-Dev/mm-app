@@ -16,7 +16,6 @@ const Map = ({route, navigation}) => {
     const mapRef = React.createRef();
     const [restaurants, setRestaurants] = useState();
     const [markers, setMarkers] = useState([]);
-    const [infoCard, setInfoCard] = useState([]);
     const [location, setLocation] = useState({
         coords: {
             latitude: 35.176906553539645,

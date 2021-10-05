@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {ActivityIndicator} from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import Theme from "../../style/Theme";
 import Header from "../../components/Header/Header";
 import constants from "../../constants";
@@ -20,7 +20,7 @@ import {
 import KoreanEnum from "../../KoreanEnum";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import RestaurantEnum from "../../RestaurantEnum";
-import {View} from "react-native";
+import { View } from "react-native";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 
 const RestaurantList = ({route, navigation}) => {

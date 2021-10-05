@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import {
-    HOME_FOOD_ICON_ASIAN,
-    HOME_FOOD_ICON_DELIEVERY,
-    HOME_FOOD_ICON_DESSERT,
-    HOME_FOOD_ICON_FASTFOOD,
-    HOME_FOOD_ICON_FLOUR,
-    HOME_FOOD_ICON_JAPANESE,
-    HOME_FOOD_ICON_KOREAN,
-    HOME_FOOD_ICON_NIGHTFOOD,
-    HOME_FOOD_ICON_RANKING,
-    HOME_FOOD_ICON_WESTERN,
+  HOME_FOOD_ICON_ASIAN,
+  HOME_FOOD_ICON_DELIEVERY,
+  HOME_FOOD_ICON_DESSERT,
+  HOME_FOOD_ICON_FASTFOOD,
+  HOME_FOOD_ICON_FLOUR,
+  HOME_FOOD_ICON_JAPANESE,
+  HOME_FOOD_ICON_KOREAN,
+  HOME_FOOD_ICON_NIGHTFOOD,
+  HOME_FOOD_ICON_RANKING,
+  HOME_FOOD_ICON_WESTERN,
 } from "../../image";
 import constants from "../../constants";
-import RestaurantEnum from "../../RestaurantEnum"
+import RestaurantEnum from "../../RestaurantEnum";
 
 const RestaurantTypeButtonsTable = ({navigation}) => {
     return (
@@ -135,7 +135,7 @@ const Button = styled.TouchableOpacity`
   width: ${constants.vw(17)}px;
   height: ${constants.vw(17)}px;
   margin-right: ${constants.vw(1.5)}px;
-  margin-bottom: ${constants.vw(1.5)}px;;;
+  margin-bottom: ${constants.vw(1.5)}px; ;;
 `;
 
 const Img = styled.Image`

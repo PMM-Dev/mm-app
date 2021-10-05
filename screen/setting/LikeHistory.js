@@ -5,9 +5,11 @@ import { ActivityIndicator } from "react-native-paper";
 import Theme from "../../style/Theme";
 import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard";
 import { getLikeRestaurant } from "../../components/Api/AppMemberApi";
+import Header from "../../components/Header/Header";
 
-const LikeHistory = ({ navigation }) => {
+const LikeHistory = ({ route, navigation }) => {
   const [restaurants, setRestaurants] = useState();
+  const headerTitle = "좋아요한 식당";
 
   useEffect(() => {
     async function initRestaurants() {
@@ -19,6 +21,7 @@ const LikeHistory = ({ navigation }) => {
 
   return (
     <Page>
+      <Header route={route} navigation={navigation} title={headerTitle} />
       <Scroll contentContainerStyle={{ flex: 1 }}>
         {restaurants ? (
           restaurants.map((data, index) => (

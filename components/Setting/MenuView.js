@@ -20,7 +20,6 @@ import { getMyMemberInfo } from "../Api/AppMemberApi";
 
 const MenuView = ({ navigate, role }) => {
   const logout = useLogOut();
-
   const [isTokenDialogVisible, setIsTokenDialogVisible] = useState(false);
   const [tokenDialogText, setTokenDialogText] = useState("");
   const [userData, setUserData] = useState();
@@ -31,7 +30,6 @@ const MenuView = ({ navigate, role }) => {
     }
     bringUserData();
   }, [userData]);
-
   return userData === undefined ? (
     <></>
   ) : (

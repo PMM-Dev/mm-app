@@ -22,13 +22,13 @@ const Restaurant = ({route, navigation}) => {
 
     const [likeNum, setLikeNum] = useState();
     const [reviewNum, setReviewNum] = useState();
-    const [isPresentMyReview, setIsPresentMyReview] = useState(false);
     const [writingReviewGrade, setWritingReviewGrade] = useState(0);
     const [writingReviewContent, setWritingReviewContent] = useState("");
 
     useEffect(() => {
         async function getRestaurantData() {
             const restaurantData = await getRestaurantsById(restaurantId);
+            console.log(restaurantData)
             setData(restaurantData);
         }
 
@@ -109,7 +109,6 @@ const Restaurant = ({route, navigation}) => {
                             <RestaurantReviewView
                                 restaurantId={restaurantId}
                                 reviewCount={reviewNum}
-                                isPresentMyReview={isPresentMyReview}
                                 openReviewWritingRBSheet={openReviewWritingPanel}
                             />
                         </Wrapper>

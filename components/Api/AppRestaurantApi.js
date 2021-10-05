@@ -17,6 +17,21 @@ export const getRestaurants = async () => {
     }
 };
 
+export const getRestaurantsByID = async (id) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(API_URL + "/restaurant/" + id, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByType()" + e);
+        return [];
+    }
+};
+
 export const getRestaurantsByType = async (type) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
@@ -122,7 +137,7 @@ export const getRestaurantsByDeliverable = async (type) => {
     }
 };
 
-export const getRestaurantsByRank = async (type) => {
+export const getRestaurantsByRank = async (genre) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.get(API_URL + "/restaurant/rank", {
@@ -137,7 +152,11 @@ export const getRestaurantsByRank = async (type) => {
     }
 };
 
-export const getRestaurantByGacha = async (typeList, priceList, locationList) => {
+export const getRestaurantByGacha = async (
+    typeList,
+    priceList,
+    locationList
+) => {
     let conditionUrl = "?";
     if (typeList.length !== 0) {
         conditionUrl += "type=" + typeList.join() + "&";
@@ -151,19 +170,21 @@ export const getRestaurantByGacha = async (typeList, priceList, locationList) =>
 
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const response = await axios.get(API_URL + "/restaurant/condition" + conditionUrl,
+        const response = await axios.get(
+            API_URL + "/restaurant/condition" + conditionUrl,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
-            });
+            }
+        );
 
         return response.data;
     } catch (e) {
         console.error("[AppApi][Exception] getRestaurantByGacha()" + e);
         return undefined;
     }
-}
+};
 
 export const getRestaurantsById = async (id) => {
     try {
@@ -216,6 +237,24 @@ export const postReview = async (content, grade, restaurantId) => {
         return response.data;
     } catch (e) {
         console.error("[AppApi][Exception] " + e);
+        return undefined;
+    }
+};
+
+export const getRestaurantsReviewByMe = async (restaurantId) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(
+            API_URL + "/restaurant/" + restaurantId + "/review/me",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantsByRank()" + e);
         return undefined;
     }
 };
