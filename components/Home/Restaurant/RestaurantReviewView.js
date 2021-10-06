@@ -43,7 +43,7 @@ const RestaurantReviewView = ({restaurantId, reviewCount, openReviewWritingRBShe
         <>
           <TitleText>리뷰</TitleText>
           <ReviewMenus>
-            <ReviewCountText>최근리뷰 {reviewCount}개</ReviewCountText>
+            <ReviewCountText>최근 리뷰 {reviewCount}개</ReviewCountText>
             <FiltersView>
               <FilterButton>
                 <FilterText selected={condition === 0}>최신순</FilterText>
@@ -58,17 +58,15 @@ const RestaurantReviewView = ({restaurantId, reviewCount, openReviewWritingRBShe
               </FilterButton>
             </FiltersView>
           </ReviewMenus>
+          <SubTitleText>나의 리뷰</SubTitleText>
           {myReview ? (
-            <>
-              <SubTitleText>나의리뷰</SubTitleText>
               <Review review={myReview} />
-            </>
           ) : (
               <ReviewWritingButton onPress={() => openReviewWritingRBSheet()}>
                   <ReviewWritingButtonText>리뷰 작성하기</ReviewWritingButtonText>
               </ReviewWritingButton>
           )}
-          <SubTitleText>모두의리뷰</SubTitleText>
+          <SubTitleText>모두의 리뷰</SubTitleText>
           {reviews.map(
             (review, index) =>
               name !== review.authorName && (
@@ -90,9 +88,9 @@ const RestaurantReviewView = ({restaurantId, reviewCount, openReviewWritingRBShe
 };
 
 const SubTitleText = styled.Text`
-  ${(props) => props.theme.NanumSquareBFont}
-  font-size: ${constants.vw(4.2)}px;
-  margin-bottom: ${constants.vh(3)}px;
+  ${(props) => props.theme.NanumSquareLFont}
+  font-size: ${constants.vw(4.6)}px;
+  margin-bottom: ${constants.vh(1)}px;
 `;
 
 const ReviewView = styled.View`
@@ -139,10 +137,12 @@ const ReviewMenus = styled.View`
   border-bottom-color: ${(props) => props.theme.fontGray};
 `;
 
-const ReviewWritingButton = styled.TouchableOpacity``;
+const ReviewWritingButton = styled.TouchableOpacity`
+  margin-bottom: ${constants.vh(2)}px;
+`;
 
 const ReviewWritingButtonText = styled.Text`
-  ${(props) => props.theme.NanumSquareBFont}
+  ${(props) => props.theme.NanumSquareEBFont}
   font-size: ${constants.vw(4)}px;
   color: ${(props) => props.theme.fontBlue};
 `;

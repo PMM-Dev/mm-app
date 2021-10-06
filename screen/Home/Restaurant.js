@@ -151,7 +151,7 @@ const Restaurant = ({ route, navigation }) => {
                 style={{
                   width: "100%",
                   height: constants.vh(5),
-                  backgroundColor: Theme.backgroundWhite,
+                  backgroundColor: Theme.backgroundGray,
                   alignItems: "flex-start",
                 }}
                 right={<TextInput.Affix tex={"/100"} />}
