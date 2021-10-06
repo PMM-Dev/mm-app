@@ -119,8 +119,8 @@ const RestaurantReviewView = ({restaurantId, reviewCount, openReviewWritingRBShe
 
 const SubTitleText = styled.Text`
   ${(props) => props.theme.NanumSquareLFont}
-  font-size: ${constants.vw(4.6)}px;
-  margin-bottom: ${constants.vh(1)}px;
+  font-size: ${constants.vw(4.4)}px;
+  margin-bottom: ${constants.vh(1.2)}px;
 `;
 
 const ReviewView = styled.View`
@@ -173,7 +173,7 @@ const ReviewWritingButton = styled.TouchableOpacity`
 
 const ReviewWritingButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareEBFont}
-  font-size: ${constants.vw(4)}px;
+  font-size: ${constants.vw(4.8)}px;
   color: ${(props) => props.theme.fontBlue};
 `;
 
