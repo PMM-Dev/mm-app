@@ -219,6 +219,60 @@ export const getRestaurantReviews = async (id) => {
     }
 };
 
+export const getRestaurantReviewsOrderByCreatedDateDesc = async (id) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(
+            API_URL + "/restaurant/" + id + "/review/orderBy/dateDesc",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] " + e);
+        return [];
+    }
+};
+
+export const getRestaurantReviewsOrderByAverageGradeDesc = async (id) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(
+            API_URL + "/restaurant/" + id + "/review/orderBy/gradeDesc",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] " + e);
+        return [];
+    }
+};
+
+export const getRestaurantReviewsOrderByAverageGradeAsc = async (id) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(
+            API_URL + "/restaurant/" + id + "/review/orderBy/gradeAsc",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] " + e);
+        return [];
+    }
+};
+
 export const postReview = async (content, grade, restaurantId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
