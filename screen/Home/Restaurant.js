@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import {useProfile} from "../../components/AuthContext";
 import styled from "styled-components";
-import {TextInput} from 'react-native';
 import { ActivityIndicator } from "react-native-paper";
 import constants from "../../constants";
 import Theme from "../../style/Theme";
 import {
   getRestaurantsById,
-  postReview,
+  uploadReview,
 } from "../../components/Api/AppRestaurantApi";
 import RBSheet from "react-native-raw-bottom-sheet";
 import RestaurantInfoView from "../../components/Home/Restaurant/RestaurantInfoView";
@@ -18,6 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 
 const Restaurant = ({ route, navigation }) => {
   const restaurantId = route.params.restaurantId;
+  const myName = useProfile().name;
   const resPicture = route.params.picture;
   const reviewWritingPanelRef = useRef();
 
@@ -26,6 +27,7 @@ const Restaurant = ({ route, navigation }) => {
 
   const [likeNum, setLikeNum] = useState();
   const [reviewNum, setReviewNum] = useState();
+  const [myReview, setMyReview] = useState();
   const [writingReviewGrade, setWritingReviewGrade] = useState(0);
   const [writingReviewContent, setWritingReviewContent] = useState("");
 
@@ -61,17 +63,42 @@ const Restaurant = ({ route, navigation }) => {
     reviewWritingPanelRef.current.close();
   };
 
+  const postReview = async () => {
+    const result = await requestPostingReview();
+    if (!result) {
+      return;
+    }
+
+    data.averageGrade = (data.averageGrade*reviewNum + writingReviewGrade) / (reviewNum+1);
+    setReviewNum((prev) => prev + 1);
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const createdDate = `${year}-${month >= 10 ? month : '0' + month}-${day >= 10 ? day : '0' + day} ${hours >= 10 ? hours : '0' + hours}:${minutes >= 10 ? minutes : '0' + minutes}`;
+    setMyReview({
+      "authorName": myName,
+      "createdDate": createdDate,
+      "description": writingReviewContent,
+      "grade": writingReviewGrade
+    })
+  }
+
   const requestPostingReview = async () => {
-    const response = await postReview(
+    const response = await uploadReview(
       writingReviewContent,
       writingReviewGrade,
       restaurantId
     );
     if (response === undefined) {
       alert("리뷰 작성에 실패했습니다.");
+      return false;
     }
 
     closeReviewWritingPanel();
+    return true;
   };
 
   // const [firstImage, setFirstImage] = useState(null);
@@ -111,11 +138,15 @@ const Restaurant = ({ route, navigation }) => {
               <RestaurantInfoView
                 data={data}
                 picture={resPicture}
+                reviewNum={reviewNum}
                 likeNum={likeNum}
               />
               <RestaurantReviewView
                 restaurantId={restaurantId}
+                myName={myName}
                 reviewCount={reviewNum}
+                myReview={myReview}
+                setMyReview={setMyReview}
                 openReviewWritingRBSheet={openReviewWritingPanel}
               />
             </Wrapper>
@@ -131,7 +162,7 @@ const Restaurant = ({ route, navigation }) => {
                   <TopButtonText>취소</TopButtonText>
                 </TopButton>
                 <PanelTitle>리뷰 작성하기</PanelTitle>
-                <TopButton onPress={requestPostingReview}>
+                <TopButton onPress={postReview}>
                   <TopButtonText>보내기</TopButtonText>
                 </TopButton>
               </TopMenusHolder>

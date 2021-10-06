@@ -7,20 +7,17 @@ import {
     getRestaurantReviewsOrderByCreatedDateDesc,
     getRestaurantsReviewByMe,
 } from "../../Api/AppRestaurantApi";
-import {useProfile} from "../../AuthContext";
 import {ActivityIndicator} from "react-native-paper";
 import Theme from "../../../style/Theme";
 import constants from "../../../constants";
 import Review from "./Review";
 import EmptyScreenCenterView from "../../EmptyScreenCenterView";
 
-const RestaurantReviewView = ({restaurantId, reviewCount, openReviewWritingRBSheet}) => {
-    const {name} = useProfile();
+const RestaurantReviewView = ({restaurantId, myName, reviewCount, myReview, setMyReview, openReviewWritingRBSheet}) => {
 
     const [isReviewLoading, setIsReviewLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
     const [condition, setCondition] = useState(0);
-    const [myReview, setMyReview] = useState();
     const [myReviewLoad, setMyReviewLoad] = useState(true);
 
     useEffect(() => {
@@ -41,6 +38,10 @@ const RestaurantReviewView = ({restaurantId, reviewCount, openReviewWritingRBShe
         requestReview();
         requestMyReview();
     }, []);
+
+    useEffect(() => {
+        console.log(myReview);
+    }, [myReview]);
 
     const requestReviewOrderByCreatedDateDesc = async () => {
         setCondition(0);
@@ -99,7 +100,7 @@ const RestaurantReviewView = ({restaurantId, reviewCount, openReviewWritingRBShe
                     <SubTitleText>모두의 리뷰</SubTitleText>
                     {reviews.map(
                         (review, index) =>
-                            name !== review.authorName && (
+                            myName !== review.authorName && (
                                 <Review review={review} key={index}/>
                             )
                     )}

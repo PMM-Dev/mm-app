@@ -16,7 +16,7 @@ import constants from "../../../constants";
 import * as Location from "expo-location";
 import Theme from "../../../style/Theme";
 
-const RestaurantInfoView = ({ data, picture, likeNum }) => {
+const RestaurantInfoView = ({ data, picture, reviewNum, likeNum }) => {
   const mapRef = React.createRef();
 
   const [marker, setMarker] = useState();
@@ -57,7 +57,7 @@ const RestaurantInfoView = ({ data, picture, likeNum }) => {
       </TitleView>
       <NumberInfosView>
         <SmallIcon source={REVIEW_ICON} style={{ tintColor: Theme.fontBlue }} />
-        <IconText color={Theme.fontBlue}>{data.reviewCount}</IconText>
+        <IconText color={Theme.fontBlue}>{reviewNum}</IconText>
         <SmallIcon source={FULLHEART} />
         <IconText color={Theme.hlRed}>{likeNum}</IconText>
       </NumberInfosView>

@@ -273,7 +273,7 @@ export const getRestaurantReviewsOrderByAverageGradeAsc = async (id) => {
     }
 };
 
-export const postReview = async (content, grade, restaurantId) => {
+export const uploadReview = async (content, grade, restaurantId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.post(
