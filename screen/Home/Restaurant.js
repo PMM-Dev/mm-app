@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { ActivityIndicator, TextInput } from "react-native-paper";
+import {TextInput} from 'react-native';
+import { ActivityIndicator } from "react-native-paper";
 import constants from "../../constants";
 import Theme from "../../style/Theme";
 import {
@@ -126,13 +127,13 @@ const Restaurant = ({ route, navigation }) => {
           >
             <ReviewWritingPanel>
               <TopMenusHolder>
-                <Button onPress={closeReviewWritingPanel}>
-                  <ButtonText>취소</ButtonText>
-                </Button>
+                <TopButton onPress={closeReviewWritingPanel}>
+                  <TopButtonText>취소</TopButtonText>
+                </TopButton>
                 <PanelTitle>리뷰 작성하기</PanelTitle>
-                <Button onPress={requestPostingReview}>
-                  <ButtonText>보내기</ButtonText>
-                </Button>
+                <TopButton onPress={requestPostingReview}>
+                  <TopButtonText>보내기</TopButtonText>
+                </TopButton>
               </TopMenusHolder>
               <TouchableStarMakerHolder>
                 <TouchableStarMaker
@@ -141,21 +142,25 @@ const Restaurant = ({ route, navigation }) => {
                   iconSizeRatio={80}
                 />
               </TouchableStarMakerHolder>
-              <TextInput
-                mode="none"
-                value={writingReviewContent}
-                selectionColor={Theme.fontBlue}
-                outlineColor={Theme.fontBlue}
-                multiline={true}
-                onChangeText={(text) => setWritingReviewContent(text)}
-                style={{
-                  width: "100%",
-                  height: constants.vh(5),
-                  backgroundColor: Theme.backgroundGray,
-                  alignItems: "flex-start",
-                }}
-                right={<TextInput.Affix tex={"/100"} />}
+              <ReviewTextInput
+                  value={writingReviewContent}
+                  onChangeText={(text) => setWritingReviewContent(text)}
+                  multiline={true}
               />
+              {/*<TextInput*/}
+              {/*  value={writingReviewContent}*/}
+              {/*  selectionColor={Theme.fontBlue}*/}
+              {/*  outlineColor={Theme.fontBlue}*/}
+              {/*  multiline={true}*/}
+              {/*  onChangeText={(text) => setWritingReviewContent(text)}*/}
+              {/*  style={{*/}
+              {/*    width: "100%",*/}
+              {/*    height: constants.vh(50),*/}
+              {/*    backgroundColor: Theme.backgroundGray,*/}
+              {/*    alignItems: "flex-start",*/}
+              {/*  }}*/}
+              {/*  right={<TextInput.Affix tex={"/100"} />}*/}
+              {/*/>*/}
               {/*<PicturesView>*/}
               {/*    <UploadPictureButton onPress={pickImage}>*/}
               {/*        <UploadPictureIcon*/}
@@ -216,12 +221,19 @@ const TopMenusHolder = styled.View`
   margin-bottom: 7%;
 `;
 
-const Button = styled.TouchableOpacity``;
+const TopButton = styled.TouchableOpacity``;
 
-const ButtonText = styled.Text`
+const TopButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vw(4)}px;
   color: ${(props) => props.theme.fontBlue};
+`;
+
+const ReviewTextInput = styled.TextInput`
+  width: 100%;
+  height: 100%;
+  text-align-vertical: top;
+  padding: 5% 5%;
 `;
 
 const PanelTitle = styled.Text`
