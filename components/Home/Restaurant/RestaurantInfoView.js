@@ -16,7 +16,7 @@ import constants from "../../../constants";
 import * as Location from "expo-location";
 import Theme from "../../../style/Theme";
 
-const RestaurantInfoView = ({ data, picture, reviewNum, likeNum }) => {
+const RestaurantInfoView = ({ data, reviewNum, likeNum }) => {
   const mapRef = React.createRef();
 
   const [marker, setMarker] = useState();

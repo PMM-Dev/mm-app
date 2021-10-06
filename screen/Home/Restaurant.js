@@ -19,7 +19,6 @@ import * as ImagePicker from "expo-image-picker";
 const Restaurant = ({ route, navigation }) => {
   const restaurantId = route.params.restaurantId;
   const myName = useProfile().name;
-  const resPicture = route.params.picture;
   const reviewWritingPanelRef = useRef();
 
   const [data, setData] = useState();
@@ -137,7 +136,6 @@ const Restaurant = ({ route, navigation }) => {
             <Wrapper>
               <RestaurantInfoView
                 data={data}
-                picture={resPicture}
                 reviewNum={reviewNum}
                 likeNum={likeNum}
               />
