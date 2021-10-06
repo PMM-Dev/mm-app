@@ -7,38 +7,50 @@ import { useProfile } from "../../AuthContext";
 
 const Review = ({ review }) => {
   return (
-    <Content>
-      <ReviewInfo>
+    <Holder>
+      <InfoView>
         <ProfileImage source={COMMENT_PROFILE} />
-        <NameAndGradeView>
+        <RightInfoView>
+            <TextInfoView>
           <AuthorNameButton onPress={() => {}}>
             <AuthorNameText>{review.authorName}</AuthorNameText>
           </AuthorNameButton>
+            <DateText>{review.createdDate}</DateText>
+            </TextInfoView>
           <StarMaker grade={review.grade} size={constants.vw(5)} />
-        </NameAndGradeView>
-      </ReviewInfo>
-      <ReviewText>{review.description}</ReviewText>
-    </Content>
+        </RightInfoView>
+      </InfoView>
+      <ContentText>{review.description}</ContentText>
+    </Holder>
   );
 };
 
-const Content = styled.View`
+const Holder = styled.View`
   width: 100%;
   margin-bottom: ${constants.vw(7)}px;
 `;
 
-const ReviewInfo = styled.View`
+const InfoView = styled.View`
   width: 100%;
   flex-direction: row;
-  margin-bottom: ${constants.vw(3)}px;
+  margin-bottom: 3%;
 `;
 
-const NameAndGradeView = styled.View`
+const RightInfoView = styled.View`
   justify-content: center;
-  margin-left: ${constants.vw(3.5)}px;
+  margin-left: 2.2%;
 `;
 
-const AuthorNameButton = styled.TouchableOpacity``;
+const TextInfoView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-left: 2%;
+  margin-bottom: 1.8%;
+`;
+
+const AuthorNameButton = styled.TouchableOpacity`
+  margin-right: 4%;
+`;
 
 const AuthorNameText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
@@ -46,15 +58,21 @@ const AuthorNameText = styled.Text`
   font-size: ${constants.vw(3.5)}px;
 `;
 
+const DateText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  color: ${(props) => props.theme.fontBlack};
+  font-size: ${constants.vw(2.5)}px;
+`
+
 const ProfileImage = styled.Image`
   height: ${constants.vw(12)}px;
   width: ${constants.vw(12)}px;
 `;
 
-const ReviewText = styled.Text`
+const ContentText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   color: ${(props) => props.theme.fontBlack};
-  font-size: ${constants.vw(4)}px;
+  font-size: ${constants.vw(3.5)}px;
 `;
 
 export default Review;

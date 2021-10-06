@@ -39,10 +39,6 @@ const RestaurantReviewView = ({restaurantId, myName, reviewCount, myReview, setM
         requestMyReview();
     }, []);
 
-    useEffect(() => {
-        console.log(myReview);
-    }, [myReview]);
-
     const requestReviewOrderByCreatedDateDesc = async () => {
         setCondition(0);
 
