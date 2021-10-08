@@ -27,7 +27,7 @@ export const appendLikeRestaurant = async (restaurantId) => {
   try {
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
     await axios.put(
-      API_URL + "/member/like/" + restaurantId,
+      API_URL + "/member/like/restaurant/" + restaurantId,
       {},
       {
         headers: {
@@ -43,7 +43,7 @@ export const appendLikeRestaurant = async (restaurantId) => {
 export const subtractLikeRestaurant = async (restaurantId) => {
   try {
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    await axios.delete(API_URL + "/member/like/" + restaurantId, {
+    await axios.delete(API_URL + "/member/like/restaurant/" + restaurantId, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -52,6 +52,37 @@ export const subtractLikeRestaurant = async (restaurantId) => {
     console.error("[AppApi][Exception] " + e);
   }
 };
+
+export const appendLikeFeedback = async (feedbackId) => {
+  try {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    await axios.put(
+        API_URL + "/member/like/report/" + feedbackId,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+    );
+  } catch (e) {
+    console.error("[AppApi][Exception] " + e);
+  }
+};
+
+export const subtractLikeFeedback = async (feedbackId) => {
+  try {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    await axios.delete(API_URL + "/member/like/report/" + feedbackId, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (e) {
+    console.error("[AppApi][Exception] " + e);
+  }
+};
+
 
 export const getLikeRestaurant = async () => {
   try {

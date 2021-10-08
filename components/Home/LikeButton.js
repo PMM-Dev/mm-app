@@ -2,15 +2,13 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import {EMPTYHEART, FULLHEART} from "../../image";
 import constants from "../../constants";
-import {
-    appendLikeRestaurant,
-    subtractLikeRestaurant,
-} from "../Api/AppMemberApi";
 
 const LikeButton = ({
-                        restaurantId,
+                        targetId,
                         isLikeButtonPressed,
                         setLikeNum,
+                        appendLikeRequest,
+                        subtractLikeRequest,
                         size,
                         iconSizeRatio
                     }) => {
@@ -20,10 +18,10 @@ const LikeButton = ({
         if (isLike) {
             setIsLike(false);
             setLikeNum((prev) => prev - 1);
-            await subtractLikeRestaurant(restaurantId);
+            await subtractLikeRequest(targetId);
         } else {
             setIsLike(true);
-            await appendLikeRestaurant(restaurantId);
+            await appendLikeRequest(targetId);
             setLikeNum((prev) => prev + 1);
         }
     };

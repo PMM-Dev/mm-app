@@ -1,6 +1,7 @@
 import React from "react";
 import BackButton from "./BackButton";
 import LikeButton from "../Home/LikeButton";
+import {appendLikeRestaurant, subtractLikeRestaurant} from "../Api/AppMemberApi";
 
 const RestaurantHeaderMenu = ({
   navigation,
@@ -12,8 +13,10 @@ const RestaurantHeaderMenu = ({
     <>
       <BackButton goBack={() => navigation.goBack()} />
       <LikeButton
-        restaurantId={restaurantId}
+        targetId={restaurantId}
         isLikeButtonPressed={isLikeButtonPressed}
+        appendLikeRequest={appendLikeRestaurant}
+        subtractLikeRequest={subtractLikeRestaurant}
         setLikeNum={setLikeNum}
         size={10}
         iconSizeRatio={60}

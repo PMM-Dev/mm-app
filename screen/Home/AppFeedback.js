@@ -1,145 +1,177 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useState, useRef} from "react";
 import styled from "styled-components";
 import constants from "../../constants";
-import { ActivityIndicator, TextInput } from "react-native-paper";
+import {ActivityIndicator, TextInput} from "react-native-paper";
 import Theme from "../../style/Theme";
 import Feedback from "../../components/Home/Restaurant/Feedback";
 import Header from "../../components/Header/Header";
 import RBSheet from "react-native-raw-bottom-sheet";
+import {postFeedback, deleteFeedback, getFeedbacksOrderByCreatedDateDesc} from "../../components/Api/AppFeedbackApi";
+import EmptyContentCenterView from "../../components/EmptyContentCenterView";
+import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
+import NoContentAnnouncement from "../../components/NoContentAnnouncement";
+import {useProfile} from "../../components/AuthContext";
 
-const AppFeedback = ({ route, navigation }) => {
-  const [feedbacks, setFeedbacks] = useState();
-  const feedbackWritingPanelRef = useRef();
-  const [writingReviewContent, setWritingReviewContent] = useState("");
+const HEADER_TITLE = "피드백 목록";
 
-  const requestPostingFeedback = async () => {
-    // const response = await postReview(
-    //   writingReviewContent,
-    //   writingReviewGrade,
-    //   restaurantId
-    // );
-    if (response === undefined) {
-      alert("리뷰 작성에 실패했습니다.");
+const AppFeedback = ({route, navigation}) => {
+    const feedbackWritingPanelRef = useRef();
+    const {name: myName, picture: myPicture} = useProfile();
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
+
+    const [feedbacks, setFeedbacks] = useState([]);
+    const [isPostStep, setIsPostStep] = useState(true);
+    const [writingFeedbackContent, setWritingFeedbackContent] = useState("");
+
+    useEffect(() => {
+        async function requestFeedbacks() {
+            const response = await getFeedbacksOrderByCreatedDateDesc();
+            if (!response) {
+                setIsError(true);
+            } else {
+                setFeedbacks(response);
+            }
+
+            setIsLoading(false);
+        }
+
+        requestFeedbacks();
+    }, [])
+
+    const postReview = async () => {
+        const feedbackId = await requestPostingFeedback();
+        if (!feedbackId) {
+            return;
+        }
+
+        triggerLocalFeedbackOfPostFeedback(feedbackId);
     }
 
-    closeReviewWritingPanel();
-  };
+    const requestPostingFeedback = async () => {
+        const response = await postFeedback(writingFeedbackContent);
+        if (!response) {
+            alert("리뷰 작성에 실패했습니다.");
+            return undefined
+        }
 
-  const headerTitle = "피드백 목록";
+        closeReviewWritingPanel();
+        return response;
+    };
 
-  const dummy = [
-    {
-      authorName: "이윤수",
-      authorPicture: 13,
-      content: "존나배고파",
-      createdDate: "20201020",
-    },
-    {
-      authorName: "이윤수",
-      authorPicture: 13,
-      content: "배고파",
-      createdDate: "20201020",
-    },
-    {
-      authorName: "이윤수",
-      authorPicture: 13,
-      content: "매우배고파",
-      createdDate: "20201020",
-    },
-  ];
+    const triggerLocalFeedbackOfPostFeedback = (feedbackId) => {
+        setFeedbacks((prev) => [{
+            "authorName": myName,
+            "authorPicture": myPicture,
+            "content": writingFeedbackContent,
+            "id": feedbackId,
+            "likeCount": 0
+        }, ...prev]);
+    }
 
-  const openReviewWritingPanel = () => {
-    feedbackWritingPanelRef.current.open();
-  };
+    const requestDeleteFeedback = async (feedbackId) => {
+        const response = await deleteFeedback(feedbackId);
+        if (!response) {
+            alert("리뷰 작성에 실패했습니다.");
+            return;
+        }
 
-  const closeReviewWritingPanel = () => {
-    feedbackWritingPanelRef.current.close();
-  };
+        deleteLocalFeedback(feedbackId);
+    }
 
-  useEffect(() => {
-    async function requestMeFeedback() {}
-    requestMeFeedback();
-  }, []);
-  return (
-    <Page>
-      <Header route={route} navigation={navigation} title={headerTitle} />
+    const deleteLocalFeedback = (feedbackId) => {
+        setFeedbacks((prev) => prev.map((prevFeedback) => {
+            if (prevFeedback.id !== feedbackId) {
+                return prevFeedback;
+            }
+        }))
+    }
 
-      <Button onPress={() => openReviewWritingPanel()}>
-        <ReviewWritingButtonText>피드백 작성하기</ReviewWritingButtonText>
-      </Button>
-      <RBSheet
-        ref={feedbackWritingPanelRef}
-        height={constants.vh(93)}
-        customStyles={{ container: { borderRadius: constants.vw(3) } }}
-      >
-        <ReviewWritingPanel>
-          <TopMenusHolder>
-            <Button onPress={closeReviewWritingPanel}>
-              <ButtonText>취소</ButtonText>
+    const openReviewWritingPanel = () => {
+        feedbackWritingPanelRef.current.open();
+    };
+
+    const closeReviewWritingPanel = () => {
+        feedbackWritingPanelRef.current.close();
+    };
+
+    return (
+        <Page>
+            <Header route={route} navigation={navigation} title={HEADER_TITLE}/>
+
+            <Button onPress={() => openReviewWritingPanel()}>
+                <ButtonText>피드백 작성하기</ButtonText>
             </Button>
-            <PanelTitle>피드백 작성하기</PanelTitle>
-            <Button onPress={requestPostingFeedback}>
-              <ButtonText>보내기</ButtonText>
-            </Button>
-          </TopMenusHolder>
-          <TextInput
-            mode="none"
-            value={writingReviewContent}
-            selectionColor={Theme.fontBlue}
-            outlineColor={Theme.fontBlue}
-            multiline={true}
-            onChangeText={(text) => setWritingReviewContent(text)}
-            style={{
-              width: "100%",
-              height: constants.vh(5),
-              backgroundColor: Theme.backgroundWhite,
-              alignItems: "flex-start",
-            }}
-            right={<TextInput.Affix tex={"/100"} />}
-          />
-          {/*<PicturesView>*/}
-          {/*    <UploadPictureButton onPress={pickImage}>*/}
-          {/*        <UploadPictureIcon*/}
-          {/*            source={RESTAURANT_ICON_IMAGE}*/}
-          {/*            style={{ tintColor: Theme.fontBlack }}*/}
-          {/*        />*/}
-          {/*    </UploadPictureButton>*/}
-          {/*    <UploadedPictureHolder>*/}
-          {/*        <UploadedPicture source={{ uri: firstImage }} />*/}
-          {/*    </UploadedPictureHolder>*/}
-          {/*    <UploadedPictureHolder>*/}
-          {/*        <UploadedPicture source={{ uri: secondImage }} />*/}
-          {/*    </UploadedPictureHolder>*/}
-          {/*</PicturesView>*/}
-        </ReviewWritingPanel>
-      </RBSheet>
-      <Scroll>
-        {dummy ? (
-          dummy.map((feedback, index) => {
-            return <Feedback feedback={feedback} key={index} />;
-          })
-        ) : (
-          <ActivityIndicator color={Theme.fontBlack} size={"large"} />
-        )}
-      </Scroll>
-    </Page>
-  );
+            <RBSheet
+                ref={feedbackWritingPanelRef}
+                height={constants.vh(93)}
+                customStyles={{container: {borderRadius: constants.vw(3)}}}
+            >
+                <ReviewWritingPanel>
+                    <TopMenusHolder>
+                        <Button onPress={closeReviewWritingPanel}>
+                            <TopButtonText>취소</TopButtonText>
+                        </Button>
+                        <PanelTitle>피드백 작성하기</PanelTitle>
+                        <Button onPress={postReview} disabled={writingFeedbackContent === ""}>
+                            <TopButtonText
+                                disabled={writingFeedbackContent === ""}>보내기</TopButtonText>
+                        </Button>
+                    </TopMenusHolder>
+                    <FeedbackTextInput
+                        value={writingFeedbackContent}
+                        onChangeText={(text) => setWritingFeedbackContent(text)}
+                        multiline={true}
+                    />
+                </ReviewWritingPanel>
+            </RBSheet>
+            <Scroll>
+                {isLoading ? (
+                    <EmptyContentCenterView>
+                        <ActivityIndicator
+                            animating={true}
+                            size="large"
+                            color={Theme.hlOrange}
+                        />
+                    </EmptyContentCenterView>
+                ) : (isError ? (
+                    <RequestFailedAnnouncement/>
+                ) : (feedbacks && feedbacks.length === 0 ? (
+                    <NoContentAnnouncement/>
+                ) : (
+                    feedbacks.map((feedback, index) => (
+                        <Feedback key={index} feedback={feedback} mine={myName === feedback.authorName}
+                                  requestDeleteFeedback={requestDeleteFeedback}/>
+                    ))
+                )))}
+            </Scroll>
+        </Page>
+    );
 };
 
-const ReviewWritingButtonText = styled.Text`
-  margin-left: ${constants.vw(3)}px;
+const ButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
+  margin-left: ${constants.vw(3)}px;
   font-size: ${constants.vw(4)}px;
   color: ${(props) => props.theme.fontBlue};
 `;
 
 const Button = styled.TouchableOpacity``;
 
-const ButtonText = styled.Text`
+const TopButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vw(4)}px;
   color: ${(props) => props.theme.fontBlue};
 `;
+
+const FeedbackTextInput = styled.TextInput`
+  width: 100%;
+  height: 100%;
+  text-align-vertical: top;
+  padding: 5% 5%;
+`;
+
 
 const PanelTitle = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
