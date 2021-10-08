@@ -5,9 +5,8 @@ import {
     GACHA_CARD_FRONT_ASIAN,
     GACHA_CARD_FRONT_DESSERT, GACHA_CARD_FRONT_FASTFOOD,
     GACHA_CARD_FRONT_FLOUR, GACHA_CARD_FRONT_JAPANESE,
-    GACHA_CARD_FRONT_KOREAN, GACHA_CARD_FRONT_WESTERN, RESTAURANT_IMAGE
+    GACHA_CARD_FRONT_KOREAN, GACHA_CARD_FRONT_WESTERN
 } from "../../image";
-import KoreanEnum from "../../KoreanEnum";
 import {Converter} from "../Converter";
 
 const FrontOfCard = ({id, title, type, price, location, navigation}) => {
@@ -122,6 +121,7 @@ const CardHolder = styled.View`
   width: ${constants.vw(78)}px;
   height: ${constants.vh(100)}px;
   justify-content: center;
+  align-items: center;
 `
 
 const CardButton = styled.TouchableOpacity`
@@ -129,7 +129,7 @@ const CardButton = styled.TouchableOpacity`
 `
 
 const CardImage = styled.Image`
-  width: ${constants.vw(78)}px;
+  width: ${constants.vh(36.2)}px;
   resize-mode: contain;
 `;
 
@@ -161,7 +161,7 @@ const TitleHolder = styled.View`
 
 const Title = styled.Text`
   ${(props) => props.theme.NanumSquareEBFont}
-  font-size: ${constants.vw(7.3)}px;
+  font-size: ${constants.vh(3.4)}px;
   color: ${(props) => props.color};
 `
 
@@ -171,7 +171,7 @@ const Content = styled.Text`
   right: ${constants.vw(25.5)}px;
 
   ${(props) => props.theme.NanumSquareRFont}
-  font-size: ${constants.vw(5)}px;
+  font-size: ${constants.vh(2.4)}px;
   color: ${(props) => props.color};
 `
 

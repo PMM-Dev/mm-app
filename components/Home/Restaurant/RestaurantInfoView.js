@@ -56,7 +56,7 @@ const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
                 <StarMaker grade={data.averageGrade} size={30} iconSizeRatio={90}/>
             </TitleView>
             <NumberInfosView>
-                <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}}/>
+                <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}} />
                 <IconText color={Theme.fontBlue}>{reviewNum}</IconText>
                 <SmallIcon source={FULLHEART}/>
                 <IconText color={Theme.hlRed}>{likeNum}</IconText>
@@ -154,19 +154,20 @@ const Title = styled.Text`
 
 const NumberInfosView = styled.View`
   flex-direction: row;
+  align-items: center;
   margin-top: ${constants.vh(0.5)}px;
   margin-bottom: ${constants.vh(4)}px;
 `;
 
 const SmallIcon = styled.Image`
-  width: ${constants.vw(5)}px;
-  height: ${constants.vw(5)}px;
+  width: ${constants.vh(2.4)}px;
+  height: ${constants.vh(2.4)}px;
   margin-right: ${constants.vw(2)}px;
 `;
 
 const IconText = styled.Text`
   color: ${(props) => (props.color ? props.color : props.theme.fontBlackGray)};
-  font-size: ${constants.vh(1.5)}px;
+  font-size: ${constants.vh(1.6)}px;
   margin-right: ${constants.vw(3.5)}px;
 `;
 

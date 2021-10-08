@@ -45,7 +45,7 @@ const GachaResultView = ({navigation, gachaResult, doGacha, resetGacha}) => {
             </FrontOfCardScrollView>
             <AnnounceText top={11}>상단으로 드래그해서 다시 뽑기</AnnounceText>
             <AnnounceText top={13.5}>하단으로 드래그해서 조건 초기화</AnnounceText>
-            <AnnounceText bottom={14}>자세히 볼려면 카드를 클릭하세요</AnnounceText>
+            <AnnounceText bottom={10}>자세히 볼려면 카드를 클릭하세요</AnnounceText>
         </ResultView>
     )
 }
@@ -63,7 +63,7 @@ const FrontOfCardScrollView = styled.ScrollView`
 `
 
 const FrontOfCardHolder = styled.View`
-  height: ${constants.vh(300)}px;
+  height: ${constants.vh(305)}px;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -75,7 +75,7 @@ const AnnounceText = styled.Text`
   ${(props) => props.bottom ? `bottom: ${constants.vh(props.bottom)}px` : ""};
 
   ${(props) => props.theme.NanumSquareRFont}
-  font-size: ${constants.vw(5)}px;
+  font-size: ${constants.vh(2.3)}px;
   color: ${(props) => props.theme.fontGray};
 `
 
