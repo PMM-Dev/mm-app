@@ -7,22 +7,22 @@ import {appendLikeFeedback, subtractLikeFeedback} from "../../Api/AppMemberApi";
 
 const Feedback = ({feedback, mine, requestDeleteFeedback}) => {
 
-    const [likeCount, setLikeCount] = useState(feedback.likeCount);
+    const [likeCount, setLikeCount] = useState(feedback?.likeCount);
 
     return (
         <Holder>
             <InfoView>
                 <Portrait>
                     <PortraitImage source={
-                        feedback.authorPicture === undefined
+                        feedback?.authorPicture === undefined
                             ? SETTING_GUEST_PORTRAIT
                             : {
-                                uri: feedback.authorPicture,
+                                uri: feedback?.authorPicture,
                             }
                     }/>
                 </Portrait>
                 <NameAndGradeView>
-                    <AuthorNameText>{feedback.authorName}</AuthorNameText>
+                    <AuthorNameText>{feedback?.authorName}</AuthorNameText>
                     <GradeList>
                         <LikeView>
                             <GradeIcon source={FULLHEART}/>
@@ -32,16 +32,16 @@ const Feedback = ({feedback, mine, requestDeleteFeedback}) => {
                 </NameAndGradeView>
                 <LikeButtonHolder>
                     <LikeButton
-                        targetId={feedback.id}
-                        isLikeButtonPressed={feedback.didLike}
+                        targetId={feedback?.id}
+                        isLikeButtonPressed={feedback?.didLike}
                         setLikeNum={setLikeCount}
                         appendLikeRequest={appendLikeFeedback}
                         subtractLikeRequest={subtractLikeFeedback}
                     />
                 </LikeButtonHolder>
             </InfoView>
-            <ContentText>{feedback.content}</ContentText>
-            {mine && <Button>
+            <ContentText>{feedback?.content}</ContentText>
+            {mine && <Button onPress={() => requestDeleteFeedback(feedback?.id)}>
                 <ButtonText>삭제하기</ButtonText>
             </Button>}
         </Holder>

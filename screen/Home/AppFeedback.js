@@ -6,13 +6,18 @@ import Theme from "../../style/Theme";
 import Feedback from "../../components/Home/Restaurant/Feedback";
 import Header from "../../components/Header/Header";
 import RBSheet from "react-native-raw-bottom-sheet";
-import {postFeedback, deleteFeedback, getFeedbacksOrderByCreatedDateDesc} from "../../components/Api/AppFeedbackApi";
+import {
+    postFeedback,
+    deleteFeedback,
+    getFeedbacksOrderByCreatedDateDesc,
+    getFeedbacksOrderByLikeCountDesc
+} from "../../components/Api/AppFeedbackApi";
 import EmptyContentCenterView from "../../components/EmptyContentCenterView";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import {useProfile} from "../../components/AuthContext";
 
-const HEADER_TITLE = "피드백 목록";
+const HEADER_TITLE = "피드백";
 
 const AppFeedback = ({route, navigation}) => {
     const feedbackWritingPanelRef = useRef();
@@ -22,7 +27,6 @@ const AppFeedback = ({route, navigation}) => {
     const [isError, setIsError] = useState(false);
 
     const [feedbacks, setFeedbacks] = useState([]);
-    const [isPostStep, setIsPostStep] = useState(true);
     const [writingFeedbackContent, setWritingFeedbackContent] = useState("");
 
     useEffect(() => {
@@ -41,7 +45,7 @@ const AppFeedback = ({route, navigation}) => {
     }, [])
 
     const postReview = async () => {
-        const feedbackId = await requestPostingFeedback();
+        const feedbackId = await requestPostFeedback();
         if (!feedbackId) {
             return;
         }
@@ -49,7 +53,7 @@ const AppFeedback = ({route, navigation}) => {
         triggerLocalFeedbackOfPostFeedback(feedbackId);
     }
 
-    const requestPostingFeedback = async () => {
+    const requestPostFeedback = async () => {
         const response = await postFeedback(writingFeedbackContent);
         if (!response) {
             alert("리뷰 작성에 실패했습니다.");
@@ -70,10 +74,36 @@ const AppFeedback = ({route, navigation}) => {
         }, ...prev]);
     }
 
+    const requestGetFeedbacksOrderByCreatedDateDesc = async () => {
+        setIsLoading(true);
+
+        const response = await getFeedbacksOrderByCreatedDateDesc();
+        if (!response) {
+            setIsError(true);
+        } else {
+            setFeedbacks(response);
+        }
+
+        setIsLoading(false);
+    }
+
+    const requestGetFeedbacksOrderByLikeCountDesc = async () => {
+        setIsLoading(true);
+
+        const response = await getFeedbacksOrderByLikeCountDesc();
+        if (!response) {
+            setIsError(true);
+        } else {
+            setFeedbacks(response);
+        }
+
+        setIsLoading(false);
+    }
+
     const requestDeleteFeedback = async (feedbackId) => {
         const response = await deleteFeedback(feedbackId);
         if (!response) {
-            alert("리뷰 작성에 실패했습니다.");
+            alert("리뷰 삭제에 실패했습니다.");
             return;
         }
 
@@ -81,14 +111,11 @@ const AppFeedback = ({route, navigation}) => {
     }
 
     const deleteLocalFeedback = (feedbackId) => {
-        setFeedbacks((prev) => prev.map((prevFeedback) => {
-            if (prevFeedback.id !== feedbackId) {
-                return prevFeedback;
-            }
-        }))
+        setFeedbacks((prev) => prev.filter((prevFeedback) => prevFeedback.id !== feedbackId));
     }
 
     const openReviewWritingPanel = () => {
+        setWritingFeedbackContent("");
         feedbackWritingPanelRef.current.open();
     };
 
@@ -99,10 +126,28 @@ const AppFeedback = ({route, navigation}) => {
     return (
         <Page>
             <Header route={route} navigation={navigation} title={HEADER_TITLE}/>
+            <AnnouncementView>
+                <AnnouncementText>😂 데모 단계인 이 앱은 많은 피드백이 필요합니다 😂</AnnouncementText>
+                <AnnouncementText>👋 버그 리포트, 디자인 피드백, 기능 피드백 환영 👋</AnnouncementText>
+                <AnnounceDivider/>
+                <AnnouncementText>특히, 식당이 아직 앱에 없거나 잘못된 정보인 경우, 피드백 써주시면 감사하겠습니다. 🥰 (식당에 대한 상세한 정보도 함께 적어주세요!)</AnnouncementText>
+                <AnnounceDivider/>
+                <AnnouncementText>식당마다 적히는 한 줄 설명평에 자신의 문구가 들어가도록 피드백 작성해보세요! 😁</AnnouncementText>
+            </AnnouncementView>
 
-            <Button onPress={() => openReviewWritingPanel()}>
-                <ButtonText>피드백 작성하기</ButtonText>
-            </Button>
+            <MenusHolder>
+                <Button onPress={openReviewWritingPanel}>
+                    <ButtonText>작성하기</ButtonText>
+                </Button>
+                <SortButtonsHolder>
+                <Button onPress={requestGetFeedbacksOrderByCreatedDateDesc}>
+                    <SortButtonText>작성일순</SortButtonText>
+                </Button>
+                <Button onPress={requestGetFeedbacksOrderByLikeCountDesc}>
+                    <SortButtonText>좋아요순</SortButtonText>
+                </Button>
+                </SortButtonsHolder>
+            </MenusHolder>
             <RBSheet
                 ref={feedbackWritingPanelRef}
                 height={constants.vh(93)}
@@ -153,11 +198,13 @@ const AppFeedback = ({route, navigation}) => {
 const ButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
   margin-left: ${constants.vw(3)}px;
-  font-size: ${constants.vw(4)}px;
+  font-size: ${constants.vw(5)}px;
   color: ${(props) => props.theme.fontBlue};
 `;
 
-const Button = styled.TouchableOpacity``;
+const Button = styled.TouchableOpacity`
+  margin-right: 5.5%;
+`;
 
 const TopButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
@@ -197,11 +244,52 @@ const Page = styled.View`
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.theme.backgroundWhite};
+  align-items: center;
 `;
 
 const Scroll = styled.ScrollView`
   width: 100%;
   padding: ${constants.vw(5)}px;
 `;
+
+const AnnouncementView = styled.View`
+  width: 90%;
+  padding: 3%;
+  border-radius: ${constants.vh(1.3)}px;
+  background-color: ${(props) => props.theme.backgroundGray};
+  justify-content: center;
+  align-items: center;
+`
+
+const AnnouncementText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vh(1.7)}px;
+  color: ${(props) => props.theme.fontBlack};
+`
+
+const AnnounceDivider = styled.View`
+  width: 100%;
+  height: 0.5px;
+  margin: 5% 0px;
+  background-color: ${(props) => props.theme.backgroundDarkerGray};
+`
+
+const MenusHolder = styled.View`
+  width: 95%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4%;
+`
+
+const SortButtonsHolder = styled.View`
+  flex-direction: row;
+`
+
+const SortButtonText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vw(3.4)}px;
+  color: ${(props) => props.theme.fontBlackGray};
+`
 
 export default AppFeedback;
