@@ -220,7 +220,7 @@ const FilterButton = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
-  font-size: ${constants.vw(2.8)}px;
+  font-size: ${constants.vh(1.4)}px;
   color: ${(props) => props.theme.backgroundWhite};
   border-right-color: ${(props) => props.theme.backgroundWhite};
 `;
