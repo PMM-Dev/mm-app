@@ -99,7 +99,7 @@ const Map = ({ route, navigation }) => {
       {isLoading ? (
         <ActivityIndicator color={Theme.fontBlack} size={"large"} />
       ) : (
-        <Wrapper>
+        <Wrapper ioIos={constants.isIos()}>
           <Container>
             <MapView
               style={{ flex: 1 }}
@@ -191,7 +191,7 @@ const Page = styled.View`
 const Wrapper = styled.View`
   top: 0px;
   width: 100%;
-  height: ${constants.vh(86)}px;
+  height: ${(props) => (props.isIos ? constants.pureheight : "100%")};
 `;
 
 const Img = styled.Image`
