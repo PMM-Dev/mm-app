@@ -1,15 +1,12 @@
 import React, {useRef, useState} from "react";
 import styled from "styled-components";
-import LottieView from 'lottie-react-native';
 import ConditionPanel from "../../components/Gacha/ConditionPanel";
 import {ActivityIndicator} from 'react-native-paper'
-import {TouchableOpacity} from "react-native";
 import {getRestaurantByGacha} from "../../components/Api/AppRestaurantApi";
 import RestaurantEnum from "../../RestaurantEnum";
 import Theme from "../../style/Theme";
 import GachaResultView from "../../components/Gacha/GachaResultView";
 import GachaAnimationView from "../../components/Gacha/GachaAnimationView";
-import KoreanEnum from "../../KoreanEnum";
 
 const Gacha = ({navigation}) => {
     const [korean, setKorean] = useState(false);

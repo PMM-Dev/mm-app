@@ -96,7 +96,7 @@ const Map = ({ route, navigation }) => {
 
   return (
     <Page>
-      {isLoading ? (
+      {isLoading || !location ? (
         <ActivityIndicator color={Theme.fontBlack} size={"large"} />
       ) : (
         <Wrapper ioIos={constants.isIos()}>
@@ -150,7 +150,7 @@ const Map = ({ route, navigation }) => {
               ))}
             </MapView>
             <MapHeader routeName={route.name} navigation={navigation} />
-            {(isMarkerPressed || isClusterPressed) && (
+            {(!isMarkerPressed && !isClusterPressed) && (
               <PosButton
                 mode="text"
                 onPress={() => {
@@ -203,7 +203,7 @@ const Img = styled.Image`
 const PosButton = styled.TouchableOpacity`
   border-radius: 70px;
   position: absolute;
-  bottom: 10%;
+  bottom: ${constants.vh(0.5)}px;
   right: 0%;
   align-self: flex-end;
   width: ${constants.vw(25)}px;
