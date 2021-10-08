@@ -5,9 +5,9 @@ import styled from "styled-components";
 import constants from "../../../constants";
 import { useProfile } from "../../AuthContext";
 
-const Review = ({ review }) => {
+const Review = ({ mine, review }) => {
   return (
-    <Holder>
+    <Holder mine={mine}>
       <InfoView>
         <ProfileImage source={COMMENT_PROFILE} />
         <RightInfoView>
@@ -27,7 +27,7 @@ const Review = ({ review }) => {
 
 const Holder = styled.View`
   width: 100%;
-  margin-bottom: ${constants.vw(7)}px;
+  margin-bottom: ${(props) => props.mine ? constants.vw(4): constants.vw(7)}px;
 `;
 
 const InfoView = styled.View`

@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {EMPTYSTAR, FULLSTAR, HALFSTAR} from "../image";
 
-const TouchableStarMaker = ({setGrade, size, iconSizeRatio}) => {
+const TouchableStarMaker = ({grade, setGrade, size, iconSizeRatio}) => {
 
     const [currentGrade, setCurrentGrade] = useState(0);
 
@@ -21,6 +21,14 @@ const TouchableStarMaker = ({setGrade, size, iconSizeRatio}) => {
         setCurrentGrade(curGrade);
         setGrade(curGrade);
     }
+
+    useEffect(() => {
+        if (grade === undefined) {
+            return;
+        }
+
+        setCurrentGrade(grade);
+    }, [grade])
 
     return (
         <Stars>

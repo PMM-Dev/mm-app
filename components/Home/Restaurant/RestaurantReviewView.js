@@ -13,7 +13,16 @@ import constants from "../../../constants";
 import Review from "./Review";
 import EmptyScreenCenterView from "../../EmptyScreenCenterView";
 
-const RestaurantReviewView = ({restaurantId, myName, reviewCount, myReview, setMyReview, openReviewWritingRBSheet}) => {
+const RestaurantReviewView = ({
+                                  restaurantId,
+                                  myName,
+                                  reviewCount,
+                                  myReview,
+                                  setMyReview,
+                                  openPanelToWriteReview,
+                                  openPanelToModifyReview,
+                                  deleteMyReview
+                              }) => {
 
     const [isReviewLoading, setIsReviewLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
@@ -85,13 +94,23 @@ const RestaurantReviewView = ({restaurantId, myName, reviewCount, myReview, setM
                             </FilterButton>
                         </FiltersView>
                     </ReviewMenus>
-                    <SubTitleText>나의 리뷰</SubTitleText>
                     {myReview ? (
-                        <Review review={myReview}/>
+                        <>
+                            <SubTitleText>내가 작성한 리뷰</SubTitleText>
+                            <Review mine review={myReview}/>
+                            <MyReviewButtonsView>
+                                <MyReviewButton onPress={openPanelToModifyReview}>
+                                    <MyReviewButtonText>리뷰 수정</MyReviewButtonText>
+                                </MyReviewButton>
+                                <MyReviewButton onPress={deleteMyReview}>
+                                    <MyReviewButtonText red>삭제</MyReviewButtonText>
+                                </MyReviewButton>
+                            </MyReviewButtonsView>
+                        </>
                     ) : (
-                        <ReviewWritingButton onPress={() => openReviewWritingRBSheet()}>
-                            <ReviewWritingButtonText>리뷰 작성하기</ReviewWritingButtonText>
-                        </ReviewWritingButton>
+                        <MyReviewButton onPress={() => openPanelToWriteReview()}>
+                            <MyReviewButtonText>리뷰 작성하기</MyReviewButtonText>
+                        </MyReviewButton>
                     )}
                     <SubTitleText>모두의 리뷰</SubTitleText>
                     {reviews.map(
@@ -115,7 +134,7 @@ const RestaurantReviewView = ({restaurantId, myName, reviewCount, myReview, setM
 };
 
 const SubTitleText = styled.Text`
-  ${(props) => props.theme.NanumSquareLFont}
+  ${(props) => props.theme.NanumSquareBFont}
   font-size: ${constants.vw(4.4)}px;
   margin-bottom: ${constants.vh(1.2)}px;
 `;
@@ -164,14 +183,19 @@ const ReviewMenus = styled.View`
   border-bottom-color: ${(props) => props.theme.fontGray};
 `;
 
-const ReviewWritingButton = styled.TouchableOpacity`
+const MyReviewButtonsView = styled.View`
+  flex-direction: row;
+`
+
+const MyReviewButton = styled.TouchableOpacity`
   margin-bottom: ${constants.vh(2)}px;
+  margin-right: ${constants.vw(2)}px;
 `;
 
-const ReviewWritingButtonText = styled.Text`
-  ${(props) => props.theme.NanumSquareEBFont}
-  font-size: ${constants.vw(4.8)}px;
-  color: ${(props) => props.theme.fontBlue};
+const MyReviewButtonText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vw(4)}px;
+  color: ${(props) => props.red ? props.theme.hlRed : props.theme.fontBlue};
 `;
 
 export default RestaurantReviewView

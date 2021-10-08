@@ -21,21 +21,22 @@ import {
 } from "../image";
 import constants from "../constants";
 import MapNavigator from "./MapNavigator";
-import {useSaveJwtToken, useSaveProfileData} from "../components/AuthContext";
-import {getMyMemberInfo} from "../components/Api/AppMemberApi";
+import {useLogOut, useSaveProfileData} from "../components/AuthContext";
 import GachaNavigator from "./GachaNavigator";
 
 const BottomTab = createBottomTabNavigator();
 
 const MainNavigator = () => {
 
+    const logOut = useLogOut();
     const saveProfileData = useSaveProfileData();
 
     useEffect(() => {
         async function initProfile() {
             const response = await saveProfileData();
             if (!response) {
-                alert("프로필 정보를 불러오는 과정에서 문제가 생겼습니다.")
+                alert("프로필 정보를 불러오는 과정에서 문제가 생겼습니다.");
+                logOut();
             }
         }
 

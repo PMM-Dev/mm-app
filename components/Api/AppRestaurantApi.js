@@ -312,3 +312,21 @@ export const getRestaurantsReviewByMe = async (restaurantId) => {
         return undefined;
     }
 };
+
+export const deleteMyReviewByRestaurantId = async (restaurantId) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.delete(
+            API_URL + "/restaurant/" + restaurantId + "/review/me",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed deleteMyReviewByRestaurantId()" + e);
+        return undefined;
+    }
+}
