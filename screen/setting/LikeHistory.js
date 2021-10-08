@@ -25,9 +25,7 @@ const LikeHistory = ({ route, navigation }) => {
       <Scroll>
         {restaurants ? (
           restaurants.map((data, index) => (
-            <RestaurantView key={index}>
-              <RestaurantCard data={data} navigation={navigation} />
-            </RestaurantView>
+              <RestaurantCard key={index} data={data} navigation={navigation} />
           ))
         ) : (
           <ActivityIndicator color={Theme.fontBlack} size={"large"} />
@@ -37,12 +35,6 @@ const LikeHistory = ({ route, navigation }) => {
   );
 };
 
-const RestaurantView = styled.View`
-  height: ${constants.vh(13)}px;
-  width: 100%;
-  align-items: center;
-`;
-
 const Page = styled.View`
   width: 100%;
   height: 100%;
@@ -51,7 +43,7 @@ const Page = styled.View`
 
 const Scroll = styled.ScrollView`
   width: 100%;
-  margin: ${constants.vw(0)}px;
+  padding: 0px ${constants.vw(4.5)}px;
 `;
 
 export default LikeHistory;

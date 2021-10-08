@@ -7,7 +7,8 @@ import Theme from "../../style/Theme";
 import {
     deleteMyReviewByRestaurantId,
     getRestaurantsById,
-    uploadReview,
+    uploadMyReviewByRestaurantId,
+    updateMyReviewByRestaurantId
 } from "../../components/Api/AppRestaurantApi";
 import RBSheet from "react-native-raw-bottom-sheet";
 import RestaurantInfoView from "../../components/Home/Restaurant/RestaurantInfoView";
@@ -85,11 +86,15 @@ const Restaurant = ({route, navigation}) => {
         if (isPostStep)
             result = await requestPostingReview();
         else
-            // result = await requestPostingReview();
+            result = await requestUpdateReview();
         if (!result) {
             return;
         }
 
+        triggerLocalFeedbackOfPostingReview();
+    }
+
+    const triggerLocalFeedbackOfPostingReview = () => {
         data.averageGrade = (data.averageGrade * reviewNum + writingReviewGrade) / (reviewNum + 1);
         setReviewNum((prev) => prev + 1);
         const date = new Date();
@@ -109,7 +114,7 @@ const Restaurant = ({route, navigation}) => {
     }
 
     const requestPostingReview = async () => {
-        const response = await uploadReview(
+        const response = await uploadMyReviewByRestaurantId(
             writingReviewContent,
             writingReviewGrade,
             restaurantId
@@ -122,6 +127,21 @@ const Restaurant = ({route, navigation}) => {
         closeReviewWritingPanel();
         return true;
     };
+
+    const requestUpdateReview = async () => {
+        const response = await updateMyReviewByRestaurantId(
+            writingReviewContent,
+            writingReviewGrade,
+            restaurantId
+        );
+        if (response === undefined) {
+            alert("리뷰 업데이트에 실패했습니다.");
+            return false;
+        }
+
+        closeReviewWritingPanel();
+        return true;
+    }
 
     const deleteMyReview = async () => {
         const result = await requestDeleteMyReview();

@@ -273,11 +273,11 @@ export const getRestaurantReviewsOrderByAverageGradeAsc = async (id) => {
     }
 };
 
-export const uploadReview = async (content, grade, restaurantId) => {
+export const uploadMyReviewByRestaurantId = async (content, grade, restaurantId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.post(
-            API_URL + "/restaurant/" + restaurantId + "/review",
+            API_URL + "/restaurant/" + restaurantId + "/review/me",
             {
                 description: content,
                 grade: grade,
@@ -295,7 +295,7 @@ export const uploadReview = async (content, grade, restaurantId) => {
     }
 };
 
-export const getRestaurantsReviewByMe = async (restaurantId) => {
+export const getMyReviewByRestaurantId = async (restaurantId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.get(
@@ -312,6 +312,28 @@ export const getRestaurantsReviewByMe = async (restaurantId) => {
         return undefined;
     }
 };
+
+export const updateMyReviewByRestaurantId = async (content, grade, restaurantId) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.put(
+            API_URL + "/restaurant/" + restaurantId + "/review/me",
+            {
+                description: content,
+                grade: grade,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error("[AppApi][Exception] failed updateMyReviewByRestaurantId() " + e);
+        return undefined;
+    }
+}
 
 export const deleteMyReviewByRestaurantId = async (restaurantId) => {
     try {

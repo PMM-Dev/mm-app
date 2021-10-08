@@ -5,7 +5,7 @@ import {
     getRestaurantReviewsOrderByAverageGradeAsc,
     getRestaurantReviewsOrderByAverageGradeDesc,
     getRestaurantReviewsOrderByCreatedDateDesc,
-    getRestaurantsReviewByMe,
+    getMyReviewByRestaurantId,
 } from "../../Api/AppRestaurantApi";
 import {ActivityIndicator} from "react-native-paper";
 import Theme from "../../../style/Theme";
@@ -37,7 +37,7 @@ const RestaurantReviewView = ({
         }
 
         async function requestMyReview() {
-            const restaurantsReviewByMe = await getRestaurantsReviewByMe(
+            const restaurantsReviewByMe = await getMyReviewByRestaurantId(
                 restaurantId
             );
             setMyReview(restaurantsReviewByMe);

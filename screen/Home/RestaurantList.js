@@ -204,12 +204,6 @@ const RestaurantList = ({route, navigation}) => {
     );
 };
 
-const RestaurantView = styled.View`
-  height: ${constants.vh(13)}px;
-  width: 100%;
-  align-items: center;
-`;
-
 const FilterView = styled.View`
   width: 100%;
   height: 100%;
