@@ -1,33 +1,45 @@
 import React from "react";
-import { COMMENT_PROFILE } from "../../../image";
+import {COMMENT_PROFILE, SETTING_GUEST_PORTRAIT} from "../../../image";
 import StarMaker from "../../StarMaker";
 import styled from "styled-components";
 import constants from "../../../constants";
-import { useProfile } from "../../AuthContext";
+import {useProfile} from "../../AuthContext";
 
-const Review = ({ mine, review }) => {
-  return (
-    <Holder mine={mine}>
-      <InfoView>
-        <ProfileImage source={COMMENT_PROFILE} />
-        <RightInfoView>
-            <TextInfoView>
-          <AuthorNameButton onPress={() => {}}>
-            <AuthorNameText>{review.authorName}</AuthorNameText>
-          </AuthorNameButton>
-            <DateText>{review.createdDate}</DateText>
-            </TextInfoView>
-          <StarMaker grade={review.grade} size={constants.vw(5)} />
-        </RightInfoView>
-      </InfoView>
-      <ContentText>{review.description}</ContentText>
-    </Holder>
-  );
+const Review = ({mine, review}) => {
+    return (
+        <Holder mine={mine}>
+            <InfoView>
+                <Portrait>
+                    <PortraitImage
+                        source={
+                            review.authorPicture === undefined
+                                ? SETTING_GUEST_PORTRAIT
+                                : {
+                                    uri: review.authorPicture,
+                                }
+                        }
+                        resizeMode={"cover"}
+                    />
+                </Portrait>
+                <RightInfoView>
+                    <TextInfoView>
+                        <AuthorNameButton onPress={() => {
+                        }}>
+                            <AuthorNameText>{review.authorName}</AuthorNameText>
+                        </AuthorNameButton>
+                        <DateText>{review.createdDate}</DateText>
+                    </TextInfoView>
+                    <StarMaker grade={review.grade} size={constants.vw(5)}/>
+                </RightInfoView>
+            </InfoView>
+            <ContentText>{review.description}</ContentText>
+        </Holder>
+    );
 };
 
 const Holder = styled.View`
   width: 100%;
-  margin-bottom: ${(props) => props.mine ? constants.vw(4): constants.vw(7)}px;
+  margin-bottom: ${(props) => props.mine ? constants.vw(4) : constants.vw(7)}px;
 `;
 
 const InfoView = styled.View`
@@ -64,10 +76,18 @@ const DateText = styled.Text`
   font-size: ${constants.vw(2.5)}px;
 `
 
-const ProfileImage = styled.Image`
-  height: ${constants.vw(12)}px;
-  width: ${constants.vw(12)}px;
+const Portrait = styled.View`
+  height: ${constants.vw(11.3)}px;
+  width: ${constants.vw(11.3)}px;
+  border-radius: 1000px;
 `;
+
+const PortraitImage = styled.Image`
+  width: 100%;
+  height: 100%;
+  border-radius: 1000px;
+`;
+
 
 const ContentText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
