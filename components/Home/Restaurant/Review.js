@@ -23,8 +23,7 @@ const Review = ({mine, review}) => {
                 </Portrait>
                 <RightInfoView>
                     <TextInfoView>
-                        <AuthorNameButton onPress={() => {
-                        }}>
+                        <AuthorNameButton onPress={() => {}}>
                             <AuthorNameText>{review.authorName}</AuthorNameText>
                         </AuthorNameButton>
                         <DateText>{review.createdDate}</DateText>
@@ -93,6 +92,7 @@ const ContentText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   color: ${(props) => props.theme.fontBlack};
   font-size: ${constants.vw(3.5)}px;
+  padding: 0px ${constants.vw(1)}px;
 `;
 
 export default Review;

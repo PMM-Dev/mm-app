@@ -7,9 +7,10 @@ import RestaurantCard from "../../components/Home/RestaurantList/RestaurantCard"
 import { getLikeRestaurant } from "../../components/Api/AppMemberApi";
 import Header from "../../components/Header/Header";
 
+const HEADER_TITLE = "좋아요한 식당";
+
 const LikeHistory = ({ route, navigation }) => {
   const [restaurants, setRestaurants] = useState();
-  const headerTitle = "좋아요한 식당";
 
   useEffect(() => {
     async function initRestaurants() {
@@ -21,7 +22,7 @@ const LikeHistory = ({ route, navigation }) => {
 
   return (
     <Page>
-      <Header route={route} navigation={navigation} title={headerTitle} />
+      <Header route={route} navigation={navigation} title={HEADER_TITLE} />
       <Scroll>
         {restaurants ? (
           restaurants.map((data, index) => (
