@@ -222,8 +222,7 @@ const Restaurant = ({route, navigation}) => {
                     </Scroll>
                     <RBSheet
                         ref={reviewWritingPanelRef}
-                        height={constants.vh(93)}
-                        customStyles={{container: {borderRadius: constants.vw(3)}}}
+                        customStyles={{container: {borderRadius: constants.vw(3), height: constants.isIos() ? constants.vh(90) : constants.vh(85)}}}
                     >
                         <ReviewWritingPanel>
                             <TopMenusHolder>
