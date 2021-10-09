@@ -83,7 +83,7 @@ const Intro = () => {
 
     useEffect(() => {
         async function announce() {
-            const didRead = await AsyncStorage.getItem("didReadAnnouncement");
+            const didRead = await AsyncStorage.getItem("@didReadAnnouncement");
             if (didRead === "TRUE") {
                 return;
             }
@@ -96,7 +96,7 @@ const Intro = () => {
                 "🗓 11월 중 : 자유게시판, 리뷰와 게시글에 사진 업로드 기능 추가\n" +
                 "🗓 11월 말 : 정식 출시");
 
-            await AsyncStorage.setItem("didReadAnnouncement", "TRUE");
+            await AsyncStorage.setItem("@didReadAnnouncement", "TRUE");
         }
 
         announce();

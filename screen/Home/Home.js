@@ -8,6 +8,8 @@ import ThemePart from "../../components/Home/ThemePart";
 import constants from "../../constants";
 import Theme from "../../style/Theme";
 import {getLatestFeedbackPreview} from "../../components/Api/AppFeedbackApi";
+import {getLatestNotice} from "../../components/Api/AppNotice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PREVENTING_IOS_BOUNCE_VIEW_HEIGHT = 3000;
 
@@ -16,6 +18,21 @@ const Home = ({route, navigation}) => {
     const [reportPreview, setReportPreview] = useState();
 
     useEffect(() => {
+        async function requestLatestNotice () {
+            const response = await getLatestNotice();
+            if (!response) {
+                return;
+            }
+
+            const readNoticeId = await AsyncStorage.getItem("@readNoticeId");
+            if (readNoticeId === response.id) {
+                return;
+            }
+
+
+            alert(response.content);
+        }
+
         async function requestFeedbackPreview () {
             const response = await getLatestFeedbackPreview();
             if (!response) {
@@ -25,6 +42,7 @@ const Home = ({route, navigation}) => {
             setReportPreview(response);
         }
 
+        requestLatestNotice();
         requestFeedbackPreview();
     }, [])
 
