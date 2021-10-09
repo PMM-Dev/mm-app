@@ -2,7 +2,7 @@ import React, {createContext, useContext, useState} from "react";
 import * as Google from "expo-google-app-auth";
 import * as Apple from 'expo-apple-authentication';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID} from "@env";
+import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID, ANDROID_GOOGLE_CLIENT_ID, IOS_GOOGLE_CLIENT_ID} from "@env";
 import {getJwtTokenBySocialToken, loginByJwtToken, register} from "./Api/AuthApi";
 import {getMyMemberInfo} from "./Api/AppMemberApi";
 
@@ -32,9 +32,9 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
         try {
             const result = await Google.logInAsync({
                 iosClientId: IOS_INEXPO_GOOGLE_CLIENT_ID,
-                // iosStandaloneAppClientId: IOS_GOOGLE_CLIENT_ID,
+                iosStandaloneAppClientId: IOS_GOOGLE_CLIENT_ID,
                 androidClientId: ANDROID_INEXPO_GOOGLE_CLIENT_ID,
-                // androidStandaloneAppClientId: ANDROID_GOOGLE_CLIENT_ID,
+                androidStandaloneAppClientId: ANDROID_GOOGLE_CLIENT_ID,
                 scopes: ["email", "profile"],
             });
             if (result.type === "cancel") {
