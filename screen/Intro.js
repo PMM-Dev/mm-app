@@ -134,15 +134,15 @@ const Intro = () => {
                         <GoogleLoginButton onPress={() => requestLogin(loginByGoogle)}>
                             <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN}/>
                         </GoogleLoginButton>
-                        {constants.platform === "iOS" ?
-                            <AppleAuthentication.AppleAuthenticationButton
-                                buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
-                                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-                                cornerRadius={3}
-                                style={styles.appleLoginButton}
-                                onPress={loginByApple}
-                            /> : null
-                        }
+                        {/*{constants.platform === "iOS" ?*/}
+                        {/*    <AppleAuthentication.AppleAuthenticationButton*/}
+                        {/*        buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}*/}
+                        {/*        buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}*/}
+                        {/*        cornerRadius={3}*/}
+                        {/*        style={styles.appleLoginButton}*/}
+                        {/*        onPress={loginByApple}*/}
+                        {/*    /> : null*/}
+                        {/*}*/}
                     </LinearGradient>
                 </AuthView>
                 {isLoggingIn ? (
