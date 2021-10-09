@@ -9,6 +9,7 @@ export const RESTAURANT_IMAGE = require("./assets/CommonIcons/img_box.png");
 export const NO_RESULT_ANNOUNCEMENT = require("./assets/CommonIcons/noResult.png");
 export const NOT_PREPARED_ANNOUNCEMENT = require("./assets/CommonIcons/notPrepared.png");
 export const REQUEST_FAILED_ANNOUNCEMENT = require("./assets/CommonIcons/connection_failed.png");
+export const RIP = require("./assets/CommonIcons/rip.png");
 
 export const REVIEW_ICON = require("./assets/CommonIcons/review.png");
 export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
