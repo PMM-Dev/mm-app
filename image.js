@@ -49,6 +49,7 @@ export const HOME_FOOD_ICON_DELIEVERY = require("./assets/HomeFoodIcon/icon_9.pn
 export const HOME_FOOD_ICON_RANKING = require("./assets/HomeFoodIcon/icon_10.png");
 
 export const RESTAURANT_ICON_IMAGE = require("./assets/RestaurantIcon/image.png")
+export const RESTAURANT_OPEN_MAP_ICON = require("./assets/RestaurantIcon/openMap.png")
 
 export const MAP_WHITE_BAR_ICON = require("./assets/MapIcon/white_bar.png");
 export const MAP_FILTER_ICON = require("./assets/MapIcon/filter.png");

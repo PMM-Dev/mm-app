@@ -10,11 +10,13 @@ import {
     ICON_TYPE,
     ICON_PRICE,
     ICON_LOCATION,
+    RESTAURANT_OPEN_MAP_ICON
 } from "../../../image";
 import {Converter} from "../../Converter";
 import constants from "../../../constants";
 import * as Location from "expo-location";
 import Theme from "../../../style/Theme";
+import * as Linking from 'expo-linking';
 
 const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
     const mapRef = React.createRef();
@@ -56,7 +58,7 @@ const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
                 <StarMaker grade={data.averageGrade} size={30} iconSizeRatio={90}/>
             </TitleView>
             <NumberInfosView>
-                <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}} />
+                <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}}/>
                 <IconText color={Theme.fontBlue}>{reviewNum}</IconText>
                 <SmallIcon source={FULLHEART}/>
                 <IconText color={Theme.hlRed}>{likeNum}</IconText>
@@ -123,6 +125,9 @@ const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
                                         </Marker>
                                     </MapView>
                                 )}
+                                <OpenMapButton onPress={() => Linking.openURL("https://www.google.com/maps/search/?api=1&query=" + data.latitude + "," + data.longitude)}>
+                                    <OpenMapIcon source={RESTAURANT_OPEN_MAP_ICON} />
+                                </OpenMapButton>
                             </Container>
                         </MapScroll>
                     </MapViewHolder>
@@ -131,6 +136,25 @@ const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
         </InfoView>
     );
 };
+
+const OpenMapButton = styled.TouchableOpacity`
+  position: absolute;
+  right: ${constants.vh(1)}px;
+  bottom: ${constants.vh(1)}px;
+
+  width: ${constants.vh(6.7)}px;
+  height: ${constants.vh(6.7)}px;
+  border-radius: ${constants.vh(6.7)}px;
+  background-color: ${(props) => props.theme.backgroundWhite};
+  opacity: 0.8;
+  justify-content: center;
+  align-items: center;
+`
+
+const OpenMapIcon = styled.Image`
+  width: 50%;
+  height: 50%;
+`
 
 const InfoView = styled.View`
   width: 100%;
