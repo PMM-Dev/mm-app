@@ -19,7 +19,7 @@ import {useProfile} from "../../components/AuthContext";
 
 const HEADER_TITLE = "피드백";
 
-const AppFeedback = ({route, navigation}) => {
+const FeedbackList = ({route, navigation}) => {
     const feedbackWritingPanelRef = useRef();
     const {name: myName, picture: myPicture} = useProfile();
 
@@ -292,4 +292,4 @@ const SortButtonText = styled.Text`
   color: ${(props) => props.theme.fontBlackGray};
 `
 
-export default AppFeedback;
+export default FeedbackList;

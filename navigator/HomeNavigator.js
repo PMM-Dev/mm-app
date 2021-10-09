@@ -4,7 +4,7 @@ import Home from "../screen/Home/Home";
 import RestaurantList from "../screen/Home/RestaurantList";
 import Restaurant from "../screen/Home/Restaurant";
 import Search from "../screen/Search";
-import AppFeedback from "../screen/Home/AppFeedback";
+import FeedbackList from "../screen/Home/FeedbackList";
 
 const Stack = createStackNavigator();
 
@@ -32,8 +32,8 @@ const HomeNavigator = () => {
         options={{ title: "음식점" }}
       />
       <Stack.Screen
-        name="AppFeedback"
-        component={AppFeedback}
+        name="FeedbackList"
+        component={FeedbackList}
         options={{ title: "피드백" }}
       />
     </Stack.Navigator>

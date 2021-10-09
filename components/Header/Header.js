@@ -50,7 +50,7 @@ const Header = ({
       );
     } else if (routeName === "ReviewHistory") {
       setMenuComponent(<SettingMyCommentHeaderMenu navigation={navigation} />);
-    } else if (routeName === "AppFeedback") {
+    } else if (routeName === "FeedbackList") {
       setMenuComponent(<FeedbackHeaderMenu navigation={navigation} />);
     }
   };

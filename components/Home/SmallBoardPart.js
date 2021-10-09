@@ -1,20 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 import constants from "../../constants";
-import NotPreparedAnnouncement from "../NotPreparedAnnouncement";
+import {TouchableOpacity} from "react-native";
+import SmallBoardPreviews from "./SmallBoardPreviews";
 
-const NoticePart = () => {
-  return (
-    <HomePart>
-      <NotPreparedAnnouncement />
-      <Header>
-        <Title>공지사항</Title>
-        <MoreButton>더보기 +</MoreButton>
-      </Header>
-      <Content>
-      </Content>
-    </HomePart>
-  );
+const SmallBoardPart = ({title, preview, navigate}) => {
+    return (
+        <HomePart>
+            <Header>
+                <Title>{title}</Title>
+                <TouchableOpacity onPress={navigate}>
+                    <MoreButton>더보기 +</MoreButton>
+                </TouchableOpacity>
+            </Header>
+            <Content>
+                {preview && <SmallBoardPreviews preview={preview} navigate={navigate}/>}
+            </Content>
+        </HomePart>
+    );
 };
 
 const HomePart = styled.View`
@@ -52,9 +55,11 @@ const MoreButton = styled.Text`
 const Content = styled.View`
   width: 90%;
   height: 30%;
+  justify-content: center;
+  align-items: center;
   border: 0.5px;
   border-radius: ${constants.vw(1)}px;
 `;
 
 
-export default NoticePart;
+export default SmallBoardPart;
