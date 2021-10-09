@@ -20,6 +20,7 @@ import constants from '../constants'
 import {INTRO_GOOGLE_BTN, INTRO_BIG_LOGO_TEXT, INTRO_BIG_LOGO,} from "../image";
 import {API_ADMIN_PASSWORD} from "@env";
 import Theme from "../style/Theme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Intro = () => {
     const loginByGoogle = useLogInByGoogle();
@@ -44,6 +45,7 @@ const Intro = () => {
         setAdminPasswordInput("");
         setCountForAdminRegistrationMode(0);
     }
+    //
 
     const requestLogin = async (login) => {
         setIsLoggingIn(true);
@@ -78,6 +80,27 @@ const Intro = () => {
         setIsAdminMode(false);
         setIsLoggingIn(false);
     };
+
+    useEffect(() => {
+        async function announce() {
+            const didRead = await AsyncStorage.getItem("didReadAnnouncement");
+            if (didRead === "TRUE") {
+                return;
+            }
+
+            alert("🔥 ㅁㅁ (전남대 뭐먹)의 알파 테스트 버전입니다! 🔥\n" +
+                "\n" +
+                "앱 내 피드백 기능을 활용하여, 많은 피드백을 주시면 감사하겠습니다. 😂\n" +
+                "\n" +
+                "🗓 10월 말 : 검색 기능, 식당 대표 사진, 가챠 애니메이션 추가\n" +
+                "🗓 11월 중 : 자유게시판, 리뷰와 게시글에 사진 업로드 기능 추가\n" +
+                "🗓 11월 말 : 정식 출시");
+
+            await AsyncStorage.setItem("didReadAnnouncement", "TRUE");
+        }
+
+        announce();
+    }, [])
 
     return (
         <Page>
