@@ -3,6 +3,7 @@ import styled from "styled-components";
 import constants from "../../constants";
 import {TouchableOpacity} from "react-native";
 import SmallBoardPreviews from "./SmallBoardPreviews";
+import NotPreparedAnnouncement from "../NotPreparedAnnouncement";
 
 const SmallBoardPart = ({title, preview, navigate}) => {
     return (
@@ -16,6 +17,7 @@ const SmallBoardPart = ({title, preview, navigate}) => {
             <Content>
                 {preview && <SmallBoardPreviews preview={preview} navigate={navigate}/>}
             </Content>
+            {!navigate && <NotPreparedAnnouncement />}
         </HomePart>
     );
 };
