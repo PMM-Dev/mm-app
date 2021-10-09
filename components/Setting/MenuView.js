@@ -17,12 +17,15 @@ import {
 } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getMyMemberInfo } from "../Api/AppMemberApi";
+import * as Linking from 'expo-linking';
 
 const MenuView = ({ navigate, role }) => {
+
   const logout = useLogOut();
   const [isTokenDialogVisible, setIsTokenDialogVisible] = useState(false);
   const [tokenDialogText, setTokenDialogText] = useState("");
   const [userData, setUserData] = useState();
+
   useEffect(() => {
     async function bringUserData() {
       const broughtUserData = await getMyMemberInfo();
@@ -30,6 +33,7 @@ const MenuView = ({ navigate, role }) => {
     }
     bringUserData();
   }, [userData]);
+
   return userData === undefined ? (
     <></>
   ) : (
@@ -53,7 +57,7 @@ const MenuView = ({ navigate, role }) => {
           <Icon source={SETTING_ALARM_ICON} style={{ tintColor: "#000000" }} />
           <Title>알림 설정</Title>
         </UtilButton>
-        <UtilButton>
+        <UtilButton onPress={() => Linking.openURL("mailto:sckwon770@gmail.com")}>
           <Icon source={SETTING_ASKING_ICON} style={{ tintColor: "#000000" }} />
           <Title>문의하기</Title>
         </UtilButton>

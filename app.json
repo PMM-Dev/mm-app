@@ -3,7 +3,7 @@
     "name": "ㅁㅁ (전남대 뭐먹)",
     "icon": "./assets/icon.png",
     "slug": "mm-app",
-    "version": "1.0.1",
+    "version": "1.0.5",
     "orientation": "portrait",
     "splash": {
       "image": "./assets/icon.png",
@@ -17,19 +17,26 @@
     ],
     "ios": {
       "bundleIdentifier": "com.pmm.mm",
-      "buildNumber": "1.0.3",
+      "buildNumber": "1.0.5",
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false,
-        "googleMapsApiKey": "AIzaSyBoOolPPvJUtfex9o_bk15_fvgOQEEcEe8"
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.255552505547-fv6t0g4mb33c49b6ivk03fj6ib4g4j29"
+        },
+        "googleMapsApiKey": "AIzaSyCJnz864220Ks2nJ155JwqRwMQD7CtDsZA"
       }
     },
     "android": {
       "package": "com.pmm.mm",
-      "versionCode": 3,
+      "versionCode": 5,
       "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyCYAaXZVdf60fopq2_30KrTVfs3-azepaY",
+          "certificateHash": "A9:1F:A7:E6:D9:6B:1C:7D:E2:26:97:AD:FA:17:CC:94:B1:72:F9:20"
+        },
         "googleMaps": {
-          "apiKey": "AIzaSyBnwdpa30rNYBu5cIild6jwLqsxWzKtHgE"
+          "apiKey": "AIzaSyCYAaXZVdf60fopq2_30KrTVfs3-azepaY"
         }
       },
       "adaptiveIcon": {
