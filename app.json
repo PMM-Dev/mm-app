@@ -3,7 +3,7 @@
     "name": "ㅁㅁ (전남대 뭐먹)",
     "icon": "./assets/icon.png",
     "slug": "mm-app",
-    "version": "1.0.5",
+    "version": "1.0.7",
     "orientation": "portrait",
     "splash": {
       "image": "./assets/icon.png",
@@ -17,7 +17,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.pmm.mm",
-      "buildNumber": "1.0.5",
+      "buildNumber": "1.0.7",
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false,
@@ -29,7 +29,7 @@
     },
     "android": {
       "package": "com.pmm.mm",
-      "versionCode": 5,
+      "versionCode": 7,
       "config": {
         "googleSignIn": {
           "apiKey": "AIzaSyCYAaXZVdf60fopq2_30KrTVfs3-azepaY",
