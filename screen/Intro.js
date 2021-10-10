@@ -147,7 +147,7 @@ const Intro = () => {
                 </AuthView>
                 {isLoggingIn ? (
                     <LoadingMask>
-                        <ActivityIndicator color={Theme.hlRed} size={"large"}/>
+                        <ActivityIndicator color={Theme.hlOrange} size={"large"}/>
                     </LoadingMask>
                 ) : null}
             </Provider>

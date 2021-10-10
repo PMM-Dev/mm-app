@@ -97,7 +97,7 @@ const Map = ({ route, navigation }) => {
   return (
     <Page>
       {isLoading || !location ? (
-        <ActivityIndicator color={Theme.fontBlack} size={"large"} />
+        <ActivityIndicator color={Theme.hlOrange} size={"large"} />
       ) : (
         <Wrapper ioIos={constants.isIos()}>
           <Container>

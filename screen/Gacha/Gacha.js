@@ -122,7 +122,7 @@ const Gacha = ({navigation}) => {
                     {
                         isServerRequestLoading &&
                         <LoadingMask>
-                            <ActivityIndicator color={Theme.hlRed} size={"large"}/>
+                            <ActivityIndicator color={Theme.hlOrange} size={"large"}/>
                         </LoadingMask>
                     }
                 </>

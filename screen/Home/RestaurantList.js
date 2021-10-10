@@ -179,7 +179,7 @@ const RestaurantList = ({route, navigation}) => {
                 <RestaurantListScroll>
                     {isLoading ? (
                         <EmptyContentCenterView>
-                            <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
+                            <ActivityIndicator color={Theme.hlOrange} size={"large"}/>
                         </EmptyContentCenterView>
                     ) : (
                         restaurants ? (
