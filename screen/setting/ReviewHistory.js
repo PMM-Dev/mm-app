@@ -6,16 +6,29 @@ import Theme from "../../style/Theme";
 import Review from "../../components/Home/Restaurant/Review";
 import {getMeReview} from "../../components/Api/AppMemberApi";
 import Header from "../../components/Header/Header";
+import NoContentAnnouncement from "../../components/NoContentAnnouncement";
+import EmptyContentCenterView from "../../components/EmptyContentCenterView";
+import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 
 const HEADER_TITLE = "내가 작성한 리뷰";
 
 const ReviewHistory = ({route, navigation}) => {
     const [reviews, setReviews] = useState();
+    const [isError, setIsError] = useState(false);
+
     useEffect(() => {
         async function requestMeReview() {
+            setIsError(false);
             const restaurantReviews = await getMeReview();
+            if (!restaurantReviews) {
+                setIsError(true);
+                setReviews([]);
+                return;
+            }
+
             setReviews(restaurantReviews);
         }
+
 
         requestMeReview();
     }, []);
@@ -24,26 +37,40 @@ const ReviewHistory = ({route, navigation}) => {
         <Page>
             <Header route={route} navigation={navigation} title={HEADER_TITLE}/>
             <Scroll>
-                {reviews ? (
-                    reviews.map((review, index) => {
-                        return (
-                            <ReviewRestaurant
-                                key={index}
-                                onPress={() =>
-                                    navigation.navigate("Restaurant", {
-                                        restaurantId: review.restaurantId,
-                                    })
-                                }
-                            >
-                                    <RestaurantName>
-                                        {review.restaurantName}
-                                    </RestaurantName>
-                                <Review review={review}/>
-                            </ReviewRestaurant>
-                        );
-                    })
+                {!reviews ? (
+                    <EmptyContentCenterView>
+                        <ActivityIndicator color={Theme.hlOrange} size={"large"}/>
+                    </EmptyContentCenterView>
                 ) : (
-                    <ActivityIndicator color={Theme.fontBlack} size={"large"}/>
+                    isError ? (
+                        <EmptyContentCenterView>
+                            <RequestFailedAnnouncement/>
+                        </EmptyContentCenterView>
+                    ) : (
+                        reviews.length === 0 ? (
+                            <EmptyContentCenterView>
+                                <NoContentAnnouncement/>
+                            </EmptyContentCenterView>
+                        ) : (
+                            reviews.map((review, index) => {
+                                return (
+                                    <ReviewRestaurant
+                                        key={index}
+                                        onPress={() =>
+                                            navigation.navigate("Restaurant", {
+                                                restaurantId: review.restaurantId,
+                                            })
+                                        }
+                                    >
+                                        <RestaurantName>
+                                            {review.restaurantName}
+                                        </RestaurantName>
+                                        <Review review={review}/>
+                                    </ReviewRestaurant>
+                                );
+                            })
+                        )
+                    )
                 )}
             </Scroll>
         </Page>
