@@ -24,7 +24,7 @@ const Gacha = ({navigation}) => {
     const [frontGate, setFrontGate] = useState(false);
     const [sideGate, setSideGate] = useState(false);
     const [backGate, setBackGate] = useState(false);
-    const [artGate, setArtGate] = useState(false);
+    const [commerceGate, setCommerceGate] = useState(false);
 
     const gachaLottieRef = useRef(null);
 
@@ -59,7 +59,7 @@ const Gacha = ({navigation}) => {
         if (frontGate) list.push(RestaurantEnum.FRONTGATE);
         if (sideGate) list.push(RestaurantEnum.SIDEGATE);
         if (backGate) list.push(RestaurantEnum.BACKGATE);
-        if (artGate) list.push(RestaurantEnum.ARTGATE);
+        if (commerceGate) list.push(RestaurantEnum.COMMERCEGATE);
         return list;
     }
 
@@ -113,11 +113,11 @@ const Gacha = ({navigation}) => {
                         frontGate={frontGate}
                         sideGate={sideGate}
                         backGate={backGate}
-                        artGate={artGate}
+                        commerceGate={commerceGate}
                         setFrontGate={setFrontGate}
                         setSideGate={setSideGate}
                         setBackGate={setBackGate}
-                        setArtGate={setArtGate}
+                        setCommerceGate={setCommerceGate}
                     />
                     {
                         isServerRequestLoading &&

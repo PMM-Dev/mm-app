@@ -7,7 +7,7 @@ const GachaAnimationView = ({gachaLottieRef, setIsAnimationStep}) => {
     return (
         <GachaView>
             <LottieView ref={gachaLottieRef}
-                        source={require("../../assets/animation/gacha.json")}
+                        source={require("../../assets/animation/gacha1.json")}
                         autoPlay={true}
                         loop={false}
                         style={{

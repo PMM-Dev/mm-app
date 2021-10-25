@@ -23,7 +23,7 @@ const location = {
   FRONTGATE: "정문",
   SIDEGATE: "쪽문",
   BACKGATE: "후문",
-  ARTGATE: "예대"
+  COMMERCEGATE: "상대"
 };
 
 export default { ...Type, ...Genre, ...Price, ...location };

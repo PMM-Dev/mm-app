@@ -31,11 +31,11 @@ const ConditionPanel = ({
                             frontGate,
                             sideGate,
                             backGate,
-                            artGate,
+                            commerceGate,
                             setFrontGate,
                             setSideGate,
                             setBackGate,
-                            setArtGate
+                            setCommerceGate
                         }) => {
     const resetAllCondition = () => {
         setKorean(false);
@@ -51,7 +51,7 @@ const ConditionPanel = ({
         setFrontGate(false);
         setSideGate(false);
         setBackGate(false);
-        setArtGate(false);
+        setCommerceGate(false);
     };
 
     return (
@@ -143,9 +143,9 @@ const ConditionPanel = ({
                         setChecked={setBackGate}
                     />
                   <CheckButton
-                      text={KoreanEnum.ARTGATE}
-                      checked={artGate}
-                      setChecked={setArtGate}
+                      text={KoreanEnum.COMMERCEGATE}
+                      checked={commerceGate}
+                      setChecked={setCommerceGate}
                   />
                 </CheckboxTable>
                 <ButtonView>
@@ -170,7 +170,7 @@ const PanelMask = styled.View`
 
 const Panel = styled.View`
   width: ${constants.vw(78)}px;
-  height: ${constants.vh(57.5)}px;
+  height: ${constants.vh(60)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
   border-radius: ${constants.vw(8)}px;;
   border-width: ${constants.vw(1.2)}px;;

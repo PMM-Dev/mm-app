@@ -21,6 +21,7 @@ const location = {
   FRONTGATE: "FRONTGATE",
   SIDEGATE: "SIDEGATE",
   BACKGATE: "BACKGATE",
+  COMMERCEGATE: "COMMERCEGATE"
 };
 
 export default { ...Type, ...Price, ...location };

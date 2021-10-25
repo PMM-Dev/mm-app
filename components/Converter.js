@@ -28,7 +28,7 @@ export const Converter = (data) => {
       return KoreanEnum.SIDEGATE;
     case "BACKGATE":
       return KoreanEnum.BACKGATE;
-    case "ARTGATE":
-      return KoreanEnum.ARTGATE;
+    case "COMMERCEGATE":
+      return KoreanEnum.COMMERCEGATE;
   }
 };
