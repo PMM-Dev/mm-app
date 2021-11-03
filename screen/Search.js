@@ -130,8 +130,6 @@ const Title = styled.View`
   width: 100%;
   height: ${constants.vh(8)}px;
   justify-content: center;
-  border-bottom-width: 0.5px;
-  border-bottom-color: black;
 `;
 
 const TitleText = styled.Text`

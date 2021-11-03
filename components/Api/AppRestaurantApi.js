@@ -170,7 +170,7 @@ export const getRestaurantByGacha = async (
 
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const response = await axios.get(
+        const {data, status} = await axios.get(
             API_URL + "/restaurant/condition" + conditionUrl,
             {
                 headers: {
@@ -179,7 +179,7 @@ export const getRestaurantByGacha = async (
             }
         );
 
-        return response.data;
+        return {data, status};
     } catch (e) {
         console.error("[AppApi][Exception] getRestaurantByGacha()" + e);
         return undefined;

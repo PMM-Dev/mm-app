@@ -7,6 +7,7 @@ import RestaurantEnum from "../../RestaurantEnum";
 import Theme from "../../style/Theme";
 import GachaResultView from "../../components/Gacha/GachaResultView";
 import GachaAnimationView from "../../components/Gacha/GachaAnimationView";
+import ResponseStatusEnum from "../../ResponseStatusEnum";
 
 const Gacha = ({navigation}) => {
     const [korean, setKorean] = useState(false);
@@ -66,14 +67,20 @@ const Gacha = ({navigation}) => {
     const doGacha = async () => {
         setIsServerRequestLoading(true);
 
-        const result = await getRestaurantByGacha(getSelectedTypeList(), getSelectedPriceList(), getSelectedLocationList());
-        if (result === undefined) {
+        const {data, status} = await getRestaurantByGacha(getSelectedTypeList(), getSelectedPriceList(), getSelectedLocationList());
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             setIsServerRequestLoading(false);
-            alert("뽑기에 실패하였습니다. 다시 시도해주세요.")
+            alert("뽑기에 실패하였습니다. 다시 시도해주세요")
             return;
         }
 
-        setGachaResult(result);
+        if (status === ResponseStatusEnum.NO_DATA) {
+            setIsServerRequestLoading(false);
+            alert("해당 조건에 해당하는 식당은 아직 없습니다 😂")
+            return;
+        }
+
+        setGachaResult(data);
         setIsServerRequestLoading(false);
         setIsConditionStep(false);
         setIsAnimationStep(true);
