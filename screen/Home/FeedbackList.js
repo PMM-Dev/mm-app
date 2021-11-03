@@ -174,7 +174,7 @@ const FeedbackList = ({route, navigation}) => {
                     <FeedbackTextInput
                         value={writingFeedbackContent}
                         onChangeText={(text) => setWritingFeedbackContent(text)}
-                        placeholder="리뷰 내용"
+                        placeholder="피드백 내용"
                         multiline={true}
                     />
                 </ReviewWritingPanel>

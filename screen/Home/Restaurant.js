@@ -223,6 +223,7 @@ const Restaurant = ({route, navigation}) => {
                     <RBSheet
                         ref={reviewWritingPanelRef}
                         customStyles={{container: {borderRadius: constants.vw(3), height: constants.isIos() ? constants.vh(90) : constants.vh(85)}}}
+                        keyboardAvoidingViewEnabled={false}
                     >
                         <ReviewWritingPanel>
                             <TopMenusHolder>
@@ -246,6 +247,7 @@ const Restaurant = ({route, navigation}) => {
                                 value={writingReviewContent}
                                 onChangeText={(text) => setWritingReviewContent(text)}
                                 multiline={true}
+                                placeholder="리뷰 내용"
                             />
                             {/*<TextInput*/}
                             {/*  value={writingReviewContent}*/}
@@ -333,6 +335,7 @@ const ReviewTextInput = styled.TextInput`
   width: 100%;
   height: 100%;
   text-align-vertical: top;
+  font-size: ${constants.vh(1.75)}px;
   padding: 5% 5%;
 `;
 
