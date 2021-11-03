@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from "react";
 import styled from "styled-components";
 import constants from "../../constants";
-import {ActivityIndicator, TextInput} from "react-native-paper";
+import {ActivityIndicator} from "react-native-paper";
 import Theme from "../../style/Theme";
 import Feedback from "../../components/Home/Restaurant/Feedback";
 import Header from "../../components/Header/Header";
@@ -130,7 +130,8 @@ const FeedbackList = ({route, navigation}) => {
                 <AnnouncementText>😂 데모 단계인 이 앱은 많은 피드백이 필요합니다 😂</AnnouncementText>
                 <AnnouncementText>👋 버그 리포트, 디자인 피드백, 기능 피드백 환영 👋</AnnouncementText>
                 <AnnounceDivider/>
-                <AnnouncementText>특히, 식당이 아직 앱에 없거나 잘못된 정보인 경우, 피드백 써주시면 감사하겠습니다. 🥰 (식당에 대한 상세한 정보도 함께 적어주세요!)</AnnouncementText>
+                <AnnouncementText>특히, 식당이 아직 앱에 없거나 잘못된 정보인 경우, 피드백 써주시면 감사하겠습니다. 🥰 (식당에 대한 상세한 정보도 함께
+                    적어주세요!)</AnnouncementText>
                 <AnnounceDivider/>
                 <AnnouncementText>식당마다 적히는 한 줄 설명평에 자신의 문구가 들어가도록 피드백 작성해보세요! 😁</AnnouncementText>
             </AnnouncementView>
@@ -140,18 +141,24 @@ const FeedbackList = ({route, navigation}) => {
                     <ButtonText>작성하기</ButtonText>
                 </Button>
                 <SortButtonsHolder>
-                <Button onPress={requestGetFeedbacksOrderByCreatedDateDesc}>
-                    <SortButtonText>작성일순</SortButtonText>
-                </Button>
-                <Button onPress={requestGetFeedbacksOrderByLikeCountDesc}>
-                    <SortButtonText>좋아요순</SortButtonText>
-                </Button>
+                    <Button onPress={requestGetFeedbacksOrderByCreatedDateDesc}>
+                        <SortButtonText>작성일순</SortButtonText>
+                    </Button>
+                    <Button onPress={requestGetFeedbacksOrderByLikeCountDesc}>
+                        <SortButtonText>좋아요순</SortButtonText>
+                    </Button>
                 </SortButtonsHolder>
             </MenusHolder>
+            {/*<KeyboardScrollView>*/}
             <RBSheet
                 ref={feedbackWritingPanelRef}
-                height={constants.vh(93)}
-                customStyles={{container: {borderRadius: constants.vw(3)}}}
+                customStyles={{
+                    container: {
+                        borderRadius: constants.vw(3),
+                        height: constants.isIos() ? constants.vh(90) : constants.vh(85)
+                    }
+                }}
+                keyboardAvoidingViewEnabled={false}
             >
                 <ReviewWritingPanel>
                     <TopMenusHolder>
@@ -167,11 +174,13 @@ const FeedbackList = ({route, navigation}) => {
                     <FeedbackTextInput
                         value={writingFeedbackContent}
                         onChangeText={(text) => setWritingFeedbackContent(text)}
+                        placeholder="리뷰 내용"
                         multiline={true}
                     />
                 </ReviewWritingPanel>
             </RBSheet>
-            <Scroll>
+            {/*</KeyboardScrollView>*/}
+            <FeedbacksScroll>
                 {isLoading ? (
                     <EmptyContentCenterView>
                         <ActivityIndicator
@@ -190,10 +199,22 @@ const FeedbackList = ({route, navigation}) => {
                                   requestDeleteFeedback={requestDeleteFeedback}/>
                     ))
                 )))}
-            </Scroll>
+            </FeedbacksScroll>
         </Page>
     );
 };
+
+const Page = styled.View`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  background-color: ${(props) => props.theme.backgroundWhite};
+`;
+
+const FeedbacksScroll = styled.ScrollView`
+  width: 100%;
+  padding: ${constants.vw(5)}px;
+`;
 
 const ButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
@@ -216,6 +237,7 @@ const FeedbackTextInput = styled.TextInput`
   width: 100%;
   height: 100%;
   text-align-vertical: top;
+  font-size: ${constants.vh(1.75)}px;
   padding: 5% 5%;
 `;
 
@@ -233,23 +255,13 @@ const TopMenusHolder = styled.View`
   margin-bottom: 7%;
 `;
 
+const KeyboardScrollView = styled.ScrollView``;
+
 const ReviewWritingPanel = styled.View`
   width: 100%;
   height: 100%;
   padding: 5% 5%;
   align-items: center;
-`;
-
-const Page = styled.View`
-  width: 100%;
-  height: 100%;
-  background-color: ${(props) => props.theme.backgroundWhite};
-  align-items: center;
-`;
-
-const Scroll = styled.ScrollView`
-  width: 100%;
-  padding: ${constants.vw(5)}px;
 `;
 
 const AnnouncementView = styled.View`
