@@ -12,6 +12,7 @@ import NavController from "./components/NavController";
 import Theme from "./style/Theme";
 import {getMyMemberInfo} from "./components/Api/AppMemberApi";
 import {reissueJwtAccessToken} from "./components/Api/AuthApi";
+import ResponseStatusEnum from "./ResponseStatusEnum";
 
 enableScreens();
 export default function App() {
@@ -44,11 +45,10 @@ export default function App() {
                 return;
             }
 
-            // 토큰 초과 확인?
             const tokenExpiresIn = await AsyncStorage.getItem("@jwtTokenExpiresIn");
             if (new Date().getTime() > parseInt(tokenExpiresIn)) {
-                const response = await reissueJwtAccessToken();
-                if (!response) {
+                const status = await reissueJwtAccessToken();
+                if (status >= ResponseStatusEnum.BAD_REQUEST) {
                     throw 'Failed to reissue jwt token';
                 }
             }
