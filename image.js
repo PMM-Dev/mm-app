@@ -1,6 +1,8 @@
 export const LOGO = require("./assets/CommonIcons/logo.png");
 export const LOGO_TEXT = require("./assets/CommonIcons/logo_text.png");
 
+export const TMP = require("./assets/tmp.jpg");
+
 export const SEARCHBAR = require("./assets/CommonIcons/search_1.png");
 export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png");
 export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png");
@@ -74,3 +76,4 @@ export const NAVIGATOR_MAP_SELECTED = require("./assets/NavigatorIcon/map_select
 export const NAVIGATOR_THEME_SELECTED = require("./assets/NavigatorIcon/theme_selected.png");
 export const NAVIGATOR_GACHA_SELECTED = require("./assets/NavigatorIcon/gacha_selected.png");
 export const NAVIGATOR_SETTING_SELECTED = require("./assets/NavigatorIcon/setting_selected.png");
+

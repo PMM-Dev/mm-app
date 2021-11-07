@@ -63,8 +63,8 @@ const Home = ({route, navigation}) => {
                     <Header route={route} navigation={navigation}/>
                     <RestaurantTypeButtonsTable navigation={navigation}/>
                     <SmallBoardPart title={"피드백"} preview={reportPreview} navigate={() => navigation.navigate("FeedbackList")}/>
-                    <ThemePart title={"🧑‍💻 카공하기 좋은 카페는?"}/>
-                    <ThemePart title={"🤦‍ 시험 기간에는 싸고 빠르게"}/>
+                    <ThemePart title={"카공하기 좋은 카페는?"}/>
+                    <ThemePart title={"시험 기간에는 싸고 빠르게"}/>
                     <PostPart/>
                     <SmallBoardPart title={"공지사항"}/>
                 </Wrapper>
