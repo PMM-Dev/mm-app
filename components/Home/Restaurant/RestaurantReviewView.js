@@ -16,6 +16,7 @@ import EmptyScreenCenterView from "../../EmptyScreenCenterView";
 const RestaurantReviewView = ({
                                   restaurantId,
                                   myName,
+                                  myEmail,
                                   reviewCount,
                                   myReview,
                                   setMyReview,
@@ -34,6 +35,7 @@ const RestaurantReviewView = ({
             const restaurantReviews = await getRestaurantReviews(restaurantId);
             setReviews(restaurantReviews);
             setIsReviewLoading(false);
+            console.log(restaurantReviews);
         }
 
         async function requestMyReview() {
@@ -115,6 +117,7 @@ const RestaurantReviewView = ({
                     <SubTitleText>모두의 리뷰</SubTitleText>
                     {reviews.map(
                         (review, index) =>
+                            //MyEmail로 변경
                             myName !== review.authorName && (
                                 <Review review={review} key={index}/>
                             )

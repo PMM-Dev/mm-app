@@ -22,7 +22,10 @@ const Feedback = ({feedback, mine, requestDeleteFeedback}) => {
                     }/>
                 </Portrait>
                 <NameAndGradeView>
-                    <AuthorNameText>{feedback?.authorName}</AuthorNameText>
+                    <TextInfoView>
+                        <AuthorNameText>{feedback?.authorName}</AuthorNameText>
+                        <DateText>{feedback?.createdDate}</DateText>
+                    </TextInfoView>
                     <GradeList>
                         <LikeView>
                             <GradeIcon source={FULLHEART}/>
@@ -47,6 +50,19 @@ const Feedback = ({feedback, mine, requestDeleteFeedback}) => {
         </Holder>
     );
 };
+
+const DateText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  color: ${(props) => props.theme.fontBlack};
+  font-size: ${constants.vw(2.5)}px;
+`
+
+const TextInfoView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-left: 2%;
+  margin-bottom: 1.8%;
+`;
 
 const Holder = styled.View`
   width: 100%;
@@ -87,6 +103,7 @@ const AuthorNameText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
   color: ${(props) => props.theme.fontBlack};
   font-size: ${constants.vw(3.5)}px;
+  margin-right: 4%;
 `;
 
 const ContentText = styled.Text`

@@ -20,7 +20,7 @@ import * as ImagePicker from "expo-image-picker";
 
 const Restaurant = ({route, navigation}) => {
     const restaurantId = route.params.restaurantId;
-    const {name: myName, picture: myPicture} = useProfile();
+    const {name: myName, picture: myPicture, email: myEmail} = useProfile();
     const reviewWritingPanelRef = useRef();
 
     const [data, setData] = useState();
@@ -106,6 +106,7 @@ const Restaurant = ({route, navigation}) => {
         const createdDate = `${year}-${month >= 10 ? month : '0' + month}-${day >= 10 ? day : '0' + day} ${hours >= 10 ? hours : '0' + hours}:${minutes >= 10 ? minutes : '0' + minutes}`;
         setMyReview({
             "authorName": myName,
+            "authorEmail": myEmail,
             "authorPicture": myPicture,
             "createdDate": createdDate,
             "description": writingReviewContent,
@@ -211,6 +212,7 @@ const Restaurant = ({route, navigation}) => {
                             <RestaurantReviewView
                                 restaurantId={restaurantId}
                                 myName={myName}
+                                myEmail={myEmail}
                                 reviewCount={reviewNum}
                                 myReview={myReview}
                                 setMyReview={setMyReview}
