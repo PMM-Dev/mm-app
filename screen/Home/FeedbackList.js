@@ -21,7 +21,7 @@ const HEADER_TITLE = "피드백";
 
 const FeedbackList = ({route, navigation}) => {
     const feedbackWritingPanelRef = useRef();
-    const {name: myName, picture: myPicture} = useProfile();
+    const {name: myName, picture: myPicture, email : myEmail} = useProfile();
 
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
@@ -195,7 +195,7 @@ const FeedbackList = ({route, navigation}) => {
                     <NoContentAnnouncement/>
                 ) : (
                     feedbacks.map((feedback, index) => (
-                        <Feedback key={index} feedback={feedback} mine={myName === feedback.authorName}
+                        <Feedback key={index} feedback={feedback} mine={myEmail === feedback.authorEmail}
                                   requestDeleteFeedback={requestDeleteFeedback}/>
                     ))
                 )))}

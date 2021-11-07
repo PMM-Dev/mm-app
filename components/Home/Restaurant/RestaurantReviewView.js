@@ -117,8 +117,7 @@ const RestaurantReviewView = ({
                     <SubTitleText>모두의 리뷰</SubTitleText>
                     {reviews.map(
                         (review, index) =>
-                            //MyEmail로 변경
-                            myName !== review.authorName && (
+                            myEmail !== review.authorEmail && (
                                 <Review review={review} key={index}/>
                             )
                     )}
