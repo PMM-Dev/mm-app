@@ -68,7 +68,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             console.error("[Catch] Google login failed : " + e);
             return {state: USER_FAILED};
         }
-    };
+    }
 
     const loginByApple = async () => {
         try {
