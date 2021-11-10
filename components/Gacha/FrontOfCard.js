@@ -8,6 +8,7 @@ import {
     GACHA_CARD_FRONT_KOREAN, GACHA_CARD_FRONT_WESTERN
 } from "../../image";
 import {Converter} from "../Converter";
+import RestaurantEnum from "../../RestaurantEnum";
 
 const FrontOfCard = ({id, title, type, price, location, navigation}) => {
     const [cardImage, setCardImage] = useState(<CardImage source={GACHA_CARD_FRONT_KOREAN}/>);
@@ -16,25 +17,25 @@ const FrontOfCard = ({id, title, type, price, location, navigation}) => {
 
     const convertCardImage = () => {
         switch (type) {
-            case "KOREAN":
+            case RestaurantEnum.KOREAN:
                 setCardImage(<CardImage source={GACHA_CARD_FRONT_KOREAN}/>);
                 return;
-            case "FLOUR":
+            case RestaurantEnum.FLOUR:
                 setCardImage(<CardImage source={GACHA_CARD_FRONT_FLOUR}/>);
                 return;
-            case "DESSERT":
+            case RestaurantEnum.DESSERT:
                 setCardImage(<CardImage source={GACHA_CARD_FRONT_DESSERT}/>);
                 return;
-            case "JAPANESE":
+            case RestaurantEnum.JAPANESE:
                 setCardImage(<CardImage source={GACHA_CARD_FRONT_JAPANESE}/>);
                 return;
-            case "FASTFOOD":
+            case RestaurantEnum.FASTFOOD:
                 setCardImage(<CardImage source={GACHA_CARD_FRONT_FASTFOOD}/>);
                 return;
-            case "WESTERN":
+            case RestaurantEnum.WESTERN:
                 setCardImage(<CardImage source={GACHA_CARD_FRONT_WESTERN}/>);
                 return;
-            case "ASIAN":
+            case RestaurantEnum.ASIAN:
                 setCardImage(<CardImage source={GACHA_CARD_FRONT_ASIAN}/>);
                 return;
         }
@@ -42,25 +43,25 @@ const FrontOfCard = ({id, title, type, price, location, navigation}) => {
 
     const convertTitleColor = () => {
         switch (type) {
-            case "KOREAN":
+            case RestaurantEnum.KOREAN:
                 setTitleColor("#3f1f1f");
                 return;
-            case "FLOUR":
+            case RestaurantEnum.FLOUR:
                 setTitleColor("#3d261f");
                 return;
-            case "DESSERT":
+            case RestaurantEnum.DESSERT:
                 setTitleColor("#1f1f3f");
                 return;
-            case "JAPANESE":
+            case RestaurantEnum.JAPANESE:
                 setTitleColor("#203e42");
                 return;
-            case "FASTFOOD":
+            case RestaurantEnum.FASTFOOD:
                 setTitleColor("#3a271e");
                 return;
-            case "WESTERN":
+            case RestaurantEnum.WESTERN:
                 setTitleColor("#3d2f1f");
                 return;
-            case "ASIAN":
+            case RestaurantEnum.ASIAN:
                 setTitleColor("#38381d");
                 return;
         }
@@ -68,25 +69,25 @@ const FrontOfCard = ({id, title, type, price, location, navigation}) => {
 
     const convertContentColor = () => {
         switch (type) {
-            case "KOREAN":
+            case RestaurantEnum.KOREAN:
                 setContentColor("#935c5c");
                 return;
-            case "FLOUR":
+            case RestaurantEnum.FLOUR:
                 setContentColor("#a59693");
                 return;
-            case "DESSERT":
+            case RestaurantEnum.DESSERT:
                 setContentColor("#9594a8");
                 return;
-            case "JAPANESE":
+            case RestaurantEnum.JAPANESE:
                 setContentColor("#95acad");
                 return;
-            case "FASTFOOD":
+            case RestaurantEnum.FASTFOOD:
                 setContentColor("#a39893");
                 return;
-            case "WESTERN":
+            case RestaurantEnum.WESTERN:
                 setContentColor("#91735c");
                 return;
-            case "ASIAN":
+            case RestaurantEnum.ASIAN:
                 setContentColor("#9da092");
                 return;
         }
