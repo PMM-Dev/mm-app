@@ -35,7 +35,6 @@ const RestaurantReviewView = ({
             const restaurantReviews = await getRestaurantReviews(restaurantId);
             setReviews(restaurantReviews);
             setIsReviewLoading(false);
-            console.log(restaurantReviews);
         }
 
         async function requestMyReview() {

@@ -16,6 +16,7 @@ import EmptyContentCenterView from "../../components/EmptyContentCenterView";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import {useProfile} from "../../components/AuthContext";
+import ResponseStatusEnum from "../../ResponseStatusEnum";
 
 const HEADER_TITLE = "피드백";
 
@@ -31,11 +32,11 @@ const FeedbackList = ({route, navigation}) => {
 
     useEffect(() => {
         async function requestFeedbacks() {
-            const response = await getFeedbacksOrderByCreatedDateDesc();
-            if (!response) {
+            const {data, status} = await getFeedbacksOrderByCreatedDateDesc();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
                 setIsError(true);
             } else {
-                setFeedbacks(response);
+                setFeedbacks(data);
             }
 
             setIsLoading(false);
@@ -54,14 +55,14 @@ const FeedbackList = ({route, navigation}) => {
     }
 
     const requestPostFeedback = async () => {
-        const response = await postFeedback(writingFeedbackContent);
-        if (!response) {
+        const {data, status} = await postFeedback(writingFeedbackContent);
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             alert("리뷰 작성에 실패했습니다.");
             return undefined
         }
 
         closeReviewWritingPanel();
-        return response;
+        return data;
     };
 
     const triggerLocalFeedbackOfPostFeedback = (feedbackId) => {
@@ -77,11 +78,11 @@ const FeedbackList = ({route, navigation}) => {
     const requestGetFeedbacksOrderByCreatedDateDesc = async () => {
         setIsLoading(true);
 
-        const response = await getFeedbacksOrderByCreatedDateDesc();
-        if (!response) {
+        const {data, status} = await getFeedbacksOrderByCreatedDateDesc();
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             setIsError(true);
         } else {
-            setFeedbacks(response);
+            setFeedbacks(data);
         }
 
         setIsLoading(false);
@@ -90,19 +91,19 @@ const FeedbackList = ({route, navigation}) => {
     const requestGetFeedbacksOrderByLikeCountDesc = async () => {
         setIsLoading(true);
 
-        const response = await getFeedbacksOrderByLikeCountDesc();
-        if (!response) {
+        const {data, status} = await getFeedbacksOrderByLikeCountDesc();
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             setIsError(true);
         } else {
-            setFeedbacks(response);
+            setFeedbacks(data);
         }
 
         setIsLoading(false);
     }
 
     const requestDeleteFeedback = async (feedbackId) => {
-        const response = await deleteFeedback(feedbackId);
-        if (!response) {
+        const {data, status} = await deleteFeedback(feedbackId);
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             alert("리뷰 삭제에 실패했습니다.");
             return;
         }

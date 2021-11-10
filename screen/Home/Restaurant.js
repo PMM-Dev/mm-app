@@ -16,6 +16,7 @@ import RestaurantReviewView from "../../components/Home/Restaurant/RestaurantRev
 import Header from "../../components/Header/Header";
 import TouchableStarMaker from "../../components/TouchableStarMaker";
 import EmptyScreenCenterView from "../../components/EmptyScreenCenterView";
+import ResponseStatusEnum from "../../ResponseStatusEnum";
 import * as ImagePicker from "expo-image-picker";
 
 const Restaurant = ({route, navigation}) => {
@@ -115,12 +116,12 @@ const Restaurant = ({route, navigation}) => {
     }
 
     const requestPostingReview = async () => {
-        const response = await uploadMyReviewByRestaurantId(
+        const {data, status} = await uploadMyReviewByRestaurantId(
             writingReviewContent,
             writingReviewGrade,
             restaurantId
         );
-        if (response === undefined) {
+        if (status === ResponseStatusEnum.NO_DATA) {
             alert("리뷰 작성에 실패했습니다.");
             return false;
         }
@@ -130,12 +131,12 @@ const Restaurant = ({route, navigation}) => {
     };
 
     const requestUpdateReview = async () => {
-        const response = await updateMyReviewByRestaurantId(
+        const {data, status} = await updateMyReviewByRestaurantId(
             writingReviewContent,
             writingReviewGrade,
             restaurantId
         );
-        if (response === undefined) {
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             alert("리뷰 업데이트에 실패했습니다.");
             return false;
         }
@@ -161,8 +162,8 @@ const Restaurant = ({route, navigation}) => {
     }
 
     const requestDeleteMyReview = async () => {
-        const response = await deleteMyReviewByRestaurantId(restaurantId);
-        if (!response) {
+        const {data, status} = await deleteMyReviewByRestaurantId(restaurantId);
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             alert("리뷰 삭제를 실패하였습니다.")
             return false;
         }
