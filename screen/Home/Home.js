@@ -64,8 +64,8 @@ const Home = ({route, navigation}) => {
                     <SmallBoardPart title={"피드백"} preview={reportPreview} navigate={() => navigation.navigate("FeedbackList")}/>
                     <ThemePart title={"카공하기 좋은 카페는?"}/>
                     <ThemePart title={"시험 기간에는 싸고 빠르게"}/>
-                    <PostPart/>
-                    <SmallBoardPart title={"공지사항"}/>
+                    <PostPart navigation={navigation} />
+                    <SmallBoardPart title={"공지사항"} />
                 </Wrapper>
             </Scroll>
         </Screen>
@@ -74,7 +74,6 @@ const Home = ({route, navigation}) => {
 
 export default Home;
 
-const Temporary = styled.TouchableOpacity``;
 
 const Screen = styled.View`
   width: 100%;

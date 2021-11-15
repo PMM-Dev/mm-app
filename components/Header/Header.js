@@ -8,6 +8,7 @@ import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
 import SettingLikeRestaurantHeaderMenu from "./SettingLikeRestaurantHeaderMenu";
 import SettingMyCommentHeaderMenu from "./SettingMyCommentHeaderMenu";
 import FeedbackHeaderMenu from "./FeedbackHeaderMenu";
+import PostHeaderMenu from "./PostHeaderMenu";
 
 const Header = ({
   route: { name: routeName },
@@ -52,6 +53,8 @@ const Header = ({
       setMenuComponent(<SettingMyCommentHeaderMenu navigation={navigation} />);
     } else if (routeName === "FeedbackList") {
       setMenuComponent(<FeedbackHeaderMenu navigation={navigation} />);
+    } else if (routeName === "Post") {
+      setMenuComponent(<PostHeaderMenu navigation={navigation} />);
     }
   };
 

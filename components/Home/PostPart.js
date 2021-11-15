@@ -10,13 +10,13 @@ const Dummy = [
   {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
 ];
 
-const PostPart = () => {
+const PostPart = ({navigation}) => {
   return (
     <HomePart>
       <Header>
           <Title>자유게시판</Title>
-          <MoreButton>
-            <MoreButtonText>더보기 +</MoreButtonText>
+          <MoreButton onPress={()=>{ navigation.navigate("Post")}}>
+            <MoreButtonText >더보기 +</MoreButtonText>
           </MoreButton>
       </Header>
       <Content>

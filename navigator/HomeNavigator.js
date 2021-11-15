@@ -5,6 +5,7 @@ import RestaurantList from "../screen/Home/RestaurantList";
 import Restaurant from "../screen/Home/Restaurant";
 import Search from "../screen/Search";
 import FeedbackList from "../screen/Home/FeedbackList";
+import PostList from "../screen/Home/PostList";
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,11 @@ const HomeNavigator = () => {
         name="FeedbackList"
         component={FeedbackList}
         options={{ title: "피드백" }}
+      />
+      <Stack.Screen
+          name="Post"
+          component={PostList}
+          options={{ title: "자유게시판" }}
       />
     </Stack.Navigator>
   );
