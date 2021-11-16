@@ -66,7 +66,9 @@ const RestaurantList = ({route, navigation}) => {
                         </EmptyContentCenterView>
                     ) : <PostList>
                         {Dummy.map((element, key) => (
-                            <Card key = {key}>
+                            <Card key = {key} onPress={()=>{ navigation.navigate("Post", {
+                                postId: element,
+                            })}}>
                                 <CardTitle>{element.Title}</CardTitle>
                                 <CardExplanation>
                                     <CardExplanationText>{element.ID} | 조회수 : {element.visitNum} | 추천 : {element.recommendNum}</CardExplanationText>

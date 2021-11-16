@@ -15,13 +15,13 @@ const PostPart = ({navigation}) => {
     <HomePart>
       <Header>
           <Title>자유게시판</Title>
-          <MoreButton onPress={()=>{ navigation.navigate("Post")}}>
+          <MoreButton onPress={()=>{ navigation.navigate("PostList")}}>
             <MoreButtonText >더보기 +</MoreButtonText>
           </MoreButton>
       </Header>
       <Content>
           {Dummy.map((element, key) => (
-            <Card key = {key}>
+            <Card key = {key}  >
               <CardTitle>{element.Title}</CardTitle>
               <CardExplanation>
                 <CardExplanationText>{element.ID} | 조회수 : {element.visitNum} | 추천 : {element.recommendNum}</CardExplanationText>
@@ -55,7 +55,7 @@ const CardTitle = styled.Text`
   margin-bottom: ${constants.vh(1)}px;
 `;
 
-const Card = styled.View`
+const Card = styled.TouchableOpacity`
   height : 33%;
 `
 
