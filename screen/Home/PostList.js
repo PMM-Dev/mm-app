@@ -8,9 +8,10 @@ import KoreanEnum from "../../KoreanEnum";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 import EmptyContentCenterView from "../../components/EmptyContentCenterView"
+import PostListCard from "../../components/Home/PostList/PostListCard"
 
 const Dummy = [
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
+    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26", image: "asdf"},
     {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
     {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
     {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
@@ -66,15 +67,7 @@ const RestaurantList = ({route, navigation}) => {
                         </EmptyContentCenterView>
                     ) : <PostList>
                         {Dummy.map((element, key) => (
-                            <Card key = {key} onPress={()=>{ navigation.navigate("Post", {
-                                postId: element,
-                            })}}>
-                                <CardTitle>{element.Title}</CardTitle>
-                                <CardExplanation>
-                                    <CardExplanationText>{element.ID} | 조회수 : {element.visitNum} | 추천 : {element.recommendNum}</CardExplanationText>
-                                    <CardExplanationDate>{element.date}</CardExplanationDate>
-                                </CardExplanation>
-                            </Card>
+                            <PostListCard data = {element} key={key} navigation={navigation}></PostListCard>
                         ))}</PostList>}
                 </PostScroll>
             </Wrapper>
@@ -82,34 +75,6 @@ const RestaurantList = ({route, navigation}) => {
     );
 };
 
-
-const CardExplanationDate = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
-  font-size: ${constants.vw(2.5)}px;
-`;
-
-const CardExplanationText = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
-  font-size: ${constants.vw(2.5)}px;
-  width : 90%;
-`;
-
-const CardExplanation = styled.View`
-  flex-direction: row;
-`;
-
-const CardTitle = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
-  font-size: ${constants.vw(4)}px;
-  margin-bottom: ${constants.vh(1)}px;
-`;
-
-const Card = styled.TouchableOpacity`
-  height : ${constants.vh(7)}px;
-  justify-content: center;
-  border-bottom-width: 0.5px;
-  border-bottom-color: ${(props) => props.theme.borderGray};
-`
 
 
 const PostList = styled.View`

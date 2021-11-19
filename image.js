@@ -12,6 +12,12 @@ export const NO_RESULT_ANNOUNCEMENT = require("./assets/CommonIcons/noResult.png
 export const NOT_PREPARED_ANNOUNCEMENT = require("./assets/CommonIcons/notPrepared.png");
 export const REQUEST_FAILED_ANNOUNCEMENT = require("./assets/CommonIcons/connection_failed.png");
 export const RIP = require("./assets/CommonIcons/rip.png");
+export const SHARE_BT = require("./assets/CommonIcons/bt_1.png");
+export const LIKE_BT = require("./assets/CommonIcons/bt_2.png");
+export const DOT_BT = require("./assets/CommonIcons/dot.png");
+export const IMG_ICON = require("./assets/CommonIcons/img.png");
+export const SEND = require("./assets/CommonIcons/send.png");
+export const WRITE_ICON = require("./assets/CommonIcons/write.png");
 
 export const REVIEW_ICON = require("./assets/CommonIcons/review.png");
 export const FULLHEART = require("./assets/CommonIcons/heart_2.png");

@@ -10,6 +10,7 @@ import SettingMyCommentHeaderMenu from "./SettingMyCommentHeaderMenu";
 import FeedbackHeaderMenu from "./FeedbackHeaderMenu";
 import PostListHeaderMenu from "./PostListHeaderMenu";
 import PostHeaderMenu from "./PostHeaderMenu";
+import PostWriteHeaderMenu from "./PostWriteHeaderMenu";
 
 const Header = ({
   route: { name: routeName },
@@ -58,6 +59,8 @@ const Header = ({
       setMenuComponent(<PostListHeaderMenu navigation={navigation} />);
     }else if (routeName === "Post") {
       setMenuComponent(<PostHeaderMenu navigation={navigation} />);
+    }else if (routeName === "PostWrite") {
+      setMenuComponent(<PostWriteHeaderMenu navigation={navigation} />);
     }
   };
 

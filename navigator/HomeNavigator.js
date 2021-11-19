@@ -7,6 +7,7 @@ import Search from "../screen/Search";
 import FeedbackList from "../screen/Home/FeedbackList";
 import PostList from "../screen/Home/PostList";
 import Post from "../screen/Home/Post";
+import PostWrite from "../screen/Home/PostWrite"
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,11 @@ const HomeNavigator = () => {
           name="Post"
           component={Post}
           options={{ title: "자유게시판 상세" }}
+      />
+      <Stack.Screen
+          name="PostWrite"
+          component={PostWrite}
+          options={{ title: "자유게시판 작성" }}
       />
     </Stack.Navigator>
   );
