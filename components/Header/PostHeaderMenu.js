@@ -5,11 +5,13 @@ import styled from "styled-components"
 import {DOT_BT} from "../../image";
 import constants from "../../constants";
 
-const PostListHeaderMenu = ({ navigation, routeName }) => {
+const PostListHeaderMenu = ({ openOptionPanel, navigation, routeName }) => {
     return (
         <>
             <BackButton goBack={() => navigation.goBack()} />
-            <DotButton ><DotImage source={DOT_BT}/></DotButton>
+            <DotButton onPress={()=> {
+                openOptionPanel()
+            }}><DotImage source={DOT_BT}/></DotButton>
         </>
     );
 };

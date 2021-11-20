@@ -13,6 +13,7 @@ import * as ImagePicker from "expo-image-picker";
 import {TMP,SEND} from "../../image"
 import PostCard from "../../components/Home/PostList/PostCard"
 import PostComment from "../../components/Home/PostList/PostComment"
+import {Keyboard} from "react-native";
 
 const Dummy = [TMP,TMP,TMP,TMP];
 
@@ -25,12 +26,20 @@ const Dummy2 = [
 const Post = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
     const postId = route.params.postId;
-    const reviewWritingPanelRef = useRef();
+    const optionPanelRef = useRef();
     const [data, setData] = useState();
     const [isStartScroll, setIsStartScroll] = useState(false);
-    const [reviewNum, setReviewNum] = useState();
     const [isPostStep, setIsPostStep] = useState(true);
     const [writingReviewContent, setWritingReviewContent] = useState("");
+
+
+    const openOptionPanel = () => {
+        optionPanelRef.current.open();
+    };
+
+    const closeOptionPanel = () => {
+        optionPanelRef.current.close();
+    };
 
     return (
         <Screen>
@@ -39,6 +48,7 @@ const Post = ({route, navigation}) => {
                     <Header
                         route={route}
                         navigation={navigation}
+                        openOptionPanel={openOptionPanel}
                         title="자유게시판 상세"
                     />
                     <Scroll
@@ -62,10 +72,32 @@ const Post = ({route, navigation}) => {
                             multiline={true}
                             placeholder="댓글을 입력해 주세요"
                         />
-                        <SendButton >
+                        <SendButton onPress={()=>{
+                            setWritingReviewContent("댓글을 입력해 주세요");
+                            Keyboard.dismiss();
+                        }}>
                             <SendImage source={SEND}/>
                         </SendButton>
                     </KeyboardAvoidingView>
+                    <RBSheet ref={optionPanelRef}
+                             customStyles={{container: {borderRadius: constants.vw(3), height: constants.isIos() ? constants.vh(90) : constants.vh(85)}}}
+                             keyboardAvoidingViewEnabled={false}>
+                        <OptionPanel>
+                            <Buttons>
+                                {postId.ID !== myEmail ? <Button>
+                                    <ButtonText>수 정 하 기</ButtonText>
+                                </Button> : <></>
+                                }
+                                {postId.ID !== myEmail ? <Button>
+                                    <ButtonText>삭 제 하 기</ButtonText>
+                                </Button> : <></>
+                                }
+                                <Button>
+                                    <ButtonText last >신 고 하 기</ButtonText>
+                                </Button>
+                            </Buttons>
+                        </OptionPanel>
+                    </RBSheet>
                 </>
             ) : (
                 <EmptyScreenCenterView>
@@ -79,6 +111,34 @@ const Post = ({route, navigation}) => {
         </Screen>
     );
 };
+
+const ButtonText = styled.Text`
+  ${(props) => props.theme.NanumSquareBFont}
+  font-size: ${constants.vh(5)}px;
+  line-height : ${constants.vh(5)}px;
+  width : ${constants.vw(100)}px;
+ ${(props) => (props.last ? "color : red" : "")};
+  text-align : center;
+`;
+
+const CancelButton = styled.TouchableOpacity``;
+
+const Button = styled.TouchableOpacity`
+  margin-bottom: ${constants.vh(3)}px;
+`;
+
+
+const Buttons =styled.View`
+  margin-top : ${constants.vh(4)}px;
+`;
+
+const OptionPanel = styled.View`
+  width : 100%;
+  height : 100%;
+  align-items: center;
+  background-color: ${(props) => props.theme.backgroundWhite};
+`;
+
 
 const SendButton = styled.TouchableOpacity`
   position : absolute;
