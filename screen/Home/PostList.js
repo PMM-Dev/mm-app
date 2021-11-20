@@ -9,6 +9,10 @@ import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 import EmptyContentCenterView from "../../components/EmptyContentCenterView"
 import PostListCard from "../../components/Home/PostList/PostListCard"
+import {getFeedbacksOrderByCreatedDateDesc} from "../../components/Api/AppFeedbackApi";
+import ResponseStatusEnum from "../../ResponseStatusEnum";
+import {getPost} from "../../components/Api/AppPostApi";
+import Feedback from "../../components/Home/Restaurant/Feedback";
 
 const Dummy = [
     {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26", image: "asdf"},
@@ -35,21 +39,22 @@ const RestaurantList = ({route, navigation}) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
-        /*async function requestRestaurantsByType() {
-            try {
-                const loadedRestaurants = await getRestaurantsByType(genre);
-                setRestaurants(loadedRestaurants);
-            } catch (e) {
-                alert("서버 요청에 실패했습니다.");
-                setRestaurants(undefined);
-            } finally {
-                setIsLoading(false);
+        async function requestPosts() {
+            const {data, status} = await getPost();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                setIsError(true);
+            } else {
+                setPosts(data);
             }
+
+            setIsLoading(false);
         }
-*/
-    }, []);
+
+        requestPosts();
+    }, [])
 
 
     return (
@@ -61,14 +66,24 @@ const RestaurantList = ({route, navigation}) => {
                     title={"자유게시판"}
                 />
                 <PostScroll>
-                    {!isLoading ? (
+                    {isLoading ? (
                         <EmptyContentCenterView>
-                            <ActivityIndicator color={Theme.hlOrange} size={"large"}/>
+                            <ActivityIndicator
+                                animating={true}
+                                size="large"
+                                color={Theme.hlOrange}
+                            />
                         </EmptyContentCenterView>
-                    ) : <PostList>
-                        {Dummy.map((element, key) => (
-                            <PostListCard data = {element} key={key} navigation={navigation}></PostListCard>
-                        ))}</PostList>}
+                    ) : (isError ? (
+                        <RequestFailedAnnouncement/>
+                    ) : (posts && posts.length === 0 ? (
+                        <NoContentAnnouncement/>
+                    ) : (
+                        <PostList>
+                            {posts.map((element, key) => (
+                                <PostListCard data = {element} key={key} navigation={navigation}></PostListCard>
+                            ))}</PostList>
+                    )))}
                 </PostScroll>
             </Wrapper>
         </Screen>

@@ -6,16 +6,16 @@ import constants from "../../../constants";
 const PostListCard = ({data, navigation}) => {
     return (
         <Card onPress={()=>{ navigation.navigate("Post", {
-            postId: data,
+            postId: data.id,
         })}}>
             <CardImageAndTitle>
-                {data.image !== undefined ?
+                {data.existImage === true ?
                     <CardImage source = {IMG_ICON}/>: <></> }
-                <CardTitle>{data.Title}</CardTitle>
+                <CardTitle>{data.title}</CardTitle>
             </CardImageAndTitle>
             <CardExplanation>
-                <CardExplanationText>{data.ID} | 조회수 : {data.visitNum} | 추천 : {data.recommendNum}</CardExplanationText>
-                <CardExplanationDate>{data.date}</CardExplanationDate>
+                <CardExplanationText>{data.authorName} | 조회수 : {data.viewCount} | 추천 : {data.likeCount}</CardExplanationText>
+                <CardExplanationDate>{data.createDate}</CardExplanationDate>
             </CardExplanation>
         </Card>
     );
@@ -30,6 +30,7 @@ const CardImageAndTitle = styled.View`
 const CardImage = styled.Image`
   height: ${constants.vw(4)}px;
   width : ${constants.vw(5)}px;
+  margin-right : ${constants.vw(1)}px;
 `;
 
 const CardExplanationDate = styled.Text`

@@ -14,6 +14,7 @@ import {TMP,SEND} from "../../image"
 import PostCard from "../../components/Home/PostList/PostCard"
 import PostComment from "../../components/Home/PostList/PostComment"
 import {Keyboard} from "react-native";
+import {getPostById} from "../../components/Api/AppPostApi";
 
 const Dummy = [TMP,TMP,TMP,TMP];
 
@@ -28,10 +29,15 @@ const Post = ({route, navigation}) => {
     const postId = route.params.postId;
     const optionPanelRef = useRef();
     const [data, setData] = useState();
-    const [isStartScroll, setIsStartScroll] = useState(false);
-    const [isPostStep, setIsPostStep] = useState(true);
     const [writingReviewContent, setWritingReviewContent] = useState("");
 
+    useEffect(() => {
+        async function requestPostById(postId) {
+            const {data, status} = await getPostById(postId);
+            setData(data);
+        }
+        requestPostById(postId);
+    }, []);
 
     const openOptionPanel = () => {
         optionPanelRef.current.open();
@@ -43,20 +49,20 @@ const Post = ({route, navigation}) => {
 
     return (
         <Screen>
-            {!data ? (
+            {data ? (
                 <>
                     <Header
                         route={route}
                         navigation={navigation}
                         openOptionPanel={openOptionPanel}
-                        title="자유게시판 상세"
+                        title="자유게시판"
                     />
                     <Scroll
                         alwaysBounceVertical={false}
                         scrollEventThrottle={16}
                     >
                         <Wrapper>
-                            <PostCard data={postId} image={Dummy} />
+                            <PostCard data={data} image={Dummy} />
                             <CommentNumText>댓글 </CommentNumText>
                             <CommentCard>
                                 {Dummy2.map((element, key) => (

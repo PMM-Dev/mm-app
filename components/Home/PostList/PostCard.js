@@ -8,13 +8,13 @@ const PostCard = ({data, image}) => {
         <PostCardView>
             <PostContent >
                 <PostCardImageAndTitle>
-                    {data.image !== undefined ?
+                    {data.existImage === true ?
                         <PostCardImage source = {IMG_ICON}/>: <></> }
-                    <PostCardTitle>{data.Title}</PostCardTitle>
+                    <PostCardTitle>{data.title}</PostCardTitle>
                 </PostCardImageAndTitle>
                 <PostCardExplanation>
-                    <PostCardExplanationText>{data.ID} | 조회수 : {data.visitNum} | 추천 : {data.recommendNum}</PostCardExplanationText>
-                    <PostCardExplanationDate>{data.date}</PostCardExplanationDate>
+                    <PostCardExplanationText>{data.authorName} | 조회수 : {data.viewCount} | 추천 : {data.likeCount}</PostCardExplanationText>
+                    <PostCardExplanationDate>{data.createDate}</PostCardExplanationDate>
                 </PostCardExplanation>
             </PostContent>
             <ImageWrapper>
@@ -79,7 +79,7 @@ const PostCardExplanationDate = styled.Text`
 const PostCardExplanationText = styled.Text`
   ${(props) => props.theme.NanumGothicBoldFont};
   font-size: ${constants.vw(2.5)}px;
-  width : 90%;
+  width : 80%;
 `;
 
 const PostCardExplanation = styled.View`
@@ -115,6 +115,7 @@ const PostCardImageAndTitle = styled.View`
 const PostCardImage = styled.Image`
   height: ${constants.vw(4)}px;
   width : ${constants.vw(5)}px;
+  margin-right : ${constants.vw(1)}px;
 `;
 
 export default PostCard;
