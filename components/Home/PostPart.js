@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import PostNoticeMini from "./PostNoticeMini";
 import constants from "../../constants";
 import NotPreparedAnnouncement from "../NotPreparedAnnouncement";
+import {getPost, getPostPreview} from "../Api/AppPostApi";
+import ResponseStatusEnum from "../../ResponseStatusEnum";
+import PostListCard from "./PostList/PostListCard";
 
 const Dummy = [
   {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
@@ -11,6 +14,19 @@ const Dummy = [
 ];
 
 const PostPart = ({navigation}) => {
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        async function requestPosts() {
+            const {data, status} = await getPostPreview();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            } else {
+                setPosts(data);
+            }
+
+        }
+        requestPosts();
+    }, [])
   return (
     <HomePart>
       <Header>
@@ -20,48 +36,17 @@ const PostPart = ({navigation}) => {
           </MoreButton>
       </Header>
       <Content>
-          {Dummy.map((element, key) => (
-            <Card key = {key}  >
-              <CardTitle>{element.Title}</CardTitle>
-              <CardExplanation>
-                <CardExplanationText>{element.ID} | 조회수 : {element.visitNum} | 추천 : {element.recommendNum}</CardExplanationText>
-                <CardExplanationDate>{element.date}</CardExplanationDate>
-              </CardExplanation>
-            </Card>
+          {posts.map((element, key) => (
+            <PostListCard key = {key} data = {element} navigation={navigation}/>
           ))}
       </Content>
     </HomePart>
   );
 };
 
-const CardExplanationDate = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
-  font-size: ${constants.vw(2.5)}px;
-`;
-
-const CardExplanationText = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
-  font-size: ${constants.vw(2.5)}px;
-  width : 90%;
-`;
-
-const CardExplanation = styled.View`
-  flex-direction: row;
-`;
-
-const CardTitle = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
-  font-size: ${constants.vw(4)}px;
-  margin-bottom: ${constants.vh(1)}px;
-`;
-
-const Card = styled.TouchableOpacity`
-  height : 33%;
-`
-
 const HomePart = styled.View`
   width: 100%;
-  height: ${constants.vh(25)}px;
+  height: ${constants.vh(30)}px;
   display: flex;
   flex-direction: column;
   justify-content: center;

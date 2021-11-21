@@ -9,7 +9,6 @@ import Header from "../../components/Header/Header";
 import TouchableStarMaker from "../../components/TouchableStarMaker";
 import EmptyScreenCenterView from "../../components/EmptyScreenCenterView";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
-import * as ImagePicker from "expo-image-picker";
 import {TMP,SEND} from "../../image"
 import PostCard from "../../components/Home/PostList/PostCard"
 import PostComment from "../../components/Home/PostList/PostComment"
@@ -30,6 +29,7 @@ const Post = ({route, navigation}) => {
     const optionPanelRef = useRef();
     const [data, setData] = useState();
     const [writingReviewContent, setWritingReviewContent] = useState("");
+
 
     useEffect(() => {
         async function requestPostById(postId) {
@@ -86,15 +86,24 @@ const Post = ({route, navigation}) => {
                         </SendButton>
                     </KeyboardAvoidingView>
                     <RBSheet ref={optionPanelRef}
-                             customStyles={{container: {borderRadius: constants.vw(3), height: constants.isIos() ? constants.vh(90) : constants.vh(85)}}}
-                             keyboardAvoidingViewEnabled={false}>
+                             customStyles={{
+                                 container:
+                                     {borderRadius: constants.vw(3),
+                                         height: data.authorName === myName ? constants.vh(25) : constants.vh(10)
+                                     },
+                             }}
+                             animationType = "slide"
+                             keyboardAvoidingViewEnabled={false}
+                             closeOnDragDown={true}
+                             minClosingHeight={0}
+                    >
                         <OptionPanel>
                             <Buttons>
-                                {postId.ID !== myEmail ? <Button>
+                                {data.authorName === myName ? <Button>
                                     <ButtonText>수 정 하 기</ButtonText>
                                 </Button> : <></>
                                 }
-                                {postId.ID !== myEmail ? <Button>
+                                {data.authorName === myName ? <Button>
                                     <ButtonText>삭 제 하 기</ButtonText>
                                 </Button> : <></>
                                 }
@@ -120,22 +129,24 @@ const Post = ({route, navigation}) => {
 
 const ButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
-  font-size: ${constants.vh(5)}px;
-  line-height : ${constants.vh(5)}px;
+  font-size: ${constants.vh(3)}px;
+  line-height : ${constants.vh(3)}px;
   width : ${constants.vw(100)}px;
  ${(props) => (props.last ? "color : red" : "")};
   text-align : center;
+  padding: ${constants.vh(2)}px 0;
+  border-top-color: ${(props) => props.theme.borderGray};
+  border-top-width : 1px;
+  border-bottom-color: ${(props) => props.theme.borderGray};
+  ${(props) => (props.last ? "border-bottom-width : 1px" : "")};
 `;
 
 const CancelButton = styled.TouchableOpacity``;
 
 const Button = styled.TouchableOpacity`
-  margin-bottom: ${constants.vh(3)}px;
 `;
 
-
 const Buttons =styled.View`
-  margin-top : ${constants.vh(4)}px;
 `;
 
 const OptionPanel = styled.View`

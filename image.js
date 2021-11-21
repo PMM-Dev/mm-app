@@ -2,6 +2,7 @@ export const LOGO = require("./assets/CommonIcons/logo.png");
 export const LOGO_TEXT = require("./assets/CommonIcons/logo_text.png");
 
 export const TMP = require("./assets/tmp.jpg");
+export const TRASH = require("./assets/CommonIcons/delete.png")
 
 export const SEARCHBAR = require("./assets/CommonIcons/search_1.png");
 export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png");

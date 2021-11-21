@@ -8,9 +8,9 @@ const PostCard = ({data, image}) => {
         <PostCardView>
             <PostContent >
                 <PostCardImageAndTitle>
+                    <PostCardTitle>{data.title}</PostCardTitle>
                     {data.existImage === true ?
                         <PostCardImage source = {IMG_ICON}/>: <></> }
-                    <PostCardTitle>{data.title}</PostCardTitle>
                 </PostCardImageAndTitle>
                 <PostCardExplanation>
                     <PostCardExplanationText>{data.authorName} | 조회수 : {data.viewCount} | 추천 : {data.likeCount}</PostCardExplanationText>
@@ -115,7 +115,7 @@ const PostCardImageAndTitle = styled.View`
 const PostCardImage = styled.Image`
   height: ${constants.vw(4)}px;
   width : ${constants.vw(5)}px;
-  margin-right : ${constants.vw(1)}px;
+  margin-left : ${constants.vw(2)}px;
 `;
 
 export default PostCard;

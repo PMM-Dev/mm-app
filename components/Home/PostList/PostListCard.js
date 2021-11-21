@@ -9,9 +9,9 @@ const PostListCard = ({data, navigation}) => {
             postId: data.id,
         })}}>
             <CardImageAndTitle>
+                <CardTitle>{data.title}</CardTitle>
                 {data.existImage === true ?
                     <CardImage source = {IMG_ICON}/>: <></> }
-                <CardTitle>{data.title}</CardTitle>
             </CardImageAndTitle>
             <CardExplanation>
                 <CardExplanationText>{data.authorName} | 조회수 : {data.viewCount} | 추천 : {data.likeCount}</CardExplanationText>
@@ -30,7 +30,7 @@ const CardImageAndTitle = styled.View`
 const CardImage = styled.Image`
   height: ${constants.vw(4)}px;
   width : ${constants.vw(5)}px;
-  margin-right : ${constants.vw(1)}px;
+  margin-left : ${constants.vw(2)}px;
 `;
 
 const CardExplanationDate = styled.Text`
@@ -41,7 +41,7 @@ const CardExplanationDate = styled.Text`
 const CardExplanationText = styled.Text`
   ${(props) => props.theme.NanumGothicBoldFont};
   font-size: ${constants.vw(2.5)}px;
-  width : 90%;
+  width : 70%;
 `;
 
 const CardExplanation = styled.View`
