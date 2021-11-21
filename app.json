@@ -17,7 +17,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.pmm.mm",
-      "buildNumber": "1.0.7",
+      "buildNumber": "1.0.8",
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false,
@@ -29,7 +29,7 @@
     },
     "android": {
       "package": "com.pmm.mm",
-      "versionCode": 7,
+      "versionCode": 8,
       "config": {
         "googleSignIn": {
           "apiKey": "AIzaSyCYAaXZVdf60fopq2_30KrTVfs3-azepaY",
