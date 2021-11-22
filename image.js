@@ -1,6 +1,9 @@
 export const LOGO = require("./assets/CommonIcons/logo.png");
 export const LOGO_TEXT = require("./assets/CommonIcons/logo_text.png");
 
+export const TMP = require("./assets/tmp.jpg");
+export const TRASH = require("./assets/CommonIcons/delete.png")
+
 export const SEARCHBAR = require("./assets/CommonIcons/search_1.png");
 export const MAGNIFY_ICON = require("./assets/CommonIcons/magnify.png");
 export const ARROW_LEFT_ICON = require("./assets/CommonIcons/arrow_left.png");
@@ -10,6 +13,12 @@ export const NO_RESULT_ANNOUNCEMENT = require("./assets/CommonIcons/noResult.png
 export const NOT_PREPARED_ANNOUNCEMENT = require("./assets/CommonIcons/notPrepared.png");
 export const REQUEST_FAILED_ANNOUNCEMENT = require("./assets/CommonIcons/connection_failed.png");
 export const RIP = require("./assets/CommonIcons/rip.png");
+export const SHARE_BT = require("./assets/CommonIcons/bt_1.png");
+export const LIKE_BT = require("./assets/CommonIcons/bt_2.png");
+export const DOT_BT = require("./assets/CommonIcons/dot.png");
+export const IMG_ICON = require("./assets/CommonIcons/img.png");
+export const SEND = require("./assets/CommonIcons/send.png");
+export const WRITE_ICON = require("./assets/CommonIcons/write.png");
 
 export const REVIEW_ICON = require("./assets/CommonIcons/review.png");
 export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
@@ -74,3 +83,4 @@ export const NAVIGATOR_MAP_SELECTED = require("./assets/NavigatorIcon/map_select
 export const NAVIGATOR_THEME_SELECTED = require("./assets/NavigatorIcon/theme_selected.png");
 export const NAVIGATOR_GACHA_SELECTED = require("./assets/NavigatorIcon/gacha_selected.png");
 export const NAVIGATOR_SETTING_SELECTED = require("./assets/NavigatorIcon/setting_selected.png");
+

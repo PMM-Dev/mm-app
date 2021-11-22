@@ -16,11 +16,12 @@ import RestaurantReviewView from "../../components/Home/Restaurant/RestaurantRev
 import Header from "../../components/Header/Header";
 import TouchableStarMaker from "../../components/TouchableStarMaker";
 import EmptyScreenCenterView from "../../components/EmptyScreenCenterView";
+import ResponseStatusEnum from "../../ResponseStatusEnum";
 import * as ImagePicker from "expo-image-picker";
 
 const Restaurant = ({route, navigation}) => {
     const restaurantId = route.params.restaurantId;
-    const {name: myName, picture: myPicture} = useProfile();
+    const {name: myName, picture: myPicture, email: myEmail} = useProfile();
     const reviewWritingPanelRef = useRef();
 
     const [data, setData] = useState();
@@ -106,6 +107,7 @@ const Restaurant = ({route, navigation}) => {
         const createdDate = `${year}-${month >= 10 ? month : '0' + month}-${day >= 10 ? day : '0' + day} ${hours >= 10 ? hours : '0' + hours}:${minutes >= 10 ? minutes : '0' + minutes}`;
         setMyReview({
             "authorName": myName,
+            "authorEmail": myEmail,
             "authorPicture": myPicture,
             "createdDate": createdDate,
             "description": writingReviewContent,
@@ -114,12 +116,12 @@ const Restaurant = ({route, navigation}) => {
     }
 
     const requestPostingReview = async () => {
-        const response = await uploadMyReviewByRestaurantId(
+        const {data, status} = await uploadMyReviewByRestaurantId(
             writingReviewContent,
             writingReviewGrade,
             restaurantId
         );
-        if (response === undefined) {
+        if (status === ResponseStatusEnum.NO_DATA) {
             alert("리뷰 작성에 실패했습니다.");
             return false;
         }
@@ -129,12 +131,12 @@ const Restaurant = ({route, navigation}) => {
     };
 
     const requestUpdateReview = async () => {
-        const response = await updateMyReviewByRestaurantId(
+        const {data, status} = await updateMyReviewByRestaurantId(
             writingReviewContent,
             writingReviewGrade,
             restaurantId
         );
-        if (response === undefined) {
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             alert("리뷰 업데이트에 실패했습니다.");
             return false;
         }
@@ -160,8 +162,8 @@ const Restaurant = ({route, navigation}) => {
     }
 
     const requestDeleteMyReview = async () => {
-        const response = await deleteMyReviewByRestaurantId(restaurantId);
-        if (!response) {
+        const {data, status} = await deleteMyReviewByRestaurantId(restaurantId);
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
             alert("리뷰 삭제를 실패하였습니다.")
             return false;
         }
@@ -211,6 +213,7 @@ const Restaurant = ({route, navigation}) => {
                             <RestaurantReviewView
                                 restaurantId={restaurantId}
                                 myName={myName}
+                                myEmail={myEmail}
                                 reviewCount={reviewNum}
                                 myReview={myReview}
                                 setMyReview={setMyReview}
@@ -310,7 +313,6 @@ const Wrapper = styled.View`
 
 const ReviewWritingPanel = styled.View`
   width: 100%;
-  height: 100%;
   padding: 5% 5%;
   align-items: center;
 `;

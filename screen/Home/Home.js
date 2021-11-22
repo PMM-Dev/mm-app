@@ -10,6 +10,7 @@ import Theme from "../../style/Theme";
 import {getLatestFeedbackPreview} from "../../components/Api/AppFeedbackApi";
 import {getLatestNotice} from "../../components/Api/AppNotice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ResponseStatusEnum from "../../ResponseStatusEnum";
 
 const PREVENTING_IOS_BOUNCE_VIEW_HEIGHT = 3000;
 
@@ -19,27 +20,25 @@ const Home = ({route, navigation}) => {
 
     useEffect(() => {
         async function requestLatestNotice () {
-            const response = await getLatestNotice();
-            if (!response) {
+            const {data, status} = await getLatestNotice();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
                 return;
             }
-
             const readNoticeId = await AsyncStorage.getItem("@readNoticeId");
-            if (readNoticeId === response.id) {
+            if (readNoticeId === data.id) {
                 return;
             }
 
-
-            alert(response.content);
+            alert(data.content);
         }
 
         async function requestFeedbackPreview () {
-            const response = await getLatestFeedbackPreview();
-            if (!response) {
+            const {data, status} = await getLatestFeedbackPreview();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
                 return;
             }
 
-            setReportPreview(response);
+            setReportPreview(data);
         }
 
         requestLatestNotice();
@@ -63,10 +62,10 @@ const Home = ({route, navigation}) => {
                     <Header route={route} navigation={navigation}/>
                     <RestaurantTypeButtonsTable navigation={navigation}/>
                     <SmallBoardPart title={"피드백"} preview={reportPreview} navigate={() => navigation.navigate("FeedbackList")}/>
-                    <ThemePart title={"🧑‍💻 카공하기 좋은 카페는?"}/>
-                    <ThemePart title={"🤦‍ 시험 기간에는 싸고 빠르게"}/>
-                    <PostPart/>
-                    <SmallBoardPart title={"공지사항"}/>
+                    <ThemePart title={"카공하기 좋은 카페는?"}/>
+                    <ThemePart title={"시험 기간에는 싸고 빠르게"}/>
+                    <PostPart navigation={navigation} />
+                    <SmallBoardPart title={"공지사항"} />
                 </Wrapper>
             </Scroll>
         </Screen>
@@ -75,7 +74,6 @@ const Home = ({route, navigation}) => {
 
 export default Home;
 
-const Temporary = styled.TouchableOpacity``;
 
 const Screen = styled.View`
   width: 100%;

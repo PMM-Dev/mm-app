@@ -8,6 +8,9 @@ import RestaurantHeaderMenu from "./RestaurantHeaderMenu";
 import SettingLikeRestaurantHeaderMenu from "./SettingLikeRestaurantHeaderMenu";
 import SettingMyCommentHeaderMenu from "./SettingMyCommentHeaderMenu";
 import FeedbackHeaderMenu from "./FeedbackHeaderMenu";
+import PostListHeaderMenu from "./PostListHeaderMenu";
+import PostHeaderMenu from "./PostHeaderMenu";
+import PostWriteHeaderMenu from "./PostWriteHeaderMenu";
 
 const Header = ({
   route: { name: routeName },
@@ -18,6 +21,7 @@ const Header = ({
   onPressRightButton,
   isLikeButtonPressed,
   setLikeNum,
+  openOptionPanel,
 }) => {
   const [menuComponent, setMenuComponent] = useState();
 
@@ -52,6 +56,12 @@ const Header = ({
       setMenuComponent(<SettingMyCommentHeaderMenu navigation={navigation} />);
     } else if (routeName === "FeedbackList") {
       setMenuComponent(<FeedbackHeaderMenu navigation={navigation} />);
+    } else if (routeName === "PostList") {
+      setMenuComponent(<PostListHeaderMenu navigation={navigation} />);
+    }else if (routeName === "Post") {
+      setMenuComponent(<PostHeaderMenu openOptionPanel = {openOptionPanel} navigation={navigation} />);
+    }else if (routeName === "PostWrite") {
+      setMenuComponent(<PostWriteHeaderMenu navigation={navigation} />);
     }
   };
 

@@ -16,6 +16,7 @@ import EmptyScreenCenterView from "../../EmptyScreenCenterView";
 const RestaurantReviewView = ({
                                   restaurantId,
                                   myName,
+                                  myEmail,
                                   reviewCount,
                                   myReview,
                                   setMyReview,
@@ -115,7 +116,7 @@ const RestaurantReviewView = ({
                     <SubTitleText>모두의 리뷰</SubTitleText>
                     {reviews.map(
                         (review, index) =>
-                            myName !== review.authorName && (
+                            myEmail !== review.authorEmail && (
                                 <Review review={review} key={index}/>
                             )
                     )}
