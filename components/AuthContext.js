@@ -68,9 +68,11 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
 
                 } else if (response.state === USER_EXIST) {
                     return {state: USER_EXIST};
+
+                } else {
+                    return {state: USER_FAILED};
                 }
 
-                return {state: USER_FAILED};
             }
         } catch (e) {
             console.error("[Catch] Google login failed : " + e);
@@ -81,8 +83,32 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
     const loginByApple = async () => {
         try {
             const result = await Apple.signInAsync();
-            console.log(result);
-            console.log(result.identityToken);
+
+            const memberRequestDto = {
+                email: "",
+                name: "",
+                picture: "",
+                role: isAdminMode ? "ROLE_ADMIN" : "ROLE_USER",
+                socialToken: result.identityToken,
+                socialTokenType: "APPLE"
+            }
+            const {state} = await getJwtToken(memberRequestDto);
+            if (state === USER_FAILED) {
+                throw 'Saving App token failed';
+
+            } else if (state === USER_NOT_EXIST) {
+                return {
+                    state: USER_NOT_EXIST,
+                    memberRequestDto
+                }
+
+            } else if (state === USER_EXIST) {
+                return {state: USER_EXIST};
+
+            } else {
+                return {state: USER_FAILED};
+            }
+
         } catch (e) {
             if (e.code !== 'ERR_CANCELED') {
                 console.error("[Catch] Apple login failed : " + e);
@@ -93,12 +119,12 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
     const registerUser = async (memberRequestDto) => {
         try {
             const response = await register(memberRequestDto);
-            if (!response) {
+            if (response.status >= ResponseStatusEnum.BAD_REQUEST) {
                 throw 'register process failed';
             }
 
-            const jwtToken = await getJwtTokenBySocialToken(memberRequestDto);
-            if (!jwtToken) {
+            const {status, jwtToken} = await getJwtTokenBySocialToken(memberRequestDto);
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
                 throw 'getting jwt token failed';
             }
 
@@ -129,8 +155,8 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
 
     const saveProfileData = async () => {
         try {
-            const data = await getMyMemberInfo();
-            if (data === undefined) {
+            const {data, status} = await getMyMemberInfo();
+            if (status === ResponseStatusEnum.ILLEGAL_ARGUMENT) {
                 throw 'MyMemberInfo is undefined';
             }
 
@@ -168,7 +194,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 loginByGoogle,
                 loginByApple,
                 registerUser,
-                saveJwtToken: getJwtToken,
+                getJwtToken,
                 saveProfileData,
                 logOut,
             }}
@@ -213,9 +239,9 @@ export const useRegisterUser = () => {
     return registerUser;
 }
 
-export const useSaveJwtToken = () => {
-    const {saveJwtToken} = useContext(AuthContext);
-    return saveJwtToken;
+export const useGetJwtToken = () => {
+    const {getJwtToken} = useContext(AuthContext);
+    return getJwtToken;
 };
 
 export const useSaveProfileData = () => {
