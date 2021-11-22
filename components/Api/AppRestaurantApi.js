@@ -276,7 +276,7 @@ export const getRestaurantReviewsOrderByAverageGradeAsc = async (id) => {
 export const uploadMyReviewByRestaurantId = async (content, grade, restaurantId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const response = await axios.post(
+        const {data, status} = await axios.post(
             API_URL + "/restaurant/" + restaurantId + "/review/me",
             {
                 description: content,
@@ -288,7 +288,7 @@ export const uploadMyReviewByRestaurantId = async (content, grade, restaurantId)
                 },
             }
         );
-        return response.data;
+        return {data, status};
     } catch (e) {
         console.error("[AppApi][Exception] " + e);
         return undefined;
@@ -316,7 +316,7 @@ export const getMyReviewByRestaurantId = async (restaurantId) => {
 export const updateMyReviewByRestaurantId = async (content, grade, restaurantId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const response = await axios.put(
+        const {data, status} = await axios.put(
             API_URL + "/restaurant/" + restaurantId + "/review/me",
             {
                 description: content,
@@ -328,7 +328,7 @@ export const updateMyReviewByRestaurantId = async (content, grade, restaurantId)
                 },
             }
         );
-        return response.data;
+        return {data, status};
     } catch (e) {
         console.error("[AppApi][Exception] failed updateMyReviewByRestaurantId() " + e);
         return undefined;
@@ -338,7 +338,7 @@ export const updateMyReviewByRestaurantId = async (content, grade, restaurantId)
 export const deleteMyReviewByRestaurantId = async (restaurantId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const response = await axios.delete(
+        const {data, status} = await axios.delete(
             API_URL + "/restaurant/" + restaurantId + "/review/me",
             {
                 headers: {
@@ -346,7 +346,7 @@ export const deleteMyReviewByRestaurantId = async (restaurantId) => {
                 },
             }
         );
-        return response.data;
+        return {data, status};
     } catch (e) {
         console.error("[AppApi][Exception] failed deleteMyReviewByRestaurantId()" + e);
         return undefined;

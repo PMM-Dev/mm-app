@@ -20,7 +20,6 @@ import { getMyMemberInfo } from "../Api/AppMemberApi";
 import * as Linking from 'expo-linking';
 
 const MenuView = ({ navigate, role }) => {
-
   const logout = useLogOut();
   const [isTokenDialogVisible, setIsTokenDialogVisible] = useState(false);
   const [tokenDialogText, setTokenDialogText] = useState("");
