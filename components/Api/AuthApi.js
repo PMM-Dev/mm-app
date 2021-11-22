@@ -16,10 +16,13 @@ export const register = async (memberRequestDto) => {
 
 export const getJwtTokenBySocialToken = async (memberRequestDto) => {
   try {
-    const response = await axios.post(API_URL + "/auth/login", {
+    const {data, status} = await axios.post(API_URL + "/auth/login", {
       ...memberRequestDto,
     });
-    return response.data;
+    return {
+      status,
+      jwtToken :data
+    };
   } catch (e) {
     console.log("[AuthApi][Exception] failed getJwtTokenBySocialToken() " + e);
     return undefined;

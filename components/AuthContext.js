@@ -2,9 +2,15 @@ import React, {createContext, useContext, useState} from "react";
 import * as Google from "expo-google-app-auth";
 import * as Apple from 'expo-apple-authentication';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {ANDROID_INEXPO_GOOGLE_CLIENT_ID, IOS_INEXPO_GOOGLE_CLIENT_ID, ANDROID_GOOGLE_CLIENT_ID, IOS_GOOGLE_CLIENT_ID} from "@env";
+import {
+    ANDROID_INEXPO_GOOGLE_CLIENT_ID,
+    IOS_INEXPO_GOOGLE_CLIENT_ID,
+    ANDROID_GOOGLE_CLIENT_ID,
+    IOS_GOOGLE_CLIENT_ID
+} from "@env";
 import {getJwtTokenBySocialToken, loginByJwtToken, register} from "./Api/AuthApi";
 import {getMyMemberInfo} from "./Api/AppMemberApi";
+import ResponseStatusEnum from "../ResponseStatusEnum";
 
 export const ROLE_ADMIN = "ROLE_ADMIN";
 export const ROLE_USER = "ROLE_USER";
@@ -50,14 +56,16 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                     socialToken: result.accessToken,
                     socialTokenType: "GOOGLE"
                 }
-                const response = await saveJwtToken(memberRequestDto);
-                if (response === undefined) {
+                const response = await getJwtToken(memberRequestDto);
+                if (response.state === USER_FAILED) {
                     throw 'Saving App token failed';
+
                 } else if (response.state === USER_NOT_EXIST) {
                     return {
                         state: USER_NOT_EXIST,
                         memberRequestDto
                     }
+
                 } else if (response.state === USER_EXIST) {
                     return {state: USER_EXIST};
                 }
@@ -72,14 +80,9 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
 
     const loginByApple = async () => {
         try {
-            const result = await Apple.signInAsync({
-                requestedScopes: [
-                    Apple.AppleAuthenticationScope.FULL_NAME,
-                    Apple.AppleAuthenticationScope.EMAIL
-                ]
-            });
-            // console.log(result);
-            // console.log(result.identityToken);
+            const result = await Apple.signInAsync();
+            console.log(result);
+            console.log(result.identityToken);
         } catch (e) {
             if (e.code !== 'ERR_CANCELED') {
                 console.error("[Catch] Apple login failed : " + e);
@@ -110,21 +113,18 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
         }
     }
 
-    const saveJwtToken = async (memberRequestDto) => {
-        try {
-            const jwtToken = await getJwtTokenBySocialToken(memberRequestDto);
-            if (!jwtToken) {
-                return {state: USER_NOT_EXIST};
-            }
-
-            await AsyncStorage.setItem("@jwtAccessToken", jwtToken.accessToken);
-            await AsyncStorage.setItem("@jwtRefreshToken", jwtToken.refreshToken);
-            await AsyncStorage.setItem("@jwtTokenExpiresIn", jwtToken.accessTokenExpiresIn.toString());
-            return { state : USER_EXIST}
-        } catch (e) {
-            console.error("[Catch] Saving app token failed : " + e);
-            return undefined;
+    const getJwtToken = async (memberRequestDto) => {
+        const {status, jwtToken} = await getJwtTokenBySocialToken(memberRequestDto);
+        if (status === ResponseStatusEnum.NO_DATA) {
+            return {state: USER_NOT_EXIST};
+        } else if (status >= ResponseStatusEnum.BAD_REQUEST) {
+            return {state: USER_FAILED};
         }
+
+        await AsyncStorage.setItem("@jwtAccessToken", jwtToken.accessToken);
+        await AsyncStorage.setItem("@jwtRefreshToken", jwtToken.refreshToken);
+        await AsyncStorage.setItem("@jwtTokenExpiresIn", jwtToken.accessTokenExpiresIn.toString());
+        return {state: USER_EXIST}
     };
 
     const saveProfileData = async () => {
@@ -168,7 +168,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                 loginByGoogle,
                 loginByApple,
                 registerUser,
-                saveJwtToken,
+                saveJwtToken: getJwtToken,
                 saveProfileData,
                 logOut,
             }}
