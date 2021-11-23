@@ -57,6 +57,7 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                     socialTokenType: "GOOGLE"
                 }
                 const response = await getJwtToken(memberRequestDto);
+                console.log(response)
                 if (response.state === USER_FAILED) {
                     throw 'Saving App token failed';
 
