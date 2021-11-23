@@ -13,7 +13,7 @@ import {TMP,SEND} from "../../image"
 import PostCard from "../../components/Home/PostList/PostCard"
 import PostComment from "../../components/Home/PostList/PostComment"
 import {Keyboard} from "react-native";
-import {getPostById, getPostComment, getpostComment} from "../../components/Api/AppPostApi";
+import {deletePost, getPostById, getPostComment, getpostComment} from "../../components/Api/AppPostApi";
 
 const Dummy = [TMP,TMP,TMP,TMP];
 
@@ -25,7 +25,21 @@ const Post = ({route, navigation}) => {
     const [data, setData] = useState();
     const [writingReviewContent, setWritingReviewContent] = useState("");
     const [comment, setComment] = useState();
-    const [commentNum, setCommentNum] = useState()
+    const [commentNum, setCommentNum] = useState();
+
+    useEffect(() => {
+        async function requestPostById(postId) {
+            const {data, status} = await getPostById(postId);
+            setData(data);
+        }
+        async function requestPostCommentById(postId) {
+            const {data, status} = await getPostComment(postId);
+            setComment(data);
+            setCommentNum(data.length);
+        }
+        requestPostById(postId);
+        requestPostCommentById(postId);
+    }, []);
 
     const postComment = async () => {
         const {data, status} = await getpostComment(writingReviewContent,postId);
@@ -59,21 +73,6 @@ const Post = ({route, navigation}) => {
         const LocalComments = [...comment, newLocalComment];
         setComment(LocalComments);
     }
-
-    useEffect(() => {
-        async function requestPostById(postId) {
-            const {data, status} = await getPostById(postId);
-            setData(data);
-        }
-        async function requestPostCommentById(postId) {
-            const {data, status} = await getPostComment(postId);
-            setComment(data);
-            setCommentNum(data.length);
-        }
-        requestPostById(postId);
-        requestPostCommentById(postId);
-
-    }, []);
 
     const openOptionPanel = () => {
         optionPanelRef.current.open();
@@ -139,9 +138,12 @@ const Post = ({route, navigation}) => {
                                     <ButtonText>수 정 하 기</ButtonText>
                                 </Button> : <></>
                                 }
-                                {data.authorName === myName ? <Button>
-                                    <ButtonText>삭 제 하 기</ButtonText>
-                                </Button> : <></>
+                                {data.authorName === myName ?
+                                    <Button onPress={()=>{
+                                    deletePost(postId);
+                                    navigation.goBack();}}>
+                                        <ButtonText>삭 제 하 기</ButtonText>
+                                    </Button> : <></>
                                 }
                                 <Button>
                                     <ButtonText last >신 고 하 기</ButtonText>

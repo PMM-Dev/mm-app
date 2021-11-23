@@ -3,11 +3,14 @@ import styled from "styled-components";
 import {FULLHEART, RESTAURANT_IMAGE, FULLSTAR, IMG_ICON} from "../../../image";
 import constants from "../../../constants";
 
-const PostListCard = ({data, navigation}) => {
+const PostListCard = ({data,route, navigation}) => {
     return (
-        <Card onPress={()=>{ navigation.navigate("Post", {
-            postId: data.id,
-        })}}>
+        <Card onPress={()=>{
+            if(route.name !== "Home" )
+                navigation.navigate("Post", {postId: data.id,})
+            else
+                navigation.navigate("PostList")
+        }}>
             <CardImageAndTitle>
                 <CardTitle>{data.title}</CardTitle>
                 {data.existImage === true ?

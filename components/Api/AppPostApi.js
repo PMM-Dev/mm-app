@@ -62,6 +62,19 @@ export const getPostComment = async (ID) => {
     }
 };
 
+export const deletePost = async (ID) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        await axios.delete(API_URL + "/post/" + ID, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+    } catch (e) {
+        console.error("[AppApi][Exception] " + e);
+    }
+};
+
 export const deletePostComment = async (ID) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
@@ -78,7 +91,7 @@ export const deletePostComment = async (ID) => {
 export const appendLikePost = async (Id) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        await axios.put(
+        const {data,status} = await axios.put(
             API_URL + "/post/" + Id + "/like",
             {},
             {

@@ -13,7 +13,7 @@ const Dummy = [
   {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
 ];
 
-const PostPart = ({navigation}) => {
+const PostPart = ({navigation, route}) => {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         async function requestPosts() {
@@ -37,7 +37,7 @@ const PostPart = ({navigation}) => {
       </Header>
       <Content>
           {posts.map((element, key) => (
-            <PostListCard key = {key} data = {element} navigation={navigation}/>
+            <PostListCard key = {key} route={route} data = {element} navigation={navigation} />
           ))}
       </Content>
     </HomePart>
