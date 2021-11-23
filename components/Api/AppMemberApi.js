@@ -11,12 +11,12 @@ export const getMyMemberInfo = async (savedAccesstoken) => {
       accessToken = savedAccesstoken;
     }
 
-    const response = await axios.get(API_URL + "/member/me", {
+    const {data, status} = await axios.get(API_URL + "/member/me", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data;
+    return {data, status};
   } catch (e) {
     console.error("[AppApi][Exception] getMyMemberInfo : " + e);
     return undefined;

@@ -8,7 +8,7 @@ import {
     useSetIsAdminMode,
     useLogInByGoogle,
     useLoginInByApple,
-    useSaveJwtToken,
+    useGetJwtToken,
     useSaveProfileData,
     useRegisterUser,
     USER_EXIST,
@@ -26,7 +26,7 @@ const Intro = () => {
     const loginByGoogle = useLogInByGoogle();
     const loginByApple = useLoginInByApple();
     const registerUser = useRegisterUser();
-    const saveJwtToken = useSaveJwtToken();
+    const getJwtToken = useGetJwtToken();
     const saveProfileData = useSaveProfileData();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -51,29 +51,31 @@ const Intro = () => {
         setIsLoggingIn(true);
 
         const response = await login();
-        const state = response.state;
-        if (state === USER_EXIST) {
+        if (response.state === USER_EXIST) {
             const loadResult = await saveProfileData();
             if (!loadResult) {
                 alert('회원 정보를 불러오는 과정에서 문제가 발생했습니다.');
             }
 
-        } else if (state === USER_NOT_EXIST) {
+        } else if (response.state === USER_NOT_EXIST) {
             const registerResult = await registerUser(response.memberRequestDto);
             if (!registerResult) {
                 alert('회원 가입하는 과정에서 문제가 발생했습니다.');
+                return;
             }
 
-            const saveJwtTokenResult = await saveJwtToken(response.memberRequestDto);
-            if (!saveJwtTokenResult) {
+            const getJwtTokenResult = await getJwtToken(response.memberRequestDto);
+            if (getJwtTokenResult.state !== USER_EXIST) {
                 alert('유저 토큰을 저장하는 과정에서 문제가 발생했습니다.');
+                return;
             }
 
             const saveProfileDataResult = await saveProfileData();
             if (!saveProfileDataResult) {
                 alert('유저 정보를 저장하는 과정에서 문제가 발생했습니다.');
+                return;
             }
-        } else if (state !== USER_CANCEL) {
+        } else if (response.state !== USER_CANCEL) {
             alert('알 수 없는 문제가 발생했습니다.');
         }
 
@@ -134,15 +136,14 @@ const Intro = () => {
                         <GoogleLoginButton onPress={() => requestLogin(loginByGoogle)}>
                             <GoogleLoginButtonImage source={INTRO_GOOGLE_BTN}/>
                         </GoogleLoginButton>
-                        {/*{constants.platform === "iOS" ?*/}
-                        {/*    <AppleAuthentication.AppleAuthenticationButton*/}
-                        {/*        buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}*/}
-                        {/*        buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}*/}
-                        {/*        cornerRadius={3}*/}
-                        {/*        style={styles.appleLoginButton}*/}
-                        {/*        onPress={loginByApple}*/}
-                        {/*    /> : null*/}
-                        {/*}*/}
+                        {constants.platform === "iOS" &&
+                            <AppleAuthentication.AppleAuthenticationButton
+                                buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
+                                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+                                style={styles.appleLoginButton}
+                                onPress={() => requestLogin(loginByApple)}
+                            />
+                        }
                     </LinearGradient>
                 </AuthView>
                 {isLoggingIn ? (
@@ -216,7 +217,7 @@ const AuthView = styled.View`
 `;
 
 const GoogleLoginButton = styled.TouchableOpacity`
-  width: 50%;
+  width: 50.9%;
   aspect-ratio: 4.1;
 `;
 

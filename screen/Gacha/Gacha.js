@@ -135,7 +135,7 @@ const Gacha = ({navigation}) => {
                 </>
             ) : (<>
                 {isAnimationStep ? (
-                    <GachaAnimationView gachaLottieRef={gachaLottieRef} setIsAnimationStep={setIsAnimationStep}/>
+                    <GachaAnimationView gachaLottieRef={gachaLottieRef} setIsAnimationStep={setIsAnimationStep} gachaResultType={gachaResult.type}/>
                 ) : (
                     <GachaResultView navigation={navigation} gachaResult={gachaResult} doGacha={doGacha} resetGacha={resetGacha} />
                 )}

@@ -7,10 +7,14 @@ export const register = async (memberRequestDto) => {
     const response = await axios.post(API_URL + "/auth/register", {
       ...memberRequestDto,
     });
-    return response.data;
+    return {
+      status: response?.status,
+    };
   } catch (e) {
     console.error("[AuthApi][Exception] failed register() " + e);
-    return undefined;
+    return {
+      status: e.response?.status,
+    };
   }
 };
 
@@ -19,10 +23,17 @@ export const getJwtTokenBySocialToken = async (memberRequestDto) => {
     const response = await axios.post(API_URL + "/auth/login", {
       ...memberRequestDto,
     });
-    return response.data;
+
+    return {
+      status: response?.status,
+      jwtToken : response?.data
+    };
   } catch (e) {
     console.log("[AuthApi][Exception] failed getJwtTokenBySocialToken() " + e);
-    return undefined;
+    return {
+      status: e.response?.status,
+      jwtToken : e.response?.data
+    };
   }
 };
 
