@@ -2,8 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { IMG_ICON, SHARE_BT, LIKE_BT} from "../../../image";
 import constants from "../../../constants";
+import {appendLikePost, subtractLikePost} from "../../Api/AppPostApi";
+import LikeButton from "../LikeButton";
+import {useState} from "react";
 
 const PostCard = ({data, image}) => {
+    const [likeNum,setLikeNum] = useState(data.likeCount)
     return (
         <PostCardView>
             <PostContent >
@@ -13,39 +17,50 @@ const PostCard = ({data, image}) => {
                         <PostCardImage source = {IMG_ICON}/>: <></> }
                 </PostCardImageAndTitle>
                 <PostCardExplanation>
-                    <PostCardExplanationText>{data.authorName} | 조회수 : {data.viewCount} | 추천 : {data.likeCount}</PostCardExplanationText>
+                    <PostCardExplanationText>{data.authorName} | 조회수 : {data.viewCount} | 추천 : {likeNum}</PostCardExplanationText>
                     <PostCardExplanationDate>{data.createDate}</PostCardExplanationDate>
                 </PostCardExplanation>
+                <PostContentContent>{data.content}</PostContentContent>
             </PostContent>
             <ImageWrapper>
                 {image.map((element, key) => (
                     <PostImage source={element} key = {key}/>
                 ))}</ImageWrapper>
             <ButtonList>
-                <ShareButton>
+                {/*<ShareButton>
                     <ShareButtonImage source = {SHARE_BT}/>
-                </ShareButton>
-                <LikeButton>
-                    <LikeButtonImage source = {LIKE_BT}/>
-                </LikeButton>
+                </ShareButton>*/}
+                <LikeButton
+                    targetId={data.id}
+                    isLikeButtonPressed={data.didLike}
+                    setLikeNum={setLikeNum}
+                    size={10}
+                    iconSizeRatio={60}
+                    appendLikeRequest={appendLikePost}
+                    subtractLikeRequest={subtractLikePost}
+                />
             </ButtonList>
         </PostCardView>
     );
 };
 
+const PostContentContent = styled.Text`
+  margin-top: ${constants.vh(5)}px;
+  width : 100%;
+  background-color: ${(props) => props.theme.backgroundWhite};
+  ${(props) => props.theme.NanumGothicBoldFont};
+  font-size: ${constants.vw(3.3)}px;
+`;
 
 const ButtonList = styled.View`
   flex-direction: row;
   background-color: ${(props) => props.theme.backgroundWhite};
   padding-top: ${constants.vh(3)}px;
   margin-bottom : ${constants.vh(2)}px;
+  margin-left : 45%;
 `;
 
 const ShareButton = styled.TouchableOpacity`
-`;
-
-const LikeButton = styled.TouchableOpacity`
-  margin-left: ${constants.vw(2)}px;
 `;
 
 const ShareButtonImage = styled.Image`
@@ -54,11 +69,6 @@ const ShareButtonImage = styled.Image`
   border-radius: ${constants.vw(1)}px;;
 `;
 
-const LikeButtonImage = styled.Image`
-  height : ${constants.vw(5)}px;
-  width : ${constants.vw(12)}px;
-  border-radius: ${constants.vw(1)}px;;
-`;
 
 const ImageWrapper = styled.View`
   padding-top: ${constants.vh(2)}px;

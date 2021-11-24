@@ -22,6 +22,8 @@ const Header = ({
   isLikeButtonPressed,
   setLikeNum,
   openOptionPanel,
+  writePost,
+  isModify
 }) => {
   const [menuComponent, setMenuComponent] = useState();
 
@@ -61,7 +63,7 @@ const Header = ({
     }else if (routeName === "Post") {
       setMenuComponent(<PostHeaderMenu openOptionPanel = {openOptionPanel} navigation={navigation} />);
     }else if (routeName === "PostWrite") {
-      setMenuComponent(<PostWriteHeaderMenu navigation={navigation} />);
+      setMenuComponent(<PostWriteHeaderMenu navigation={navigation} writePost={writePost} isModify={isModify}/>);
     }
   };
 

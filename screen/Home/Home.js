@@ -21,7 +21,11 @@ const Home = ({route, navigation}) => {
     useEffect(() => {
         async function requestLatestNotice () {
             const {data, status} = await getLatestNotice();
+
             if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            }
+            if (status === ResponseStatusEnum.NO_DATA) {
                 return;
             }
             const readNoticeId = await AsyncStorage.getItem("@readNoticeId");
@@ -37,7 +41,9 @@ const Home = ({route, navigation}) => {
             if (status >= ResponseStatusEnum.BAD_REQUEST) {
                 return;
             }
-
+            if (status === ResponseStatusEnum.NO_DATA) {
+                return;
+            }
             setReportPreview(data);
         }
 
@@ -64,7 +70,7 @@ const Home = ({route, navigation}) => {
                     <SmallBoardPart title={"피드백"} preview={reportPreview} navigate={() => navigation.navigate("FeedbackList")}/>
                     <ThemePart title={"카공하기 좋은 카페는?"}/>
                     <ThemePart title={"시험 기간에는 싸고 빠르게"}/>
-                    <PostPart navigation={navigation} />
+                    <PostPart route={route} navigation={navigation} />
                     <SmallBoardPart title={"공지사항"} />
                 </Wrapper>
             </Scroll>

@@ -5,11 +5,16 @@ import styled from "styled-components"
 import {DOT_BT} from "../../image";
 import constants from "../../constants";
 
-const PostWriteHeaderMenu = ({ navigation, routeName }) => {
+const PostWriteHeaderMenu = ({ navigation, routeName,writePost, isModify }) => {
     return (
         <>
             <BackButton goBack={() => navigation.goBack()} />
-            <SendTextButton onPress={() => navigation.goBack()}><SendText>작성하기</SendText></SendTextButton>
+            <SendTextButton onPress={() => {
+                writePost();
+                //navigation.goBack();
+            }}>
+                {isModify ? <SendText>수정하기</SendText> : <SendText>작성하기</SendText>}
+                </SendTextButton>
         </>
     );
 };

@@ -4,8 +4,23 @@ import {
     SETTING_GUEST_PORTRAIT
 } from "../../../image";
 import constants from "../../../constants";
+import {useProfile} from "../../AuthContext";
+import {deletePostComment} from "../../Api/AppPostApi";
 
-const PostComment = ({data}) => {
+const PostComment = ({data,setComment,comment, commentNum, setCommentNum}) => {
+    const {name: myName, picture: myPicture, email: myEmail} = useProfile();
+    const deleteMyComment = async () => {
+        const result = await deletePostComment(data.id);
+
+        if (commentNum === 1) {
+            setCommentNum(0);
+        } else {
+            setCommentNum((prev) => prev - 1);
+        }
+        const num = comment.findIndex(element => element.id === data.id)
+        const newComment = comment.slice(0, num).concat(comment.slice(num+1, comment.length))
+        setComment(newComment);
+    }
     return (
         <SingleComment>
             <InfoView>
@@ -24,20 +39,19 @@ const PostComment = ({data}) => {
                 <RightInfoView>
                     <TextInfoView>
                         <AuthorNameButton onPress={() => {}}>
-                            <AuthorNameText>{data.ID}</AuthorNameText>
+                            <AuthorNameText>{data.authorName}</AuthorNameText>
                         </AuthorNameButton>
                     </TextInfoView>
-                    <CommentButtons>
-                        <ModifyButton>
-                            <ModifyButtonText>수정</ModifyButtonText>
-                        </ModifyButton>
-                        <DeleteButton>
-                            <DeleteButtonText>삭제</DeleteButtonText>
-                        </DeleteButton>
-                    </CommentButtons>
+                    {
+                        data.authorEmail === myEmail ? <CommentButtons>
+                            <DeleteButton onPress={()=>{deleteMyComment()}}>
+                                <DeleteButtonText>삭제</DeleteButtonText>
+                            </DeleteButton>
+                        </CommentButtons> : <></>
+                    }
                 </RightInfoView>
             </InfoView>
-            <ContentText>{data.Title}</ContentText>
+            <ContentText>{data.content}</ContentText>
             <DateText>{data.date}</DateText>
         </ SingleComment>
     );

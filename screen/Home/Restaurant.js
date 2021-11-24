@@ -18,6 +18,8 @@ import TouchableStarMaker from "../../components/TouchableStarMaker";
 import EmptyScreenCenterView from "../../components/EmptyScreenCenterView";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
 import * as ImagePicker from "expo-image-picker";
+import {Keyboard} from "react-native";
+import {TRASH} from "../../image";
 
 const Restaurant = ({route, navigation}) => {
     const restaurantId = route.params.restaurantId;
@@ -33,6 +35,7 @@ const Restaurant = ({route, navigation}) => {
     const [isPostStep, setIsPostStep] = useState(true);
     const [writingReviewGrade, setWritingReviewGrade] = useState(0);
     const [writingReviewContent, setWritingReviewContent] = useState("");
+    const [selectImage, setSelectImage] = useState(null);
 
     useEffect(() => {
         async function getRestaurantData() {
@@ -171,6 +174,23 @@ const Restaurant = ({route, navigation}) => {
         return true;
     }
 
+    const openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert('Permission to access camera roll is required!');
+            return;
+        }
+
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({allowsEditing: true, quality : 1,});
+
+        if (pickerResult.cancelled === true) {
+            return;
+        }
+
+        setSelectImage(pickerResult.uri);
+    };
+
     // const [firstImage, setFirstImage] = useState(null);
     // const [secondImage, setSecondImage] = useState(null);
     // const pickImage = async () => {
@@ -246,6 +266,19 @@ const Restaurant = ({route, navigation}) => {
                                     iconSizeRatio={80}
                                 />
                             </TouchableStarMakerHolder>
+                            {
+                                selectImage === null ?
+                                    <AddPicture onPress={()=>{Keyboard.dismiss();
+                                        openImagePickerAsync();
+                                    }}>
+                                        <AddPictureText>+</AddPictureText>
+                                    </AddPicture> :
+                                    <ImageView onPress={()=>{Keyboard.dismiss();
+                                        openImagePickerAsync();
+                                    }}>
+                                        <AddedImage source={{uri: selectImage }}/>
+                                    </ImageView>
+                            }
                             <ReviewTextInput
                                 value={writingReviewContent}
                                 onChangeText={(text) => setWritingReviewContent(text)}
@@ -295,6 +328,34 @@ const Restaurant = ({route, navigation}) => {
         </Screen>
     );
 };
+
+
+const AddedImage = styled.Image`
+  width :${constants.vh(30)}px;
+  height :${constants.vh(15)}px;
+  resize-mode : contain;
+  margin-top : ${constants.vh(1)}px;
+`
+
+const ImageView = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+`
+
+const AddPictureText = styled.Text`
+  ${(props) => props.theme.NanumGothicBoldFont};
+  font-size: ${constants.vh(5)}px;
+  line-height: ${constants.vh(10)}px;
+  text-align: center;
+`
+
+const AddPicture = styled.TouchableOpacity`
+  width :${constants.vw(30)}px;
+  height :${constants.vh(10)}px;
+  border : 1px;
+  margin-top : ${constants.vh(2)}px;
+`
+
 
 const Screen = styled.View`
   width: 100%;

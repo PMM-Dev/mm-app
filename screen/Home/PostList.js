@@ -36,10 +36,10 @@ const Dummy = [
 ];
 
 const RestaurantList = ({route, navigation}) => {
-
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
     const [isError, setIsError] = useState(false);
+
 
     useEffect(() => {
         async function requestPosts() {
@@ -52,7 +52,6 @@ const RestaurantList = ({route, navigation}) => {
 
             setIsLoading(false);
         }
-
         requestPosts();
     }, [])
 
@@ -81,7 +80,7 @@ const RestaurantList = ({route, navigation}) => {
                     ) : (
                         <PostList>
                             {posts.map((element, key) => (
-                                <PostListCard data = {element} key={key} navigation={navigation}></PostListCard>
+                                <PostListCard data = {element} key={key} route={route} navigation={navigation} ></PostListCard>
                             ))}</PostList>
                     )))}
                 </PostScroll>
@@ -89,7 +88,6 @@ const RestaurantList = ({route, navigation}) => {
         </Screen>
     );
 };
-
 
 
 const PostList = styled.View`

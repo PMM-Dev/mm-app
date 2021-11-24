@@ -10,7 +10,7 @@ const PostListHeaderMenu = ({ navigation, routeName }) => {
         <>
             <BackButton goBack={() => navigation.goBack()} />
             <View>
-                <WriteButton onPress={() => navigation.navigate("PostWrite")}>
+                <WriteButton onPress={() => navigation.navigate("PostWrite",{isModify : false})}>
                     <WriteImage source={WRITE_ICON}/>
                 </WriteButton>
                 <SearchButton navigation={navigation} routeName={routeName} />

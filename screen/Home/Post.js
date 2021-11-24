@@ -13,15 +13,9 @@ import {TMP,SEND} from "../../image"
 import PostCard from "../../components/Home/PostList/PostCard"
 import PostComment from "../../components/Home/PostList/PostComment"
 import {Keyboard} from "react-native";
-import {getPostById} from "../../components/Api/AppPostApi";
+import {deletePost, getPostById, getPostComment, getpostComment} from "../../components/Api/AppPostApi";
 
 const Dummy = [TMP,TMP,TMP,TMP];
-
-const Dummy2 = [
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdasdasdasfasdff", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-];
-
 
 const Post = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
@@ -29,15 +23,57 @@ const Post = ({route, navigation}) => {
     const optionPanelRef = useRef();
     const [data, setData] = useState();
     const [writingReviewContent, setWritingReviewContent] = useState("");
+    const [comment, setComment] = useState();
+    const [commentNum, setCommentNum] = useState();
 
+    //console.log(data);
 
     useEffect(() => {
         async function requestPostById(postId) {
             const {data, status} = await getPostById(postId);
             setData(data);
         }
+        async function requestPostCommentById(postId) {
+            const {data, status} = await getPostComment(postId);
+            setComment(data);
+            setCommentNum(data.length);
+        }
         requestPostById(postId);
+        requestPostCommentById(postId);
     }, []);
+
+    const postComment = async () => {
+        const {data, status} = await getpostComment(writingReviewContent,postId);
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
+            return;
+        }
+        triggerLocalFeedbackOfComment(data);
+    }
+
+    const triggerLocalFeedbackOfComment = (curId)=>{
+        setCommentNum((prev) => prev + 1);
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const createdDate = `${year}-${month >= 10 ? month : '0' + month}-${day >= 10 ? day : '0' + day} ${hours >= 10 ? hours : '0' + hours}:${minutes >= 10 ? minutes : '0' + minutes}`;
+
+        const newLocalComment = {
+            "authorEmail" : myEmail,
+            "authorName": myName,
+            "authorPicture": myPicture,
+            "content": writingReviewContent,
+            "createDate": createdDate,
+            "didLike": false,
+            "id": curId,
+            "likeCount": 0,
+        }
+
+        const LocalComments = [...comment, newLocalComment];
+        setComment(LocalComments);
+    }
 
     const openOptionPanel = () => {
         optionPanelRef.current.open();
@@ -46,10 +82,9 @@ const Post = ({route, navigation}) => {
     const closeOptionPanel = () => {
         optionPanelRef.current.close();
     };
-
     return (
         <Screen>
-            {data ? (
+            {data && comment ? (
                 <>
                     <Header
                         route={route}
@@ -62,11 +97,11 @@ const Post = ({route, navigation}) => {
                         scrollEventThrottle={16}
                     >
                         <Wrapper>
-                            <PostCard data={data} image={Dummy} />
-                            <CommentNumText>댓글 </CommentNumText>
+                            <PostCard data={data} image={Dummy}  />
+                            <CommentNumText>댓글 {commentNum}</CommentNumText>
                             <CommentCard>
-                                {Dummy2.map((element, key) => (
-                                    <PostComment data = {element} key={key}></PostComment>
+                                {comment.map((element, key) => (
+                                    <PostComment data = {element} key={key} comment={comment} setComment={setComment} commentNum={commentNum} setCommentNum={setCommentNum}></PostComment>
                                 ))}
                             </CommentCard>
                         </Wrapper>
@@ -79,8 +114,9 @@ const Post = ({route, navigation}) => {
                             placeholder="댓글을 입력해 주세요"
                         />
                         <SendButton onPress={()=>{
-                            setWritingReviewContent("댓글을 입력해 주세요");
+                            setWritingReviewContent("");
                             Keyboard.dismiss();
+                            postComment();
                         }}>
                             <SendImage source={SEND}/>
                         </SendButton>
@@ -100,12 +136,15 @@ const Post = ({route, navigation}) => {
                         <OptionPanel>
                             <Buttons>
                                 {data.authorName === myName ? <Button>
-                                    <ButtonText>수 정 하 기</ButtonText>
+                                    <ButtonText onPress={()=>{navigation.navigate("PostWrite",{isModify : true, data : data})}}>수 정 하 기</ButtonText>
                                 </Button> : <></>
                                 }
-                                {data.authorName === myName ? <Button>
-                                    <ButtonText>삭 제 하 기</ButtonText>
-                                </Button> : <></>
+                                {data.authorName === myName ?
+                                    <Button onPress={()=>{
+                                    deletePost(postId);
+                                    navigation.goBack();}}>
+                                        <ButtonText>삭 제 하 기</ButtonText>
+                                    </Button> : <></>
                                 }
                                 <Button>
                                     <ButtonText last >신 고 하 기</ButtonText>
