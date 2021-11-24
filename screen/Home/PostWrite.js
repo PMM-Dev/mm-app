@@ -8,13 +8,26 @@ import {Keyboard} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Image } from "react-native";
 import {TRASH} from "../../image";
+import {postPost} from "../../components/Api/AppPostApi";
 
 const PostWrite = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
     const [writingReviewContent, setWritingReviewContent] = useState("");
+    const [writingReviewContentTitle, setWritingReviewContentTitle] = useState("");
     const [ImageList, setImageList] = useState("");
     const [selectImage, setSelectImage] = useState(null);
+    const [formData, setFormData] = useState([]);
+    const [isModify, setIsModify] = useState(route.params.isModify);
+    const [toModifyData, setToModifyData] = useState(route.params.data);
 
+    useEffect(() => {
+        if(isModify)
+        {
+            setWritingReviewContent(toModifyData.content);
+            setWritingReviewContentTitle(toModifyData.title);
+            //Image Select
+        }
+    }, []);
 
     const openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -41,21 +54,55 @@ const PostWrite = ({route, navigation}) => {
         setImageList(newImageList);
     };
 
+    //console.log(formData);
+    const writePost = () => {
+        const newformData = new FormData();
+        newformData.append('title', writingReviewContentTitle);
+        newformData.append('content',writingReviewContent );
+
+
+        if (ImageList.length !== 0)
+        {
+            ImageList.map((element)=>{
+                const localUri = element;
+                const filename = localUri.split('/').pop();
+
+                const match = /\.(\w+)$/.exec(filename);
+                const type = match ? `image/${match[1]}` : `image`;
+                newformData.append('images', { uri: localUri, name: filename, type });
+            })
+        }
+        console.log(newformData);
+
+        setFormData(newformData)
+
+        const {data,status} = postPost(newformData);
+        console.log(status);
+    }
+
     return (
         <Screen>
             <Header
                 route={route}
                 navigation={navigation}
                 title="게시물 작성"
+                isModify={isModify}
             />
             <Scroll>
                 <Content>
+                    <ReviewTextTitleInput
+                        value={writingReviewContentTitle}
+                        onChangeText={(text) => setWritingReviewContentTitle(text)}
+                        multiline={true}
+                        placeholder="제목"
+                    ></ReviewTextTitleInput>
                     <ReviewTextInput
                         value={writingReviewContent}
                         onChangeText={(text) => setWritingReviewContent(text)}
                         multiline={true}
                         placeholder="내용"
                     ></ReviewTextInput>
+                    <TestButton onPress={()=>{writePost();}}></TestButton>
                     <AddPicture onPress={()=>{Keyboard.dismiss();
                         openImagePickerAsync();}}>
                         <AddPictureText>+</AddPictureText>
@@ -76,6 +123,12 @@ const PostWrite = ({route, navigation}) => {
         </Screen>
     );
 };
+
+const TestButton = styled.TouchableOpacity`
+  width :${constants.vw(3)}px;
+  height :${constants.vw(3)}px;
+  background-color: red;
+`
 
 const ImageView = styled.View`
   flex-direction: row;
@@ -122,6 +175,16 @@ const AddPicture = styled.TouchableOpacity`
   border : 1px;
   margin-top : ${constants.vh(2)}px;
 `
+
+const ReviewTextTitleInput = styled.TextInput`
+  width: 90%;
+  height: ${constants.vh(8)}px;
+  text-align-vertical: top;
+  font-size: ${constants.vh(1.75)}px;
+  padding: 5% 5%;
+  border : 1px;
+  border-color : ${(props) => props.theme.borderGray};
+`;
 
 const ReviewTextInput = styled.TextInput`
   width: 90%;

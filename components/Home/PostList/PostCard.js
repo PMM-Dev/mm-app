@@ -20,6 +20,7 @@ const PostCard = ({data, image}) => {
                     <PostCardExplanationText>{data.authorName} | 조회수 : {data.viewCount} | 추천 : {likeNum}</PostCardExplanationText>
                     <PostCardExplanationDate>{data.createDate}</PostCardExplanationDate>
                 </PostCardExplanation>
+                <PostContentContent>{data.content}</PostContentContent>
             </PostContent>
             <ImageWrapper>
                 {image.map((element, key) => (
@@ -43,6 +44,13 @@ const PostCard = ({data, image}) => {
     );
 };
 
+const PostContentContent = styled.Text`
+  margin-top: ${constants.vh(5)}px;
+  width : 100%;
+  background-color: ${(props) => props.theme.backgroundWhite};
+  ${(props) => props.theme.NanumGothicBoldFont};
+  font-size: ${constants.vw(3.3)}px;
+`;
 
 const ButtonList = styled.View`
   flex-direction: row;

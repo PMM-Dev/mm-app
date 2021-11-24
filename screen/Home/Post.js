@@ -17,7 +17,6 @@ import {deletePost, getPostById, getPostComment, getpostComment} from "../../com
 
 const Dummy = [TMP,TMP,TMP,TMP];
 
-
 const Post = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
     const postId = route.params.postId;
@@ -135,7 +134,7 @@ const Post = ({route, navigation}) => {
                         <OptionPanel>
                             <Buttons>
                                 {data.authorName === myName ? <Button>
-                                    <ButtonText>수 정 하 기</ButtonText>
+                                    <ButtonText onPress={()=>{navigation.navigate("PostWrite",{isModify : true, data : data})}}>수 정 하 기</ButtonText>
                                 </Button> : <></>
                                 }
                                 {data.authorName === myName ?

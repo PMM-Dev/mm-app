@@ -35,7 +35,7 @@ export const getPostById = async (id) => {
 export const getPostPreview = async () => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const {data, status} = await axios.get(API_URL + "/post", {
+        const {data, status} = await axios.get(API_URL + "/post/preview", {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -125,6 +125,23 @@ export const getpostComment = async (content, id) => {
             {
                 "content": content
             },
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        return {data, status};
+    } catch (e) {
+        console.error("[AppApi][Exception] postComment() : " + e);
+        return undefined;
+    }
+};
+
+export const postPost = async (form) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const {data, status} = await axios.post(API_URL + "/post",
+            form,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,

@@ -7,11 +7,6 @@ import {getPost, getPostPreview} from "../Api/AppPostApi";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
 import PostListCard from "./PostList/PostListCard";
 
-const Dummy = [
-  {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-  {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-  {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-];
 
 const PostPart = ({navigation, route}) => {
     const [posts, setPosts] = useState([]);

@@ -40,6 +40,7 @@ const RestaurantList = ({route, navigation}) => {
     const [posts, setPosts] = useState([]);
     const [isError, setIsError] = useState(false);
 
+
     useEffect(() => {
         async function requestPosts() {
             const {data, status} = await getPost();
@@ -87,7 +88,6 @@ const RestaurantList = ({route, navigation}) => {
         </Screen>
     );
 };
-
 
 
 const PostList = styled.View`
