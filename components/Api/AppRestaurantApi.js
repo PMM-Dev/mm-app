@@ -277,7 +277,7 @@ export const uploadMyReviewByRestaurantId = async (content, grade, restaurantId)
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.post(
-            API_URL + "/restaurant/" + restaurantId + "/review/me",
+            API_URL + "/restaurant/" + restaurantId + "/review",
             {
                 description: content,
                 grade: grade,
@@ -317,7 +317,7 @@ export const updateMyReviewByRestaurantId = async (content, grade, restaurantId)
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.put(
-            API_URL + "/restaurant/" + restaurantId + "/review/me",
+            API_URL + "/restaurant/" + restaurantId + "/review",
             {
                 description: content,
                 grade: grade,
