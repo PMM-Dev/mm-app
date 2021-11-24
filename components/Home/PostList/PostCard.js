@@ -24,7 +24,7 @@ const PostCard = ({data, image}) => {
             </PostContent>
             <ImageWrapper>
                 {image.map((element, key) => (
-                    <PostImage source={element} key = {key}/>
+                    <PostImage source={{uri: "http://118.221.12.92:8080/image/post/12/0"}} key = {key}/>
                 ))}</ImageWrapper>
             <ButtonList>
                 {/*<ShareButton>

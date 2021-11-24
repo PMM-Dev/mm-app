@@ -26,6 +26,8 @@ const Post = ({route, navigation}) => {
     const [comment, setComment] = useState();
     const [commentNum, setCommentNum] = useState();
 
+    //console.log(data);
+
     useEffect(() => {
         async function requestPostById(postId) {
             const {data, status} = await getPostById(postId);

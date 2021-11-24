@@ -6,15 +6,15 @@ export const getLatestNotice = async () => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
 
-        const {data, status} = await axios.get(API_URL + "/notice",
+        const response = await axios.get(API_URL + "/notice",
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] getLatestFeedbackPreview() : " + e);
-        return undefined;
+        return {data : e.response?.data, status : e.response?.status};
     }
 }

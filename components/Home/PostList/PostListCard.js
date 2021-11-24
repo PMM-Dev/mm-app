@@ -10,13 +10,17 @@ const PostListCard = ({data,route, navigation}) => {
     const cardClick = () => {
         async function requestPostById(postId) {
             const {data, status} = await getPostById(postId);
-            if(data === undefined)
-            {
-                alert("삭제된 글입니다.");
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                alert("삭제된 글입니다.")
                 return;
             }
-            else
-                navigation.navigate("Post", {postId: data.id,});
+
+            if (status === ResponseStatusEnum.NO_DATA) {
+                alert("삭제된 글입니다.")
+                return;
+            }
+
+            navigation.navigate("Post", {postId: data.id,});
         }
         requestPostById(data.id)
     };

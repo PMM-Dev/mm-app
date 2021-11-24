@@ -6,16 +6,16 @@ export const getLatestFeedbackPreview = async () => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
 
-        const {data, status} = await axios.get(API_URL + "/report/preview",
+        const response = await axios.get(API_URL + "/feedback/preview",
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] getLatestFeedbackPreview() : " + e);
-        return undefined;
+        return {data : e.response?.data, status : e.response?.status};
     }
 }
 
@@ -23,16 +23,16 @@ export const getFeedbacksOrderByCreatedDateDesc = async () => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
 
-        const {data, status} = await axios.get(API_URL + "/report/orderBy/createdDateDesc",
+        const response = await axios.get(API_URL + "/feedback/orderBy/createdDateDesc",
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] getFeedbacksOrderByCreatedDateDesc() : " + e);
-        return undefined;
+        return {data : e.response?.data, status : e.response?.status};
     }
 };
 
@@ -40,16 +40,16 @@ export const getFeedbacksOrderByLikeCountDesc = async () => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
 
-        const {data, status} = await axios.get(API_URL + "/report/orderBy/likeCountDesc",
+        const response = await axios.get(API_URL + "/feedback/orderBy/likeCountDesc",
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] getFeedbacksOrderByLikeCountDesc() : " + e);
-        return undefined;
+        return {data : e.response?.data, status : e.response?.status};
     }
 };
 
@@ -57,7 +57,7 @@ export const postFeedback = async (content) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
 
-        const {data, status} = await axios.post(API_URL + "/report",
+        const response = await axios.post(API_URL + "/feedback",
             {
                 "content": content
             },
@@ -66,26 +66,26 @@ export const postFeedback = async (content) => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] postFeedback() : " + e);
-        return undefined;
+        return {data : e.response?.data, status : e.response?.status};
     }
 };
 
-export const deleteFeedback = async (reportId) => {
+export const deleteFeedback = async (feedbackId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
 
-        const {data, status} = await axios.delete(API_URL + "/report/" + reportId,
+        const response = await axios.delete(API_URL + "/feedback/" + feedbackId,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] deleteFeedback() : " + e);
-        return undefined;
+        return {data : e.response?.data, status : e.response?.status};
     }
 };

@@ -5,60 +5,60 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const getPost = async () => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const {data, status} = await axios.get(API_URL + "/post", {
+        const response = await axios.get(API_URL + "/post", {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
         });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] " + e);
-        return [];
+        return {data : e.response?.data, status : e.response?.status};
     }
 };
 
 export const getPostById = async (id) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const {data, status} = await axios.get(API_URL + "/post/" + id, {
+        const response = await axios.get(API_URL + "/post/" + id, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
         });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] " + e);
-        return [];
+        return {data : e.response?.data, status : e.response?.status};;
     }
 };
 
 export const getPostPreview = async () => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const {data, status} = await axios.get(API_URL + "/post/preview", {
+        const response = await axios.get(API_URL + "/post/preview", {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
         });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] " + e);
-        return [];
+        return {data : e.response?.data, status : e.response?.status};
     }
 };
 
 export const getPostComment = async (ID) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const {data, status} = await axios.get(API_URL + "/post/" + ID + "/comment", {
+        const response = await axios.get(API_URL + "/post/" + ID + "/comment", {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
         });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] " + e);
-        return [];
+        return {data : e.response?.data, status : e.response?.status};
     }
 };
 
@@ -121,7 +121,7 @@ export const subtractLikePost = async (Id) => {
 export const getpostComment = async (content, id) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const {data, status} = await axios.post(API_URL + "/post/" + id + "/comment",
+        const response = await axios.post(API_URL + "/post/" + id + "/comment",
             {
                 "content": content
             },
@@ -130,26 +130,26 @@ export const getpostComment = async (content, id) => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] postComment() : " + e);
-        return undefined;
+        return {data : e.response?.data, status : e.response?.status};
     }
 };
 
 export const postPost = async (form) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-        const {data, status} = await axios.post(API_URL + "/post",
+        const response = await axios.post(API_URL + "/post",
             form,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-        return {data, status};
+        return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] postComment() : " + e);
-        return undefined;
+        return {data : e.response?.data, status : e.response?.status};
     }
 };

@@ -21,7 +21,11 @@ const Home = ({route, navigation}) => {
     useEffect(() => {
         async function requestLatestNotice () {
             const {data, status} = await getLatestNotice();
+
             if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            }
+            if (status === ResponseStatusEnum.NO_DATA) {
                 return;
             }
             const readNoticeId = await AsyncStorage.getItem("@readNoticeId");
@@ -37,7 +41,9 @@ const Home = ({route, navigation}) => {
             if (status >= ResponseStatusEnum.BAD_REQUEST) {
                 return;
             }
-
+            if (status === ResponseStatusEnum.NO_DATA) {
+                return;
+            }
             setReportPreview(data);
         }
 
