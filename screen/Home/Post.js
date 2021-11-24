@@ -15,8 +15,6 @@ import PostComment from "../../components/Home/PostList/PostComment"
 import {Keyboard} from "react-native";
 import {deletePost, getPostById, getPostComment, getpostComment} from "../../components/Api/AppPostApi";
 
-const Dummy = [TMP,TMP,TMP,TMP];
-
 const Post = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
     const postId = route.params.postId;
@@ -97,7 +95,7 @@ const Post = ({route, navigation}) => {
                         scrollEventThrottle={16}
                     >
                         <Wrapper>
-                            <PostCard data={data} image={Dummy}  />
+                            <PostCard data={data} />
                             <CommentNumText>댓글 {commentNum}</CommentNumText>
                             <CommentCard>
                                 {comment.map((element, key) => (

@@ -8,7 +8,9 @@ import {Keyboard} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Image } from "react-native";
 import {TRASH} from "../../image";
-import {postPost} from "../../components/Api/AppPostApi";
+import {postPost, putPost} from "../../components/Api/AppPostApi";
+import ResponseStatusEnum from "../../ResponseStatusEnum";
+import { API_URL } from "@env";
 
 const PostWrite = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
@@ -25,7 +27,11 @@ const PostWrite = ({route, navigation}) => {
         {
             setWritingReviewContent(toModifyData.content);
             setWritingReviewContentTitle(toModifyData.title);
-            //Image Select
+            let beforeImageList = [];
+            [...Array(toModifyData.imagesCount)].map((num, key) =>
+                {beforeImageList.push(`${API_URL}/image/post/${toModifyData.id}/${key}`)}
+            );
+            setImageList(beforeImageList);
         }
     }, []);
 
@@ -54,7 +60,7 @@ const PostWrite = ({route, navigation}) => {
         setImageList(newImageList);
     };
 
-    //console.log(formData);
+    //console.log(writingReviewContentTitle);
     const writePost = () => {
         const newformData = new FormData();
         newformData.append('title', writingReviewContentTitle);
@@ -72,13 +78,23 @@ const PostWrite = ({route, navigation}) => {
                 newformData.append('images', { uri: localUri, name: filename, type });
             })
         }
-        console.log(newformData);
 
-        setFormData(newformData)
-
-        const {data,status} = postPost(newformData);
-        console.log(status);
-    }
+        setFormData(newformData);
+        if(isModify)
+        {
+            const {data,status} = putPost(toModifyData.id, newformData);
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            }
+        }
+        else
+        {
+            const {data,status} = postPost(newformData);
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            }
+        }
+    };
 
     return (
         <Screen>
@@ -86,10 +102,18 @@ const PostWrite = ({route, navigation}) => {
                 route={route}
                 navigation={navigation}
                 title="게시물 작성"
-                isModify={isModify}
             />
             <Scroll>
                 <Content>
+                    <SendButtonPos>
+                        <SendTextButton onPress={() => {
+                            writePost();
+                            navigation.goBack();
+                            navigation.goBack();
+                        }}>
+                            {isModify ? <SendText>수정하기</SendText> : <SendText>작성하기</SendText>}
+                        </SendTextButton>
+                    </SendButtonPos>
                     <ReviewTextTitleInput
                         value={writingReviewContentTitle}
                         onChangeText={(text) => setWritingReviewContentTitle(text)}
@@ -102,7 +126,6 @@ const PostWrite = ({route, navigation}) => {
                         multiline={true}
                         placeholder="내용"
                     ></ReviewTextInput>
-                    <TestButton onPress={()=>{writePost();}}></TestButton>
                     <AddPicture onPress={()=>{Keyboard.dismiss();
                         openImagePickerAsync();}}>
                         <AddPictureText>+</AddPictureText>
@@ -123,6 +146,22 @@ const PostWrite = ({route, navigation}) => {
         </Screen>
     );
 };
+
+const SendButtonPos = styled.View`
+  width : 90%;
+  height :${constants.vw(3)}px;
+`;
+
+const SendTextButton = styled.TouchableOpacity`
+    position: absolute;
+    right : 0px;
+`;
+
+const SendText = styled.Text`
+  ${(props) => props.theme.NanumGothicBoldFont};
+  font-size: ${constants.vw(4)}px;
+  margin-bottom: ${constants.vw(2)}px;
+`;
 
 const TestButton = styled.TouchableOpacity`
   width :${constants.vw(3)}px;
@@ -184,6 +223,7 @@ const ReviewTextTitleInput = styled.TextInput`
   padding: 5% 5%;
   border : 1px;
   border-color : ${(props) => props.theme.borderGray};
+  margin-top : ${constants.vh(2)}px;
 `;
 
 const ReviewTextInput = styled.TextInput`
