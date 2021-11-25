@@ -29,8 +29,8 @@ const Button = styled.TouchableOpacity`
 `;
 
 const Icon = styled.Image`
-  width: ${constants.vw(5.5)}px;
-  height: ${constants.vw(5.5)}px;
+  height: 55%;
+  width: 55%;
 `;
 
 export default SearchButton;
