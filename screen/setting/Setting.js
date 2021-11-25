@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { useProfile } from "../../components/AuthContext";
 import { SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON } from "../../image";
@@ -7,17 +7,19 @@ import MenuViews from "../../components/Setting/MenuView";
 
 const Setting = ({ navigation: { navigate } }) => {
   const { email, name, picture, role } = useProfile();
-
+  const [editMode, setEditMode] = useState(false);
   return (
     <Page>
       <ScrollView alwaysBounceVertical={false}>
         <SrollViewWrapper>
           <StatusBarSpace />
           <HeaderView>
-            <Icon
-              source={SETTING_PENCIL_ICON}
-              style={{ tintColor: "#000000" }}
-            />
+            <EditButton>
+              <Icon
+                  source={SETTING_PENCIL_ICON}
+                  style={{ tintColor: "#000000" }}
+              />
+            </EditButton>
           </HeaderView>
           <ProfileView>
             <Portrait>
@@ -43,6 +45,9 @@ const Setting = ({ navigation: { navigate } }) => {
     </Page>
   );
 };
+
+const EditButton = styled.TouchableOpacity``
+
 const Page = styled.View`
   width: ${constants.width}px;
   height: ${constants.height - constants.statusBarHeight}px;
