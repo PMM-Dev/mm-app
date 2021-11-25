@@ -35,7 +35,6 @@ const Post = ({route, navigation}) => {
     const [commentNum, setCommentNum] = useState();
     const [refreshing, setRefreshing] = useState(false);
 
-    //console.log(data);
 
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
