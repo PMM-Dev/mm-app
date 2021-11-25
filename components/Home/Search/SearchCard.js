@@ -1,46 +1,38 @@
-import React, { useContext } from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import constants from "../../../constants";
-import { MAGNIFY_ICON } from "../../../image";
+import {MAGNIFY_ICON} from "../../../image";
 
-const SearchCard = ({ data, storedData, storeData, setPressed }) => {
-  const deleteData = () => {
-    for (var i = 0; i < storedData.length; i++) {
-      if (storedData[i] === data) {
-        console.log("deleted!");
-        storedData.splice(i, 1);
-        storeData("");
-        break;
-      }
-    }
-  };
-  return (
-    <View>
-      <TapButton
-        onPress={() => {
-          setPressed(true);
-        }}
-      >
-        <SearchIconPosView>
-          <SearchIconView>
-            <SearchImage
-              source={MAGNIFY_ICON}
-              style={{ tintColor: "#000000" }}
-            />
-          </SearchIconView>
-        </SearchIconPosView>
-        <RecentWordView>
-          <RecentWordText numberOfLines={1}>{data}</RecentWordText>
-        </RecentWordView>
-      </TapButton>
+const SearchCard = ({data, deleteHistory, setIsSearchTextInputPressed, onSearchTextInput}) => {
 
-      <XIconView>
-        <XIcon onPress={() => deleteData()}>
-          <X>X</X>
-        </XIcon>
-      </XIconView>
-    </View>
-  );
+    return (
+        <View>
+            <TapButton
+                onPress={() => {
+                    setIsSearchTextInputPressed(true);
+                    onSearchTextInput(data);
+                }}
+            >
+                <SearchIconPosView>
+                    <SearchIconView>
+                        <SearchImage
+                            source={MAGNIFY_ICON}
+                            style={{tintColor: "#000000"}}
+                        />
+                    </SearchIconView>
+                </SearchIconPosView>
+                <RecentWordView>
+                    <RecentWordText numberOfLines={1}>{data}</RecentWordText>
+                </RecentWordView>
+            </TapButton>
+
+            <XIconView>
+                <XIcon onPress={() => deleteHistory(data)}>
+                    <X>X</X>
+                </XIcon>
+            </XIconView>
+        </View>
+    );
 };
 
 const View = styled.View`

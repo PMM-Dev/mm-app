@@ -34,4 +34,10 @@ const theme = {
   KOREAN_SOUP: "🍲 예! 그 돈이면 뜨근한 국밥이 몇 그릇인지 아니?"
 }
 
-export default { ...Type, ...Genre, ...Price, ...location, ...theme };
+const searchType = {
+  restaurant: "식당",
+  post: "게시글",
+  member: "유저"
+}
+
+export default { ...Type, ...Genre, ...Price, ...location, ...theme, ...searchType };

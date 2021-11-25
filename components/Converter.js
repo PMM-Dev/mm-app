@@ -47,3 +47,14 @@ export const ThemeConverter = (data) => {
       return KoreanEnum.KOREAN_SOUP;
   }
 };
+
+export const SearchConverter = (searchType) => {
+  switch (searchType) {
+    case "restaurant":
+      return KoreanEnum.restaurant;
+    case "post":
+      return KoreanEnum.post;
+    case "member":
+      return KoreanEnum.member;
+  }
+};

@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import styled from "styled-components";
-import { ActivityIndicator } from "react-native-paper";
+import {ActivityIndicator} from "react-native-paper";
 import Theme from "../../style/Theme";
 import Header from "../../components/Header/Header";
 import constants from "../../constants";
@@ -8,13 +8,13 @@ import KoreanEnum from "../../KoreanEnum";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 import EmptyContentCenterView from "../../components/EmptyContentCenterView"
-import PostListCard from "../../components/Home/PostList/PostListCard"
+import PostElement from "../../components/Home/PostList/PostListCard"
 import {getFeedbacksOrderByCreatedDateDesc} from "../../components/Api/AppFeedbackApi";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
 import {getPost} from "../../components/Api/AppPostApi";
 import Feedback from "../../components/Home/Restaurant/Feedback";
 
-const RestaurantList = ({route, navigation}) => {
+const PostList = ({route, navigation}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
     const [isError, setIsError] = useState(false);
@@ -29,7 +29,7 @@ const RestaurantList = ({route, navigation}) => {
         wait(200).then(() => setRefreshing(false));
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function requestPosts() {
             const {data, status} = await getPost();
             if (status >= ResponseStatusEnum.BAD_REQUEST) {
@@ -40,8 +40,9 @@ const RestaurantList = ({route, navigation}) => {
 
             setIsLoading(false);
         }
+
         requestPosts();
-    },[refreshing])
+    }, [refreshing])
 
     useEffect(() => {
         async function requestPosts() {
@@ -54,6 +55,7 @@ const RestaurantList = ({route, navigation}) => {
 
             setIsLoading(false);
         }
+
         requestPosts();
     }, [])
 
@@ -87,10 +89,11 @@ const RestaurantList = ({route, navigation}) => {
                     ) : (posts && posts.length === 0 ? (
                         <NoContentAnnouncement/>
                     ) : (
-                        <PostList>
+                        <PostElementHolder>
                             {posts.slice(0).reverse().map((element, key) => (
-                                <PostListCard data = {element} key={key} route={route} navigation={navigation} ></PostListCard>
-                            ))}</PostList>
+                                <PostElement data={element} key={key} navigation={navigation}/>
+                            ))}
+                        </PostElementHolder>
                     )))}
                 </PostScroll>
             </Wrapper>
@@ -100,11 +103,11 @@ const RestaurantList = ({route, navigation}) => {
 
 const RefreshControl = styled.RefreshControl``;
 
-const PostList = styled.View`
+const PostElementHolder = styled.View`
   width: 100%;
   border-top-width: 1px;
   border-top-color: ${(props) => props.theme.borderGray};
-  padding-left: ${constants.vw(4.5)}px;
+  padding-left: ${constants.vw(2.5)}px;
 `;
 
 const PostScroll = styled.ScrollView`
@@ -123,4 +126,4 @@ const Screen = styled.View`
   background-color: ${(props) => props.theme.backgroundWhite};
 `;
 
-export default RestaurantList;
+export default PostList;

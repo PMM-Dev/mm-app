@@ -25,7 +25,7 @@ const Setting = ({ navigation: { navigate } }) => {
             <Portrait>
               <PortraitImage
                 source={
-                  picture === undefined
+                  (data.picture === undefined || data.picture === "")
                     ? SETTING_GUEST_PORTRAIT
                     : {
                         uri: picture,

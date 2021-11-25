@@ -91,7 +91,7 @@ const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
                 {data.description}
             </DescriptionText>
             <TagView>
-                {data.themes.map((list, index) => (
+                {data?.themes.map((list, index) => (
                     <Tag key={index}>#{list.theme}</Tag>
                 ))}
             </TagView>

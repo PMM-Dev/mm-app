@@ -20,7 +20,7 @@ const RestaurantCard = ({data, navigation}) => {
                         <TitleView>
                             <Title>{data.name}</Title>
                             <TagList>
-                                {data?.themes.map((list, index) => (
+                                {data.themes && data.themes.map((list, index) => (
                                     <Tag key={index}>
                                         #{list.theme}
                                     </Tag>
@@ -40,11 +40,11 @@ const RestaurantCard = ({data, navigation}) => {
                     <GradeList>
                         <AverageGradeView>
                             <GradeIcon source={FULLSTAR} bottom={1}/>
-                            <GradeText>{data.averageGrade === 0 ? "-" : data.averageGrade}</GradeText>
+                            <GradeText>{data?.averageGrade === 0 ? "-" : data?.averageGrade}</GradeText>
                         </AverageGradeView>
                         <LikeView>
                             <GradeIcon source={FULLHEART}/>
-                            <GradeText>{data.likeCount}</GradeText>
+                            <GradeText>{data?.likeCount}</GradeText>
                         </LikeView>
                     </GradeList>
             </RestaurantNavigateButton>

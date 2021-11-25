@@ -9,6 +9,7 @@ import { API_URL } from "@env";
 
 const PostCard = ({data}) => {
     const [likeNum,setLikeNum] = useState(data.likeCount)
+
     return (
         <PostCardView>
             <PostContent >

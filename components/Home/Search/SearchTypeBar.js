@@ -1,40 +1,46 @@
-import React, { useState, useEffect } from "react";
-import { Keyboard } from "react-native";
+import React, {useState, useEffect} from "react";
+import {Keyboard} from "react-native";
 import styled from "styled-components";
 import constants from "../../../constants";
+import {SearchConverter} from "../../Converter";
 
-const SearchTypeBar = ({ searchType, changeType, changePressed }) => {
-  const [types, setTypes] = useState([]);
-  const [selectedType, setSelectedType] = useState("");
-  useEffect(() => {
-    if (searchType === "Home") {
-      setTypes(["식당", "게시글", "유저"]);
-      setSelectedType("식당");
-    } else if (searchType === "RestaurantList" || searchType === "Map") {
-      setTypes(["식당"]);
-      setSelectedType("식당");
-    }
-  }, [searchType]);
+const SearchTypeBar = ({clearResult, searchType, changeType, changePressed}) => {
+    const [types, setTypes] = useState([]);
+    const [selectedType, setSelectedType] = useState("");
 
-  return (
-    <Bar>
-      {types.map((type) => (
-        <Menu
-          key={type}
-          length={types.length}
-          isSelected={type === selectedType}
-          onPress={() => {
-            setSelectedType(type);
-            changeType(type);
-            changePressed(false);
-            Keyboard.dismiss();
-          }}
-        >
-          <Title>{type}</Title>
-        </Menu>
-      ))}
-    </Bar>
-  );
+    useEffect(() => {
+        if (searchType === "Home") {
+            setTypes(["restaurant", "post", "member"]);
+            setSelectedType("restaurant");
+        } else if (searchType === "RestaurantList" || searchType === "Map") {
+            setTypes(["restaurant"]);
+            setSelectedType("restaurant");
+        }
+    }, [searchType]);
+
+    return (
+        <Bar>
+            {types.map((type) => (
+                <Menu
+                    key={type}
+                    length={types.length}
+                    isSelected={type === selectedType}
+                    onPress={() => {
+                        if (selectedType !== type) {
+                            setSelectedType(type);
+                            changeType(type);
+                            changePressed(false);
+                            clearResult();
+                        }
+
+                        Keyboard.dismiss();
+                    }}
+                >
+                    <Title>{SearchConverter(type)}</Title>
+                </Menu>
+            ))}
+        </Bar>
+    );
 };
 
 const Bar = styled.View`
@@ -49,7 +55,7 @@ const Menu = styled.TouchableOpacity`
   align-items: center;
   border-bottom-width: 2px;
   border-bottom-color: ${(props) =>
-    props.isSelected ? props.theme.hlOrange : props.theme.backgroundWhite};
+          props.isSelected ? props.theme.hlOrange : props.theme.backgroundWhite};
 `;
 
 const Title = styled.Text``;

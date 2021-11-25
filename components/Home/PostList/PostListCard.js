@@ -5,7 +5,7 @@ import constants from "../../../constants";
 import {getPostById, getPostComment} from "../../Api/AppPostApi";
 import ResponseStatusEnum from "../../../ResponseStatusEnum";
 
-const PostListCard = ({data,route, navigation}) => {
+const PostListCard = ({data, navigation}) => {
 
     const cardClick = () => {
         async function requestPostById(postId) {
@@ -24,6 +24,7 @@ const PostListCard = ({data,route, navigation}) => {
         }
         requestPostById(data.id)
     };
+
     return (
         <Card onPress={()=>{
             cardClick();
