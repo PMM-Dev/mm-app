@@ -1,20 +1,37 @@
-import React, {useState} from "react";
+import React, {useState, useCallback} from "react";
 import styled from "styled-components";
 import { useProfile } from "../../components/AuthContext";
 import { SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON } from "../../image";
 import constants from "../../constants";
 import MenuViews from "../../components/Setting/MenuView";
 
-const Setting = ({ navigation: { navigate } }) => {
+const Setting = ({navigation}) => {
   const { email, name, picture, role } = useProfile();
-  const [editMode, setEditMode] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(300).then(() => setRefreshing(false));
+  }, []);
+
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
   return (
     <Page>
-      <ScrollView alwaysBounceVertical={false}>
+      <ScrollView alwaysBounceVertical={false}
+                  refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                  }
+      >
         <SrollViewWrapper>
           <StatusBarSpace />
           <HeaderView>
-            <EditButton>
+            <EditButton onPress = {() => {navigation.navigate("Edit")}}>
               <Icon
                   source={SETTING_PENCIL_ICON}
                   style={{ tintColor: "#000000" }}
@@ -39,12 +56,15 @@ const Setting = ({ navigation: { navigate } }) => {
               <EmailTitle>{email}</EmailTitle>
             </Information>
           </ProfileView>
-          <MenuViews navigate={navigate} role={role} />
+          <MenuViews navigate={navigation.navigate} role={role} />
         </SrollViewWrapper>
       </ScrollView>
     </Page>
   );
 };
+
+
+const RefreshControl = styled.RefreshControl``;
 
 const EditButton = styled.TouchableOpacity``
 

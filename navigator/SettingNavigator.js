@@ -5,6 +5,7 @@ import LikeHistory from "../screen/Setting/LikeHistory";
 import ReviewHistory from "../screen/Setting/ReviewHistory";
 import Credit from "../screen/Setting/Credit";
 import Restaurant from "../screen/Home/Restaurant";
+import Edit from "../screen/Setting/Edit";
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,11 @@ const SettingNavigator = () => {
         name="Restaurant"
         component={Restaurant}
         options={{ title: "음식점" }}
+      />
+      <Stack.Screen
+          name="Edit"
+          component={Edit}
+          options={{ title: "편집" }}
       />
     </Stack.Navigator>
   );

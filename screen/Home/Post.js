@@ -28,7 +28,6 @@ const Post = ({route, navigation}) => {
     const [comment, setComment] = useState();
     const [commentNum, setCommentNum] = useState();
     const [refreshing, setRefreshing] = useState(false);
-
     const [isOptionOpen, setIsOptionOpen] = useState(false);
 
 
