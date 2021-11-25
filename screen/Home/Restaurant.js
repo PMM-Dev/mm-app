@@ -20,6 +20,7 @@ import ResponseStatusEnum from "../../ResponseStatusEnum";
 import * as ImagePicker from "expo-image-picker";
 import {Keyboard} from "react-native";
 import {TRASH} from "../../image";
+import { API_URL } from "@env";
 
 const Restaurant = ({route, navigation}) => {
     const restaurantId = route.params.restaurantId;
@@ -96,7 +97,7 @@ const Restaurant = ({route, navigation}) => {
     const openPanelToModifyReview = () => {
         openReviewWritingPanel();
         setIsPostStep(false);
-        setSelectImage(null);
+        setSelectImage(`${API_URL}/image/restaurant/review/${myReview.id}/image`);
         setWritingReviewGrade(myReview.grade);
         setWritingReviewContent(myReview.description);
     }
@@ -226,6 +227,10 @@ const Restaurant = ({route, navigation}) => {
         return true;
     }
 
+    const deleteImage = () => {
+        setSelectImage(null);
+    };
+
     const openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -242,8 +247,7 @@ const Restaurant = ({route, navigation}) => {
 
         setSelectImage(pickerResult.uri);
     };
-
-
+    //console.log(myReview);
     return (
         <Screen>
             {data ? (
@@ -305,18 +309,21 @@ const Restaurant = ({route, navigation}) => {
                                     iconSizeRatio={80}
                                 />
                             </TouchableStarMakerHolder>
+                            <AddPicture onPress={()=>{Keyboard.dismiss();
+                                openImagePickerAsync();
+                            }}>
+                                <AddPictureText>+</AddPictureText>
+                            </AddPicture>
                             {
-                                selectImage === null ?
-                                    <AddPicture onPress={()=>{Keyboard.dismiss();
-                                        openImagePickerAsync();
-                                    }}>
-                                        <AddPictureText>+</AddPictureText>
-                                    </AddPicture> :
+                                selectImage !== null ?
                                     <ImageView onPress={()=>{Keyboard.dismiss();
                                         openImagePickerAsync();
                                     }}>
                                         <AddedImage source={{uri: selectImage }}/>
-                                    </ImageView>
+                                        <DelButton onPress={()=>{deleteImage()}}>
+                                            <DelButtonImage source={TRASH}></DelButtonImage>
+                                        </DelButton>
+                                    </ImageView> : <></>
                             }
                             <ReviewTextInput
                                 value={writingReviewContent}
@@ -324,34 +331,6 @@ const Restaurant = ({route, navigation}) => {
                                 multiline={true}
                                 placeholder="리뷰 내용"
                             />
-                            {/*<TextInput*/}
-                            {/*  value={writingReviewContent}*/}
-                            {/*  selectionColor={Theme.fontBlue}*/}
-                            {/*  outlineColor={Theme.fontBlue}*/}
-                            {/*  multiline={true}*/}
-                            {/*  onChangeText={(text) => setWritingReviewContent(text)}*/}
-                            {/*  style={{*/}
-                            {/*    width: "100%",*/}
-                            {/*    height: constants.vh(50),*/}
-                            {/*    backgroundColor: Theme.backgroundGray,*/}
-                            {/*    alignItems: "flex-start",*/}
-                            {/*  }}*/}
-                            {/*  right={<TextInput.Affix tex={"/100"} />}*/}
-                            {/*/>*/}
-                            {/*<PicturesView>*/}
-                            {/*    <UploadPictureButton onPress={pickImage}>*/}
-                            {/*        <UploadPictureIcon*/}
-                            {/*            source={RESTAURANT_ICON_IMAGE}*/}
-                            {/*            style={{ tintColor: Theme.fontBlack }}*/}
-                            {/*        />*/}
-                            {/*    </UploadPictureButton>*/}
-                            {/*    <UploadedPictureHolder>*/}
-                            {/*        <UploadedPicture source={{ uri: firstImage }} />*/}
-                            {/*    </UploadedPictureHolder>*/}
-                            {/*    <UploadedPictureHolder>*/}
-                            {/*        <UploadedPicture source={{ uri: secondImage }} />*/}
-                            {/*    </UploadedPictureHolder>*/}
-                            {/*</PicturesView>*/}
                         </ReviewWritingPanel>
                     </RBSheet>
                 </>
@@ -368,6 +347,18 @@ const Restaurant = ({route, navigation}) => {
     );
 };
 
+const DelButton = styled.TouchableOpacity`
+  width :${constants.vh(3)}px;
+  height :${constants.vh(3)}px;
+`
+
+const DelButtonImage = styled.Image`
+  resize-mode:contain;
+  width :${constants.vh(3)}px;
+  height :${constants.vh(3)}px;
+  position : absolute;
+  right : 0px;
+`
 
 const AddedImage = styled.Image`
   width :${constants.vh(30)}px;
