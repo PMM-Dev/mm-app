@@ -27,7 +27,7 @@ export const appendLikeRestaurant = async (restaurantId) => {
   try {
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
     await axios.put(
-      API_URL + "/member/like/restaurant/" + restaurantId,
+      API_URL + "/restaurant/" + restaurantId + "/like",
       {},
       {
         headers: {
@@ -43,7 +43,7 @@ export const appendLikeRestaurant = async (restaurantId) => {
 export const subtractLikeRestaurant = async (restaurantId) => {
   try {
     const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
-    await axios.delete(API_URL + "/member/like/restaurant/" + restaurantId, {
+    await axios.delete(API_URL + "/restaurant/" + restaurantId + "/like", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -107,6 +107,24 @@ export const getMeReview = async () => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    return response.data;
+  } catch (e) {
+    console.error("[AppApi][Exception] " + e);
+    return [];
+  }
+};
+
+export const postName = async (name, picture) => {
+  try {
+    const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+    const response = await axios.put(API_URL + "/member/me",
+        {"name" : name, "picture" : picture },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+    );
     return response.data;
   } catch (e) {
     console.error("[AppApi][Exception] " + e);
