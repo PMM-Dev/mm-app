@@ -88,9 +88,6 @@ const PostWrite = ({route, navigation}) => {
                     const{data, status} = await getPostImageFileName(toModifyData.id, key);
 
                     const type = `image/${data.split('.').pop()}`;
-                    console.log(data);
-                    console.log(type);
-                    console.log(element);
 
                     newformData.append('images', { uri: element, name: data, type });
                 }
