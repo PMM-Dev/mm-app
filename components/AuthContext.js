@@ -57,7 +57,6 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
                     socialTokenType: "GOOGLE"
                 }
                 const response = await getJwtToken(memberRequestDto);
-                console.log(response)
                 if (response.state === USER_FAILED) {
                     throw 'Saving App token failed';
 
@@ -83,7 +82,12 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
 
     const loginByApple = async () => {
         try {
-            const result = await Apple.signInAsync();
+            const result = await Apple.signInAsync({
+                requestedScopes: [
+                    Apple.AppleAuthenticationScope.FULL_NAME,
+                    Apple.AppleAuthenticationScope.EMAIL,
+                ],
+            });
 
             const memberRequestDto = {
                 email: "",
