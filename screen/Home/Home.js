@@ -12,7 +12,7 @@ import {getLatestNotice} from "../../components/Api/AppNotice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
 import {getPostPreview} from "../../components/Api/AppPostApi";
-import {getRandomTheme} from "../../components/Api/AppRestaurantApi";
+import {getRandomTheme, getRestaurantByTheme} from "../../components/Api/AppRestaurantApi";
 import {ThemeConverter} from "../../components/Converter";
 const PREVENTING_IOS_BOUNCE_VIEW_HEIGHT = 3000;
 
@@ -22,6 +22,8 @@ const Home = ({route, navigation}) => {
     const [refreshing, setRefreshing] = useState(false);
     const [posts, setPosts] = useState([]);
     const [randomTheme, setRandomTheme] = useState();
+    const [restuarantByTheme1, setRestuarantByTheme1] = useState();
+    const [restuarantByTheme2, setRestuarantByTheme2] = useState();
 
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
@@ -76,7 +78,20 @@ const Home = ({route, navigation}) => {
                 return;
             } else {
                 setRandomTheme(data);
+                requestRestaurantByTheme(data[0], 0);
+                requestRestaurantByTheme(data[1], 1);
             }
+        }
+        async function requestRestaurantByTheme(theme, id) {
+            const {data, status} = await getRestaurantByTheme(theme);
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            }
+
+            if(id == 0)
+                setRestuarantByTheme1(data);
+            else if(id == 1)
+                setRestuarantByTheme2(data);
         }
         requestPosts();
         requestLatestNotice();
@@ -85,7 +100,8 @@ const Home = ({route, navigation}) => {
     }
 
     useEffect(()=>{
-        homeRequest();
+        if(refreshing === true)
+            homeRequest();
     },[refreshing])
 
     useEffect(() => {
@@ -118,8 +134,8 @@ const Home = ({route, navigation}) => {
                     {
                         randomTheme !== undefined ?
                         <>
-                            <ThemePart title={ThemeConverter(randomTheme[0])} theme={randomTheme[0]} navigation={navigation}/>
-                            <ThemePart title={ThemeConverter(randomTheme[1])} theme={randomTheme[1]} navigation={navigation}/>
+                            <ThemePart title={ThemeConverter(randomTheme[0])} restaurant={restuarantByTheme1} navigation={navigation}/>
+                            <ThemePart title={ThemeConverter(randomTheme[1])} restaurant={restuarantByTheme2} navigation={navigation}/>
                         </> :
                             <></>
                     }

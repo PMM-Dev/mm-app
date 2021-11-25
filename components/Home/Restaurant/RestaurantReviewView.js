@@ -22,13 +22,16 @@ const RestaurantReviewView = ({
                                   setMyReview,
                                   openPanelToWriteReview,
                                   openPanelToModifyReview,
-                                  deleteMyReview
+                                  deleteMyReview,
+                                  selectImage
                               }) => {
 
     const [isReviewLoading, setIsReviewLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
     const [condition, setCondition] = useState(0);
     const [myReviewLoad, setMyReviewLoad] = useState(true);
+
+    //console.log(reviews);
 
     useEffect(() => {
         async function requestReview() {
@@ -98,7 +101,7 @@ const RestaurantReviewView = ({
                     {myReview ? (
                         <>
                             <SubTitleText>내가 작성한 리뷰</SubTitleText>
-                            <Review mine review={myReview}/>
+                            <Review mine review={myReview} selectImage={selectImage}/>
                             <MyReviewButtonsView>
                                 <MyReviewButton onPress={openPanelToModifyReview}>
                                     <MyReviewButtonText>리뷰 수정</MyReviewButtonText>

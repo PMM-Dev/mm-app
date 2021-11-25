@@ -4,8 +4,9 @@ import StarMaker from "../../StarMaker";
 import styled from "styled-components";
 import constants from "../../../constants";
 import {useProfile} from "../../AuthContext";
+import { API_URL } from "@env";
 
-const Review = ({mine, review}) => {
+const Review = ({mine, review, selectImage}) => {
     return (
         <Holder mine={mine}>
             <InfoView>
@@ -32,9 +33,24 @@ const Review = ({mine, review}) => {
                 </RightInfoView>
             </InfoView>
             <ContentText>{review.description}</ContentText>
+            {
+                review.existImage === true ?
+                    review.id === -1 ? <ReviewImage source={{uri : selectImage}}/>
+                        : <ReviewImage source={{uri : `${API_URL}/image/restaurant/review/${review.id}/image`}}/>
+                    :
+                <></>
+            }
+
         </Holder>
     );
 };
+
+const ReviewImage = styled.Image`
+  width: ${constants.vw(25)}px;
+  height: ${constants.vw(25)}px;
+  margin-top:${constants.vh(1)}px ;
+  resize-mode : contain;
+`;
 
 const Holder = styled.View`
   width: 100%;

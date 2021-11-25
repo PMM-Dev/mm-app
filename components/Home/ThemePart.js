@@ -7,38 +7,18 @@ import { getRestaurantByTheme} from "../Api/AppRestaurantApi";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
 import {Converter, ThemeConverter} from "../Converter";
 
-const dummy = [{image : TMP, name : "카페1", position : "후문", genre: "일식", price : "FLEX"},
-    {image : TMP, name : "카페1", position : "후문", genre: "일식", price : "FLEX"},
-    {image : TMP, name : "카페1", position : "후문", genre: "일식", price : "FLEX"},
-    {image : TMP, name : "카페1", position : "후문", genre: "일식", price : "FLEX"},
-    {image : TMP, name : "카페1", position : "후문", genre: "일식", price : "FLEX"},
-    {image : TMP, name : "카페1", position : "후문", genre: "일식", price : "FLEX"},
-];
-
-
-const ThemePart = ({title, theme, navigation}) => {
-    const [restuarantByTheme, setRestuarantByTheme] = useState();
-    useEffect(() => {
-        async function requestRestaurantByTheme(theme) {
-            const {data, status} = await getRestaurantByTheme(theme);
-            if (status >= ResponseStatusEnum.BAD_REQUEST) {
-                return;
-            }
-            setRestuarantByTheme(data);
-        }
-        requestRestaurantByTheme(theme);
-    }, [])
+const ThemePart = ({title, restaurant, navigation}) => {
 
     return (
         <Holder>
             <Header>
-                <Title>{theme}</Title>{/*여기  ThemeConverter(theme) 써서 변경*/}
+                <Title>{title}</Title>{/*여기  ThemeConverter(theme) 써서 변경*/}
             </Header>
             <Scroll
                 horizontal ={true}
             >
-                {restuarantByTheme !== undefined ? <Content>
-                    {restuarantByTheme.map((data, index)=>
+                {restaurant !== undefined ? <Content>
+                    {restaurant.map((data, index)=>
                         <Card last key = {index} onPress={()=>{navigation.navigate("Restaurant", {restaurantId: data.id})}}>
                             {/*<Image source = {data.image}/>*/}
                             <CardBlock>

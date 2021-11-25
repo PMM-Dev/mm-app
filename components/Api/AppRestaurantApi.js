@@ -310,25 +310,23 @@ export const getMyReviewByRestaurantId = async (restaurantId) => {
     }
 };
 
-export const updateMyReviewByRestaurantId = async (content, grade, restaurantId) => {
+export const updateMyReviewByRestaurantId = async (form, restaurantId) => {
     try {
+        console.log(form);
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.put(
             API_URL + "/restaurant/" + restaurantId + "/review",
-            {
-                description: content,
-                grade: grade,
-            },
+            form,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             }
         );
-        return {data : response?.data, status : response?.status};
+        return {data :response?.data, status : response?.status};
     } catch (e) {
-        console.error("[AppApi][Exception] failed updateMyReviewByRestaurantId() " + e);
-        return {data : e.response?.data, status : e.response?.status};
+        console.error("[AppApi][Exception] " + e);
+        return {data : e.response?.data, status : e.response?.status};;
     }
 }
 

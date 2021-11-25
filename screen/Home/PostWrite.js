@@ -96,6 +96,7 @@ const PostWrite = ({route, navigation}) => {
         }
 
         setFormData(newformData);
+
         if(isModify)
         {
             const {data,status} = putPost(toModifyData.id, newformData);
