@@ -51,10 +51,10 @@ const MenuView = ({ navigate, role }) => {
         </InfoButton>
       </InfoMenuView>
       <UtilMenuView>
-        <UtilButton>
-          <Icon source={SETTING_ALARM_ICON} style={{ tintColor: "#000000" }} />
-          <Title>알림 설정</Title>
-        </UtilButton>
+        {/*<UtilButton>*/}
+        {/*  <Icon source={SETTING_ALARM_ICON} style={{ tintColor: "#000000" }} />*/}
+        {/*  <Title>알림 설정</Title>*/}
+        {/*</UtilButton>*/}
         <UtilButton onPress={() => Linking.openURL("mailto:sckwon770@gmail.com")}>
           <Icon source={SETTING_ASKING_ICON} style={{ tintColor: "#000000" }} />
           <Title>문의하기</Title>
