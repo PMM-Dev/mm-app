@@ -312,7 +312,6 @@ export const getMyReviewByRestaurantId = async (restaurantId) => {
 
 export const updateMyReviewByRestaurantId = async (form, restaurantId) => {
     try {
-        console.log(form);
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.put(
             API_URL + "/restaurant/" + restaurantId + "/review",
@@ -380,6 +379,25 @@ export const getRestaurantByTheme = async (theme) => {
         return {data : response?.data, status : response?.status};
     } catch (e) {
         console.error("[AppApi][Exception] failed getRestaurantByTheme()" + e);
+        return {data : e.response?.data, status : e.response?.status};
+    }
+};
+
+
+export const getRestaurantReviewImageFileName = async (id) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(
+            API_URL + "/image/restaurant/review/" + id + "/fileName",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return {data : response?.data, status : response?.status};
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantReviewImageFileName()" + e);
         return {data : e.response?.data, status : e.response?.status};
     }
 };

@@ -8,8 +8,9 @@ import {Keyboard} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Image } from "react-native";
 import {TRASH} from "../../image";
-import {postPost, putPost} from "../../components/Api/AppPostApi";
+import {getPostImageFileName, postPost, putPost} from "../../components/Api/AppPostApi";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
+import { API_URL } from "@env";
 
 const PostWrite = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
@@ -27,9 +28,9 @@ const PostWrite = ({route, navigation}) => {
             setWritingReviewContent(toModifyData.content);
             setWritingReviewContentTitle(toModifyData.title);
             let beforeImageList = [];
-            /*[...Array(toModifyData.imagesCount)].map((num, key) =>
+            [...Array(toModifyData.imagesCount)].map((num, key) =>
                 {beforeImageList.push(`${API_URL}/image/post/${toModifyData.id}/${key}`)}
-            );*/
+            );
             setImageList(beforeImageList);
         }
     }, []);
@@ -74,27 +75,36 @@ const PostWrite = ({route, navigation}) => {
         }
     };
 
-    const writePost = () => {
+    const writePost = async () => {
         const newformData = new FormData();
         newformData.append('title', writingReviewContentTitle);
         newformData.append('content',writingReviewContent );
 
         if (ImageList.length !== 0)
         {
-            ImageList.map((element)=>{
+            ImageList.map(async (element, key)=>{
+                if(element.slice(0,4) === "http")
+                {
+                    const{data, status} = await getPostImageFileName(toModifyData.id, key);
 
-                const localUri = element;
-                const filename = localUri.split('/').pop();
+                    const type = `image/${data.split('.').pop()}`;
 
-                const match = /\.(\w+)$/.exec(filename);
-                const type = match ? `image/${match[1]}` : `image`;
-                const extension = getExtention(type);
-                const extendFileName = filename.replace(`${match[0]}`,`${extension}`);
+                    newformData.append('images', { uri: element, name: data, type });
+                }
+                else
+                {
+                    const localUri = element;
+                    const filename = localUri.split('/').pop();
 
-                newformData.append('images', { uri: localUri, name: extendFileName, type });
+                    const match = /\.(\w+)$/.exec(filename);
+                    const type = match ? `image/${match[1]}` : `image`;
+                    const extension = getExtention(type);
+                    const extendFileName = filename.replace(`${match[0]}`,`${extension}`);
+                    newformData.append('images', { uri: localUri, name: extendFileName, type });
+                }
+
             })
         }
-
         setFormData(newformData);
 
         if(isModify)
