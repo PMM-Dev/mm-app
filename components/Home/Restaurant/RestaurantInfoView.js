@@ -3,10 +3,8 @@ import styled from "styled-components";
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from "react-native-maps";
 
 import {korLocationAPI} from "../../Api/GoogleAppApi";
-import StarMaker from "../../StarMaker";
 import {
-    REVIEW_ICON,
-    FULLHEART,
+    FLAT_FULLSTAR,
     ICON_TYPE,
     ICON_PRICE,
     ICON_LOCATION,
@@ -55,43 +53,48 @@ const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
         <InfoView>
             <TitleView>
                 <Title>{data.name}</Title>
-                <StarMaker grade={data.averageGrade} size={30} iconSizeRatio={90}/>
             </TitleView>
             <NumberInfosView>
-                <SmallIcon source={REVIEW_ICON} style={{tintColor: Theme.fontBlue}}/>
-                <IconText color={Theme.fontBlue}>{reviewNum}</IconText>
-                <SmallIcon source={FULLHEART}/>
-                <IconText color={Theme.hlRed}>{likeNum}</IconText>
+                <IconText color={Theme.fontBlackGray}>최근리뷰 {reviewNum}</IconText>
+                <IconText color={Theme.fontBlackGray}>좋아요 {likeNum}</IconText>
             </NumberInfosView>
-            <TagView>
-                {data.themes.map((list, index) => (
-                    <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
-                ))}
-            </TagView>
-            <TextInfoView>
-                <BigIcon
-                    source={ICON_TYPE}
-                    style={{tintColor: Theme.fontBlackGray}}
-                />
-                <InfoText>{Converter(data.type)}</InfoText>
-            </TextInfoView>
-            <TextInfoView>
-                <BigIcon
-                    source={ICON_PRICE}
-                    style={{tintColor: Theme.fontBlackGray}}
-                />
-                <InfoText>{Converter(data.price)}</InfoText>
-            </TextInfoView>
-            <TextInfoView>
-                <BigIcon
-                    source={ICON_LOCATION}
-                    style={{tintColor: Theme.fontBlackGray}}
-                />
-                <InfoText>{Converter(data.location)}</InfoText>
-            </TextInfoView>
+            <InfoPropertyHolder>
+                <InfoPropertyLeftView>
+                    <InfoPropertyView>
+                        <BigIcon
+                            source={ICON_TYPE}
+                            style={{tintColor: Theme.hlOrange}}
+                        />
+                        <InfoText>{Converter(data.type)}</InfoText>
+                    </InfoPropertyView>
+                    <InfoPropertyView>
+                        <BigIcon
+                            source={ICON_PRICE}
+                            style={{tintColor: Theme.hlOrange}}
+                        />
+                        <InfoText>{Converter(data.price)}</InfoText>
+                    </InfoPropertyView>
+                    <InfoPropertyView>
+                        <BigIcon
+                            source={ICON_LOCATION}
+                            style={{tintColor: Theme.hlOrange}}
+                        />
+                        <InfoText>{Converter(data.location)}</InfoText>
+                    </InfoPropertyView>
+                </InfoPropertyLeftView>
+                <InfoPropertyRightView>
+                    <GradeIcon source={FLAT_FULLSTAR} style={{tintColor: Theme.hlOrange}}/>
+                    <GradeText>{data.averageGrade}</GradeText>
+                </InfoPropertyRightView>
+            </InfoPropertyHolder>
             <DescriptionText isEmpty={data.description === ""}>
                 {data.description}
             </DescriptionText>
+            <TagView>
+                {data.themes.map((list, index) => (
+                    <Tag key={index}>#{list.theme}</Tag>
+                ))}
+            </TagView>
             <LocationView>
                 <InfoTitleText>위치</InfoTitleText>
                 <LocationText>{koreanAddress}</LocationText>
@@ -125,8 +128,9 @@ const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
                                         </Marker>
                                     </MapView>
                                 )}
-                                <OpenMapButton onPress={() => Linking.openURL("https://www.google.com/maps/search/?api=1&query=" + data.latitude + "," + data.longitude)}>
-                                    <OpenMapIcon source={RESTAURANT_OPEN_MAP_ICON} />
+                                <OpenMapButton
+                                    onPress={() => Linking.openURL("https://www.google.com/maps/search/?api=1&query=" + data.latitude + "," + data.longitude)}>
+                                    <OpenMapIcon source={RESTAURANT_OPEN_MAP_ICON}/>
                                 </OpenMapButton>
                             </Container>
                         </MapScroll>
@@ -169,54 +173,73 @@ const TitleView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: ${constants.vh(0.5)}px;
 `;
 
 const Title = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
-  font-size: ${constants.vw(7.2)}px;
+  font-size: ${constants.vw(7.5)}px;
 `;
 
 const NumberInfosView = styled.View`
   flex-direction: row;
   align-items: center;
   margin-top: ${constants.vh(0.5)}px;
-  margin-bottom: ${constants.vh(4)}px;
+  margin-bottom: ${constants.vh(3)}px;
 `;
 
-const SmallIcon = styled.Image`
-  width: ${constants.vh(2.4)}px;
-  height: ${constants.vh(2.4)}px;
-  margin-right: ${constants.vw(2)}px;
-`;
+const InfoPropertyHolder = styled.View`
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+
+`
+
+const InfoPropertyLeftView = styled.View`
+  width: 50%;
+  border-right-width: 0.5px;
+  border-right-color: ${(props) => props.theme.backgroundGray};
+`
+
+const InfoPropertyRightView = styled.View`
+  width: 50%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  border-left-width: 0.5px;
+  border-left-color: ${(props) => props.theme.backgroundGray};
+`
+
+const GradeIcon = styled.Image`
+  width: ${constants.vw(12)}px;
+  height: ${constants.vw(12)}px;
+  margin-right: ${constants.vh(1)}px;;
+`
+
+const GradeText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vh(3.5)}px;;
+  color: ${(props) => props.theme.hlOrange};
+`
 
 const IconText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
   color: ${(props) => (props.color ? props.color : props.theme.fontBlackGray)};
   font-size: ${constants.vh(1.6)}px;
   margin-right: ${constants.vw(3.5)}px;
 `;
 
-const TextInfoView = styled.View`
+const InfoPropertyView = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: ${constants.vh(1)}px;
 `;
 
 const InfoText = styled.Text`
-  color: ${(props) => props.theme.fontBlackGray};
+  color: ${(props) => props.theme.hlOrange};
   font-size: ${constants.vh(1.9)}px;
   margin-top: ${constants.vh(0.2)}px;
-`;
-
-const ExplanationTagText = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  color: ${(props) => props.theme.hlRed};
-  font-size: ${constants.vw(2.2)}px;
-`;
-
-const TagView = styled.View`
-  width: 100%;
-  flex-direction: row;
-  justify-content: center;
 `;
 
 const BigIcon = styled.Image`
@@ -229,9 +252,20 @@ const DescriptionText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vh(1.5)}px;
   color: ${(props) => props.theme.fontBlackGray};
-  margin-top: ${(props) => (props.isEmpty ? 0 : constants.vh(2))}px;
-  margin-bottom: ${(props) =>
-          props.isEmpty ? constants.vh(2) : constants.vh(5)}px;
+  margin-top: ${(props) => (props.isEmpty ? 0 : constants.vh(3.8))}px;
+  margin-bottom: ${constants.vh(1.5)}px;
+`;
+
+const TagView = styled.View`
+  flex-direction: row;
+  margin-bottom: ${constants.vh(5)}px;
+`;
+
+const Tag = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  color: ${(props) => props.theme.fontBlue};
+  font-size: ${constants.vh(1.6)}px;
+  margin-right: ${constants.vw(2.3)}px;
 `;
 
 const InfoTitleText = styled.Text`

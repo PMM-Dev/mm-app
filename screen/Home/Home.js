@@ -71,7 +71,6 @@ const Home = ({route, navigation}) => {
                     <ThemePart title={"카공하기 좋은 카페는?"}/>
                     <ThemePart title={"시험 기간에는 싸고 빠르게"}/>
                     <PostPart route={route} navigation={navigation} />
-                    <SmallBoardPart title={"공지사항"} />
                 </Wrapper>
             </Scroll>
         </Screen>

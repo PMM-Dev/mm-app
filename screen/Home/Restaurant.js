@@ -19,7 +19,6 @@ import EmptyScreenCenterView from "../../components/EmptyScreenCenterView";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
 import * as ImagePicker from "expo-image-picker";
 import {Keyboard} from "react-native";
-import {TRASH} from "../../image";
 
 const Restaurant = ({route, navigation}) => {
     const restaurantId = route.params.restaurantId;
@@ -243,6 +242,9 @@ const Restaurant = ({route, navigation}) => {
                             />
                         </Wrapper>
                     </Scroll>
+
+
+                    {/* Review Writing Panel */}
                     <RBSheet
                         ref={reviewWritingPanelRef}
                         customStyles={{container: {borderRadius: constants.vw(3), height: constants.isIos() ? constants.vh(90) : constants.vh(85)}}}
@@ -315,6 +317,8 @@ const Restaurant = ({route, navigation}) => {
                             {/*</PicturesView>*/}
                         </ReviewWritingPanel>
                     </RBSheet>
+                    {/* Review Writing Panel */}
+
                 </>
             ) : (
                 <EmptyScreenCenterView>
