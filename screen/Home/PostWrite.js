@@ -3,14 +3,13 @@ import {useProfile} from "../../components/AuthContext";
 import styled from "styled-components";
 import constants from "../../constants";
 import Header from "../../components/Header/Header";
-import {TMP, SHARE_BT, LIKE_BT, SETTING_GUEST_PORTRAIT, IMG_ICON} from "../../image"
 import {Keyboard} from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { Image } from "react-native";
-import {TRASH} from "../../image";
+import {ADD_IMAGE_ICON, TRASH} from "../../image";
 import {getPostImageFileName, postPost, putPost} from "../../components/Api/AppPostApi";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
-import { API_URL } from "@env";
+import {API_URL} from "@env";
+import Theme from "../../style/Theme";
 
 const PostWrite = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
@@ -23,13 +22,13 @@ const PostWrite = ({route, navigation}) => {
     const [toModifyData, setToModifyData] = useState(route.params.data);
 
     useEffect(() => {
-        if(isModify)
-        {
+        if (isModify) {
             setWritingReviewContent(toModifyData.content);
             setWritingReviewContentTitle(toModifyData.title);
             let beforeImageList = [];
-            [...Array(toModifyData.imagesCount)].map((num, key) =>
-                {beforeImageList.push(`${API_URL}/image/post/${toModifyData.id}/${key}`)}
+            [...Array(toModifyData.imagesCount)].map((num, key) => {
+                    beforeImageList.push(`${API_URL}/image/post/${toModifyData.id}/${key}`)
+                }
             );
             setImageList(beforeImageList);
         }
@@ -43,7 +42,7 @@ const PostWrite = ({route, navigation}) => {
             return;
         }
 
-        let pickerResult = await ImagePicker.launchImageLibraryAsync({allowsEditing: true, quality : 1,});
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({allowsEditing: true, quality: 1,});
 
         if (pickerResult.cancelled === true) {
             return;
@@ -56,7 +55,7 @@ const PostWrite = ({route, navigation}) => {
 
     const deleteImage = (index) => {
         const num = ImageList.length - index - 1;
-        const newImageList = ImageList.slice(0, num).concat(ImageList.slice(num+1, ImageList.length))
+        const newImageList = ImageList.slice(0, num).concat(ImageList.slice(num + 1, ImageList.length))
         setImageList(newImageList);
     };
 
@@ -78,45 +77,38 @@ const PostWrite = ({route, navigation}) => {
     const writePost = async () => {
         const newformData = new FormData();
         newformData.append('title', writingReviewContentTitle);
-        newformData.append('content',writingReviewContent );
+        newformData.append('content', writingReviewContent);
 
-        if (ImageList.length !== 0)
-        {
-            ImageList.map(async (element, key)=>{
-                if(element.slice(0,4) === "http")
-                {
-                    const{data, status} = await getPostImageFileName(toModifyData.id, key);
+        if (ImageList.length !== 0) {
+            ImageList.map(async (element, key) => {
+                if (element.slice(0, 4) === "http") {
+                    const {data, status} = await getPostImageFileName(toModifyData.id, key);
 
                     const type = `image/${data.split('.').pop()}`;
 
-                    newformData.append('images', { uri: element, name: data, type });
-                }
-                else
-                {
+                    newformData.append('images', {uri: element, name: data, type});
+                } else {
                     const localUri = element;
                     const filename = localUri.split('/').pop();
 
                     const match = /\.(\w+)$/.exec(filename);
                     const type = match ? `image/${match[1]}` : `image`;
                     const extension = getExtention(type);
-                    const extendFileName = filename.replace(`${match[0]}`,`${extension}`);
-                    newformData.append('images', { uri: localUri, name: extendFileName, type });
+                    const extendFileName = filename.replace(`${match[0]}`, `${extension}`);
+                    newformData.append('images', {uri: localUri, name: extendFileName, type});
                 }
 
             })
         }
         setFormData(newformData);
 
-        if(isModify)
-        {
-            const {data,status} = putPost(toModifyData.id, newformData);
+        if (isModify) {
+            const {data, status} = putPost(toModifyData.id, newformData);
             if (status >= ResponseStatusEnum.BAD_REQUEST) {
                 return;
             }
-        }
-        else
-        {
-            const {data,status} = postPost(newformData);
+        } else {
+            const {data, status} = postPost(newformData);
             if (status >= ResponseStatusEnum.BAD_REQUEST) {
                 return;
             }
@@ -153,19 +145,22 @@ const PostWrite = ({route, navigation}) => {
                         multiline={true}
                         placeholder="내용"
                     ></ReviewTextInput>
-                    <AddPicture onPress={()=>{Keyboard.dismiss();
-                        openImagePickerAsync();}}>
-                        <AddPictureText>+</AddPictureText>
+                    <AddPicture onPress={() => {
+                        Keyboard.dismiss();
+                        openImagePickerAsync();
+                    }}>
+                        <AddPictureIcon source={ADD_IMAGE_ICON} style={{tintColor: Theme.fontBlackGray}} />
                     </AddPicture>
                     <ImageListView>
-                        {ImageList.length !== 0 ? ImageList.slice(0).reverse().map((element,index)=>
-                            <ImageView  key = {index}>
-                                <AddedImage source={{uri: element }}/>
-                                <DelButton onPress={()=>{deleteImage(index)}}>
-                                    <DelButtonImage source={TRASH}></DelButtonImage>
+                        {ImageList.length !== 0 ? ImageList.slice(0).reverse().map((element, index) =>
+                            <ImageView key={index}>
+                                <AddedImage source={{uri: element}}/>
+                                <DelButton onPress={() => {
+                                    deleteImage(index)
+                                }}>
+                                    <DelButtonImage source={TRASH} style={{tintColor: Theme.hlRed}} />
                                 </DelButton>
                             </ImageView>
-                            
                         ) : <></>}
                     </ImageListView>
                 </Content>
@@ -175,13 +170,13 @@ const PostWrite = ({route, navigation}) => {
 };
 
 const SendButtonPos = styled.View`
-  width : 90%;
-  height :${constants.vw(3)}px;
+  width: 90%;
+  height: ${constants.vw(3)}px;
 `;
 
 const SendTextButton = styled.TouchableOpacity`
-    position: absolute;
-    right : 0px;
+  position: absolute;
+  right: 0px;
 `;
 
 const SendText = styled.Text`
@@ -191,66 +186,66 @@ const SendText = styled.Text`
 `;
 
 const TestButton = styled.TouchableOpacity`
-  width :${constants.vw(3)}px;
-  height :${constants.vw(3)}px;
+  width: ${constants.vw(3)}px;
+  height: ${constants.vw(3)}px;
   background-color: red;
 `
 
 const ImageView = styled.View`
   flex-direction: row;
   align-items: center;
+  justify-content: space-around;
 `
 
 const DelButton = styled.TouchableOpacity`
-  width :${constants.vh(3)}px;
-  height :${constants.vh(3)}px;
+  width: ${constants.vw(10)}px;
+  height: ${constants.vw(10)}px;
+  justify-content: center;
+  align-items: center;
 `
 
 const DelButtonImage = styled.Image`
-  resize-mode:contain;
-  width :${constants.vh(3)}px;
-  height :${constants.vh(3)}px;
-  position : absolute;
-  right : 0px;
+  width: 70%;
+  height: 70%;
 `
 
 const AddedImage = styled.Image`
-  width :${constants.vh(30)}px;
-  height :${constants.vh(15)}px;
-  resize-mode : contain;
-  margin-top : ${constants.vh(1)}px;
+  width: ${constants.vw(70)}px;
+  height: ${constants.vw(70)}px;
+  resize-mode: contain;
+  margin-top: ${constants.vh(1)}px;
 `
 
 const ImageListView = styled.View`
-  margin-top : ${constants.vh(2)}px;
-  width: 90%;
-  align-items: center;
-  padding-bottom :${constants.vh(2)}px;
+  width: 100%;
+  margin: ${constants.vh(2)}px 0px;
+  padding: 0px ${constants.vw(5)}px;
 `
 
-const AddPictureText = styled.Text`
-  ${(props) => props.theme.NanumSquareEBFont};
-  font-size: ${constants.vh(5)}px;
-  line-height: ${constants.vh(10)}px;
-  text-align: center;
+const AddPictureIcon = styled.Image`
+  width: 40%;
+  height: 40%;
 `
 
 const AddPicture = styled.TouchableOpacity`
-  width :${constants.vw(30)}px;
-  height :${constants.vh(10)}px;
-  border : 1px;
-  margin-top : ${constants.vh(2)}px;
+  justify-content: center;
+  align-items: center;
+  width: ${constants.vw(20)}px;
+  height: ${constants.vw(20)}px;
+  border-radius: ${constants.vw(30)}px;
+  margin-top: ${constants.vh(2)}px;
+  background-color: ${(props) => props.theme.backgroundGray};
 `
 
 const ReviewTextTitleInput = styled.TextInput`
   width: 90%;
-  height: ${constants.vh(8)}px;
-  text-align-vertical: top;
+  height: ${constants.vh(7)}px;
   font-size: ${constants.vh(1.75)}px;
   padding: 5% 5%;
-  border : 1px;
-  border-color : ${(props) => props.theme.borderGray};
-  margin-top : ${constants.vh(2)}px;
+  border-bottom-width: 0.5px;
+  border-bottom-color: ${(props) => props.theme.backgroundDarkerGray};
+  border-color: ${(props) => props.theme.borderGray};
+  margin-top: ${constants.vh(2)}px;
 `;
 
 const ReviewTextInput = styled.TextInput`
@@ -259,8 +254,8 @@ const ReviewTextInput = styled.TextInput`
   text-align-vertical: top;
   font-size: ${constants.vh(1.75)}px;
   padding: 5% 5%;
-  border : 1px;
-  border-color : ${(props) => props.theme.borderGray};
+
+  border-color: ${(props) => props.theme.borderGray};
 `;
 
 const Scroll = styled.ScrollView`
@@ -269,7 +264,7 @@ const Scroll = styled.ScrollView`
 `;
 
 const Content = styled.View`
-  width : 100%;
+  width: 100%;
   height: 100%;
   justify-content: center;
   align-items: center;

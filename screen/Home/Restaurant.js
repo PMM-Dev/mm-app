@@ -19,8 +19,8 @@ import EmptyScreenCenterView from "../../components/EmptyScreenCenterView";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
 import * as ImagePicker from "expo-image-picker";
 import {Keyboard} from "react-native";
-import {TRASH} from "../../image";
-import { API_URL } from "@env";
+import {ADD_IMAGE_ICON, TRASH} from "../../image";
+import {API_URL} from "@env";
 
 const Restaurant = ({route, navigation}) => {
     const restaurantId = route.params.restaurantId;
@@ -135,8 +135,8 @@ const Restaurant = ({route, navigation}) => {
             "createdDate": createdDate,
             "description": writingReviewContent,
             "grade": writingReviewGrade,
-            "existImage" : existImage,
-            "local" : true,
+            "existImage": existImage,
+            "local": true,
         })
     }
     const requestPostingReview = async () => {
@@ -176,8 +176,7 @@ const Restaurant = ({route, navigation}) => {
         newformData.append('description', writingReviewContent);
         newformData.append('grade', writingReviewGrade);
 
-        if(selectImage !== null && notPostStepImageModify === true)
-        {
+        if (selectImage !== null && notPostStepImageModify === true) {
             const localUri = selectImage;
             const filename = localUri.split('/').pop();
 
@@ -187,14 +186,12 @@ const Restaurant = ({route, navigation}) => {
             const extendFileName = filename.replace(`${match[0]}`, `${extension}`);
 
             newformData.append('image', {uri: localUri, name: extendFileName, type});
-        }
-        else if(selectImage !== null && notPostStepImageModify === false)
-        {
+        } else if (selectImage !== null && notPostStepImageModify === false) {
             const {data, status} = await getRestaurantReviewImageFileName(myReview.id);
 
             const type = `image/${data.split('.').pop()}`;
 
-            newformData.append('image', { uri: selectImage, name: data, type });
+            newformData.append('image', {uri: selectImage, name: data, type});
         }
 
         const {data, status} = await updateMyReviewByRestaurantId(
@@ -329,30 +326,34 @@ const Restaurant = ({route, navigation}) => {
                                     iconSizeRatio={80}
                                 />
                             </TouchableStarMakerHolder>
-                            <AddPicture onPress={()=>{Keyboard.dismiss();
-                                openImagePickerAsync();
-                                if(isPostStep === false)
-                                    setNotPostStepImageModify(true);
-                            }}>
-                                <AddPictureText>+</AddPictureText>
-                            </AddPicture>
-                            {
-                                selectImage !== null ?
-                                    <ImageView onPress={()=>{Keyboard.dismiss();
-                                        openImagePickerAsync();
-                                    }}>
-                                        <AddedImage source={{uri: selectImage }}/>
-                                        <DelButton onPress={()=>{deleteImage()}}>
-                                            <DelButtonImage source={TRASH}></DelButtonImage>
-                                        </DelButton>
-                                    </ImageView> : <></>
-                            }
                             <ReviewTextInput
                                 value={writingReviewContent}
                                 onChangeText={(text) => setWritingReviewContent(text)}
                                 multiline={true}
                                 placeholder="리뷰 내용"
                             />
+                            <AddPicture onPress={() => {
+                                Keyboard.dismiss();
+                                openImagePickerAsync();
+                                if (isPostStep === false)
+                                    setNotPostStepImageModify(true);
+                            }}>
+                                <AddPictureIcon source={ADD_IMAGE_ICON} style={{tintColor: Theme.fontBlackGray}} />
+                            </AddPicture>
+                            {
+                                selectImage !== null ?
+                                    <ImageView onPress={() => {
+                                        Keyboard.dismiss();
+                                        openImagePickerAsync();
+                                    }}>
+                                        <AddedImage source={{uri: selectImage}}/>
+                                        <DelButton onPress={() => {
+                                            deleteImage()
+                                        }}>
+                                            <DelButtonImage source={TRASH} style={{tintColor: Theme.hlRed}} />
+                                        </DelButton>
+                                    </ImageView> : <></>
+                            }
                         </ReviewWritingPanel>
                     </RBSheet>
                     {/* Review Writing Panel */}
@@ -372,42 +373,43 @@ const Restaurant = ({route, navigation}) => {
 };
 
 const DelButton = styled.TouchableOpacity`
-  width :${constants.vh(3)}px;
-  height :${constants.vh(3)}px;
+  width: ${constants.vw(10)}px;
+  height: ${constants.vw(10)}px;
+  justify-content: center;
+  align-items: center;
 `
 
 const DelButtonImage = styled.Image`
-  resize-mode:contain;
-  width :${constants.vh(3)}px;
-  height :${constants.vh(3)}px;
-  position : absolute;
-  right : 0px;
+  width: 75%;
+  height: 75%;
 `
 
 const AddedImage = styled.Image`
-  width: ${constants.vh(30)}px;
-  height: ${constants.vh(15)}px;
+  width: ${constants.vw(70)}px;
+  height: ${constants.vw(70)}px;
   resize-mode: contain;
-  margin-top: ${constants.vh(1)}px;
+  margin-top: ${constants.vh(2)}px;
 `
 
 const ImageView = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
+  justify-content: space-around;
 `
 
-const AddPictureText = styled.Text`
-  ${(props) => props.theme.NanumSquareEBFont};
-  font-size: ${constants.vh(5)}px;
-  line-height: ${constants.vh(10)}px;
-  text-align: center;
+const AddPictureIcon = styled.Image`
+  width: 40%;
+  height: 40%;
 `
 
 const AddPicture = styled.TouchableOpacity`
-  width: ${constants.vw(30)}px;
-  height: ${constants.vh(10)}px;
-  border: 1px;
+  justify-content: center;
+  align-items: center;
+  width: ${constants.vw(20)}px;
+  height: ${constants.vw(20)}px;
+  border-radius: ${constants.vw(30)}px;
   margin-top: ${constants.vh(2)}px;
+  background-color: ${(props) => props.theme.backgroundGray};
 `
 
 
@@ -450,7 +452,7 @@ const TopButtonText = styled.Text`
 
 const ReviewTextInput = styled.TextInput`
   width: 100%;
-  height: 100%;
+  height: ${constants.vh(20)}px;
   text-align-vertical: top;
   font-size: ${constants.vh(1.75)}px;
   padding: 5% 5%;

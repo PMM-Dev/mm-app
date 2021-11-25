@@ -19,6 +19,7 @@ export const DOT_BT = require("./assets/CommonIcons/dot.png");
 export const IMG_ICON = require("./assets/CommonIcons/img.png");
 export const SEND = require("./assets/CommonIcons/send.png");
 export const WRITE_ICON = require("./assets/CommonIcons/write.png");
+export const ADD_IMAGE_ICON = require("./assets/CommonIcons/image-plus.png");
 
 export const REVIEW_ICON = require("./assets/CommonIcons/review.png");
 export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
