@@ -23,6 +23,7 @@ export const WRITE_ICON = require("./assets/CommonIcons/write.png");
 export const REVIEW_ICON = require("./assets/CommonIcons/review.png");
 export const FULLHEART = require("./assets/CommonIcons/heart_2.png");
 export const EMPTYHEART = require("./assets/CommonIcons/heart_1.png");
+export const FLAT_FULLSTAR = require("./assets/CommonIcons/flat_fullstar.png");
 export const FULLSTAR = require("./assets/CommonIcons/star_3.png");
 export const HALFSTAR = require("./assets/CommonIcons/star_2.png");
 export const EMPTYSTAR = require("./assets/CommonIcons/star_1.png");

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {FULLHEART, RESTAURANT_IMAGE, FULLSTAR} from "../../../image";
+import {FULLHEART, FULLSTAR} from "../../../image";
 import constants from "../../../constants";
 import {Converter} from "../../Converter";
 
@@ -16,39 +16,37 @@ const RestaurantCard = ({data, navigation}) => {
                 }
                 activeOpacity={1}
             >
-                <PictureView>
-                    <Picture source={RESTAURANT_IMAGE}/>
-                </PictureView>
-                <InfoView>
-                    <Title>{data.name}</Title>
+                    <InfoView>
+                        <TitleView>
+                            <Title>{data.name}</Title>
+                            <TagList>
+                                {data?.themes.map((list, index) => (
+                                    <Tag key={index}>
+                                        #{list.theme}
+                                    </Tag>
+                                ))
+                                }
+                            </TagList>
+                        </TitleView>
+                        <ContentList>
+                            <Content>{Converter(data.location)} · </Content>
+                            <Content>{Converter(data.type)} · </Content>
+                            <Content>{Converter(data.price)}</Content>
+                        </ContentList>
+                    </InfoView>
+                    <RestaurantNavigateText>
+                        더 자세히 보러가기 +
+                    </RestaurantNavigateText>
                     <GradeList>
                         <AverageGradeView>
                             <GradeIcon source={FULLSTAR} bottom={1}/>
-                            <GradeText>{data.averageGrade}</GradeText>
+                            <GradeText>{data.averageGrade === 0 ? "-" : data.averageGrade}</GradeText>
                         </AverageGradeView>
                         <LikeView>
                             <GradeIcon source={FULLHEART}/>
                             <GradeText>{data.likeCount}</GradeText>
                         </LikeView>
                     </GradeList>
-                    <ContentList>
-                        <Content>{Converter(data.location)} · </Content>
-                        <Content>{Converter(data.type)} · </Content>
-                        <Content>{Converter(data.price)}</Content>
-                    </ContentList>
-                    {data.themes && (
-                        <TagList>
-                            {data.themes.map((list, index) => (
-                                <Tag key={index}>
-                                    #{list.theme}
-                                </Tag>
-                            ))}
-                        </TagList>
-                    )}
-                    <RestaurantNavigateText>
-                        더 자세히 보러가기 +
-                    </RestaurantNavigateText>
-                </InfoView>
             </RestaurantNavigateButton>
         </Holder>
     );
@@ -64,8 +62,11 @@ const Holder = styled.View`
 const RestaurantNavigateButton = styled.TouchableOpacity`
   height: 100%;
   width: 100%;
-  flex-direction: row;
-  align-items: center;
+  justify-content: space-between;
+
+  padding-top: ${constants.vh(1.5)}px;
+  padding-bottom: ${constants.vh(1.2)}px;
+  padding-left: ${constants.vw(0.5)}px;;
 `;
 
 const TagList = styled.View`
@@ -74,38 +75,47 @@ const TagList = styled.View`
 
 const Tag = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
-  color: ${(props) => props.theme.hlRed};
-  font-size: ${constants.vh(1.6)}px
+  color: ${(props) => props.theme.fontBlue};
+  font-size: ${constants.vh(1.6)}px;
+  margin-right: ${constants.vw(2.3)}px;
 `;
 
 const RestaurantNavigateText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vh(1.4)}px;
   color: ${(props) => props.theme.fontBlackGray};
-  margin-top: 2%;
 `;
+
+const InfoView = styled.View``
+
+const TitleView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: ${constants.vh(1)}px;
+`
 
 const Title = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}
-  font-size: ${constants.vh(2)}px;
+  font-size: ${constants.vh(2.6)}px;
+  margin-right: ${constants.vw(3)}px;
 `;
 
-const Picture = styled.Image`
-  height: 100%;
-  width: 100%;
-  border-radius: ${constants.vh(1.3)}px;
-  resize-mode: cover;
+const ContentList = styled.View`
+  flex-direction: row;
+  align-items: center;
+`
+
+const Content = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vh(1.6)}px;
+  color: ${(props) => props.theme.fontBlackGray};
 `;
 
-const PictureView = styled.View`
-  height: ${constants.vh(11)}px;
-  width: ${constants.vh(11)}px;
-  margin-right: 3%;
-`;
-
-const InfoView = styled.View``;
 
 const GradeList = styled.View`
+  position: absolute;
+  bottom: ${constants.vh(0.5)}px;
+  right: 0px;
   flex-direction: row;
   margin-bottom: ${constants.vh(0.5)}px;
 `;
@@ -113,7 +123,7 @@ const GradeList = styled.View`
 const AverageGradeView = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-right: ${constants.vw(2.4)}px;
+  margin-right: ${constants.vw(3)}px;
 `;
 
 const LikeView = styled.View`
@@ -124,25 +134,14 @@ const LikeView = styled.View`
 const GradeIcon = styled.Image`
   width: ${constants.vh(1.6)}px;
   height: ${constants.vh(1.6)}px;
-  margin-right: ${constants.vw(0.6)}px;
+  margin-right: ${constants.vw(1)}px;
   padding-bottom: ${(props) => props.bottom ? props.bottom : 0}%;
 `;
 
 const GradeText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   font-size: ${constants.vh(1.6)}px;
-`;
-
-const ContentList = styled.View`
-  flex-direction: row;
-  align-items: center;
-`
-
-const Content = styled.Text`
-  ${(props) => props.theme.NanumSquareRFont}
-  font-size: ${constants.vh(1.75)}px;
-  color: ${(props) => props.theme.fontBlackGray};
-  margin-bottom: ${constants.vh(0.5)}px;
+  color: ${(props) => props.theme.fontBlack};
 `;
 
 export default RestaurantCard;

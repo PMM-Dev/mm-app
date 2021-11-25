@@ -13,6 +13,7 @@ import Theme from "./style/Theme";
 import {getMyMemberInfo} from "./components/Api/AppMemberApi";
 import {reissueJwtAccessToken} from "./components/Api/AuthApi";
 import ResponseStatusEnum from "./ResponseStatusEnum";
+import * as Apple from "expo-apple-authentication";
 
 enableScreens();
 export default function App() {
@@ -59,6 +60,7 @@ export default function App() {
             await AsyncStorage.setItem("@jwtAccessToken", "");
             await AsyncStorage.setItem("@jwtRefreshToken", "");
             await AsyncStorage.setItem("@jwtTokenExpiresIn", "");
+
             setIsLoggedIn(false);
         } finally {
             setIsAuthLoading(false);

@@ -35,6 +35,15 @@ export const Converter = (data) => {
 
 export const ThemeConverter = (data) => {
   switch (data) {
-
+    case "CAFE_STUDY":
+      return KoreanEnum.CAFE_STUDY;
+    case "EXAM_MEAL":
+      return KoreanEnum.EXAM_MEAL;
+    case "FLEX_COURSE":
+      return KoreanEnum.FLEX_COURSE;
+    case "WITH_PARENT":
+      return KoreanEnum.WITH_PARENT;
+    case "KOREAN_SOUP":
+      return KoreanEnum.KOREAN_SOUP;
   }
 };

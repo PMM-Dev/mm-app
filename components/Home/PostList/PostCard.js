@@ -50,7 +50,7 @@ const PostContentContent = styled.Text`
   margin-top: ${constants.vh(5)}px;
   width : 100%;
   background-color: ${(props) => props.theme.backgroundWhite};
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(3.3)}px;
 `;
 
@@ -85,12 +85,12 @@ const PostImage = styled.Image`
 `;
 
 const PostCardExplanationDate = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(2.5)}px;
 `;
 
 const PostCardExplanationText = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(2.5)}px;
   width : 80%;
 `;
@@ -101,7 +101,7 @@ const PostCardExplanation = styled.View`
 `;
 
 const PostCardTitle = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(4)}px;
 `;
 

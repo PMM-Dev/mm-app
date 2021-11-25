@@ -128,7 +128,7 @@ const InfoButton = styled.TouchableOpacity`
 `;
 
 const BigTitle = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(5)}px;
   font-weight: bold;
   color: ${(props) => props.theme.fontDeepBlack};

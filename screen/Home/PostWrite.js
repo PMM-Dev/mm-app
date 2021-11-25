@@ -185,7 +185,7 @@ const SendTextButton = styled.TouchableOpacity`
 `;
 
 const SendText = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(4)}px;
   margin-bottom: ${constants.vw(2)}px;
 `;
@@ -229,7 +229,7 @@ const ImageListView = styled.View`
 `
 
 const AddPictureText = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vh(5)}px;
   line-height: ${constants.vh(10)}px;
   text-align: center;

@@ -22,8 +22,8 @@ const Home = ({route, navigation}) => {
     const [refreshing, setRefreshing] = useState(false);
     const [posts, setPosts] = useState([]);
     const [randomTheme, setRandomTheme] = useState();
-    const [restuarantByTheme1, setRestuarantByTheme1] = useState();
-    const [restuarantByTheme2, setRestuarantByTheme2] = useState();
+    const [restaurantByTheme1, setRestuarantByTheme1] = useState();
+    const [restaurantByTheme2, setRestuarantByTheme2] = useState();
 
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
@@ -134,13 +134,12 @@ const Home = ({route, navigation}) => {
                     {
                         randomTheme !== undefined ?
                         <>
-                            <ThemePart title={ThemeConverter(randomTheme[0])} restaurant={restuarantByTheme1} navigation={navigation}/>
-                            <ThemePart title={ThemeConverter(randomTheme[1])} restaurant={restuarantByTheme2} navigation={navigation}/>
+                            <ThemePart title={randomTheme[0]} restaurant={restaurantByTheme1} navigation={navigation}/>
+                            <ThemePart title={randomTheme[1]} restaurant={restaurantByTheme2} navigation={navigation}/>
                         </> :
                             <></>
                     }
                     <PostPart route={route} navigation={navigation} posts={posts}/>
-                    <SmallBoardPart title={"공지사항"} />
                 </Wrapper>
             </Scroll>
         </Screen>

@@ -20,7 +20,6 @@ import {
 import KoreanEnum from "../../KoreanEnum";
 import NoContentAnnouncement from "../../components/NoContentAnnouncement";
 import RestaurantEnum from "../../RestaurantEnum";
-import { View } from "react-native";
 import RequestFailedAnnouncement from "../../components/RequestFailedAnnouncement";
 
 const RestaurantList = ({route, navigation}) => {
