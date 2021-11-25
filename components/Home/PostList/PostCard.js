@@ -22,12 +22,12 @@ const PostCard = ({data}) => {
                     <PostCardExplanationDate>{data.createDate}</PostCardExplanationDate>
                 </PostCardExplanation>
                 <PostContentContent>{data.content}</PostContentContent>
+                <ImageWrapper>
+                    {[...Array(data.imagesCount)].map((num, key) =>
+                        <PostImage source={{uri : `${API_URL}/image/post/${data.id}/${key}`}} key = {key}/>
+                    )}
+                </ImageWrapper>
             </PostContent>
-            <ImageWrapper>
-                {[...Array(data.imagesCount)].map((num, key) =>
-                    <PostImage source={{uri : `${API_URL}/image/post/${data.id}/${key}`}} key = {key}/>
-                )}
-            </ImageWrapper>
             <ButtonList>
                 {/*<ShareButton>
                     <ShareButtonImage source = {SHARE_BT}/>
@@ -47,19 +47,18 @@ const PostCard = ({data}) => {
 };
 
 const PostContentContent = styled.Text`
-  margin-top: ${constants.vh(5)}px;
+  ${(props) => props.theme.NanumSquareRFont};
   width : 100%;
+  margin-top: ${constants.vh(3)}px;
   background-color: ${(props) => props.theme.backgroundWhite};
-  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(3.3)}px;
 `;
 
 const ButtonList = styled.View`
   flex-direction: row;
   background-color: ${(props) => props.theme.backgroundWhite};
-  padding-top: ${constants.vh(3)}px;
-  margin-bottom : ${constants.vh(2)}px;
-  margin-left : 45%;
+  margin : ${constants.vh(0.7)}px 0px;
+  margin-left : ${constants.vw(1)}px;
 `;
 
 const ShareButton = styled.TouchableOpacity`
@@ -73,30 +72,33 @@ const ShareButtonImage = styled.Image`
 
 
 const ImageWrapper = styled.View`
-  padding-top: ${constants.vh(2)}px;
+  width: 100%;
+  align-items: center;
+  margin-top: ${constants.vh(2)}px;
 `;
 
 
 const PostImage = styled.Image`
-  width: ${constants.vw(50)}px;
-  height: ${constants.vw(50)}px;
-  margin-top:${constants.vh(1)}px ;
+  width: ${constants.vw(95)}px;
+  height: ${constants.vw(95)}px;
   resize-mode : contain;
 `;
 
 const PostCardExplanationDate = styled.Text`
-  ${(props) => props.theme.NanumSquareEBFont};
+  ${(props) => props.theme.NanumSquareRFont};
   font-size: ${constants.vw(2.5)}px;
+  color: ${(props) => props.theme.fontBlackGray};
 `;
 
 const PostCardExplanationText = styled.Text`
-  ${(props) => props.theme.NanumSquareEBFont};
+  ${(props) => props.theme.NanumSquareRFont};
   font-size: ${constants.vw(2.5)}px;
-  width : 80%;
 `;
 
 const PostCardExplanation = styled.View`
+  width: 100%;
   flex-direction: row;
+  justify-content: space-between;
   margin-top: ${constants.vh(1)}px;
 `;
 
@@ -107,17 +109,16 @@ const PostCardTitle = styled.Text`
 
 const PostContent = styled.View`
   margin-top: ${constants.vh(1)}px; 
-  width : 90%;
+  width : 100%;
   justify-content: center;
   background-color: ${(props) => props.theme.backgroundWhite};
+  padding: 0px ${constants.vh(1.5)}px;;
 `
 
 const PostCardView = styled.View`
   width : 100%;
-  margin-top: ${constants.vh(1)}px; 
   justify-content: center;
   background-color: ${(props) => props.theme.backgroundWhite};
-  padding-left : 5%;
 `;
 
 const PostCardImageAndTitle = styled.View`

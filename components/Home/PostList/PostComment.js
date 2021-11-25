@@ -7,7 +7,7 @@ import constants from "../../../constants";
 import {useProfile} from "../../AuthContext";
 import {deletePostComment} from "../../Api/AppPostApi";
 
-const PostComment = ({data,setComment,comment, commentNum, setCommentNum}) => {
+const PostComment = ({data, setComment, comment, commentNum, setCommentNum}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
     const deleteMyComment = async () => {
         const result = await deletePostComment(data.id);
@@ -18,7 +18,7 @@ const PostComment = ({data,setComment,comment, commentNum, setCommentNum}) => {
             setCommentNum((prev) => prev - 1);
         }
         const num = comment.findIndex(element => element.id === data.id)
-        const newComment = comment.slice(0, num).concat(comment.slice(num+1, comment.length))
+        const newComment = comment.slice(0, num).concat(comment.slice(num + 1, comment.length))
         setComment(newComment);
     }
     return (
@@ -44,7 +44,9 @@ const PostComment = ({data,setComment,comment, commentNum, setCommentNum}) => {
                     </TextInfoView>
                     {
                         data.authorEmail === myEmail ? <CommentButtons>
-                            <DeleteButton onPress={()=>{deleteMyComment()}}>
+                            <DeleteButton onPress={() => {
+                                deleteMyComment()
+                            }}>
                                 <DeleteButtonText>삭제</DeleteButtonText>
                             </DeleteButton>
                         </CommentButtons> : <></>
@@ -52,7 +54,7 @@ const PostComment = ({data,setComment,comment, commentNum, setCommentNum}) => {
                 </RightInfoView>
             </InfoView>
             <ContentText>{data.content}</ContentText>
-            <DateText>{data.date}</DateText>
+            <DateText>{data.createdDate}</DateText>
         </ SingleComment>
     );
 };
@@ -60,12 +62,12 @@ const PostComment = ({data,setComment,comment, commentNum, setCommentNum}) => {
 
 const InfoView = styled.View`
   width: 100%;
+  align-items: center;
   flex-direction: row;
-  margin-bottom: 3%;
+  margin-bottom: ${constants.vw(2)}px;;
 `;
 
 const RightInfoView = styled.View`
-  margin-left: 2.2%;
   flex-direction: row;
   align-items: center;
   width: ${constants.vw(80)}px;
@@ -77,20 +79,20 @@ const TextInfoView = styled.View`
 
 const CommentButtons = styled.View`
   position: absolute;
-  right : 0%;
+  right: 0%;
   flex-direction: row;
 `;
 
 const ModifyButton = styled.TouchableOpacity`
-  border : 1px;
-  border-color : ${(props) => props.theme.backgroundDarkerGray};
+  border: 1px;
+  border-color: ${(props) => props.theme.backgroundDarkerGray};
   width: ${constants.vw(12)}px;
   height: ${constants.vh(3)}px;
 `;
 
 const DeleteButton = styled.TouchableOpacity`
-  border : 1px;
-  border-color : ${(props) => props.theme.backgroundDarkerGray};
+  border: 1px;
+  border-color: ${(props) => props.theme.backgroundDarkerGray};
   width: ${constants.vw(12)}px;
   height: ${constants.vh(3)}px;
 `;
@@ -100,7 +102,7 @@ const ModifyButtonText = styled.Text`
   color: ${(props) => props.theme.fontBlack};
   font-size: ${constants.vw(3.5)}px;
   text-align: center;
-  line-height : ${constants.vh(3)}px;
+  line-height: ${constants.vh(3)}px;
 `;
 
 const DeleteButtonText = styled.Text`
@@ -108,32 +110,30 @@ const DeleteButtonText = styled.Text`
   color: ${(props) => props.theme.fontBlack};
   font-size: ${constants.vw(3.5)}px;
   text-align: center;
-  line-height : ${constants.vh(3)}px;
+  line-height: ${constants.vh(3)}px;
 `;
 
 const AuthorNameButton = styled.TouchableOpacity`
-  margin-right: 4%;
 `;
 
 const AuthorNameText = styled.Text`
-  ${(props) => props.theme.NanumSquareBFont}
+  ${(props) => props.theme.NanumSquareEBFont}
   color: ${(props) => props.theme.fontBlack};
-  font-size: ${constants.vw(3.5)}px;
-  height: ${constants.vw(4)}px;
-  line-height : ${constants.vw(4)}px;
+  font-size: ${constants.vw(4)}px;
 `;
 
 const DateText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
-  color: ${(props) => props.theme.fontBlack};
+  color: ${(props) => props.theme.fontBlackGray};
   font-size: ${constants.vw(2.5)}px;
-  margin-top : ${constants.vh(2)}px;
+  margin-top: ${constants.vh(2)}px;
 `
 
 const Portrait = styled.View`
   height: ${constants.vw(10)}px;
   width: ${constants.vw(10)}px;
   border-radius: 1000px;
+  margin-right: ${constants.vw(1)}px;;
 `;
 
 const PortraitImage = styled.Image`
@@ -152,7 +152,7 @@ const ContentText = styled.Text`
 
 
 const SingleComment = styled.View`
-  margin-top : ${constants.vh(2)}px;
+  margin-top: ${constants.vh(2)}px;
 `;
 
 export default PostComment;

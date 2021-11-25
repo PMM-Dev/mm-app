@@ -46,8 +46,8 @@ const Review = ({mine, review, selectImage}) => {
 };
 
 const ReviewImage = styled.Image`
-  width: ${constants.vw(25)}px;
-  height: ${constants.vw(25)}px;
+  width: ${constants.vw(84)}px;
+  height: ${constants.vw(84)}px;
   margin-top:${constants.vh(1)}px ;
   resize-mode : contain;
 `;

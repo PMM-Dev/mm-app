@@ -21,7 +21,7 @@ const Header = ({
   onPressRightButton,
   isLikeButtonPressed,
   setLikeNum,
-  openOptionPanel,
+  openOption,
 }) => {
   const [menuComponent, setMenuComponent] = useState();
 
@@ -59,7 +59,7 @@ const Header = ({
     } else if (routeName === "PostList") {
       setMenuComponent(<PostListHeaderMenu navigation={navigation} />);
     }else if (routeName === "Post") {
-      setMenuComponent(<PostHeaderMenu openOptionPanel = {openOptionPanel} navigation={navigation} />);
+      setMenuComponent(<PostHeaderMenu openOption = {openOption} navigation={navigation} />);
     }else if (routeName === "PostWrite") {
       setMenuComponent(<PostWriteHeaderMenu navigation={navigation}/>);
     }
