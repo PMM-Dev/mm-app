@@ -10,7 +10,6 @@ import { Image } from "react-native";
 import {TRASH} from "../../image";
 import {postPost, putPost} from "../../components/Api/AppPostApi";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
-import { API_URL } from "@env";
 
 const PostWrite = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
@@ -28,9 +27,9 @@ const PostWrite = ({route, navigation}) => {
             setWritingReviewContent(toModifyData.content);
             setWritingReviewContentTitle(toModifyData.title);
             let beforeImageList = [];
-            [...Array(toModifyData.imagesCount)].map((num, key) =>
+            /*[...Array(toModifyData.imagesCount)].map((num, key) =>
                 {beforeImageList.push(`${API_URL}/image/post/${toModifyData.id}/${key}`)}
-            );
+            );*/
             setImageList(beforeImageList);
         }
     }, []);
@@ -60,22 +59,39 @@ const PostWrite = ({route, navigation}) => {
         setImageList(newImageList);
     };
 
-    //console.log(writingReviewContentTitle);
+    const getExtention = (mime) => {
+        switch (mime) {
+            case 'application/pdf':
+                return '.pdf';
+            case 'image/jpeg':
+                return '.jpg';
+            case 'image/jpg':
+                return '.jpg';
+            case 'image/png':
+                return '.png';
+            default:
+                return '.jpg';
+        }
+    };
+
     const writePost = () => {
         const newformData = new FormData();
         newformData.append('title', writingReviewContentTitle);
         newformData.append('content',writingReviewContent );
 
-
         if (ImageList.length !== 0)
         {
             ImageList.map((element)=>{
+
                 const localUri = element;
                 const filename = localUri.split('/').pop();
 
                 const match = /\.(\w+)$/.exec(filename);
                 const type = match ? `image/${match[1]}` : `image`;
-                newformData.append('images', { uri: localUri, name: filename, type });
+                const extension = getExtention(type);
+                const extendFileName = filename.replace(`${match[0]}`,`${extension}`);
+
+                newformData.append('images', { uri: localUri, name: extendFileName, type });
             })
         }
 

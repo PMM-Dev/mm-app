@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useCallback} from "react";
 import {useProfile} from "../../components/AuthContext";
 import styled from "styled-components";
 import {ActivityIndicator} from "react-native-paper";
@@ -13,7 +13,17 @@ import {TMP,SEND} from "../../image"
 import PostCard from "../../components/Home/PostList/PostCard"
 import PostComment from "../../components/Home/PostList/PostComment"
 import {Keyboard} from "react-native";
-import {deletePost, getPostById, getPostComment, getpostComment} from "../../components/Api/AppPostApi";
+import {
+    deletePost,
+    getPostById,
+    getPostComment,
+    getpostComment,
+    getPostPreview,
+    postReport
+} from "../../components/Api/AppPostApi";
+import {getLatestNotice} from "../../components/Api/AppNotice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getLatestFeedbackPreview, postFeedback} from "../../components/Api/AppFeedbackApi";
 
 const Post = ({route, navigation}) => {
     const {name: myName, picture: myPicture, email: myEmail} = useProfile();
@@ -23,10 +33,28 @@ const Post = ({route, navigation}) => {
     const [writingReviewContent, setWritingReviewContent] = useState("");
     const [comment, setComment] = useState();
     const [commentNum, setCommentNum] = useState();
+    const [refreshing, setRefreshing] = useState(false);
 
-    //console.log(data);
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
 
-    useEffect(() => {
+    const makeReport = async() => {
+        const {data, status} = await postReport(postId);
+        if (status >= ResponseStatusEnum.BAD_REQUEST) {
+            alert("신고에 실패했습니다.");
+            return;
+        }
+        alert("신고에 되었습니다.");
+        return;
+    }
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        wait(200).then(() => setRefreshing(false));
+    }, []);
+
+    const postRequest = () => {
         async function requestPostById(postId) {
             const {data, status} = await getPostById(postId);
             setData(data);
@@ -38,7 +66,15 @@ const Post = ({route, navigation}) => {
         }
         requestPostById(postId);
         requestPostCommentById(postId);
+    }
+
+    useEffect(() => {
+        postRequest();
     }, []);
+
+    useEffect(()=>{
+        postRequest();
+    },[refreshing])
 
     const postComment = async () => {
         const {data, status} = await getpostComment(writingReviewContent,postId);
@@ -93,6 +129,12 @@ const Post = ({route, navigation}) => {
                     <Scroll
                         alwaysBounceVertical={false}
                         scrollEventThrottle={16}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
                     >
                         <Wrapper>
                             <PostCard data={data} />
@@ -134,7 +176,10 @@ const Post = ({route, navigation}) => {
                         <OptionPanel>
                             <Buttons>
                                 {data.authorName === myName ? <Button>
-                                    <ButtonText onPress={()=>{navigation.navigate("PostWrite",{isModify : true, data : data})}}>수 정 하 기</ButtonText>
+                                    <ButtonText onPress={()=>{
+                                        closeOptionPanel();
+                                        navigation.navigate("PostWrite",{isModify : true, data : data})}
+                                    }>수 정 하 기</ButtonText>
                                 </Button> : <></>
                                 }
                                 {data.authorName === myName ?
@@ -144,7 +189,10 @@ const Post = ({route, navigation}) => {
                                         <ButtonText>삭 제 하 기</ButtonText>
                                     </Button> : <></>
                                 }
-                                <Button>
+                                <Button onPress={()=>{
+                                    makeReport();
+                                    closeOptionPanel();
+                                }}>
                                     <ButtonText last >신 고 하 기</ButtonText>
                                 </Button>
                             </Buttons>
@@ -163,6 +211,8 @@ const Post = ({route, navigation}) => {
         </Screen>
     );
 };
+
+const RefreshControl = styled.RefreshControl``;
 
 const ButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareBFont}

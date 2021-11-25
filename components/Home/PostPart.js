@@ -8,20 +8,7 @@ import ResponseStatusEnum from "../../ResponseStatusEnum";
 import PostListCard from "./PostList/PostListCard";
 
 
-const PostPart = ({navigation, route}) => {
-    const [posts, setPosts] = useState([]);
-    useEffect(() => {
-        async function requestPosts() {
-            const {data, status} = await getPostPreview();
-            if (status >= ResponseStatusEnum.BAD_REQUEST) {
-                return;
-            } else {
-                setPosts(data);
-            }
-
-        }
-        requestPosts();
-    }, [])
+const PostPart = ({navigation, route, posts}) => {
   return (
     <HomePart>
       <Header>
