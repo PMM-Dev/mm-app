@@ -35,7 +35,7 @@ const Review = ({mine, review, selectImage}) => {
             <ContentText>{review.description}</ContentText>
             {
                 review.existImage === true ?
-                    review.id === -1 ? <ReviewImage source={{uri : selectImage}}/>
+                    review.local === true ? <ReviewImage source={{uri : selectImage}}/>
                         : <ReviewImage source={{uri : `${API_URL}/image/restaurant/review/${review.id}`}}/>
                     :
                 <></>
