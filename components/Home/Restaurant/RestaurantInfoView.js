@@ -219,7 +219,7 @@ const GradeIcon = styled.Image`
 
 const GradeText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
-  font-size: ${constants.vh(3.5)}px;;
+  font-size: ${constants.vh(3.5)}px;
   color: ${(props) => props.theme.hlOrange};
 `
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { ActivityIndicator } from "react-native-paper";
 import Theme from "../../style/Theme";
@@ -14,32 +14,34 @@ import ResponseStatusEnum from "../../ResponseStatusEnum";
 import {getPost} from "../../components/Api/AppPostApi";
 import Feedback from "../../components/Home/Restaurant/Feedback";
 
-const Dummy = [
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26", image: "asdf"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "[전대 후문]김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-    {Title : "김해뒷고기 후기", ID : "asdf", visitNum: 30, recommendNum : 2, date : "10.26"},
-];
-
 const RestaurantList = ({route, navigation}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
     const [isError, setIsError] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
 
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        wait(200).then(() => setRefreshing(false));
+    }, []);
+
+    useEffect(()=>{
+        async function requestPosts() {
+            const {data, status} = await getPost();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                setIsError(true);
+            } else {
+                setPosts(data);
+            }
+
+            setIsLoading(false);
+        }
+        requestPosts();
+    },[refreshing])
 
     useEffect(() => {
         async function requestPosts() {
@@ -64,7 +66,14 @@ const RestaurantList = ({route, navigation}) => {
                     navigation={navigation}
                     title={"자유게시판"}
                 />
-                <PostScroll>
+                <PostScroll
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }
+                >
                     {isLoading ? (
                         <EmptyContentCenterView>
                             <ActivityIndicator
@@ -79,7 +88,7 @@ const RestaurantList = ({route, navigation}) => {
                         <NoContentAnnouncement/>
                     ) : (
                         <PostList>
-                            {posts.map((element, key) => (
+                            {posts.slice(0).reverse().map((element, key) => (
                                 <PostListCard data = {element} key={key} route={route} navigation={navigation} ></PostListCard>
                             ))}</PostList>
                     )))}
@@ -89,6 +98,7 @@ const RestaurantList = ({route, navigation}) => {
     );
 };
 
+const RefreshControl = styled.RefreshControl``;
 
 const PostList = styled.View`
   width: 100%;

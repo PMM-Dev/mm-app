@@ -26,4 +26,12 @@ const location = {
   COMMERCEGATE: "상대"
 };
 
-export default { ...Type, ...Genre, ...Price, ...location };
+const theme = {
+  CAFE_STUDY: "🧑‍💻 카페에서 공부할 땐?",
+  EXAM_MEAL: "✍️ 시험기간에는 싸고 빠르게!",
+  FLEX_COURSE: "🤑 오늘은 FLEX 해볼까?",
+  WITH_PARENT: "🚙 친구나 부모님이 놀러왔을 땐?",
+  KOREAN_SOUP: "🍲 예! 그 돈이면 뜨근한 국밥이 몇 그릇인지 아니?"
+}
+
+export default { ...Type, ...Genre, ...Price, ...location, ...theme };

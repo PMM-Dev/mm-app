@@ -45,12 +45,28 @@ const Restaurant = ({route, navigation}) => {
         getRestaurantData();
     }, []);
 
+
     useEffect(() => {
         if (data) {
             setLikeNum(data.likeCount);
             setReviewNum(data.reviewCount);
         }
     }, [data]);
+
+    const getExtention = (mime) => {
+        switch (mime) {
+            case 'application/pdf':
+                return '.pdf';
+            case 'image/jpeg':
+                return '.jpg';
+            case 'image/jpg':
+                return '.jpg';
+            case 'image/png':
+                return '.png';
+            default:
+                return '.jpg';
+        }
+    };
 
     const handleScrollState = (event) => {
         if (event.nativeEvent.contentOffset.y > 1) {
@@ -71,7 +87,7 @@ const Restaurant = ({route, navigation}) => {
     const openPanelToPostReview = () => {
         openReviewWritingPanel();
         setIsPostStep(true);
-
+        setSelectImage(null);
         setWritingReviewGrade(0);
         setWritingReviewContent("");
     }
@@ -79,7 +95,7 @@ const Restaurant = ({route, navigation}) => {
     const openPanelToModifyReview = () => {
         openReviewWritingPanel();
         setIsPostStep(false);
-
+        setSelectImage(null);
         setWritingReviewGrade(myReview.grade);
         setWritingReviewContent(myReview.description);
     }
@@ -107,22 +123,41 @@ const Restaurant = ({route, navigation}) => {
         const hours = date.getHours();
         const minutes = date.getMinutes();
         const createdDate = `${year}-${month >= 10 ? month : '0' + month}-${day >= 10 ? day : '0' + day} ${hours >= 10 ? hours : '0' + hours}:${minutes >= 10 ? minutes : '0' + minutes}`;
+        const existImage = selectImage !== null
         setMyReview({
             "authorName": myName,
             "authorEmail": myEmail,
             "authorPicture": myPicture,
             "createdDate": createdDate,
             "description": writingReviewContent,
-            "grade": writingReviewGrade
+            "grade": writingReviewGrade,
+            "existImage": existImage,
+            "id": -1,
         })
     }
-
     const requestPostingReview = async () => {
+
+        const newformData = new FormData();
+        newformData.append('description', writingReviewContent);
+        newformData.append('grade', writingReviewGrade);
+
+        if (selectImage !== null) {
+            const localUri = selectImage;
+            const filename = localUri.split('/').pop();
+
+            const match = /\.(\w+)$/.exec(filename);
+            const type = match ? `image/${match[1]}` : `image`;
+            const extension = getExtention(type);
+            const extendFileName = filename.replace(`${match[0]}`, `${extension}`);
+
+            newformData.append('image', {uri: localUri, name: extendFileName, type});
+        }
+
+
         const {data, status} = await uploadMyReviewByRestaurantId(
-            writingReviewContent,
-            writingReviewGrade,
-            restaurantId
+            newformData, restaurantId
         );
+
         if (status === ResponseStatusEnum.NO_DATA) {
             alert("리뷰 작성에 실패했습니다.");
             return false;
@@ -133,13 +168,28 @@ const Restaurant = ({route, navigation}) => {
     };
 
     const requestUpdateReview = async () => {
+        const newformData = new FormData();
+        newformData.append('description', writingReviewContent);
+        newformData.append('grade', writingReviewGrade);
+
+        if (selectImage !== null) {
+            const localUri = selectImage;
+            const filename = localUri.split('/').pop();
+
+            const match = /\.(\w+)$/.exec(filename);
+            const type = match ? `image/${match[1]}` : `image`;
+            const extension = getExtention(type);
+            const extendFileName = filename.replace(`${match[0]}`, `${extension}`);
+
+            newformData.append('image', {uri: localUri, name: extendFileName, type});
+        }
+
         const {data, status} = await updateMyReviewByRestaurantId(
-            writingReviewContent,
-            writingReviewGrade,
-            restaurantId
+            newformData, restaurantId
         );
-        if (status >= ResponseStatusEnum.BAD_REQUEST) {
-            alert("리뷰 업데이트에 실패했습니다.");
+
+        if (status === ResponseStatusEnum.NO_DATA) {
+            alert("리뷰 작성에 실패했습니다.");
             return false;
         }
 
@@ -181,7 +231,7 @@ const Restaurant = ({route, navigation}) => {
             return;
         }
 
-        let pickerResult = await ImagePicker.launchImageLibraryAsync({allowsEditing: true, quality : 1,});
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({allowsEditing: true, quality: 1,});
 
         if (pickerResult.cancelled === true) {
             return;
@@ -190,20 +240,6 @@ const Restaurant = ({route, navigation}) => {
         setSelectImage(pickerResult.uri);
     };
 
-    // const [firstImage, setFirstImage] = useState(null);
-    // const [secondImage, setSecondImage] = useState(null);
-    // const pickImage = async () => {
-    //     let result = await ImagePicker.launchImageLibraryAsync({
-    //         allowsEditing: true,
-    //         aspect: [4, 3],
-    //         quality: 1,
-    //     });
-    //
-    //     if (!result.cancelled) {
-    //         setSecondImage(firstImage);
-    //         setFirstImage(result.uri);
-    //     }
-    // };
 
     return (
         <Screen>
@@ -239,6 +275,7 @@ const Restaurant = ({route, navigation}) => {
                                 openPanelToWriteReview={openPanelToPostReview}
                                 openPanelToModifyReview={openPanelToModifyReview}
                                 deleteMyReview={deleteMyReview}
+                                selectImage={selectImage}
                             />
                         </Wrapper>
                     </Scroll>
@@ -247,7 +284,12 @@ const Restaurant = ({route, navigation}) => {
                     {/* Review Writing Panel */}
                     <RBSheet
                         ref={reviewWritingPanelRef}
-                        customStyles={{container: {borderRadius: constants.vw(3), height: constants.isIos() ? constants.vh(90) : constants.vh(85)}}}
+                        customStyles={{
+                            container: {
+                                borderRadius: constants.vw(3),
+                                height: constants.isIos() ? constants.vh(90) : constants.vh(85)
+                            }
+                        }}
                         keyboardAvoidingViewEnabled={false}
                     >
                         <ReviewWritingPanel>
@@ -256,8 +298,10 @@ const Restaurant = ({route, navigation}) => {
                                     <TopButtonText>취소</TopButtonText>
                                 </TopButton>
                                 <PanelTitle>리뷰 작성하기</PanelTitle>
-                                <TopButton onPress={postReview} disabled={writingReviewGrade === 0 || writingReviewContent === ""}>
-                                    <TopButtonText disabled={writingReviewGrade === 0 || writingReviewContent === ""}>보내기</TopButtonText>
+                                <TopButton onPress={postReview}
+                                           disabled={writingReviewGrade === 0 || writingReviewContent === ""}>
+                                    <TopButtonText
+                                        disabled={writingReviewGrade === 0 || writingReviewContent === ""}>보내기</TopButtonText>
                                 </TopButton>
                             </TopMenusHolder>
                             <TouchableStarMakerHolder>
@@ -270,15 +314,17 @@ const Restaurant = ({route, navigation}) => {
                             </TouchableStarMakerHolder>
                             {
                                 selectImage === null ?
-                                    <AddPicture onPress={()=>{Keyboard.dismiss();
+                                    <AddPicture onPress={() => {
+                                        Keyboard.dismiss();
                                         openImagePickerAsync();
                                     }}>
                                         <AddPictureText>+</AddPictureText>
                                     </AddPicture> :
-                                    <ImageView onPress={()=>{Keyboard.dismiss();
+                                    <ImageView onPress={() => {
+                                        Keyboard.dismiss();
                                         openImagePickerAsync();
                                     }}>
-                                        <AddedImage source={{uri: selectImage }}/>
+                                        <AddedImage source={{uri: selectImage}}/>
                                     </ImageView>
                             }
                             <ReviewTextInput
@@ -335,10 +381,10 @@ const Restaurant = ({route, navigation}) => {
 
 
 const AddedImage = styled.Image`
-  width :${constants.vh(30)}px;
-  height :${constants.vh(15)}px;
-  resize-mode : contain;
-  margin-top : ${constants.vh(1)}px;
+  width: ${constants.vh(30)}px;
+  height: ${constants.vh(15)}px;
+  resize-mode: contain;
+  margin-top: ${constants.vh(1)}px;
 `
 
 const ImageView = styled.TouchableOpacity`
@@ -347,17 +393,17 @@ const ImageView = styled.TouchableOpacity`
 `
 
 const AddPictureText = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vh(5)}px;
   line-height: ${constants.vh(10)}px;
   text-align: center;
 `
 
 const AddPicture = styled.TouchableOpacity`
-  width :${constants.vw(30)}px;
-  height :${constants.vh(10)}px;
-  border : 1px;
-  margin-top : ${constants.vh(2)}px;
+  width: ${constants.vw(30)}px;
+  height: ${constants.vh(10)}px;
+  border: 1px;
+  margin-top: ${constants.vh(2)}px;
 `
 
 

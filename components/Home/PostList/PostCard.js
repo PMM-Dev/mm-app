@@ -5,8 +5,9 @@ import constants from "../../../constants";
 import {appendLikePost, subtractLikePost} from "../../Api/AppPostApi";
 import LikeButton from "../LikeButton";
 import {useState} from "react";
+import { API_URL } from "@env";
 
-const PostCard = ({data, image}) => {
+const PostCard = ({data}) => {
     const [likeNum,setLikeNum] = useState(data.likeCount)
     return (
         <PostCardView>
@@ -23,9 +24,10 @@ const PostCard = ({data, image}) => {
                 <PostContentContent>{data.content}</PostContentContent>
             </PostContent>
             <ImageWrapper>
-                {image.map((element, key) => (
-                    <PostImage source={element} key = {key}/>
-                ))}</ImageWrapper>
+                {[...Array(data.imagesCount)].map((num, key) =>
+                    <PostImage source={{uri : `${API_URL}/image/post/${data.id}/${key}`}} key = {key}/>
+                )}
+            </ImageWrapper>
             <ButtonList>
                 {/*<ShareButton>
                     <ShareButtonImage source = {SHARE_BT}/>
@@ -48,7 +50,7 @@ const PostContentContent = styled.Text`
   margin-top: ${constants.vh(5)}px;
   width : 100%;
   background-color: ${(props) => props.theme.backgroundWhite};
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(3.3)}px;
 `;
 
@@ -79,15 +81,16 @@ const PostImage = styled.Image`
   width: ${constants.vw(50)}px;
   height: ${constants.vw(50)}px;
   margin-top:${constants.vh(1)}px ;
+  resize-mode : contain;
 `;
 
 const PostCardExplanationDate = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(2.5)}px;
 `;
 
 const PostCardExplanationText = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(2.5)}px;
   width : 80%;
 `;
@@ -98,7 +101,7 @@ const PostCardExplanation = styled.View`
 `;
 
 const PostCardTitle = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(4)}px;
 `;
 

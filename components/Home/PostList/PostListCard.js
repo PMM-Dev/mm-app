@@ -54,12 +54,13 @@ const CardImage = styled.Image`
 `;
 
 const CardExplanationDate = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(2.5)}px;
+  color: ${(props) => props.theme.fontBlackGray};
 `;
 
 const CardExplanationText = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(2.5)}px;
   width : 70%;
 `;
@@ -70,7 +71,7 @@ const CardExplanation = styled.View`
 `;
 
 const CardTitle = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont};
+  ${(props) => props.theme.NanumSquareEBFont};
   font-size: ${constants.vw(4)}px;
 `;
 

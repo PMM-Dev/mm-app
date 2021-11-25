@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import styled from "styled-components";
 import RestaurantTypeButtonsTable from "../../components/Home/RestaurantTypeButtonsTable";
 import Header from "../../components/Header/Header";
@@ -11,14 +11,30 @@ import {getLatestFeedbackPreview} from "../../components/Api/AppFeedbackApi";
 import {getLatestNotice} from "../../components/Api/AppNotice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
-
+import {getPostPreview} from "../../components/Api/AppPostApi";
+import {getRandomTheme, getRestaurantByTheme} from "../../components/Api/AppRestaurantApi";
+import {ThemeConverter} from "../../components/Converter";
 const PREVENTING_IOS_BOUNCE_VIEW_HEIGHT = 3000;
 
 const Home = ({route, navigation}) => {
 
     const [reportPreview, setReportPreview] = useState();
+    const [refreshing, setRefreshing] = useState(false);
+    const [posts, setPosts] = useState([]);
+    const [randomTheme, setRandomTheme] = useState();
+    const [restaurantByTheme1, setRestuarantByTheme1] = useState();
+    const [restaurantByTheme2, setRestuarantByTheme2] = useState();
 
-    useEffect(() => {
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        wait(300).then(() => setRefreshing(false));
+    }, []);
+
+    const homeRequest = () => {
         async function requestLatestNotice () {
             const {data, status} = await getLatestNotice();
 
@@ -47,8 +63,49 @@ const Home = ({route, navigation}) => {
             setReportPreview(data);
         }
 
+        async function requestPosts() {
+            const {data, status} = await getPostPreview();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            } else {
+                setPosts(data);
+            }
+        }
+
+        async function requestRandomTheme() {
+            const {data, status} = await getRandomTheme();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            } else {
+                setRandomTheme(data);
+                requestRestaurantByTheme(data[0], 0);
+                requestRestaurantByTheme(data[1], 1);
+            }
+        }
+        async function requestRestaurantByTheme(theme, id) {
+            const {data, status} = await getRestaurantByTheme(theme);
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            }
+
+            if(id == 0)
+                setRestuarantByTheme1(data);
+            else if(id == 1)
+                setRestuarantByTheme2(data);
+        }
+        requestPosts();
         requestLatestNotice();
         requestFeedbackPreview();
+        requestRandomTheme();
+    }
+
+    useEffect(()=>{
+        if(refreshing === true)
+            homeRequest();
+    },[refreshing])
+
+    useEffect(() => {
+        homeRequest();
     }, [])
 
     return (
@@ -62,15 +119,27 @@ const Home = ({route, navigation}) => {
                 contentContainerStyle={{backgroundColor: Theme.backgroundWhite}}
                 contentInset={{top: -PREVENTING_IOS_BOUNCE_VIEW_HEIGHT}}
                 contentOffset={{y: PREVENTING_IOS_BOUNCE_VIEW_HEIGHT}}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
             >
                 {constants.isIos() && <PreventingIosBounceView/>}
                 <Wrapper>
                     <Header route={route} navigation={navigation}/>
                     <RestaurantTypeButtonsTable navigation={navigation}/>
                     <SmallBoardPart title={"피드백"} preview={reportPreview} navigate={() => navigation.navigate("FeedbackList")}/>
-                    <ThemePart title={"카공하기 좋은 카페는?"}/>
-                    <ThemePart title={"시험 기간에는 싸고 빠르게"}/>
-                    <PostPart route={route} navigation={navigation} />
+                    {
+                        randomTheme !== undefined ?
+                        <>
+                            <ThemePart title={randomTheme[0]} restaurant={restaurantByTheme1} navigation={navigation}/>
+                            <ThemePart title={randomTheme[1]} restaurant={restaurantByTheme2} navigation={navigation}/>
+                        </> :
+                            <></>
+                    }
+                    <PostPart route={route} navigation={navigation} posts={posts}/>
                 </Wrapper>
             </Scroll>
         </Screen>
@@ -79,6 +148,7 @@ const Home = ({route, navigation}) => {
 
 export default Home;
 
+const RefreshControl = styled.RefreshControl``;
 
 const Screen = styled.View`
   width: 100%;

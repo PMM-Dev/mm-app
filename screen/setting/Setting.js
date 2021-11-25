@@ -99,7 +99,7 @@ const Information = styled.View`
 `;
 
 const NameTitle = styled.Text`
-  ${(props) => props.theme.NanumGothicBoldFont}
+  ${(props) => props.theme.NanumSquareEBFont}
   max-width: 260px;
   font-size: ${constants.vw(6)}px;
 `;

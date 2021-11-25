@@ -8,44 +8,33 @@ import ResponseStatusEnum from "../../ResponseStatusEnum";
 import PostListCard from "./PostList/PostListCard";
 
 
-const PostPart = ({navigation, route}) => {
-    const [posts, setPosts] = useState([]);
-    useEffect(() => {
-        async function requestPosts() {
-            const {data, status} = await getPostPreview();
-            if (status >= ResponseStatusEnum.BAD_REQUEST) {
-                return;
-            } else {
-                setPosts(data);
-            }
-
-        }
-        requestPosts();
-    }, [])
-  return (
-    <HomePart>
-      <Header>
-          <Title>자유게시판</Title>
-          <MoreButton onPress={()=>{ navigation.navigate("PostList")}}>
-            <MoreButtonText >더보기 +</MoreButtonText>
-          </MoreButton>
-      </Header>
-      <Content>
-          {posts.map((element, key) => (
-            <PostListCard key = {key} route={route} data = {element} navigation={navigation} />
-          ))}
-      </Content>
-    </HomePart>
-  );
+const PostPart = ({navigation, route, posts}) => {
+    return (
+        <HomePart>
+            <MoreButton onPress={() => {
+                navigation.navigate("PostList")
+            }}>
+                <MoreButtonText>더보기 +</MoreButtonText>
+            </MoreButton>
+            <Header>
+                <Title>자유게시판</Title>
+            </Header>
+            <Content>
+                {posts.map((element, key) => (
+                    <PostListCard key={key} route={route} data={element} navigation={navigation}/>
+                ))}
+            </Content>
+        </HomePart>
+    );
 };
 
 const HomePart = styled.View`
   width: 100%;
-  height: ${constants.vh(30)}px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: ${constants.vh(2)}px ${constants.vw(4)}px;
+
   background-color: ${(props) => props.theme.backgroundWhite};
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.fontGray};
@@ -53,8 +42,7 @@ const HomePart = styled.View`
 `;
 
 const Header = styled.View`
-  width: 90%;
-  display: flex;
+  width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
@@ -62,11 +50,16 @@ const Header = styled.View`
 `;
 
 const Title = styled.Text`
-${(props) => props.theme.NanumGothicBoldFont};
-font-size: ${constants.vw(5)}px;;
+  ${(props) => props.theme.NanumSquareEBFont};
+  font-size: ${constants.vw(5)}px;;
 `;
 
-const MoreButton = styled.TouchableOpacity``;
+const MoreButton = styled.TouchableOpacity`
+  position: absolute;
+  z-index: 1;
+  top: ${constants.vh(2)}px;
+  right: ${constants.vw(4)}px;
+`;
 
 const MoreButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
@@ -75,8 +68,7 @@ const MoreButtonText = styled.Text`
 `;
 
 const Content = styled.View`
-  width: 90%;
-  height: 72%;
+  width: 100%;
   border-radius: ${constants.vw(1)}px;
   padding-bottom: 2%;
 `;

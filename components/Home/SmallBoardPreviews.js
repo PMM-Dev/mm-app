@@ -9,7 +9,7 @@ const SmallBoardPreviews = ({preview, navigate}) => {
             <PreviewButton
                 onPress={navigate}
             >
-                <Title  numberOfLines={1}>{preview.content}</Title>
+                <Title numberOfLines={1}>{preview.content}</Title>
                 <LikeView>
                     <GradeIcon source={FULLHEART}/>
                     <GradeText>{preview.likeCount}</GradeText>
@@ -25,7 +25,7 @@ const Card = styled.View`
 `;
 
 const PreviewButton = styled.TouchableOpacity`
-flex-direction: row;
+  flex-direction: row;
   justify-content: space-between;
 `
 

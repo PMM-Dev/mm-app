@@ -152,6 +152,10 @@ export const AuthProvider = ({isLoggedIn: initIsLoggedIn, children}) => {
             return {state: USER_FAILED};
         }
 
+        // DEBUG
+        console.log(jwtToken.accessToken);
+        //
+
         await AsyncStorage.setItem("@jwtAccessToken", jwtToken.accessToken);
         await AsyncStorage.setItem("@jwtRefreshToken", jwtToken.refreshToken);
         await AsyncStorage.setItem("@jwtTokenExpiresIn", jwtToken.accessTokenExpiresIn.toString());
