@@ -1,18 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import styled from "styled-components";
 import constants from "../../constants";
-import {ActivityIndicator} from "react-native-paper";
-import Theme from "../../style/Theme";
 import {useProfile} from "../../components/AuthContext";
-import { SETTING_GUEST_PORTRAIT, SETTING_PENCIL_ICON } from "../../image";
-import {getLatestNotice} from "../../components/Api/AppNotice";
+import { SETTING_GUEST_PORTRAIT } from "../../image";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {postName} from "../../components/Api/AppMemberApi";
 
-const Edit = ({route, navigation}) => {
-    const { email, name, picture, role } = useProfile();
-    const [info, setInfo] = useState(null);
+const EditProfile = ({navigation}) => {
+    const { email, name, picture } = useProfile();
     const [nameText, onChangenameText] = useState(name);
 
     const editComplete = () => {
@@ -74,13 +69,23 @@ const Edit = ({route, navigation}) => {
         </Page>
     );
 };
-const InfoViewContentTextInput = styled.TextInput``;
 
-const InfoViewContentText = styled.Text``;
+
+const InfoViewContentTextInput = styled.TextInput`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vh(1.8)}px;
+  color: ${(props) => props.theme.fontBlack};
+`;
+
+const InfoViewContentText = styled.Text`
+  ${(props) => props.theme.NanumSquareRFont}
+  font-size: ${constants.vh(1.8)}px;
+  color: ${(props) => props.theme.fontBlack};
+`;
 
 const InfoViewText = styled.Text`
-  ${(props) => props.theme.NanumSquareEBFont}
-  font-size: ${constants.vh(2)}px;
+  ${(props) => props.theme.NanumSquareBFont}
+  font-size: ${constants.vh(1.8)}px;
   color: ${(props) => props.theme.fontBlack};
   width : 20%;
 `;
@@ -94,8 +99,11 @@ const InfoView = styled.View`
 const Info = styled.View`
   height: ${constants.vh(10)};
   width : 100%;
-  border : 0.5px;
-  margin-top: ${constants.vh(2)}px;
+  margin-top: ${constants.vh(5)}px;
+  border-top-width : 0.2px;
+  border-top-color: ${(props) => props.theme.fontGray};
+  border-bottom-width : 0.2px;
+  border-bottom-color: ${(props) => props.theme.fontGray};
 `;
 
 const Portrait = styled.View`
@@ -117,7 +125,7 @@ const CancelButton = styled.TouchableOpacity``;
 const FinishButtonText = styled.Text`
   ${(props) => props.theme.NanumSquareEBFont}
   font-size: ${constants.vh(2)}px;
-  color: ${(props) => props.theme.fontBlack};
+  color: ${(props) => props.theme.fontBlue};
 `
 
 const CancelButtonText = styled.Text`
@@ -127,7 +135,7 @@ const CancelButtonText = styled.Text`
 `
 
 const Title = styled.Text`
-  ${(props) => props.theme.NanumSquareEBFont}
+  ${(props) => props.theme.NanumSquareBFont}
   font-size: ${constants.vh(2)}px;
   color: ${(props) => props.theme.fontBlack};
 `;
@@ -150,7 +158,7 @@ const Header = styled.View`
   justify-content: space-between;
   align-items: flex-end;
   background-color: ${(props) => props.theme.backgroundWhite};
-  padding: 0px ${constants.vw(2)}px;
+  padding: 0px ${constants.vw(4)}px;
   padding-bottom: ${constants.vh(0.5)}px;
 `;
 
@@ -166,4 +174,4 @@ const Scroll = styled.View`
   padding-top: ${constants.vh(2)}px;
 `;
 
-export default Edit;
+export default EditProfile;
