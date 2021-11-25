@@ -32,7 +32,6 @@ const MenuView = ({ navigate, role }) => {
     }
     bringUserData();
   }, [userData]);
-
   return userData === undefined ? (
     <></>
   ) : (
@@ -43,11 +42,11 @@ const MenuView = ({ navigate, role }) => {
       {/*</UtilButton>*/}
       <InfoMenuView>
         <InfoButton left onPress={() => navigate("LikeHistory")}>
-          <BigTitle>{userData.likeCount}</BigTitle>
+          <BigTitle>{userData.likeCount === undefined ? "0" : userData.likeCount}</BigTitle>
           <Title info>좋아요</Title>
         </InfoButton>
         <InfoButton info onPress={() => navigate("ReviewHistory")}>
-          <BigTitle info>{userData.reviewCount}</BigTitle>
+          <BigTitle info>{userData.reviewCount === undefined ? "0" : userData.reviewCount}</BigTitle>
           <Title info>리뷰</Title>
         </InfoButton>
       </InfoMenuView>

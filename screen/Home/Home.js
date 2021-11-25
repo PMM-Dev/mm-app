@@ -12,6 +12,8 @@ import {getLatestNotice} from "../../components/Api/AppNotice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ResponseStatusEnum from "../../ResponseStatusEnum";
 import {getPostPreview} from "../../components/Api/AppPostApi";
+import {getRandomTheme} from "../../components/Api/AppRestaurantApi";
+import {ThemeConverter} from "../../components/Converter";
 const PREVENTING_IOS_BOUNCE_VIEW_HEIGHT = 3000;
 
 const Home = ({route, navigation}) => {
@@ -19,6 +21,7 @@ const Home = ({route, navigation}) => {
     const [reportPreview, setReportPreview] = useState();
     const [refreshing, setRefreshing] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [randomTheme, setRandomTheme] = useState();
 
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
@@ -26,7 +29,7 @@ const Home = ({route, navigation}) => {
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        wait(2000).then(() => setRefreshing(false));
+        wait(300).then(() => setRefreshing(false));
     }, []);
 
     const homeRequest = () => {
@@ -65,11 +68,20 @@ const Home = ({route, navigation}) => {
             } else {
                 setPosts(data);
             }
+        }
 
+        async function requestRandomTheme() {
+            const {data, status} = await getRandomTheme();
+            if (status >= ResponseStatusEnum.BAD_REQUEST) {
+                return;
+            } else {
+                setRandomTheme(data);
+            }
         }
         requestPosts();
         requestLatestNotice();
         requestFeedbackPreview();
+        requestRandomTheme();
     }
 
     useEffect(()=>{
@@ -103,8 +115,14 @@ const Home = ({route, navigation}) => {
                     <Header route={route} navigation={navigation}/>
                     <RestaurantTypeButtonsTable navigation={navigation}/>
                     <SmallBoardPart title={"피드백"} preview={reportPreview} navigate={() => navigation.navigate("FeedbackList")}/>
-                    <ThemePart title={"카공하기 좋은 카페는?"}/>
-                    <ThemePart title={"시험 기간에는 싸고 빠르게"}/>
+                    {
+                        randomTheme !== undefined ?
+                        <>
+                            <ThemePart title={ThemeConverter(randomTheme[0])} theme={randomTheme[0]} navigation={navigation}/>
+                            <ThemePart title={ThemeConverter(randomTheme[1])} theme={randomTheme[1]} navigation={navigation}/>
+                        </> :
+                            <></>
+                    }
                     <PostPart route={route} navigation={navigation} posts={posts}/>
                     <SmallBoardPart title={"공지사항"} />
                 </Wrapper>

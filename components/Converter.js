@@ -32,3 +32,9 @@ export const Converter = (data) => {
       return KoreanEnum.COMMERCEGATE;
   }
 };
+
+export const ThemeConverter = (data) => {
+  switch (data) {
+
+  }
+};
