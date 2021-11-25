@@ -240,15 +240,13 @@ const Scroll = styled.ScrollView`
 `;
 
 const Title = styled.View`
-  width: 100%;
-  height: ${constants.vh(8)}px;
-  justify-content: center;
+  margin-top: ${constants.vw(5)}px;
+  margin-left: ${constants.vw(6)}px;
 `;
 
 const TitleText = styled.Text`
   ${(props) => props.theme.NanumGothicFont};
   font-size: ${constants.vw(5)}px;
-  margin-left: ${constants.vw(5)}px;
 `;
 
 const ContentRecent = styled.View`
