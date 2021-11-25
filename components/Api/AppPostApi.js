@@ -192,3 +192,22 @@ export const postReport = async (postId) => {
         return {data : e.response?.data, status : e.response?.status};
     }
 };
+
+
+export const getPostImageFileName = async (id, index) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(
+            API_URL + "/image/post/" + id + "/" + index + "/fileName",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return {data : response?.data, status : response?.status};
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantReviewImageFileName()" + e);
+        return {data : e.response?.data, status : e.response?.status};
+    }
+};

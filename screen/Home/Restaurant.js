@@ -8,7 +8,7 @@ import {
     deleteMyReviewByRestaurantId,
     getRestaurantsById,
     uploadMyReviewByRestaurantId,
-    updateMyReviewByRestaurantId
+    updateMyReviewByRestaurantId, getRestaurantReviewImageFileName
 } from "../../components/Api/AppRestaurantApi";
 import RBSheet from "react-native-raw-bottom-sheet";
 import RestaurantInfoView from "../../components/Home/Restaurant/RestaurantInfoView";
@@ -37,6 +37,7 @@ const Restaurant = ({route, navigation}) => {
     const [writingReviewGrade, setWritingReviewGrade] = useState(0);
     const [writingReviewContent, setWritingReviewContent] = useState("");
     const [selectImage, setSelectImage] = useState(null);
+    const [notPostStepImageModify, setNotPostStepImageModify] = useState(false);
 
     useEffect(() => {
         async function getRestaurantData() {
@@ -97,7 +98,7 @@ const Restaurant = ({route, navigation}) => {
     const openPanelToModifyReview = () => {
         openReviewWritingPanel();
         setIsPostStep(false);
-        setSelectImage(`${API_URL}/image/restaurant/review/${myReview.id}/image`);
+        setSelectImage(`${API_URL}/image/restaurant/review/${myReview.id}`);
         setWritingReviewGrade(myReview.grade);
         setWritingReviewContent(myReview.description);
     }
@@ -114,6 +115,7 @@ const Restaurant = ({route, navigation}) => {
 
         triggerLocalFeedbackOfPostingReview();
     }
+
 
     const triggerLocalFeedbackOfPostingReview = () => {
         data.averageGrade = (data.averageGrade * reviewNum + writingReviewGrade) / (reviewNum + 1);
@@ -134,7 +136,7 @@ const Restaurant = ({route, navigation}) => {
             "description": writingReviewContent,
             "grade": writingReviewGrade,
             "existImage" : existImage,
-            "id" : -1,
+            "local" : true,
         })
     }
     const requestPostingReview = async () => {
@@ -156,7 +158,6 @@ const Restaurant = ({route, navigation}) => {
             newformData.append('image', { uri: localUri, name: extendFileName, type });
         }
 
-
         const {data, status} = await uploadMyReviewByRestaurantId(
             newformData, restaurantId
         );
@@ -170,12 +171,13 @@ const Restaurant = ({route, navigation}) => {
         return true;
     };
 
+
     const requestUpdateReview = async () => {
         const newformData = new FormData();
         newformData.append('description', writingReviewContent);
         newformData.append('grade',writingReviewGrade );
 
-        if(selectImage !== null)
+        if(selectImage !== null && notPostStepImageModify === true)
         {
             const localUri = selectImage;
             const filename = localUri.split('/').pop();
@@ -186,6 +188,14 @@ const Restaurant = ({route, navigation}) => {
             const extendFileName = filename.replace(`${match[0]}`,`${extension}`);
 
             newformData.append('image', { uri: localUri, name: extendFileName, type });
+        }
+        else if(selectImage !== null && notPostStepImageModify === false)
+        {
+            const {data, status} = await getRestaurantReviewImageFileName(myReview.id);
+
+            const type = `image/${data.split('.').pop()}`;
+
+            newformData.append('image', { uri: selectImage, name: data, type });
         }
 
         const {data, status} = await updateMyReviewByRestaurantId(
@@ -200,6 +210,7 @@ const Restaurant = ({route, navigation}) => {
         closeReviewWritingPanel();
         return true;
     }
+
 
     const deleteMyReview = async () => {
         const result = await requestDeleteMyReview();
@@ -247,7 +258,7 @@ const Restaurant = ({route, navigation}) => {
 
         setSelectImage(pickerResult.uri);
     };
-    //console.log(myReview);
+
     return (
         <Screen>
             {data ? (
@@ -311,6 +322,8 @@ const Restaurant = ({route, navigation}) => {
                             </TouchableStarMakerHolder>
                             <AddPicture onPress={()=>{Keyboard.dismiss();
                                 openImagePickerAsync();
+                                if(isPostStep === false)
+                                    setNotPostStepImageModify(true);
                             }}>
                                 <AddPictureText>+</AddPictureText>
                             </AddPicture>
