@@ -273,15 +273,12 @@ export const getRestaurantReviewsOrderByAverageGradeAsc = async (id) => {
     }
 };
 
-export const uploadMyReviewByRestaurantId = async (content, grade, restaurantId) => {
+export const uploadMyReviewByRestaurantId = async (form, restaurantId) => {
     try {
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.post(
             API_URL + "/restaurant/" + restaurantId + "/review",
-            {
-                description: content,
-                grade: grade,
-            },
+            form,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -308,30 +305,28 @@ export const getMyReviewByRestaurantId = async (restaurantId) => {
         );
         return response.data;
     } catch (e) {
-        console.error("[AppApi][Exception] failed getRestaurantsByRank()" + e);
+        console.error("[AppApi][Exception] failed getMyReviewByRestaurantId()" + e);
         return undefined;
     }
 };
 
-export const updateMyReviewByRestaurantId = async (content, grade, restaurantId) => {
+export const updateMyReviewByRestaurantId = async (form, restaurantId) => {
     try {
+        console.log(form);
         const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
         const response = await axios.put(
             API_URL + "/restaurant/" + restaurantId + "/review",
-            {
-                description: content,
-                grade: grade,
-            },
+            form,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             }
         );
-        return {data : response?.data, status : response?.status};
+        return {data :response?.data, status : response?.status};
     } catch (e) {
-        console.error("[AppApi][Exception] failed updateMyReviewByRestaurantId() " + e);
-        return {data : e.response?.data, status : e.response?.status};
+        console.error("[AppApi][Exception] " + e);
+        return {data : e.response?.data, status : e.response?.status};;
     }
 }
 
@@ -352,3 +347,39 @@ export const deleteMyReviewByRestaurantId = async (restaurantId) => {
         return {data : e.response?.data, status : e.response?.status};
     }
 }
+
+export const getRandomTheme = async () => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(
+            API_URL + "/restaurant/theme/random",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return {data : response?.data, status : response?.status};
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRandomTheme" + e);
+        return {data : e.response?.data, status : e.response?.status};
+    }
+};
+
+export const getRestaurantByTheme = async (theme) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.get(
+            API_URL + "/restaurant/theme/" + theme,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        return {data : response?.data, status : response?.status};
+    } catch (e) {
+        console.error("[AppApi][Exception] failed getRestaurantByTheme()" + e);
+        return {data : e.response?.data, status : e.response?.status};
+    }
+};

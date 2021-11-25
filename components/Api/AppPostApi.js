@@ -153,3 +153,42 @@ export const postPost = async (form) => {
         return {data : e.response?.data, status : e.response?.status};
     }
 };
+
+
+export const putPost = async (Id, form) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+        const response = await axios.put(API_URL + "/post/" + Id,
+            form,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        return {data : response?.data, status : response?.status};
+    } catch (e) {
+        console.error("[AppApi][Exception] " + e);
+        return {data : e.response?.data, status : e.response?.status};
+    }
+};
+
+
+export const postReport = async (postId) => {
+    try {
+        const accessToken = await AsyncStorage.getItem("@jwtAccessToken");
+
+        const response = await axios.post(API_URL + "/post/" + postId + "/report",
+            {
+                "postId": postId
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        return {data : response?.data, status : response?.status};
+    } catch (e) {
+        console.error("[AppApi][Exception] postFeedback() : " + e);
+        return {data : e.response?.data, status : e.response?.status};
+    }
+};

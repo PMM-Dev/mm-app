@@ -64,7 +64,7 @@ const RestaurantInfoView = ({data, reviewNum, likeNum}) => {
                 <IconText color={Theme.hlRed}>{likeNum}</IconText>
             </NumberInfosView>
             <TagView>
-                {data.themes.map((list, index) => (
+                { data.themes.map((list, index) => (
                     <ExplanationTagText key={index}>#{list.theme}</ExplanationTagText>
                 ))}
             </TagView>
@@ -210,13 +210,12 @@ const InfoText = styled.Text`
 const ExplanationTagText = styled.Text`
   ${(props) => props.theme.NanumSquareRFont}
   color: ${(props) => props.theme.hlRed};
-  font-size: ${constants.vw(2.2)}px;
+  font-size: ${constants.vw(3)}px;
 `;
 
 const TagView = styled.View`
   width: 100%;
   flex-direction: row;
-  justify-content: center;
 `;
 
 const BigIcon = styled.Image`
